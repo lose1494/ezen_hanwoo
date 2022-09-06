@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+/* 초기화 */
+* {
+  margin: 0; padding: 0;
+}
+a {
+  text-decoration: none; color: #5a5a5a;
+}
+a:link {
+  /* text-decoration: none; */
+  color: #5a5a5a;
+}
+a:hover {
+  /* text-decoration: none; */
+  color: #5a5a5a;
+}
+
+/* 화살표 제거 */
+.dropdown-toggle::after { border: none; }
+/* 마우스오버시 팝업 */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    /* 팝업메뉴가 닫히지 않도록 */
+    margin-top: 0; 
+}
+.menu{
+	
+	margin-left: 85%;
+	margin-top: -100px;
+	
+	
+}
+.menu li {
+	padding: 10px;
+}
+li{
+	list-style: none;
+	float: left;
+	 
+}
+.category{
+	
+	clear : both;
+	margin-left: 40%;
+	font-size: 20px;
+	
+}
+.category li {
+	margin-top : 50px;
+	padding-right: 30px;
+}
+.header{
+	margin-top : 50px;
+	
+}

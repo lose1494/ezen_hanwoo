@@ -1,0 +1,24 @@
+.adminDiv {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.adminAside {
+    flex: 1 28%;
+}
+.adminAside ul {
+    width: 80%;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.adminMain {
+    flex: 1 70%;
+    font-size: 14px;
+}
+.adminTable {
+    width: 100%;
+}
+
+
+
+
