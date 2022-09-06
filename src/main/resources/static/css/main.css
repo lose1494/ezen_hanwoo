@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+/* 초기화 */
+* {
+  margin: 0; padding: 0;
+}
+a, a:link, a:hover {
+  text-decoration: none !important;
+   color: #5a5a5a !important;
+}
+
+.banner{
+	width : 103%;
+	margin-top: 50px;
+}
+.best{
+	text-align: center;
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+.new img{
+	padding: 50px;
+	
+	
+}
+
+.img_best{
+	display : flex;
+	
+	padding-bottom : 100px;
+	justify-content : space-evenly;
+	margin: 0 auto;
+	background-color: #E8E8E8;
+	width:80%;
+	
+}
+.gift_set img{
+	margin-top: 100px;
+	
+	
+}
+.gift_set{
+	display : flex;
+	flex-direction: row;
+	margin : 0 auto;
+	
+	justify-content : space-evenly;
+	width:80%;
+}	
+.gift_set h3 {
+	margin-top: 30px;
+}
+.main_product img{
+	margin-top: 150px;
+}
+.main_product2{
+	display : flex;
+	justify-content : space-evenly;
+	width : 80%;
+	margin : 0 auto;
+}
+.main_product h3{
+		margin-top: 30px;
+}
