@@ -1,12 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-</body>
-</html>
+<c:import url="./mypage/mypage_menu.jsp" />
+
+<link rel="stylesheet" href="/css/mypage/mypage.css">
+
+<div class="wrap">
+            <h3>정보수정</h3>
+            <div class="backgroundDiv">
+                <div class="editDiv">*변경할 정보를 입력하세요.</div>
+                <form action="" class="editForm">
+                    <input type="text" class="readonly" placeholder="아이디" readonly> <br>
+                    <input type="text" placeholder="이메일"> @ <input type="text" placeholder="이메일">
+                    <select name="" id="">
+                        <option value="">직접입력</option>
+                        <option value="">naver.com</option>
+                        <option value="">daum.net</option>
+                        <option value="">gmail.com</option>
+                    </select> <br>
+                    <input type="password" placeholder="비밀번호"><br>
+                    <input type="password" placeholder="비밀번호 확인"><br>
+                    <input type="text" class="readonly" placeholder="이름" readonly><br>
+                    <input type="text" placeholder="휴대전화 번호"><br>
+                </form>                
+            </div>
+            <div class="mypageButton">
+                <div>
+                    <button class="btnBright margin">확인</button>
+                </div>               
+                <button class="btnDark margin">취소</button>
+            </div>
+        </div>
