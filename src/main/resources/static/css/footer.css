@@ -61,4 +61,21 @@ a:hover {
 	justify-content : space-evenly;
 	
 	margin: 0 auto;
+
+}
+.footer03 h4 {
+	font-size: 14px;
+}
+.footer03 h3 {
+	font-size: 24px;
+}
+.footer03 p {
+	font-size: 13px;
+	color: #AAAAAA;
+}
+.bank {
+	font-size: 12px;
+}
+.return {
+	font-size: 12px;
 }

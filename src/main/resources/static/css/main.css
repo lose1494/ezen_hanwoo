@@ -61,4 +61,77 @@ a, a:link, a:hover {
 }
 .main_product h3{
 		margin-top: 30px;
+		
 }
+.best1 p{
+	text-align: left;
+	margin-left: 80px;
+	
+}
+.best1 h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.best2 p{
+	text-align: left;
+	margin-left: 70px;
+}
+.best2 h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.best3 p{
+	text-align: left;
+	margin-left: 70px;
+}
+.best3 h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.star1 {
+	text-align: left;
+	margin-left: 50px;
+}
+.star2 {
+	text-align: left;
+	margin-left: 50px;
+}
+.info1 p{
+	text-align: left;
+
+}
+.info1 h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.info2 p{
+	text-align: left;
+	margin-left: 30px;
+}
+.info2 h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.info4 p{
+	text-align: left;
+	margin-left: 15px;
+}
+.info4 h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.mon {
+	color: #F35958;
+}
+.main2 img:hover{
+	-ms-transform:scale(1.02,1.02);
+	 -webkit-transform:scale(1.02,1.02);
+	  transform:scale(1.02,1.02);
+}
+.main2 img{
+	transition:all .5s ease;
+}
+.main2 img {
+	position: relative;
+}
+

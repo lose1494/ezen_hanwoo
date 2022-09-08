@@ -43,7 +43,7 @@
 <br>
 <b>반품주소</b>
 <br>
-경기도 의정부시 OOO OOOO
+경기도 의정부시 신흥로 258번길 25 해태프라자2층
 </div>
 </div>
 <a id="back-to-top" href="#" class="back-to-top" role="button" title="" data-toggle="tooltip" data-placement="left" data-original-title="" style="display: block;">
@@ -60,8 +60,8 @@
   </div>
   <div class="footer02">
     <div class="address">
-      회사 : 코딩강사, 주소 : 경기도 성남시 123-45 오케이빌딩 101호, 대표 : 홍길동, <br>
-      고객지원 : 010-2222-3333, FAX : 070-888-5555, EMAIL : support@gmail.com, 사업자등록번호 : 100-02-00033, 통신판매업 : 제1111-경기-00000호
+      회사 : (주)이젠한우, 주소 : 경기도 의정부시 신흥로 258번길 25 해태프라자2층, 대표 : 김민수, <br>
+      고객지원 : 010-2222-3333, FAX : 070-888-5555, EMAIL : ezenhanwoo@gmail.com, 사업자등록번호 : 100-02-00033, 통신판매업 : 제1111-경기-00000호
     </div>
     <div class="copy">
       COPYRIGHT(C) 2020 CODING_GANGSA. ALL RIGHT RESERVED.
