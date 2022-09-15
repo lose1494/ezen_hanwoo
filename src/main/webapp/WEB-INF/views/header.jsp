@@ -22,7 +22,7 @@
 			<h1>
 				<a href="/">
 				<img src="/img/product/한우로고.png"
-				style="width:150px; height: 100px; margin-left : 50px;">
+				style="width:120px;  margin-left : 50px;">
 				</a>
 			</h1>
 			<ul class="menu" >
@@ -49,7 +49,7 @@
 			</ul>
 			<ul class="category">
 				<li>
-					<a>
+					<a href="/product/product01">
 					선물세트
 					</a>
 				</li>
