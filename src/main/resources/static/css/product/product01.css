@@ -13,8 +13,14 @@
 	clear: both;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 }
-
+.product_gift2{
+	clear: both;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
 a, a:link, a:hover {
   text-decoration: none !important;
    color: #5a5a5a !important;
@@ -41,13 +47,14 @@ a, a:link, a:hover {
   height: auto;
   transition: .5s ease;
   backface-visibility: hidden;
+  
 }
 
 .middle {
   transition: .5s ease;
   opacity: 0;
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -69,7 +76,6 @@ a, a:link, a:hover {
 .text {
   color:black;
   padding: 16px 32px;
-  margin-bottom: 150px;
   display:flex;
   flex-direction: row;
   
@@ -80,4 +86,16 @@ a, a:link, a:hover {
 .gift1 .icon_img1, .product1 .icon_img1, .product2 .icon_img1, .product3 .icon_img1, .product4 .icon_img1, .product5 .icon_img1, .product6 .icon_img1
 , .product7 .icon_img1, .product8 .icon_img1, .product9 .icon_img1{
 	padding: 50px;
+}
+.title{
+	margin-left: 20%;
+	margin-right: 20%;
+}
+.product_gift1, .product_gift2{
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 150px;
+}
+.gift1 h3{
+	margin-top: 30px;	
 }

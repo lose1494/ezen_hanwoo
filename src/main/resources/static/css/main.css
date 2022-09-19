@@ -134,7 +134,7 @@ a, a:link, a:hover {
 
 .best1, .best2, .best3, .gift1, .product1, .product2, .product3, .product4 , .product5, .product6, .product7, .product8, .product9{
   position: relative;
-  
+  z-index: 999;
 }
 
 .product_img {
@@ -150,10 +150,11 @@ a, a:link, a:hover {
   transition: .5s ease;
   opacity: 0;
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+  
   
 }
 
@@ -172,9 +173,9 @@ a, a:link, a:hover {
 .text {
   color:black;
   padding: 16px 32px;
-  margin-bottom: 150px;
   display:flex;
   flex-direction: row;
+  justify-content: center;
   
 }
 .icon_img1{
