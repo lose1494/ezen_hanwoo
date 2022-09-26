@@ -1,0 +1,62 @@
+.bg_admin {
+	margin-top: 150px;
+}
+
+#title {
+		position:absolute;
+        left: 45%; top: 40%;
+        background-color: transparent;
+        color: white;
+        font-size:30px;
+}
+
+#title1 {
+	    position:absolute;
+        left: 43%; top: 46%;
+        background-color: transparent;
+        color: white;
+        font-size:20px;
+}
+
+.admin_div {
+	display:flex;
+	flex-direction: row;
+}
+
+.admin_list {
+	font-size: 25px;
+	padding: 50px;
+}
+
+.admin_list li{
+	clear: both;
+	list-style: disc;
+}
+
+.write_main{
+	margin-top: 100px;
+}
+.write_flex{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.write_input{
+	background-color: lightgray;
+	width:1000px;
+	text-align: center;
+	height: 100px;
+	padding-top: 35px;
+}
+
+.write_input1 {
+	width: 700px;
+	height: 40px;
+}
+
+.write_area{
+	margin-top: 50px;
+	margin-bottom: 150px;
+}
