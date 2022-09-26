@@ -6,7 +6,11 @@
 	<div class="title">
 	<p class="text1">상품이 모두 0개 있습니다.</p>
 	
-	<p class="text2">asd</p>
+	<select class="text2">
+	<option>높은 가격순</option>
+	<option>낮은 가격순</option>
+	<option>별점순</option>
+	</select>
 	</div>
 	<div class="product_gift1">
 	<div class="gift1">
