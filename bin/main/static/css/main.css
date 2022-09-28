@@ -10,8 +10,13 @@ a, a:link, a:hover {
 }
 
 .banner{
-	width : 103%;
 	margin-top: 50px;
+}
+
+.banner_img {
+	display:flex;
+	justify-content: center;
+	margin:0 auto;
 }
 .best{
 	text-align: center;

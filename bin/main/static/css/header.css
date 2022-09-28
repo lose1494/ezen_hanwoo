@@ -123,17 +123,16 @@ display: block;
 
 }
 .headerTop {
-	display: flex;
 	padding: 20px 40px;
-
+	display:flex;
 }
 .headerTop img {
-	width: 130px;
+	width: 180px;
 }
 
 .menu{
-	margin-left: auto;
-	font-size: 20px;
+	margin-left:auto;
+	font-size: 23px;
 	/* color: rgb(198, 198, 198); */
 }
 .menu a:link, .menu a:hover, .menu a:visited {
@@ -148,7 +147,7 @@ display: block;
 	/* background-color: rgb(87, 87, 87); */
 }
 .category a {
-	font-size: 25px;
+	font-size: 30px;
 	margin: 5%;
 	/* font-family: 'ChosunKm', serif; */
 }
