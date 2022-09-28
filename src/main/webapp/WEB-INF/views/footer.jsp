@@ -5,77 +5,72 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
-  <link rel="stylesheet" href="/css/footer.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/footer.css">
 
-<div class="footer03">
-<div class="cs">
-	<h4>고객센터</h4>
-	<div>
-	<h3>000-000-0000</h3>
-	<p>
-		평일 (09:00 ~ 18:00)
-		<br>
-		점심시간 (12:00 ~ 13:00)
-		<br>
-		휴일 (토요일,일요일,공휴일)
-	</p>
-	
-	</div>
+<hr>
+<div class="footer">
+  <div class="footer01"> 
+    <div class="cs">
+      <h6>고객센터</h6> 
+      <br>
+      <h3>000-000-0000</h3>
+      <p>
+        평일 (09:00 ~ 18:00)
+        <br>
+        점심시간 (12:00 ~ 13:00)
+        <br>
+        휴일 (토요일,일요일,공휴일)
+      </p>
+    </div>
+    <div class="bank">
+      <h6>배송안내</h6>
+      <br>
+      <b>택배배송</b>
+      <br>
+      <b>월 ~ 금 : 오후 2시 이후 ~ 일요일 결제완료</b>
+      - 
+      <u>당일 발송</u>
+      <br>
+      <b>금요일 오후 2시 이후 ~ 일요일 결제완료</b>
+      <br>
+      - 
+      <u>월요일 발송</u>
+      (공휴일 제외) 
+    </div>
+    <div class="return">
+    <h6>교환&환불</h6>
+    <br>
+    <b>반품주소</b>
+    <br>
+    경기도 의정부시 신흥로 258번길 25 해태프라자2층
+    </div>
+  </div>
+  
+  
+  <div class="footer02">
+    <div class="footerLink">
+      <ul>
+        <li><a href="#">이용안내</a></li>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+      </ul>
+    </div>
+    <div class="footerInfo">
+      <div class="address">
+        회사 : (주)이젠한우, 주소 : 경기도 의정부시 신흥로 258번길 25 해태프라자2층, 대표 : 김민수, <br>
+        고객지원 : 010-2222-3333, FAX : 070-888-5555, EMAIL : ezenhanwoo@gmail.com, 사업자등록번호 : 100-02-00033, 통신판매업 : 제1111-경기-00000호
+      </div>
+      <div class="copy">
+        COPYRIGHT<i class="fa-regular fa-copyright"></i> 2020 CODING_GANGSA. ALL RIGHT RESERVED.
+      </div>
+    </div>
+  </div>
 </div>
-<div class="bank">
-	<h4>배송안내</h4>
-	<b>택배배송</b>
-	<br>
-	<b>월 ~ 금 : 오후 2시 이후 ~ 일요일 결제완료</b>
-	 - 
-	<u>당일 발송</u>
-	<br>
-	<b>금요일 오후 2시 이후 ~ 일요일 결제완료</b>
-	<br>
-	 - 
-	 <u>월요일 발송</u>
-	 (공휴일 제외)
-	 
-	 
-</div>
-<div class="return">
-<h4>교환&환불</h4>
-<br>
-<b>반품주소</b>
-<br>
-경기도 의정부시 신흥로 258번길 25 해태프라자2층
-</div>
-</div>
+   
 <a id="back-to-top" href="#" class="back-to-top" role="button" title="" data-toggle="tooltip" data-placement="left" data-original-title="" style="display: block;">
   <img src="/img/icon-top.png">
 </a>
-
-  
-  <div class="footer01">
-    <ul>
-      <li><a href="#">이용안내</a></li>
-      <li><a href="#">이용약관</a></li>
-      <li><a href="#">개인정보처리방침</a></li>
-    </ul>
-  </div>
-  <div class="footer02">
-    <div class="address">
-      회사 : (주)이젠한우, 주소 : 경기도 의정부시 신흥로 258번길 25 해태프라자2층, 대표 : 김민수, <br>
-      고객지원 : 010-2222-3333, FAX : 070-888-5555, EMAIL : ezenhanwoo@gmail.com, 사업자등록번호 : 100-02-00033, 통신판매업 : 제1111-경기-00000호
-    </div>
-    <div class="copy">
-      COPYRIGHT(C) 2020 CODING_GANGSA. ALL RIGHT RESERVED.
-    </div>
-    <div>
-      <ul >
-        <li style="display: inline-block;"><a href="./index.html"><img src="./img/mf-icon01.png" alt=""></a></li>
-        <li style="display: inline-block;"><a href="#"><img src="./img/mf-icon02.png" alt=""></a></li>
-        <li style="display: inline-block;"><a href="#"><img src="./img/mf-icon03.png" alt=""></a></li>
-        <li style="display: inline-block;"><a href="#"><img src="./img/mf-icon04.png" alt=""></a></li>
-      </ul>
-    </div>
-  </div>
-  
   
 
 <script> 

@@ -7,7 +7,9 @@
 
 
 	<div class="main1">
+	<div class="banner_img">
 	<img alt="배너" src="/img/product/배너.png" class="banner">
+	</div>
 		<div class="main2">
 			
 			<div class="new best">

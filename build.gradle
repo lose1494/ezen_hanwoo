@@ -19,6 +19,7 @@ repositories {
 //Gradle파일을 수정하면, 반드시! 저장후 Refresh Gradle Project로 반영해야 됨.
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.1'
 	compileOnly 'org.projectlombok:lombok'

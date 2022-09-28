@@ -9,9 +9,21 @@ a, a:link, a:hover {
    color: #5a5a5a;
 }
 
+.main1 {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.main1 h1 {
+	font-weight: bold;
+}
 .banner{
-	width : 103%;
 	margin-top: 50px;
+	width: 103%;
+}
+
+.banner_img {
+	display:flex;
+	justify-content: center;
+	margin:0 auto;
 }
 .best{
 	text-align: center;

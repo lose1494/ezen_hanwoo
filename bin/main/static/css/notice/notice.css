@@ -12,7 +12,12 @@
 		text-align:center;
 		margin-top: 150px;
 		width:100%;
+
 		font-family: 'ChosunGu';
+
+		      font-family: 'SunBatang-Light';
+
+
         }
         
       .Notice_table {
@@ -98,9 +103,15 @@
  
         }
         
+
     @font-face {
     font-family: 'ChosunGu';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    }
+       @font-face {
+    font-family: 'SunBatang-Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+
     font-weight: normal;
     font-style: normal;
 }
