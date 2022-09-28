@@ -74,4 +74,17 @@ public class MyController_yerin {
 		model.addAttribute("mainPage", "product/product01_1.jsp");
 		return "index";
 	}
+	
+	//주문
+	@RequestMapping("/product/order01")
+	public String order01(Model model) {
+		model.addAttribute("mainPage", "product/order01.jsp");
+		return "index";
+	}
+	
+	@RequestMapping("/product/order02")
+	public String order02(Model model) {
+		model.addAttribute("mainPage", "product/order02.jsp");
+		return "index";
+	}
 }
