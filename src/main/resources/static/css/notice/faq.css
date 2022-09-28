@@ -107,3 +107,11 @@
     .title {
     	font-size: 17px;
     }
+    
+    .nav {
+    	position: relative;
+    }
+    
+    .li_view {
+    	position: absolute;
+    }

@@ -18,19 +18,21 @@
 			<li><a href="/admin/admin_item">상품 관리</a></li>
 			<li><a href="/admin/admin_order">주문 관리</a></li>
 			<li><a href="/admin/admin_review">리뷰 관리</a></li>
-			<li><a href="/admin/admin_item">상품 관리</a></li>
+			<li><a href="/admin/admin_inquiry">상품문의 관리</a></li>
 			<li><a href="/admin/admin_notice">공지사항 관리</a></li>
-			<li><a href="/admin/admin_one2one">1:1 문의 관리</a></li>
+			<li><a href="/admin/admin_faq">자주하는 질문</a></li>		
+			<li><a href="/admin/admin_one2one">1:1문의 관리</a></li>
 		</ul>
 	</div>
 
 <div class="write_main">
 <div class="write_flex">
 <div class="write_input">
-	<lable> 제목: </lable> <input type="text" class="write_input1" placeholder="공지사항입니다.">
+	<span> 제목: </span> 
+		<input type="text" class="write_input1" placeholder="공지사항입니다.">
 	</div>
 	
-	<textarea rows="20" cols="130" class="write_area"></textarea>
+	<textarea rows="20" cols="100" class="write_area"></textarea>
 	</div>
 </div>
 

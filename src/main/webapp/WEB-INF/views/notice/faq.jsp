@@ -13,9 +13,6 @@
 	<h1>자주하는 질문</h1>
 
     <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-          </div>
           <ul class="nav navbar-nav" style="flex-direction: row;">
             <li class="li_view"><a href="#">전체보기</a></li>
             <li class="li_view"><a href="#">주문결제</a></li>
@@ -24,13 +21,10 @@
             <li class="li_view"><a href="#">교환/환불</a></li>
             <li class="li_view"><a href="#">회원</a></li>
             <li class="li_view"><a href="#">기타</a></li>
-
-          </ul>
-        </div>
+          </ul> 
       </nav>
       
       <div>
-    
     <div class="faq_box1">
 	<select id="faq_select1">
 	<option>제목</option>

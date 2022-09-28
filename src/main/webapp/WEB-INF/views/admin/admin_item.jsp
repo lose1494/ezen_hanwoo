@@ -20,9 +20,10 @@
 			<li><a href="/admin/admin_item">상품 관리</a></li>
 			<li><a href="/admin/admin_order">주문 관리</a></li>
 			<li><a href="/admin/admin_review">리뷰 관리</a></li>
-			<li><a href="/admin/admin_item">상품 관리</a></li>
+			<li><a href="/admin/admin_inquiry">상품문의 관리</a></li>
 			<li><a href="/admin/admin_notice">공지사항 관리</a></li>
-			<li><a href="/admin/admin_one2one">1:1 문의 관리</a></li>
+			<li><a href="/admin/admin_faq">자주하는 질문</a></li>		
+			<li><a href="/admin/admin_one2one">1:1문의 관리</a></li>
 		</ul>
 	</div>
 	
@@ -65,9 +66,10 @@
 	 <button class="item_button" onclick="location.href='/admin/item_register'" style="cursor:pointer;">상품등록</button>
 	 </div>
 	 
-	      <ul class="pagination">
+</div>		      
+	<ul class="pagination">
             <li><a href="#">1</a></li>
             <li><a href="#">2</a></li>
     
           </ul>
-</div>	
+
