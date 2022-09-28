@@ -1,6 +1,6 @@
-@charset "UTF-8";
+/* @charset "UTF-8";
 
-/* 초기화 */
+초기화
 * {
   margin: 0; padding: 0;
 }
@@ -8,20 +8,20 @@ a {
   text-decoration: none; color: #5a5a5a;
 }
 a:link {
-  /* text-decoration: none; */
+  text-decoration: none;
   color: #5a5a5a;
 }
 a:hover {
-  /* text-decoration: none; */
+  text-decoration: none;
   color: #5a5a5a;
 }
 
-/* 화살표 제거 */
+화살표 제거
 .dropdown-toggle::after { border: none; }
-/* 마우스오버시 팝업 */
+마우스오버시 팝업
 .dropdown:hover .dropdown-menu {
     display: block;
-    /* 팝업메뉴가 닫히지 않도록 */
+    팝업메뉴가 닫히지 않도록
     margin-top: 0; 
 }
 .menu{
@@ -78,4 +78,71 @@ li{
   display: block;
 }
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {display: block;} */
+
+/* 초기화 */
+@import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration:none;	
+}
+div {
+display: block;
+}
+
+.header a:link, .header a:hover, .header a:visited {
+  text-decoration: none;
+  color: rgb(230, 230, 230);
+  color: #343434;
+
+}
+
+
+/* 화살표 제거 */
+.dropdown-toggle::after { border: none; }
+/* 마우스오버시 팝업 */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    /* 팝업메뉴가 닫히지 않도록 */
+    margin-top: 0; 
+}
+
+.header {
+	font-weight: bold;
+  /* background-color: #333; */
+  /* background-color: rgb(34, 34, 34); */
+	font-family: 'Jeju Myeongjo', serif;
+
+}
+.headerTop {
+	display: flex;
+	padding: 20px 40px;
+
+}
+.headerTop img {
+	width: 130px;
+}
+
+.menu{
+	margin-left: auto;
+	font-size: 20px;
+	/* color: rgb(198, 198, 198); */
+}
+.menu a:link, .menu a:hover, .menu a:visited {
+	/* color: rgb(198, 198, 198); */
+	margin: 5px;
+}
+
+.category {
+	text-align: center;
+	/* margin-top: 40px; */
+	padding: 12px 0;
+	/* background-color: rgb(87, 87, 87); */
+}
+.category a {
+	font-size: 25px;
+	margin: 5%;
+	/* font-family: 'ChosunKm', serif; */
+}
