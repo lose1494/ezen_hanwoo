@@ -1,65 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-<%@ page trimDirectiveWhitespaces="true" %> 
-    
-    <link rel="stylesheet" href="/css/common.css">
-	<link rel="stylesheet" href="/css/member/login.css">
 
-    <div class="commonSection1">
-      <div class="commonContent1">
-        <img src="/img/visual04.jpg" style="width: 100%; height: 100%;">
-        <div class="commonContent2 text-center">
-          <div>
-            <h3>MEMBER</h3>
-          </div>
-          <div>
-            <p><img src="/img/icon-home.png"> > 로그인</p>
-          </div> 
-        </div>   
-      </div>
-    </div>
-    
-    
-    <div class="loginForm container text-center">
-      <div class="loginSe1">
-        <div><h3>로그인</h3></div>
-        <div><p>The design and maintenance are excellent.</p></div>
-      </div>
-      <div class="loginMain">
-      <form action="loginAction" method="post">
-        <table class="main1">
-          <tr>
-            <td>
-              아이디<br>
-              비밀번호
-            </td>
-            <td>
-              <input type="text" name="member_id"><br>
-              <input type="password" name="member_pw">  
-            </td>
-            <td>
-              <!-- <input type="image" class="loginImg" src="/img/member/btn_login.gif"> -->
-              <div class="login-img">
-		       	<input type="image" src="/img/member/btn_login.gif" name="submit" value="submit"  align="absmiddle">
-		      </div>
-            </td>
-          </tr>
-        </table>
-        </form>
-        <div class="loginSe2">
-          <table class="main2">
-            <tr>
-              <td>-아이디를 잊으셨나요?</td>
-              <td><input type="image" onclick="window.open('/member/idFind', '아이디찾기', 'width=430,height=300,location=no,status=no,scrollbars=no')" src="/img/member/btn_id_find.gif"></td>
-            </tr>
-            <tr>
-              <td>-비밀번호를 잊으셨나요?</td>
-              <td><input type="image" onclick="window.open('/member/passwordFind', '비밀번호찾기', 'width=430,height=340,location=no,status=no,scrollbars=no')" src="/img/member/btn_pw_find.gif"></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-	
+ <link rel="stylesheet" href="/css/member/login.css" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function(){
+		  $('#header').load("/header.html");
+		  $('#footer').load("/footer.html");
+		});
+	  </script>
+</head>
+
+<body>
+	<div id="header"></div>
+    <div class="header-top">
+       <h1>로그인</h1>
+		
+
+		<section class="login-input-section-wrap">
+			<div class="login-input-wrap">	
+				<input class="box1" placeholder="아이디" type="text"></input>
+			</div>
+			<div class="login-input-wrap password-wrap">	
+				<input class="box1" placeholder="비밀번호" type="password"></input>
+			</div>
+            
+			<span class="button">
+                <input class="box2" type="submit" value="로그인">
+            </span>
+			<div class="log_check">
+                <span><input class="box3"type="checkbox">아이디저장</span>
+                
+                <span><input type="checkbox">&nbsp;자동로그인</span>
+            </div>
+			<div class="footer-1">
+            <p>
+			    <a class="box4">아이디.비밀번호 찾기</a>
+                <a class="box5">회원가입</a>
+            </p>
+		</div>
+		</section>
+		
+		
+	</div>
+

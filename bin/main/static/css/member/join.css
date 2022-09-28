@@ -1,101 +1,76 @@
-.joinForm {
-  padding-top: 50px;
-  padding-bottom: 50px;
+.fonbutton {
+    background-color: rgb(93, 90, 90);
+    border: none;
+    color:white;
+    border-radius: 3px;
+    vertical-align: middle;
+    height: 35px;
+    width: 90px;
+    
 }
-.joinSe1 {
-  text-align: center;
+.fonbutton3 {
+    background-color: rgb(233, 230, 230);
+    border: none;
+    color: black;
+    
 }
-.joinSe1 h3 {
-  font-size: 30px;
+.button {
+    background-color: rgb(98, 98, 98);
+    border: 2px solid rgb(98, 98, 98);
+    color:white;
+    margin: 30px;
+    height: 35px;
+    width: 120px;
+    border-radius: 4px;
+
 }
-.joinSe1 p {
-  color: gray;
-  font-size: 14px;
-  padding-bottom: 30px;
+.button2 {
+    height: 35px;
+    width: 120px;
+    background-color: rgb(233, 230, 230);
+    border: 2px solid  rgb(233, 230, 230);
+    border-radius: 4px;
+    
+    
 }
-.wellcome {
-  border: 1px solid black;
-  padding: 20px;
+.fom {
+    background-color: rgb(245, 244, 244);
+    text-align: left;
+    margin: auto;
+    padding: 45px; 
+    
 }
-.wellcome h3 {
-  font-size: 20px;
-  padding-bottom: 5px;
+.header2 {
+    text-align: center;
+    width: 1000px;
+    margin:100px  auto; 
 }
-.wellcome h5 {
-  font-size: 15px;
-  color: #999;
+.header3 {
+    text-align: left;
+    margin: 13px;
 }
-.terms1,
-.terms2,
-.terms3 {
-  padding-top: 50px;
-  font-size: 14px;
+input[type=text] {
+    margin: 20px 0;
+    height: 30px;
+    width: 240px;
+    
+    
 }
-textarea {
-  width: 100%;
+hr{
+   width: 900px;
+   margin-left: 1px;
 }
-.imageBtn {
-  text-align: center;
-}
-.contents {
-  background-color: rgb(216, 216, 216);
-  padding: 20px;
-}
-.contents h3 {
-  font-size: 20px;
-  padding-bottom: 5px;
-}
-.contents h5 {
-  font-size: 15px;
-}
-table {
-  border: 1px solid rgb(224, 224, 224);
-  width: 100%;
-}
-tr {
-  border-bottom: 1px solid rgb(224, 224, 224);
-}
-td {
-  border-right: 1px solid rgb(224, 224, 224);
-}
-.Information1 {
-  padding-top: 30px;
-}
-td:nth-child(1) {
-  width: 150px;
-  height: 30px;
-  text-align: center;
-  font-size: 14px;
-  background-color: rgb(245, 245, 245);
-}
-td:nth-child(2) {
-  height: 30px;
-  padding-left: 5px;
-  font-size: 12px;
-}
-.Information1 input {
- /*  height: 30px; */
-  padding-left: 5px;
+input[type=date] {
+    width: 100px;
+    height: 30px;
 }
 select {
-  height: 20px;
+    
+    width: 100px;
+    height: 35px;
 }
-.size {
-  font-size: 12px;
-}
-.Information2 {
-  padding-top: 50px;
-}
-.imageBtn2 {
-  text-align: center;
-  border-top: 1px solid rgb(224, 224, 224);
-  padding-top: 30px;
+#textarea {
+    resize: none;
 }
 
-input#submit {
-	background:url(/img/member/btn_confirm.gif);
-	background-repeat: no-repeat;
-	width: 65px;
-	height:32px;
-	border: 0;
-}
+

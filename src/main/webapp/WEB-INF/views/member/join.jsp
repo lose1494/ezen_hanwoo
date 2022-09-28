@@ -1,90 +1,140 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-<%@ page trimDirectiveWhitespaces="true" %> 
+     <link rel="stylesheet" href="/css/member/join.css" />
     
-    
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/member/join.css">
-    
-     <script>
-    var checkboxArray = document.getElementsByClassName('check');
 
-    function agree() {
+        <script type="text/javascript" src="event.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            window.onload = function(){
+                function idcheck(){
+                    var insertId=document.inputForm.id.value;
+                    alert("아이디는 "+insertId+" 입니다.");
+                    return;
+                }
+                function emailcheck(){
+                    var email1 = document.inputForm.email.value;
+                    var email2 = document.inputForm.email2.value;
+                    alert("이메일은 "+email1+email2+" 입니다.");                 
+                    return;
+                }
+                
+                function joincheck(){
+                    var sname = document.inputForm.sname.value;
+                    var gender = document.inputForm.gender.value;
+                    var birth1 = document.inputForm.birth1.value;
+                    var birth2 = document.inputForm.birth2.value;
+                    var birth3 = document.inputForm.birth3.value;
+                    var Hobbys = [];
+                    for(var i=0; i<document.inputForm.hobby.length; i++){
+                        if(document.inputForm.hobby[i].checked) {
+                            Hobbys.push(document.inputForm.hobby[i].value);
+                        }
+                    }
+                    alert("이름 : "+sname+"\n"+"성별:"+gender+"\n"
+                    +"생년월일:"+birth1+"년"+birth2+"월"+birth3+"일"+"\n"
+                    +"취미:"+Hobbys.join("-"));
+                    return;
+                }
+                
+                var checkBtn = document.getElementById("check");
+                var checkEmail = document.getElementById("check2");
+                var joinBtn = document.getElementById("join");
+                addEvent(checkBtn, 'click', idcheck);
+                addEvent(checkEmail, 'click', emailcheck);
+                addEvent(joinBtn, 'click', joincheck);
 
-        //반복문전에 boolean변수에 초기값.
-        var isAllCheck = true;
-        for(var cbx of checkboxArray) {
-          if(cbx.checked == false){
-            isAllCheck = false;
-            break; //반복문을 탈출하는 키워드
-            //continue; //반복문의 해당루프를 탈출하는 키워드
-          }
-        }
-        if(isAllCheck == true){
-          window.location.href = '/member/join2'
-          
-        }else{
-          alert('이용약관에 동의하셔야 회원으로 가입하실 수 있습니다.');
-        }
+            }
+           
+           
+  
+        </script>
 
-      }
+    <div id="header"></div>
+  <div class="header2">
+    <h2>회원정보 입력</h2>
+  <div class="header3">기본정보입력(필수)</div>
+    <form class="fom"method="GET" name="inputForm">
+        <table>
+         
 
-   </script>
 
-    <div class="commonSection1">
-      <div class="commonContent1">
-        <img src="/img/member/sub-visual06.jpg" style="width: 100%; height: 100%;">
-        <div class="commonContent2 text-center">
-          <div>
-            <h3>MEMBER</h3>
-          </div>
-          <div>
-            <p><img src="/img/icon-home.png"> > 회원가입</p>
-          </div> 
-        </div>   
-      </div>
-    </div>
-    
-    <div class="joinForm container">
-      <div class="joinSe1">
-        <div><h3>회원가입</h3></div>
-        <div><p>The design and maintenance are excellent.</p></div>
-      </div>
-      <div class="wellcome">
-        <h3>OOO사이트에 오신 것을 환영합니다.</h3>
-        <h5>-이름과 이메일을 입력해 주시면 가입여부를 확인 후 회원가입 절차가 이루어집니다.</h5>
-      </div>
-      <div class="terms1">
-        <div>이용약관</div>
-        
-        <div>
-	        <c:import url="./member/agree1.jsp" />
-        </div>          
-        
-        <div><input class="check" type="checkbox">위 약관에 동의합니다.</div>
-      </div>
-      <div class="terms2">
-        <div>개인정보보호정책</div>
-        
-        <div>
-        	<c:import url="./member/agree2.jsp" />
-        </div>
-                    
-        <div><input class="check" type="checkbox">위 개인정보취급방침에 동의합니다.</div>
-      </div>
-      <div class="terms3">
-        <div>개인정보의 수집 및 이용목적</div>
-        
-        <div>
-        	<c:import url="./member/agree3.jsp" />
-        </div>
+            <tr>
+                
+                <td>
+                    <input type="text" name="id" placeholder="아이디 ">
+                    <input class="fonbutton"type="button" id="check" value="중복확인">
+                </td>
+            </tr>
+            <tr>
+             
+              <td>
+                  <input type="text" name="email" placeholder="이메일 "id="email"> @
+                  <input type="text" name="email" placeholder="이메일 "id="email">
+                  <select id="email2">
+                      <option value="0">직접입력</option>
+                      <option value="1">http://www.google.com</option>
+                      <option value="2">http://www.naver.com</option>
+                      <option value="3">http://www.daum.com</option>
+                  </select>
                   
-        <div><input class="check" type="checkbox">위 개인정보의 수집 및 이용목적에 동의합니다.</div>
-      </div>
-      <div class="imageBtn">
-      <input type="image" onclick="agree();" src="/img/member/btn_join.gif">
-      </div>
-    </div>
+              </td>
+          </tr>
+            <tr>
+               
+                <td>
+                    <input type="text" name="pwd"placeholder="비밀번호"  > 
+                   
+                </td>
+            </tr>
+            <tr>
+                
+                <td>
+                    <input type="text" name="pwdCheck" placeholder="비밀번호 확인">
+                </td>
+            </tr>
+            <tr>
+              
+              <td>
+                  <input type="text" name="sname"  placeholder="이름 "> 
+              </td>
+          </tr>
+            <tr>
+                 
+                    <td >
+                    <input class=""type="date">
+                        <hr>
+                       
 
+                         <h4>본인인증</h4>
+                         <div>이미 가입된 휴대전화 번호로는 가입하실 수 없습니다.</div>
+                    </td>
+               </tr>
+               
+               <tr>
+                
+                <td>
+                    <input type="text" name="id" placeholder="휴대전화 번호 " >
+                    <input class="fonbutton"type="button" id="check2" value="인증하기">
+                </td>
+            </tr>
+            <tr>
+              
+              <td>
+                  <input type="text" name="id" placeholder="인증번호 입력" >
+                  <input class="fonbutton fonbutton3"type="button" id="check" value="인증확인">
+              </td>
+          </tr>
+          
+          
+            
+       
+        </table>
+      </form>
+        <input class="button"type="button" id="join" value="확인">
+        <input class="button2"type="submit" value="취소">
+      </div>
+
+
+    

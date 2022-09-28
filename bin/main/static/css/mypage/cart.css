@@ -1,0 +1,152 @@
+body {
+  margin: 60px;
+  padding: 0px;
+
+}
+
+.container {
+  margin-top: 100px;
+  text-align: center;
+  width: 80%;
+  min-width: 820px;
+}
+
+.list {
+  margin: 30px 0
+}
+
+.container table {
+  margin: auto;
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.list table {
+  min-width: 550px;
+}
+
+.list table tr {
+  border-top: 1px solid #262626;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+}
+
+.list table tr:last-child {
+  border-bottom: 1px solid #262626;
+}
+
+.list table td {
+  height: 100px;
+}
+
+input[type=number] {
+  width: 50px;
+  text-align: end;
+}
+
+input[type=number]:focus {
+  outline: none;
+}
+
+input[type=number]::selection {
+  background-color: transparent;
+}
+
+.list button {
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+}
+
+.flexDiv {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.button_area {
+  flex: 1 65%;
+  width: 100%;
+  text-align: start;
+}
+
+.button_area button {
+  width: 125px;
+  height: 35px;
+  text-align: center;
+  color: black;
+  font-weight: 600;
+  background-color: #E6E6E6;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.payment_info {
+  width: 25%;
+  background-color: #e4e4e4;
+  padding: 40px 30px;
+  border-radius: 3px;
+
+}
+
+.button_area .text {
+  margin-top: 90px;
+}
+
+.button_area .text img {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.button_area .text span:nth-child(2) {
+  font-size: 15px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.button_area .text span:last-child {
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.payment_info table tr:last-child {
+  height: 60px;
+}
+
+.payment_info table tr td {
+  padding: 10px 0;
+  font-size: 18px;
+  text-align: end;
+
+}
+
+.payment_info table tr td:first-child {
+  text-align: start;
+}
+
+.payment_info table tr:last-child td button {
+  width: 100%;
+  height: 40px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #5c5c5c;
+  border: none;
+  border-radius: 3px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.icon img {
+  width: 30px;
+  padding: 0 5px;
+}
+
+.icon img:first-child {
+  border-right: 3px solid rgb(195, 195, 195);
+}

@@ -13,6 +13,7 @@ public class MyController_minwoo {
 		return "index";
 	}
 	
+<<<<<<< HEAD
 	
 	
 	
@@ -22,6 +23,31 @@ public class MyController_minwoo {
 	
 	
 	
+=======
+	@RequestMapping("/mypage/mypage_cart")
+	public String mypage_cart (Model model) {
+		model.addAttribute("mainPage","mypage/mypage_cart.jsp");
+		return "index";
+	}
+	
+	@RequestMapping("/member/login")
+	public String login (Model model) {
+		model.addAttribute("mainPage","member/login.jsp");
+		return "index";
+	}
+	
+	@RequestMapping("/member/join")
+	public String join  (Model model) {
+		model.addAttribute("mainPage","member/join.jsp");
+		return "index";
+	}
+	
+	@RequestMapping("/member/join2")
+	public String join2 (Model model) {
+		model.addAttribute("mainPage","member/join2.jsp");
+		return "index";
+	}
+>>>>>>> minwoo
 	
 	
 }
