@@ -1,19 +1,20 @@
 		.notice_wrap {
-			margin-top: 100px;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 			margin-bottom: 100px;
+			margin-top: 100px;
+			width:100%;
 		}
        
        .notice_wrap h1 {
 		text-align:center;
 		margin-top: 150px;
+		width:100%;
 
         }
         
-
       .Notice_table {
             border-collapse:collapse;
             font-size:17px;

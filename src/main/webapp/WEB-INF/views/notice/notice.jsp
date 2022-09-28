@@ -23,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr onclick="location.href='/Notice/notice_view'" style="cursor:pointer;" >
             <td id="number">[공지]</td>
             <td id="title">배송지연안내</td>
             <td id="writer">관리자</td>

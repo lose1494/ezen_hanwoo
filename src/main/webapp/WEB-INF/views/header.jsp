@@ -55,25 +55,7 @@
 				</a>
 				</li>
 			</ul>
-			<ul class="category">
-				<li>
-					<a href="/product/product01">
-					선물세트
-					</a>
-				</li>
-				<li>
-				<a>구이용</a>
-					
-				</li>
-				<li>
-				<a>국거리</a>
-					
-				</li>
-				<li>
-				<a>조리용</a>
-					
-				</li>
-			</ul>
+
 			</div>
 		</div>
 	</div>

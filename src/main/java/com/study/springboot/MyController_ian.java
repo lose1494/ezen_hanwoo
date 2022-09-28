@@ -66,6 +66,12 @@ public class MyController_ian {
 		return "index";
 	}
 	
+	@RequestMapping("/Notice/notice_view")
+	public String notice_view (Model model) {
+		model.addAttribute("mainPage", "notice/notice_view.jsp");
+		return "index";
+	}
+	
 	@RequestMapping("/Notice/faq")
 	public String faq (Model model) {
 		model.addAttribute("mainPage", "notice/faq.jsp");
@@ -130,9 +136,9 @@ public class MyController_ian {
 		return "index";
 	}
 	
-	@RequestMapping("/admin/item_inquiry")
-	public String item_query (Model model) {
-		model.addAttribute("mainPage", "admin/item_inquiry.jsp");
+	@RequestMapping("/admin/admin_inquiry")
+	public String admin_inquiry (Model model) {
+		model.addAttribute("mainPage", "admin/admin_inquiry.jsp");
 		return "index";
 	}
 	@RequestMapping("/admin/admin_notice")
@@ -153,6 +159,11 @@ public class MyController_ian {
 		return "index";
 	}
 	
+	@RequestMapping("/admin/admin_faq")
+	public String admin_faq (Model model) {
+		model.addAttribute("mainPage", "admin/admin_faq.jsp");
+		return "index";
+	}  
 }
 
 	
