@@ -1,0 +1,155 @@
+.wrap {
+    min-width: 800px;
+}
+table {
+    width: 100%;
+}
+.wrap button {
+    width: 90px;
+    font-size: 11px;
+    height: 24px;
+}
+input[type=text] {
+    width: 250px;
+    height: 22px;
+    margin: 5px;
+    font-size: 14px;
+}
+.tableName {
+    margin: 10px 0;
+}
+
+/* 주문하기 */
+h2 {
+    margin-top: 10px;
+    text-align: center;
+}
+/* 상품테이블 */
+.productTable div {
+    font-size: 12px;
+    text-align: end;
+    margin-bottom: 5px;
+}
+.productTable table {
+    border-top: 1px solid rgb(182, 182, 182);
+    text-align: center;
+}
+.productTable td {
+    border-bottom: 1px solid rgb(182, 182, 182);
+    padding: 5px;
+}
+.icon img {
+    width: 20px;
+}
+.icon img:last-child {
+    box-sizing: content-box;
+    border-left: 2px solid rgb(182, 182, 182);
+    padding-left: 5px;
+
+}
+
+/* 주문테이블 */
+.flexDiv {
+    display: flex;
+    width: 100%;
+    margin: 10px 0;
+}
+.orderTable {
+    flex: 1 65%;
+    width: 100%;
+    margin-right: 20px;
+}
+.orderTable th, .orderTable td {
+    border: 1px solid rgb(182, 182, 182);
+    padding: 10px;
+}
+.orderTable th {
+    background-color: rgb(233, 233, 233);
+    width: 40%;
+}
+.orderRadio {
+    font-size: 13px;
+    margin: 5px;
+}
+input[type=radio] {
+    margin-right: 2px;
+}
+#address1 {
+    width: 100px;
+}
+#address1, .orderTable button {
+    vertical-align: middle;
+}
+
+/* 적립금테이블 */
+.pointTable button {
+    font-size: 14px;
+}
+.pointTable td {
+    border: none;
+    text-align: end;
+}
+.pointTable td:first-child {
+    width: 50%;
+}
+.pointTable input {
+    border: none;
+    text-align: end;
+}
+
+/* 결제테이블 */
+.paymentTable {
+    flex: 1 33%;
+    background-color: rgb(233, 233, 233);
+    margin: 43px 0 135px 0;
+    padding: 20px;
+    font-size: 13px;
+}
+.paymentTable table {
+    border-bottom: 2px solid rgb(182, 182, 182);
+}
+.paymentTable td {
+    padding: 8px 0;
+}
+.paymentTable td:nth-child(2) {
+    text-align: end;
+}
+.paymentTable input[type=text] {
+    border: none;
+    margin: 0;
+    color: #45494c;
+    background-color: transparent;
+    width: 40px;
+    font-size: 13px;
+    text-align: end;    
+}
+.paymentCheck {
+    background-color: rgb(211, 211, 211);
+    margin: 15px 0;
+    padding: 10px;
+    text-align: center;
+}
+.paymentCheck input[type=checkbox], .paymentCheck span {
+    vertical-align: middle;
+}
+.paymentTable button {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+}
+
+/* order02 */
+.productTable p {
+    font-size: 12px;
+}
+.orderBtn {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.orderBtn button {
+    width: 120px;
+    height: 35px;
+    margin: 10px;
+    font-size: 14px;
+}

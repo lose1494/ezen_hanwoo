@@ -12,7 +12,6 @@ public class MyController_minwoo {
 		model.addAttribute("mainPage","product/search_result.jsp");
 		return "index";
 	}
-
 	@RequestMapping("/mypage/mypage_cart")
 	public String mypage_cart (Model model) {
 		model.addAttribute("mainPage","mypage/mypage_cart.jsp");
@@ -36,5 +35,6 @@ public class MyController_minwoo {
 		model.addAttribute("mainPage","member/join2.jsp");
 		return "index";
 	}
+
 
 }

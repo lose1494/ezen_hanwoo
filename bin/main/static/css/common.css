@@ -36,3 +36,62 @@
     display: none;
   }
 }
+
+/* 제가 건든 부분입니다 - 안예린 */
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+div {
+    display: block;
+}
+.wrap {
+    margin: 100px auto;
+    width: 80%;
+    max-width: 1200px;
+    font-family: 'Noto Sans KR', sans-serif;
+    /* letter-spacing: 1px; */
+    font-size: 18px;
+    font-weight: 400;
+    color: #333333;
+}
+table {
+    border-collapse: collapse;
+    white-space:nowrap;
+}
+input:focus, .wrap button:focus {
+    outline: none;
+}
+.wrap button {
+    border: none;
+    border-radius: 3px;
+}
+.wrap a:hover {
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+
+.bright {      
+    background-color: rgb(236, 236, 236);
+    color: rgb(44, 44, 44);
+    font-weight: bold;
+}
+.dark, .dark:link, .dark:visited {
+    background-color: rgb(34, 34, 34);
+    color: rgb(230, 230, 230);
+}
+.gold {
+    color: #fcc616;
+}
+.gray {
+    color: rgb(163, 163, 163);
+}
+.active {
+    display: block;
+}
+.hide {
+    display: none;
+}

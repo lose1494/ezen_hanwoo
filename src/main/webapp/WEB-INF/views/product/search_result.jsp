@@ -1,25 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<<<<<<< HEAD
-    <link rel="stylesheet" href="/css/product/search_result.css" />
-=======
- <link rel="stylesheet" href="/css/product/search_result.css" />
+ <link rel="stylesheet" href="/css/product/search_result.css">
  
->>>>>>> minwoo
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      $('#header').load("/header.html");
-      $('#footer').load("/footer.html");
-    });
-  </script>
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> minwoo
-  <div id="header"></div>
   <div class="container">
     <h1>검색결과</h1>
     <div class="search_condition">
@@ -81,9 +66,5 @@
       <button class="next"> > </button>
     </div>
   </div>
-<<<<<<< HEAD
-  <div id="footer"></div>
-=======
-  <div id="footer">
-  </div>
->>>>>>> minwoo
+
+
