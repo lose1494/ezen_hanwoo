@@ -83,8 +83,8 @@ li{
 /* 초기화 */
 @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
 @font-face {
-    font-family: 'SunBatang-Light';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Light.woff') format('woff');
+    font-family: 'HANBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/HANBatang.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -119,7 +119,7 @@ display: block;
 	font-weight: bold;
   /* background-color: #333; */
   /* background-color: rgb(34, 34, 34); */
-    font-family: 'SunBatang-Light';
+   font-family: 'HANBatang';
 
 }
 .headerTop {
