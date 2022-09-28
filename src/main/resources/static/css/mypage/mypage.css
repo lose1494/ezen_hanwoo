@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+div {
+display: block;
+}
+.wrap {
+margin: 0 auto;
+width: 800px;
+text-align: center;
+}
+.wrap a:link {
+color: rgb(44, 43, 43);
+}
+.wrap a:visited {
+color: rgb(44, 43, 43);
+}
+table {
+    white-space:nowrap;
+}
+/* 마이페이지 메뉴 */
+.title {
+    font-size: 25px;
+}
+.menuTable {
+    border-collapse: collapse;
+    border: 2px solid rgb(207, 207, 207);
+    width: 100%;
+    height: 200px;
+    margin: 10px 0;
+}
+.menuTable tr:first-child {
+    border: 1px solid rgb(207, 207, 207);
+}
+.menuTable th, .menuTable td {
+    border-right: 1px solid rgb(207, 207, 207);
+    text-align: center;
+}
+.menuTable th {
+    background-color: rgb(235, 235, 235);
+    color: rgb(66, 65, 65);
+}
+.menuTable a:link {
+    color: rgb(75, 74, 74);
+}
+.menuTable a:visited {
+    color: rgb(75, 74, 74);
+}
+.bold {
+    font-weight: bold;
+}
+
+/* 마이페이지 메인 */
+
+.mainMember {
+    display: flex;
+    margin: 40px auto;
+    width: 600px;
+    height: 120px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(240, 239, 239);
+}
+.mainMember span {
+    font-size: 14px;
+}
+
+.mainOrderList {
+    margin: auto;
+    width: 600px;
+    
+}
+.mainOrderList div:first-child {
+    text-align: start;
+}
+.mainOrderList div:last-child {
+    padding: 70px;
+    font-size: 14px;
+}
+.mainOrderList span {
+    font-size: 11px;
+}
+
+/* 메인페이지 하위메뉴들 */
+h3 {
+    margin: 20px;
+}
+.total {
+    text-align: end;
+    font-size: 14px;
+}
+.backgroundDiv {
+    background-color: rgb(240, 239, 239);
+}
+.mypageTable {
+    margin: auto;
+    width: 90%;
+    padding: 10px 0;
+    font-size: 14px;
+}
+.mypageTable th, .mypageTable td {
+    padding: 5px 15px;
+} 
+.mypageTable td {
+    font-size: 12px;
+}
+.mypageTable span {
+    font-size: 11px;
+}
+.pageNav {
+    margin: 20px;
+}
+.pageNav a {
+    margin: 0 10px;
+}
+.pageNav a:link {
+    color: rgb(44, 43, 43);
+}
+.pageNav a:visited {
+    color: rgb(44, 43, 43);
+}
+.mypageButton {
+    display: flex;
+    margin: 10px 0; 
+}
+button {
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.mypageButton button {
+    width: 120px;
+    height: 35px;
+}
+.mypageTable button {
+    width: 40px;
+    height: 20px;
+}
+.btnBright {      
+    background-color: rgb(214, 213, 213);
+    color: rgb(44, 44, 44);
+    margin-right: 10px;
+}
+.btnDark {
+    background-color: rgb(75, 75, 75);
+    color: rgb(230, 230, 230);
+    margin-left: auto;
+}
+
+.reviewLink {
+    text-align: start;
+    font-size: 14px;
+}
+.reviewLink a {
+    margin: 5px;
+}
+.backgroundDiv p {
+    padding-top: 20px;
+    font-size: 13px;
+}
+.pw {
+    margin: 20px;
+    width: 300px;
+    height: 25px;
+}
+.center {
+    margin: auto;
+}
+.margin {
+    margin: 0 140px;
+}
+.editDiv {
+    padding: 10px;
+    font-size: 12px;
+    text-align: left;
+}
+.editForm {
+    width: 500px;
+    margin: auto;
+    padding: 20px;
+    text-align: start;   
+}
+.editForm input, .editForm select {
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 3px;
+    height: 25px;
+    margin: 5px;
+}
+
+.readonly {
+    background-color: rgb(214, 213, 213);
+}
+textarea {
+    margin-bottom: 20px;
+    padding: 5px;
+}
