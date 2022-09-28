@@ -26,7 +26,7 @@
                     <td>00,000원</td>
                     <td>주문일자 : 2022-09-02</td>
                     <td>결제완료</td>
-                    <td><button class="bright" onclick="window.open('../mypage/mypage_order_detail.html','test','width=600 height=700');">상세조회</button></td>
+                    <td><button class="bright" onclick="window.open('/mypage/mypage_orderDetail','test','width=600 height=700')">상세조회</button></td>
                 </tr>
             </table>
         </div>

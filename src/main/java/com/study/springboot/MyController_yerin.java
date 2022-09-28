@@ -44,6 +44,12 @@ public class MyController_yerin {
 		return "index";
 	}
 	
+	@RequestMapping("/mypage/mypage_orderDetail")
+	public String mypage_orderDetail(Model model) {
+		
+		return "mypage/mypage_orderDetail";
+	}
+	
 	@RequestMapping("/mypage/mypage_point")
 	public String mypage_point(Model model) {
 		model.addAttribute("mainPage", "mypage/mypage_point.jsp");

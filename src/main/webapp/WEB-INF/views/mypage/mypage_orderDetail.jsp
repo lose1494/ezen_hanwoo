@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:import url="./mypage/mypage_menu.jsp" />
-
+<link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/mypage/mypage.css">
 	<style>
         .wrap {
