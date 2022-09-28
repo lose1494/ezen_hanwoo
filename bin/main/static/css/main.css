@@ -12,6 +12,9 @@ a, a:link, a:hover {
 .main1 {
 	font-family: 'Noto Sans KR', sans-serif;
 }
+.main1 h1 {
+	font-weight: bold;
+}
 .banner{
 	margin-top: 50px;
 	width: 103%;
