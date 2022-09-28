@@ -1,35 +1,24 @@
-* {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-}
-div {
-display: block;
-}
 .wrap {
-margin: 0 auto;
-width: 800px;
-text-align: center;
+    text-align: center;
 }
-.wrap a:link {
-color: rgb(44, 43, 43);
+.wrap a:link, .wrap a:visited {
+    color: rgb(68, 68, 68);
 }
-.wrap a:visited {
-color: rgb(44, 43, 43);
-}
-table {
-    white-space:nowrap;
+a:hover {
+    text-decoration: none;
+    border-collapse: collapse;
 }
 /* 마이페이지 메뉴 */
-.title {
+.title, .wrap .title:link, .wrap .title:visited {
     font-size: 25px;
+    font-weight: bold;
 }
-.menuTable {
-    border-collapse: collapse;
+.menuTable {  
     border: 2px solid rgb(207, 207, 207);
     width: 100%;
     height: 200px;
     margin: 10px 0;
+    table-layout: fixed;
 }
 .menuTable tr:first-child {
     border: 1px solid rgb(207, 207, 207);
@@ -39,15 +28,13 @@ table {
     text-align: center;
 }
 .menuTable th {
-    background-color: rgb(235, 235, 235);
-    color: rgb(66, 65, 65);
-}
-.menuTable a:link {
+    /* background-color: rgb(235, 235, 235); */
     color: rgb(75, 74, 74);
 }
-.menuTable a:visited {
+.menuTable a:link, .menuTable a:visited {
     color: rgb(75, 74, 74);
 }
+
 .bold {
     font-weight: bold;
 }
@@ -57,7 +44,7 @@ table {
 .mainMember {
     display: flex;
     margin: 40px auto;
-    width: 600px;
+    width: 90%;
     height: 120px;
     justify-content: space-around;
     align-items: center;
@@ -69,7 +56,7 @@ table {
 
 .mainOrderList {
     margin: auto;
-    width: 600px;
+    width: 80%;
     
 }
 .mainOrderList div:first-child {
@@ -92,12 +79,13 @@ h3 {
     font-size: 14px;
 }
 .backgroundDiv {
-    background-color: rgb(240, 239, 239);
+    background-color: rgb(241, 241, 241);
+    padding: 10px 0;
 }
 .mypageTable {
     margin: auto;
     width: 90%;
-    padding: 10px 0;
+    padding: 10px;
     font-size: 14px;
 }
 .mypageTable th, .mypageTable td {
@@ -123,32 +111,22 @@ h3 {
 }
 .mypageButton {
     display: flex;
-    margin: 10px 0; 
-}
-button {
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
+    margin: 30px 0;
+    justify-content: space-evenly;
 }
 .mypageButton button {
-    width: 120px;
+    width: 130px;
     height: 35px;
+    font-size: 14px;
 }
 .mypageTable button {
-    width: 40px;
-    height: 20px;
+    width: 50px;
+    height: 20px;   
 }
-.btnBright {      
-    background-color: rgb(214, 213, 213);
-    color: rgb(44, 44, 44);
-    margin-right: 10px;
+.margin {
+    margin-right: auto;
+    margin-left: 5px;
 }
-.btnDark {
-    background-color: rgb(75, 75, 75);
-    color: rgb(230, 230, 230);
-    margin-left: auto;
-}
-
 .reviewLink {
     text-align: start;
     font-size: 14px;
@@ -165,22 +143,18 @@ button {
     width: 300px;
     height: 25px;
 }
-.center {
-    margin: auto;
-}
-.margin {
-    margin: 0 140px;
-}
+
 .editDiv {
     padding: 10px;
     font-size: 12px;
     text-align: left;
 }
 .editForm {
-    width: 500px;
+    padding: 50px;
+    text-align: start;
+}
+.editForm table {
     margin: auto;
-    padding: 20px;
-    text-align: start;   
 }
 .editForm input, .editForm select {
     border: 1px solid rgb(163, 163, 163);
@@ -195,4 +169,51 @@ button {
 textarea {
     margin-bottom: 20px;
     padding: 5px;
+}
+
+/* 주문 상세 조회 */
+h2 {
+    color: rgb(59, 59, 59);
+    margin-top: 20px;
+}
+p {
+    text-align: start;
+    margin: 5px 0;
+}
+.productTable table td {
+    border-top: 1px solid rgb(207, 207, 207);
+    border-bottom: 1px solid rgb(207, 207, 207);
+    width: 100%;
+    padding: 3px 10px;
+}
+.orderTable table {
+    width: 100%;
+    border: 1px solid rgb(207, 207, 207);
+}
+.orderTable table th, .orderTable table td {
+    border-right: 1px solid rgb(207, 207, 207);
+    border-bottom: 1px solid rgb(207, 207, 207);
+    padding: 5px;
+} 
+.orderTable table td {
+    text-align: start;
+    padding-left: 10px;
+}
+.orderTable table:nth-child(2) td, .orderTable table:nth-child(4) td {
+    width: 70%;  
+}
+.orderTable table:nth-child(6) td {
+    width: 20%;
+}
+.orderTable table:last-child td {
+    width: 25%;
+}
+.tableName {
+    text-align: start;
+    margin-top: 10px;
+}
+.orderBtn button {
+    width: 80px;
+    height: 30px;
+    margin: 20px 30px;
 }
