@@ -82,6 +82,12 @@ li{
 
 /* 초기화 */
 @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+@font-face {
+    font-family: 'HANBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/HANBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 * {
     margin: 0;
@@ -113,7 +119,7 @@ display: block;
 	font-weight: bold;
   /* background-color: #333; */
   /* background-color: rgb(34, 34, 34); */
-	font-family: 'Jeju Myeongjo', serif;
+   font-family: 'HANBatang';
 
 }
 .headerTop {

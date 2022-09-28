@@ -12,6 +12,7 @@
 		text-align:center;
 		margin-top: 150px;
 		width:100%;
+		      font-family: 'SunBatang-Light';
 
         }
         
@@ -97,3 +98,10 @@
 		align-items: center;
  
         }
+        
+       @font-face {
+    font-family: 'SunBatang-Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
