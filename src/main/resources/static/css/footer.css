@@ -1,4 +1,4 @@
-@charset "UTF-8";
+/* @charset "UTF-8";
 
 
 * {
@@ -8,24 +8,24 @@ a {
   text-decoration: none; color: #5a5a5a;
 }
 a:link {
-  /* text-decoration: none; */
+  text-decoration: none;
   color: #5a5a5a;
 }
 a:hover {
-  /* text-decoration: none; */
+  text-decoration: none;
   color: #5a5a5a;
 }
 
 
 
-/* 위로가기 버튼 */
+위로가기 버튼
 .back-to-top {
-  /* cursor: pointer; */
+  cursor: pointer;
   position: fixed; bottom: 20px; right: 10px;
   display: none; z-index: 9999;
 } 
 
-/* 푸터 시작 */
+푸터 시작
 .footer01 {
   text-align: center; padding-top: 50px;
   background-color: #333;
@@ -78,4 +78,79 @@ a:hover {
 }
 .return {
 	font-size: 12px;
+} */
+
+* {
+  margin: 0; padding: 0;
+}
+a {
+  text-decoration: none; color: #5a5a5a;
+}
+a:link {
+  /* text-decoration: none; */
+  color: #5a5a5a;
+}
+a:hover {
+  /* text-decoration: none; */
+  color: #5a5a5a;
+}
+
+
+
+/* 위로가기 버튼 */
+.back-to-top {
+  /* cursor: pointer; */
+  position: fixed; bottom: 20px; right: 10px;
+  display: none; z-index: 9999;
+} 
+
+/* 푸터 시작 */
+.footer {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px
+}
+.footer02 {
+  background-color: #333;
+  padding: 50px 0;
+}
+.footerLink {
+  text-align: center;
+}
+.footerLink a {
+  color: white; 
+  /* font-size: 14px; */ 
+  margin: 0 8px 0 8px;
+}
+.footerLink ul, .footerLink li {
+  display: inline-block;
+}
+.footerLink li+li::before {
+  content: ""; display: inline-block;
+  width: 1px; height: 15px;
+  margin: 0 5px 0 2px;
+  background-color: rgba(192, 186, 186, 0.333);
+  vertical-align: -1px;
+}
+.footerLink a:hover {
+  text-decoration: none;
+}
+.footerInfo {
+  color: #999;
+  text-align: center;
+  margin: 10px 0;
+}
+.footer01{
+	display: flex;
+	justify-content : space-evenly;
+/* 	font-size: 15px; */
+	margin: 40px auto;
+  /* font-family: 'LeferiBaseType-RegularA', sans-serif; */
+}
+
+.footer01 h3 {
+	font-size: 24px;
+}
+.footer01 p {
+	/* font-size: 12px; */
+	color: #AAAAAA;
 }
