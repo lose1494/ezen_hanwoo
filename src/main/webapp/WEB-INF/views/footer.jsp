@@ -4,7 +4,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/footer.css">
 
 <div class="footer03">
