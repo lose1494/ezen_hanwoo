@@ -13,11 +13,7 @@ public class MyController_minwoo {
 		return "index";
 	}
 	
-	@RequestMapping("/product/")
-	public String  (Model model) {
-		model.addAttribute("mainPage","product/.jsp");
-		return "index";
-	}
+	
 	
 	
 	
