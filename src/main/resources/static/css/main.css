@@ -5,8 +5,8 @@
   margin: 0; padding: 0;
 }
 a, a:link, a:hover {
-  text-decoration: none !important;
-   color: #5a5a5a !important;
+  text-decoration: none;
+   color: #5a5a5a;
 }
 
 .banner{

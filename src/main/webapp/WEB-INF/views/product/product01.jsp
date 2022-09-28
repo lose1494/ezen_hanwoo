@@ -14,7 +14,7 @@
 	</div>
 	<div class="product_gift1">
 	<div class="gift1">
-		<a href="/">
+		<a href="/product/product01_1">
 					<img alt="" src="/img/product/13만원세트.png"style="width:300px; height:230px;" class="product_img">
 				
 					<h3>한우 조리용 세트</h3>

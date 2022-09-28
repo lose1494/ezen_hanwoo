@@ -74,7 +74,9 @@ public class MyController_yerin {
 		return "index";
 	}
 	
-	//상품 상세	
+	//상품 상세
+	
+	
 	@RequestMapping("/product/product01_1")
 	public String product01_1(Model model) {
 		model.addAttribute("mainPage", "product/product01_1.jsp");

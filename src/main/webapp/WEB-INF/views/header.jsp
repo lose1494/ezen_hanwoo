@@ -23,28 +23,28 @@
 			<img src="../img/product/한우로고.png">
 			</a>
 			<div class="menu">
-				<a href="#">
+				<a href="/mypage/mypage_main">
 					<i class="fa-solid fa-user"></i>
 				</a>
-				<a href="#">
+				<a href="/mypage/mypage_cart">
 					<i class="fa-solid fa-cart-shopping"></i>
 				</a>
-				<a href="#">
+				<a href="/product/search_result">
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</a>
-				<a href="#">
+				<a href="/Notice/notice">
 				고객센터
 				</a>
 			</div>
 		</div>    
 		<div class="category">
 
-				<a href="#">선물세트</a>
+				<a href="/product/product01">선물세트</a>
 
-				<a href="#">구이용</a>
+				<a href="/product/product01">구이용</a>
 
-				<a href="#">국거리</a>
+				<a href="/product/product01">국거리</a>
 
-				<a href="#">조리용</a>
+				<a href="/product/product01">조리용</a>
 		</div>
 	</div>
