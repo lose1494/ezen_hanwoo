@@ -27,9 +27,17 @@
 			</h1>
 			<ul class="menu" >
 				<li>
-					<a>
-						<img alt="로그인" src="/img/product/icon3.png" style="width:30px; height:30px;">
+				<div class="dropdown">
+					<a href="#" >
+						<img alt="로그인" src="/img/product/icon3.png" style="width:30px; height:30px;" class="dropbtn" >
+						<div class="dropdown-content">
+	 	 <a href="#">로그인</a>
+   		 <a href="#">회원가입</a>
+   		 <a href="#">마이페이지</a>
+  </div>
+  </div>
 					</a>
+					
 				</li>
 				<li>
 				<a>
