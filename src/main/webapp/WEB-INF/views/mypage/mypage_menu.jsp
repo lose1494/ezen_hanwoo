@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/mypage/mypage.css">
     
 	<div class="wrap">
@@ -24,7 +25,7 @@
                 <td></td>
                 <td><a href="/mypage/mypage_wishlist">관심상품</a></td>
                 <td></td>
-                <td><a href="/mypage/mypage_product_qna">상품 문의 내역</a></td>
+                <td><a href="/mypage/mypage_productQna">상품 문의 내역</a></td>
                 <td><a href="/mypage/mypage_addressManagement">배송지 관리</a></td>
             </tr>
             <tr>
