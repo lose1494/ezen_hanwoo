@@ -9,6 +9,9 @@ a, a:link, a:hover {
    color: #5a5a5a;
 }
 
+.main1 {
+	font-family: 'Noto Sans KR', sans-serif;
+}
 .banner{
 	margin-top: 50px;
 	width: 103%;

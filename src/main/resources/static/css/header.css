@@ -123,8 +123,8 @@ display: block;
 
 }
 .headerTop {
-	padding: 20px 40px;
-	display:flex;
+	padding: 40px 80px;
+	display: flex;
 }
 .headerTop img {
 	width: 180px;
@@ -137,7 +137,7 @@ display: block;
 }
 .menu a:link, .menu a:hover, .menu a:visited {
 	/* color: rgb(198, 198, 198); */
-	margin: 5px;
+	margin: 5px 10px;
 }
 
 .category {
