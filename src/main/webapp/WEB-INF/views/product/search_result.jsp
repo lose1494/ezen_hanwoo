@@ -5,6 +5,7 @@
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<div class="wrap">
   <div class="container">
     <h1>검색결과</h1>
     <div class="search_condition">
@@ -66,5 +67,5 @@
       <button class="next"> > </button>
     </div>
   </div>
-
+</div>
 
