@@ -1,7 +1,5 @@
 package com.study.springboot;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,30 +33,30 @@ public class MyController_ian {
 //	  @Autowired private One2one_answerService one2one_answerService;
 	 
 	
-	@RequestMapping("/")
-	public String root() {
-		
-		return "redirect:index";
-	}
-	
-	@RequestMapping("/index")
-	public String index(HttpServletRequest request, Model model) {
-		//알럿 메시지 중복 제거
-		String alertMessage = (String)request.getSession().getAttribute("alert");
-		System.out.println("index alertMessage:" + alertMessage);
-		if( alertMessage != null) {
-			request.setAttribute("alert", alertMessage); 
-		}
-		
-		model.addAttribute("mainPage", "main.jsp");
-		return "index"; //index.jsp 디스패치 
-	}
-	@RequestMapping("/product/product01")
-	public String product01(HttpServletRequest request, Model model) {
-		
-		model.addAttribute("mainPage", "product/product01.jsp");
-		return "index";
-	}
+//	@RequestMapping("/")
+//	public String root() {
+//		
+//		return "redirect:index";
+//	}
+//	
+//	@RequestMapping("/index")
+//	public String index(HttpServletRequest request, Model model) {
+//		//알럿 메시지 중복 제거
+//		String alertMessage = (String)request.getSession().getAttribute("alert");
+//		System.out.println("index alertMessage:" + alertMessage);
+//		if( alertMessage != null) {
+//			request.setAttribute("alert", alertMessage); 
+//		}
+//		
+//		model.addAttribute("mainPage", "main.jsp");
+//		return "index"; //index.jsp 디스패치 
+//	}
+//	@RequestMapping("/product/product01")
+//	public String product01(HttpServletRequest request, Model model) {
+//		
+//		model.addAttribute("mainPage", "product/product01.jsp");
+//		return "index";
+//	}
 	
 	@RequestMapping("/Notice/notice")
 	public String notice (Model model) {
