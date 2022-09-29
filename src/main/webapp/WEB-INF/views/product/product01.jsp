@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/css/product/product01.css">
 <div class="product_gift">
 
-	<h1 >선물세트</h1>
+	<h1>선물세트</h1>
 	<div class="title">
 	<p class="text1">상품이 모두 0개 있습니다.</p>
 	
