@@ -4,7 +4,7 @@
 
 
 	<div class="view_div wrap">
-	<p>공지사항</p>
+	<p class="title_tag">공지사항</p>
 	<table>
 		<tr>
 			<th class="title">작성자</th> <td class="text">관리자</td>

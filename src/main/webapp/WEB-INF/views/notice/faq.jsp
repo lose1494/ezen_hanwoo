@@ -7,22 +7,32 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    
-<div class="faq">
-    
-	<h1>자주하는 질문</h1>
+<script>
 
-    <nav class="navbar navbar-inverse">
-          <ul class="nav navbar-nav" style="flex-direction: row;">
-            <li class="li_view"><a href="#">전체보기</a></li>
-            <li class="li_view"><a href="#">주문결제</a></li>
-            <li class="li_view"><a href="#">배송</a></li>
-            <li class="li_view"><a href="#">취소</a></li>
-            <li class="li_view"><a href="#">교환/환불</a></li>
-            <li class="li_view"><a href="#">회원</a></li>
-            <li class="li_view"><a href="#">기타</a></li>
+ $('.faq_bar a').each( function() {
+    $(this).click( function() {
+        $('.faq_bar a').removeClass('abc');
+        $(this).addClass('abc');
+    })
+})
+
+
+</script>
+<div class="faq wrap">
+    
+	<p class="title_tag">자주하는 질문</p>
+
+   	<div class="faq_bar">
+          <ul >
+            <li><a href="#" class="abc">전체보기</a></li>
+            <li><a href="#">주문결제</a></li>
+            <li><a href="#">배송</a></li>
+            <li><a href="#">취소</a></li>
+            <li><a href="#">교환/환불</a></li>
+            <li><a href="#">회원</a></li>
+            <li><a href="#">기타</a></li>
           </ul> 
-      </nav>
+    </div>
       
       <div>
     <div class="faq_box1">
@@ -152,14 +162,14 @@
     </div>
   </div>
 </div>
-
-
-    <ul class="pagination">
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-
-      </ul>
-
 </div>
-
+<div class="pageNav">
+                <a href="#">처음</a>
+                <a href="#">이전</a>
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">다음</a>
+                <a href="#">마지막</a>
+            </div>
 </div>

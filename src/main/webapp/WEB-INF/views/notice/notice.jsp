@@ -9,7 +9,7 @@
     
     <div class="wrap">
 
-    <h1>공지사항</h1>
+    <p class="title_tag">공지사항</p>
 
     <form action="notice_Action" method="get">
     <table  class="Notice_table" >

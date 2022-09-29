@@ -45,10 +45,7 @@ a:hover {
 .mainMember {
     display: flex;
     margin: 40px auto;
-<<<<<<< HEAD
     width: 100%;
-=======
->>>>>>> a8f4c304b7da787c97702511cba9324915119ca9
     height: 120px;
     justify-content: space-around;
     align-items: center;
