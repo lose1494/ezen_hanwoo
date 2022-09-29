@@ -9,7 +9,7 @@
   <div class="container">
     <h1>검색결과</h1>
     <div class="search_condition">
-      <input type="text" placeholder="검색어를 입력해 주세요." />
+      <input type="text" placeholder="검색어를 입력해 주세요." / style="border: 2px solid #a6a6a6;">
       <button class="search_btn">검색</button>
     </div>
     <div class="list">
@@ -27,9 +27,8 @@
       <select class="sort" name="sort">
         <option value="0" selected>==선택해 주세요==</option>
         <option value="1">별점순</option>
-        <option value="2" disabled>할인상품</option>
-        <option value="3">높은가격순</option>
-        <option value="4">낮은가격순</option>
+        <option value="2">높은가격순</option>
+        <option value="3">낮은가격순</option>
       </select>
     </div>
     <div class="product">
