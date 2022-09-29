@@ -48,7 +48,8 @@ a:hover {
     height: 120px;
     justify-content: space-around;
     align-items: center;
-    background-color: rgb(240, 239, 239);
+    background-color: rgb(0, 0, 0);
+    color:white;
 }
 .mainMember span {
     font-size: 14px;

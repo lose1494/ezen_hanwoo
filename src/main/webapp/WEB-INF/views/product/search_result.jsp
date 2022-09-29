@@ -58,14 +58,15 @@
         </p>
       </div>
     </div>
-    <div class="page">
-      <button class="prev"> < </button>
-      <button class="page_item item_1"> 1 </button>
-      <button class="page_item item_2"> 2 </button>
-      <button class="page_item item_3"> 3 </button>
-      <button class="page_item item_4"> 4 </button>
-      <button class="next"> > </button>
-    </div>
+    <div class="pageNav">
+         <a href="#">처음</a>
+          <a href="#">이전</a>
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">다음</a>
+          <a href="#">마지막</a>
+      </div>
   </div>
 </div>
 
