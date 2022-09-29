@@ -25,6 +25,11 @@ public class MyController_yerin {
 		model.addAttribute("mainPage", "mypage/mypage_memberEdit.jsp");
 		return "index";
 	}
+	@RequestMapping("/mypage/mypage_memberEdit_1")
+	public String mypage_memberEdit_1(Model model) {
+		model.addAttribute("mainPage", "mypage/mypage_memberEdit_1.jsp");
+		return "index";
+	}
 	
 	@RequestMapping("/mypage/mypage_memberWithdrawal")
 	public String mypage_memberWithdrawal(Model model) {

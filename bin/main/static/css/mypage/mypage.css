@@ -82,7 +82,8 @@ h3 {
     font-size: 14px;
 }
 .backgroundDiv {
-    background-color: rgb(241, 241, 241);
+    /* background-color: rgb(241, 241, 241); */
+    background-color: #F0F0F0;
     padding: 20px 10px;
 }
 .mypageTable {
@@ -95,7 +96,7 @@ h3 {
     padding: 5px 15px;
 } 
 .mypageTable td {
-    font-size: 18px;
+    font-size: 16px;
 }
 .mypageTable span {
     font-size: 13px;
@@ -128,8 +129,8 @@ h3 {
     margin: 5px;
 }
 .backgroundDiv p {
-    padding-top: 20px;
-    font-size: 13px;
+    text-align: center;
+    font-size: 16px;
 }
 .pw {
     margin: 20px;
@@ -139,7 +140,7 @@ h3 {
 
 .editDiv {
     padding: 10px;
-    font-size: 12px;
+    font-size: 14px;
     text-align: left;
 }
 .editForm {
@@ -149,13 +150,22 @@ h3 {
 .editForm table {
     margin: auto;
 }
+.editForm table td {
+    padding: 5px 0;
+}
 .editForm input, .editForm select {
     border: 1px solid rgb(163, 163, 163);
     border-radius: 3px;
-    height: 25px;
+    width: 250px;
+    height: 30px;
     margin: 5px;
+    padding: 3px;
+    vertical-align: middle;
+    font-size: 14px;
 }
-
+.editForm select {
+    width: 100px;
+}
 .readonly {
     background-color: rgb(214, 213, 213);
 }
@@ -209,4 +219,8 @@ p {
     width: 80px;
     height: 30px;
     margin: 20px 30px;
+}
+
+.starRating-base {
+    top: -4px;
 }
