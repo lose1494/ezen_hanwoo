@@ -3,14 +3,8 @@
 
  <link rel="stylesheet" href="/css/mypage/cart.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script>
-    $(document).ready(function(){
-      $('#header').load("/header.html");
-      $('#footer').load("/footer.html");
-    });
-  </script>
   
-  <div id="header"></div>
+  <div class="wrap">
   <div class="container">
     <h1>장바구니</h1>
     <div class="list">
@@ -93,4 +87,4 @@
     })
   </script>
   
-  <div id="footer"></div>
+ </div>
