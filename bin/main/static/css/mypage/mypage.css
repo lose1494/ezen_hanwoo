@@ -97,18 +97,8 @@ h3 {
 .mypageTable span {
     font-size: 11px;
 }
-.pageNav {
-    margin: 20px;
-}
-.pageNav a {
-    margin: 0 10px;
-}
-.pageNav a:link {
-    color: rgb(44, 43, 43);
-}
-.pageNav a:visited {
-    color: rgb(44, 43, 43);
-}
+
+
 .mypageButton {
     display: flex;
     margin: 30px 0;

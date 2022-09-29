@@ -1,106 +1,79 @@
-		.notice_wrap {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			margin-bottom: 100px;
-			margin-top: 100px;
-			width:100%;
-		}
-       
-       .notice_wrap h1 {
-		text-align:center;
-		margin-top: 150px;
-		width:100%;
-		font-family: 'ChosunGu';
-        }
-        
-      .Notice_table {
-            border-collapse:collapse;
-            font-size:17px;
-            margin-bottom:70px;
-        } 
+h1 {
+	text-align:center;
+	margin-top: 150px;
+	width:100%;
+}        
+.Notice_table {
+	border-collapse:collapse;
+    font-size:17px;
+    margin-bottom:70px;
+} 
 
-        .Notice_table td,th {
-        width: auto;
-        text-align: center;
-        }
+.Notice_table td,th {
+	width: auto;
+    text-align: center;
+}
         
-        .Notice_table th {
-        text-align: center;
-        }
+.Notice_table th {
+	text-align: center;
+}
    
-         th, tr{
-        border-bottom: 1px solid black;
-        height: 50px;
-        }
+th, tr{
+	border-bottom: 1px solid black;
+	height: 50px;
+	}
         
-        #button1 {
-            height: 20px;
-            width: 20px;
+#button1 {
+	height: 20px;
+	width: 20px;
+}
+
+ #img {
+	width: 35px;
+	height: 35px;
+	border: 1px solid black;
+	border-left: none;
+	padding: 5px;
         }
 
-        #img {
-            width: 35px;
-            height: 35px;
-            border: 1px solid black;
-            border-left: none;
-            padding: 5px;
-        }
+.search {
+	margin: 20px;
+	box-sizing: content-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top:50px;
+}
 
-        .search {
-            margin: 20px;
-            box-sizing: content-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top:50px;
-        }
+#select1 {
+	height: 35px;
+	width: 70px;
+	border-right: none;
+	text-align: center;
+	border-color: gray;
+}
 
-        #select1 {
-            height: 35px;
-            width: 70px;
-            border-right: none;
-            text-align: center;
-            border-color: gray;
-        }
+#box1{
+	height: 35px;
+	width: 300px;
+}
 
-        #box1{
-          height: 35px;
-          width: 300px;
- 
-        }
+#number {
+	width: 100px;
+}
 
-        #number {
-            width: 100px;
-        }
+#title {
+	width:750px;
+}
 
-        #title {
-            width:750px;
-        }
+#writer {
+	width: 100px;
+}
 
-        #writer {
-            width: 100px;
-        }
+#date {
+	width: 140px;
+}
 
-        #date {
-            width: 140px;
-        }
-
-        #hitter{
-            width:100px;
-        }
-
-       .notice_wrap .pagination {
-		display: flex;
-		justify-content: center;
-		align-items: center;
- 
-        }
-        
-    @font-face {
-    font-family: 'ChosunGu';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+#hitter{
+	width:100px;
 }

@@ -7,7 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>    
     
-    <div class="notice_wrap">
+    <div class="wrap">
 
     <h1>공지사항</h1>
 
@@ -33,20 +33,12 @@
     </tbody>
     </table>
 
-     <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
-
     <div class="search">
          <select name="" id="select1">
             <option>제목</option>
             <option>내용</option>
             <option>작성자</option>
          </select>
-
-    
 
          <input type="text" value="검색어를 입력하세요." id="box1">
         
