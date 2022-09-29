@@ -8,10 +8,13 @@
 
 	<div class="wrap">
          <h3>정보수정</h3>
-         <div class="backgroundDiv">
-             <div class="editDiv">*변경할 정보를 입력하세요.</div>
-             <form action="" class="editForm">
+         <div class="backgroundDiv">           
+             <form action="" class="editForm">                
                  <table>
+                     <tr>
+                        <td></td>
+                        <td> <div class="editDiv">*변경할 정보를 입력하세요.</div> </td>
+                     </tr>
                      <tr>
                      	<td></td>
                      	<td><input type="text" class="readonly" placeholder="아이디" readonly></td>

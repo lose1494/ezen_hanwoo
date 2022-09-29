@@ -23,7 +23,22 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <td>★★★★★</td>
+                    <td>
+                        <span class="starRating-fill gold">
+                            <i class="fa-solid fa-star"></i>                       
+                            <i class="fa-solid fa-star"></i>                       
+                            <i class="fa-solid fa-star"></i>                       
+                            <i class="fa-solid fa-star"></i>                       
+                            <i class="fa-solid fa-star"></i>
+                        </span>
+                        <span class="starRating-base gray">
+                            <i class="fa-solid fa-star"></i>                       
+                            <i class="fa-solid fa-star"></i>                       
+                            <i class="fa-solid fa-star"></i>                       
+                            <i class="fa-solid fa-star"></i>                       
+                            <i class="fa-solid fa-star"></i>
+                        </span>
+                    </td>
                     <td><img src="https://via.placeholder.com/80" alt=""></td>
                     <td>한우 치마살</td>
                     <td>맛있게 잘 먹었습니다!!</td>

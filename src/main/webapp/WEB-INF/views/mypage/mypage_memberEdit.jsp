@@ -15,7 +15,7 @@
         </div>
         <div class="mypageButton">
             <div>
-                <a href="./mypage_member_edit_1.html"><button class="bright">확인</button></a>
+                <a href="/mypage/mypage_memberEdit_1"><button class="bright">확인</button></a>
             </div>               
             <button class="dark">취소</button>
         </div>

@@ -49,7 +49,6 @@
     z-index: 0;
     padding: 0;
     font-family: '"Segoe UI"';
-
 }
 .fa-star {
     letter-spacing: -6px;
@@ -251,5 +250,6 @@ b:not(.score) {
 .productInfo table td:first-child {
     background-color: rgb(247, 247, 247);
     /* color: rgb(230, 230, 230); */
+    
 }
 
