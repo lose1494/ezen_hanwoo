@@ -27,7 +27,7 @@
             </table>
         </div>
         <div class="mypageButton">              
-            <button class="dark">글쓰기</button>
+            <button onclick="location.href='/customer/customer01'" class="dark">글쓰기</button>
         </div>
         <div class="pageNav">
             <a href="#">처음</a>

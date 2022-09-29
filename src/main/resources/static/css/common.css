@@ -38,6 +38,7 @@ ul {
 .wrap h1 {
 	font-weight: bold;
     text-align: center;
+    font-size: 35px;
 }
 
 input[type=number]::-webkit-inner-spin-button {
