@@ -100,4 +100,11 @@ public class MyController_yerin {
 		model.addAttribute("mainPage", "product/order02.jsp");
 		return "index";
 	}
+	
+	//문의
+	@RequestMapping("/customer/customer01")
+	public String customer01(Model model) {
+		model.addAttribute("mainPage", "customer/customer01.jsp");
+		return "index";
+	}
 }

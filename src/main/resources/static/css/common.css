@@ -12,7 +12,7 @@ div {
     max-width: 1200px;
     font-family: 'Noto Sans KR', sans-serif; 
     /* letter-spacing: 1px; */
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
     color: #333333;
 }
@@ -34,6 +34,14 @@ input:focus, .wrap button:focus {
 }
 ul {
     list-style: none;
+}
+.wrap h1 {
+	font-weight: bold;
+    text-align: center;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
 }
 
 /* 색 지정 */
