@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/css/notice/notice_view.css">
 
 
-	<div class="view_div">
+	<div class="view_div wrap">
 	<p>공지사항</p>
 	<table>
 		<tr>
@@ -21,10 +21,10 @@
 			<td colspan="4" id="content">내용입니다.</td>
 		</tr>
 	</table>
-
+<input type="button" value="목록" id="button" onclick="location.href='/Notice/notice'" style="cursor:pointer">
 </div>	
 
-<div class="button">
-	<input type="button" value="목록" id="button1" onclick="location.href='/Notice/notice'" style="cursor:pointer">
-</div>	
+
+	
+
 
