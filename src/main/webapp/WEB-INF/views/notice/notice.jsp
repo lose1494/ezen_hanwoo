@@ -44,5 +44,15 @@
         
         <div id="img"> <input type="image" src="/img/notice/search.png" id="button1"> </div>
   </div>
+  
+  <div class="pageNav">
+                <a href="#">처음</a>
+                <a href="#">이전</a>
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">다음</a>
+                <a href="#">마지막</a>
+            </div>
 
 </div>
