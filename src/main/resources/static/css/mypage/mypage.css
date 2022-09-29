@@ -45,10 +45,7 @@ a:hover {
 .mainMember {
     display: flex;
     margin: 40px auto;
-<<<<<<< HEAD
     width: 100%;
-=======
->>>>>>> a8f4c304b7da787c97702511cba9324915119ca9
     height: 120px;
     justify-content: space-around;
     align-items: center;
@@ -85,7 +82,8 @@ h3 {
     font-size: 14px;
 }
 .backgroundDiv {
-    background-color: rgb(241, 241, 241);
+    /* background-color: rgb(241, 241, 241); */
+    background-color: #F0F0F0;
     padding: 20px 10px;
 }
 .mypageTable {
@@ -98,7 +96,7 @@ h3 {
     padding: 5px 15px;
 } 
 .mypageTable td {
-    font-size: 18px;
+    font-size: 16px;
 }
 .mypageTable span {
     font-size: 13px;
