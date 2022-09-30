@@ -5,4 +5,19 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IFaqDao">
+
+	<select id="faqList" resultType="com.study.springboot.dto.FaqDto">
+		select * from FAQ where faq_type=#{param1}
+	</select>
+	
+	<insert id="insertFaq" parameterType="com.study.springboot.dto.FaqDto">
+		insert into FAQ
+		values ( FAQ_seq.nextval, #{faq_title}, #{faq_content}, #{faq_type})
+	</insert>
+	
+	<delete id="deleteFaq">
+	  DELETE FROM FAQ
+	  WHERE faq_idx=#{ param1 }
+	</delete>
+	
 </mapper>

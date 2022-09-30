@@ -5,4 +5,20 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IProduct_qnaDao">
+
+	<select id="qnaList" resultType="com.study.springboot.dto.Product_qnaDto">
+		select * from product_qna where
+	</select>
+	
+	<insert id="insertQna" parameterType="com.study.springboot.dto.Product_qnaDto">
+		insert into product_qna
+		values ( product_qna_seq.nextval, #{qna_name}, #{qna_title}, 
+		#{qna_content}, sysdate, #{qna_secret}, #{product_idx} )
+	</insert>
+	
+	<delete id="deleteQna">
+	  DELETE FROM product_qna
+	  WHERE qna_idx=#{ param1 }
+	</delete>
+	
 </mapper>

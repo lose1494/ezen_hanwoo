@@ -324,7 +324,7 @@
         // 별점
         $(function() {
             for(i=0; i<$('b').length; i++) {
-                $('.starRating-fill').eq(i).width(17.5 * ($('b').eq(i).text()));
+                $('.starRating-fill').eq(i).width(20.5 * ($('b').eq(i).text()));
             } 
             $('.starBar-fill').each( function(index, item) {
                 $(this).width(               

@@ -5,4 +5,24 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.INoticeDao">
+
+	<select id="noticeList" resultType="com.study.springboot.dto.NoticeDto">
+		select * from Notice
+	</select>
+	
+	<select id="noticeDetail" resultType="com.study.springboot.dto.NoticeDto">
+		select * from Notice where notice_idx=#{param1}
+	</select>
+	
+	<insert id="insertNotice" parameterType="com.study.springboot.dto.NoticeDto">
+		insert into Notice
+		values ( Notice_seq.nextval, #{notice_name}, #{notice_title}, 
+		#{notice_content}, sysdate )
+	</insert>
+	
+	<delete id="deleteNotice">
+	  DELETE FROM Notice
+	  WHERE notice_idx=#{ param1 }
+	</delete>
+	
 </mapper>

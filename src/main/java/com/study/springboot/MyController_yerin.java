@@ -80,8 +80,6 @@ public class MyController_yerin {
 	}
 	
 	//상품 상세
-	
-	
 	@RequestMapping("/product/product01_1")
 	public String product01_1(Model model) {
 		model.addAttribute("mainPage", "product/product01_1.jsp");
@@ -98,6 +96,13 @@ public class MyController_yerin {
 	@RequestMapping("/product/order02")
 	public String order02(Model model) {
 		model.addAttribute("mainPage", "product/order02.jsp");
+		return "index";
+	}
+	
+	//문의
+	@RequestMapping("/customer/customer01")
+	public String customer01(Model model) {
+		model.addAttribute("mainPage", "customer/customer01.jsp");
 		return "index";
 	}
 }

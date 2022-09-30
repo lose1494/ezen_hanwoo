@@ -115,7 +115,12 @@ h3 {
 }
 .mypageTable button {
     width: 60px;
-    height: 25px;   
+    height: 25px; 
+    font-size: 14px;  
+}
+.mypageTable .bright {
+    /* border: 1px solid rgb(180, 180, 180); */
+    background-color: #919191;
 }
 .margin {
     margin-right: auto;
