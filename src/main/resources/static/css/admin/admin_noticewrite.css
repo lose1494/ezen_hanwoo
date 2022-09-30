@@ -38,7 +38,9 @@
 	display: flex;
 	flex-direction: row;
 	width: 100%;
+	margin-top: 50px;
 	margin-bottom: 100px;
+	justify-content: center;
 }
 
 .admin_list {
@@ -53,40 +55,45 @@
 	list-style: disc;
 }
 
-.write_main{
+#write_title {
+	width:100%;
+	margin-bottom:20px;
+}
+.ck-editor__editable[role="textbox"] {
+    min-height: 500px;
+}
+
+.editor_whole {
 	display: flex;
 	flex-direction: column;	
 	justify-content: center;
 	align-items: center;
 	margin-top: 100px;
 	width:100%;
-	
 }
 
-.write_flex{
-	display: flex;
-	flex-direction: column;
+.write_container{
+	width:1000px;
+}
+
+.ck-content .image {
+    width: 700px;
+    height: 500px;
+    margin: 20px auto;
+}
+
+
+.btn_wrap {
+	display:flex;
 	justify-content: center;
 	align-items: center;
+	margin-top: 40px;
 }
 
-.write_input{
-	width:1000px;
-	text-align: center;
-	height: 100px;
-	padding-top: 35px;
-}
-
-.write_input1 {
-	width: 700px;
-	height: 40px;
-}
-
-.write_input {
-	width:100%;
-}
-
-.write_area{
-	margin-top: 50px;
-	margin-bottom: 150px;
+#confirm_btn {
+	background-color: black;
+	color:white;
+	border-radius: 5px;
+	width: 70px;
+	height:40px;
 }

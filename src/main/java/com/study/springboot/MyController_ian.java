@@ -164,6 +164,12 @@ public class MyController_ian {
 		model.addAttribute("mainPage", "admin/admin_faq.jsp");
 		return "index";
 	}  
+	
+	@RequestMapping("/product/product_review_popup")
+	public String product_review_popup() {
+		return "product/product_review_popup";
+	}  
+	
 }
 
 	

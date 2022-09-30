@@ -97,7 +97,7 @@
                         </td>
                         <td>
                             <p><i class="fa-solid fa-star gold"></i> 4.9</p>
-                            <button class="dark">상품 리뷰 작성</button>
+                            <button class="dark" onclick="window.open('/product/product_review_popup','popup','width=650 height=700')">상품 리뷰 작성</button>
                         </td>
                         <td>
                             <div class="starGraph">
