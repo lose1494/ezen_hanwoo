@@ -31,7 +31,7 @@
 			<img alt="" src="/img/product/icon1.png" class="icon_img1"  >
 			</a>
 			<a href="/">
-			<img alt="" src="/img/product/icon_wish.png" class="icon_img1" >
+			<img alt="" src="/img/product/icon1.png" class="icon_img1" >
 			</a>
 </div>
 				  </div>

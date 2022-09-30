@@ -9,7 +9,7 @@
   <div class="container">
     <h1>검색결과</h1>
     <div class="search_condition">
-      <input type="text" placeholder="검색어를 입력해 주세요." / style="border: 2px solid #a6a6a6;">
+      <input type="text" placeholder="검색어를 입력해 주세요." id="text_input">
       <button class="search_btn">검색</button>
     </div>
     <div class="list">
@@ -31,41 +31,77 @@
         <option value="3">낮은가격순</option>
       </select>
     </div>
+    
+    
     <div class="product">
-      <div class="product_item">
-        <div class="thumnail"></div>
-        <p class="title">상품명</p>
-        <p class="sub_title">000원/100g</p>
-        <p class="price">00,000원
-          <span class="info">( 300g / 1팩 )</span>
-        </p>
-      </div>
-      <div class="product_item">
-        <div class="thumnail"></div>
-        <p class="title">상품명</p>
-        <p class="sub_title">000원/100g</p>
-        <p class="price">00,000원
-          <span class="info">( 300g / 1팩 )</span>
-        </p>
-      </div>
-      <div class="product_item">
-        <div class="thumnail"></div>
-        <p class="title">상품명</p>
-        <p class="sub_title">000원/100g</p>
-        <p class="price">00,000원
-          <span class="info">( 300g / 1팩 )</span>
-        </p>
-      </div>
-    </div>
-    <div class="pageNav">
-         <a href="#">처음</a>
-          <a href="#">이전</a>
-          <a href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-          <a href="#">다음</a>
-          <a href="#">마지막</a>
-      </div>
-  </div>
+<div class="img_best">
+	<div class="best1">
+			<a href="/" >
+				<img alt="" src="/img/product/등심3.png" style="width:300px;" class="product_img" >
+				<div class="info">
+				 <h3>한우 [1++No.9]등심</h3>
+				 <p class="mon">0,000원/100g</p>
+				 <p> 00,000원 &nbsp; (300g/팩)</p>
+				  <p>★★★★★(0)</p>
+				  </a>
+				  <div class="middle">
+				  <div class="text">
+				  
+			<a href="/">
+			<img alt="" src="/img/product/icon1.png" class="icon_img1"  >
+			</a>
+			<a href="/">
+			<img alt="" src="/img/product/icon_wish.png" class="icon_img1" >
+			</a>
 </div>
+				  </div>
+				  </div>
+				  </div>
 
+
+	<div class="best1">
+			<a href="/" >
+				<img alt="" src="/img/product/등심3.png" style="width:300px;" class="product_img" >
+				<div class="info">
+				 <h3>한우 [1++No.9]등심</h3>
+				 <p class="mon">0,000원/100g</p>
+				 <p> 00,000원 &nbsp; (300g/팩)</p>
+				  <p>★★★★★(0)</p>
+				  </a>
+				  <div class="middle">
+				  <div class="text">
+				  
+			<a href="/">
+			<img alt="" src="/img/product/icon1.png" class="icon_img1"  >
+			</a>
+			<a href="/">
+			<img alt="" src="/img/product/icon_wish.png" class="icon_img1" >
+			</a>
+</div>
+				  </div>
+				  </div>
+				 
+  </div>
+  <div class="best1">
+			<a href="/" >
+				<img alt="" src="/img/product/등심3.png" style="width:300px;" class="product_img" >
+				<div class="info">
+				 <h3>한우 [1++No.9]등심</h3>
+				 <p class="mon">0,000원/100g</p>
+				 <p> 00,000원 &nbsp; (300g/팩)</p>
+				  <p>★★★★★(0)</p>
+				  </a>
+				  <div class="middle">
+				  <div class="text">
+				  
+			<a href="/">
+			<img alt="" src="/img/product/icon1.png" class="icon_img1"  >
+			</a>
+			<a href="/">
+			<img alt="" src="/img/product/icon_wish.png" class="icon_img1" >
+			</a>
+				</div>
+				  </div>
+				  </div>  
+</div>
+</div>

@@ -29,7 +29,7 @@
           <td>0원</td>
           <td>00000원</td>
           <td>0원</td>
-          <td class="icon"><img src="./free-icon-cross-mark-8369334.png" alt=""><img src="./heart.png" alt=""></td>
+          <td class="icon"><img src="/img/mypage/x.png" style="width:40px;"><img src="/img/mypage/heart.png" style="width:35px;"></td>
         </tr>
       </table>
     </div>
