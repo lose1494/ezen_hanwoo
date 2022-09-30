@@ -5,4 +5,20 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IOne2one_answerDao">
+
+	<select id="one2oneAnswer" resultType="com.study.springboot.dto.One2one_answerDto">
+		select * from one2one_answer where one2one_answer_idx=#{param1}
+	</select>
+	
+	<insert id="insertAnswer" parameterType="com.study.springboot.dto.One2one_answerDto">
+		insert into one2one_answer
+		values ( one2one_answer_seq.nextval, #{answer_name}, #{answer_title}, 
+		#{answer_content}, sysdate, #{one2one_answer_idx} )
+	</insert>
+	
+	<delete id="deleteAnswer">
+	  DELETE FROM one2one_answer
+	  WHERE answer_idx=#{ param1 }
+	</delete>
+	
 </mapper>

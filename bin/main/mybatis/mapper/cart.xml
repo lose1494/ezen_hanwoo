@@ -5,4 +5,23 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.ICartDao">
+
+	<select id="cartList" resultType="com.study.springboot.dto.CartDto">
+		select * from cart where cart_users_id=#{param1}
+	</select>
+	
+	<select id="cartCount" resultType="_int">
+		select count(*) from wishlist
+	</select>
+	
+	<insert id="insertCart" parameterType="com.study.springboot.dto.CartDto">
+		insert into cart
+		values ( cart_seq.nextval, #{users_id}, #{product_name}, #{cart_count})
+	</insert>
+	
+	<delete id="deleteCart">
+	  DELETE FROM cart
+	  WHERE cart_idx=#{ param1 }
+	</delete>
+	
 </mapper>
