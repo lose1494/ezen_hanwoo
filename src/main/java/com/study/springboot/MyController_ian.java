@@ -53,6 +53,7 @@ public class MyController_ian {
 		model.addAttribute("mainPage", "main.jsp");
 		return "index"; //index.jsp 디스패치 
 	}
+	
 	@RequestMapping("/product/product01")
 	public String product01(HttpServletRequest request, Model model) {
 		
