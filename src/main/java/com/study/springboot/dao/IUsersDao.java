@@ -9,7 +9,9 @@ import com.study.springboot.dto.UsersDto;
 @Mapper
 public interface IUsersDao {
 	
-	//회원 목록
-	public List<UsersDto> member_list();
-
+	public List<UsersDto> userList();
+	public UsersDto userDetail();
+	public int login(String users_id, String users_pw);
+	public int joinUser(UsersDto dto);
+	public int deleteUser(int users_idx);
 }

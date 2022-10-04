@@ -5,4 +5,25 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IProductDao">
+	<select id="productList" resultType="com.study.springboot.dto.ProductDto">
+		select * from product
+		<if test="param1 != ''">
+			where product_sort = #{param1}
+		</if>
+	</select>
+	
+	<select id="productDetail" resultType="com.study.springboot.dto.ProductDto">
+		select * from product where product_idx = #{param1}
+	</select>
+	
+	<insert id="insertProduct" parameterType="com.study.springboot.dto.ProductDto">
+		insert into product
+		values ( product_seq.nextval, #{product_name}, #{product_price},
+		#{product_sort}, #{product_explanation}, #{product_gram} )
+	</insert>
+	
+	<delete id="deleteProduct">
+	  DELETE FROM product
+	  WHERE product_idx=#{ param1 }
+	</delete>
 </mapper>

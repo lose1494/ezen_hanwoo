@@ -13,14 +13,14 @@
                 <tr>
                     <th> </th>
                     <th>상품명</th>
-                    <th>상품설명</th>
+                   <!--  <th>상품설명</th> -->
                     <th>가격</th>
                     <th> </th>
                 </tr>
                 <tr>
                     <td><img src="https://via.placeholder.com/80" alt=""></td>
                     <td>상품 이름 <br> <span>000원/100g</span></td>
-                    <td>상품에 관한 설명 들어갈 공간 더미 문구</td>
+                    <!-- <td>상품에 관한 설명 들어갈 공간 더미 문구</td> -->
                     <td>00,000원</td>
                     <td><input type="checkbox"></td>
                 </tr>

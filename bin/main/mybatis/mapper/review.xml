@@ -5,4 +5,28 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IReviewDao">
+
+	<select id="reviewList" resultType="com.study.springboot.dto.ReviewDto">
+		select * from product_review 
+		<where>
+			<if test="param1 == 'review_name'">
+				review_name = #{param2}
+			</if>
+			<if test="param1 == 'product_idx'">
+				product_idx = #{param2}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertReview" parameterType="com.study.springboot.dto.ReviewDto">
+		insert into product_review
+		values ( product_review_seq.nextval, #{review_name}, #{review_title}, 
+		#{review_content}, sysdate, #{review_star_rating}, #{product_idx} )
+	</insert>
+	
+	<delete id="deleteReview">
+	  DELETE FROM product_review
+	  WHERE review_idx=#{ param1 }
+	</delete>
+	
 </mapper>
