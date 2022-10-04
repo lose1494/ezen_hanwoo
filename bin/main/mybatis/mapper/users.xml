@@ -22,7 +22,7 @@
 		insert into ezen_users
 		values ( ezen_users_seq.nextval, #{users_id}, #{users_pw}, #{users_name},
 		#{users_email}, #{users_email_receive}, #{users_phone}, #{users_phone_receive}, 
-		#{users_birth_date}, #{users_point} )
+		#{users_birth_date} )
 	</insert>
 	
 	<delete id="deleteUser">

@@ -2,6 +2,13 @@ package com.study.springboot.dto;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderlistDto {
 	private int order_idx;
 	private int order_no;

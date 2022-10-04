@@ -1,5 +1,7 @@
 package com.study.springboot;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.study.springboot.dto.PointDto;
+import com.study.springboot.service.PointService;
 import com.study.springboot.service.UsersService;
 
 @Controller
 public class MyController_yerin {
 	
 	@Autowired private UsersService usersService;
+	@Autowired private PointService pointService;
 		
     //마이페이지
 	@RequestMapping("/mypage/mypage_main")
@@ -23,8 +28,14 @@ public class MyController_yerin {
 	}
 
 	@RequestMapping("/mypage/mypage_point")
-	public String mypage_point(Model model) {
+	public String mypage_point(Model model, HttpServletRequest request) {
+		
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		List<PointDto> pointList = pointService.pointList(users_id);
+		
+		model.addAttribute("pointList", pointList);
 		model.addAttribute("mainPage", "mypage/mypage_point.jsp");
+		
 		return "index";
 	}
 	

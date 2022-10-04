@@ -14,7 +14,7 @@ public class UsersService {
 	private	IUsersDao usersdao;
 	
 	public List<UsersDto> member_list() {
-		List<UsersDto> member_list = usersdao.member_list();
+		List<UsersDto> member_list = usersdao.userList();
 		return member_list;
 	}
 

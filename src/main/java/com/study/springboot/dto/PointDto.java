@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class One2oneDto {
-	private int one2one_idx;
-	private String one2one_name;
-	private String one2one_title;
-	private String one2one_content;
-	private Date one2one_date;
+public class PointDto {
+	private int point_idx;
+	private String point_users_id;
+	private Date point_start_date;
+	private int point;
+	private Date point_end_date;
+	private String point_content;
 }

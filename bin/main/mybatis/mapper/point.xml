@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.IPointDao">
+
+	<select id="pointList" resultType="com.study.springboot.dto.PointDto">
+		select * from point where point_users_id=#{param1}
+	</select>
+	
+	<select id="pointSum" resultType="_int">
+		select sum( point_point ) from point
+	</select>
+	
+	<insert id="insertPoint" parameterType="com.study.springboot.dto.PointDto">
+		insert into point
+		values ( point_seq.nextval, #{users_id}, sysdate, #{point_point}, 
+		sysdate+365, #{point_content})
+	</insert>
+	
+	<delete id="deletePoint">
+	  DELETE FROM point
+	  WHERE point_idx=#{ param1 }
+	</delete>
+	
+</mapper>

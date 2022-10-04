@@ -2,6 +2,13 @@ package com.study.springboot.dto;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class One2one_answerDto {
 	private int answer_idx;
 	private String answer_name;
