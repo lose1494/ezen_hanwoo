@@ -1,12 +1,20 @@
 package com.study.springboot;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.study.springboot.service.UsersService;
 
 @Controller
 public class MyController_yerin {
 	
+	@Autowired private UsersService usersService;
+		
     //마이페이지
 	@RequestMapping("/mypage/mypage_main")
 	public String mypage_main(Model model) {
@@ -105,5 +113,43 @@ public class MyController_yerin {
 	public String customer01(Model model) {
 		model.addAttribute("mainPage", "customer/customer01.jsp");
 		return "index";
+	}
+	
+	//로그인
+	@RequestMapping("/member/loginAction")
+	public String loginAction(@RequestParam("users_id") String users_id,
+							  @RequestParam("users_pw") String users_pw,
+							  HttpServletRequest request,
+								Model model) {
+		
+		int result = usersService.login(users_id, users_pw);
+		System.out.println("result:" + result);
+		
+		if( result == 1 ) {
+			System.out.println("alert:" + "로그인되었습니다.");
+			request.getSession().setAttribute("alert", "로그인되었습니다.");
+			request.getSession().setAttribute("users_id", users_id);
+			
+			return "redirect:/index"; 				 
+		}else {
+			System.out.println("alert:" + "로그인 실패하였습니다.");
+			
+			model.addAttribute("alert", "로그인 실패하였습니다.");
+			model.addAttribute("mainPage", "member/login.jsp");
+			
+			return "index"; //index.jsp 디스패치
+		}
+		 
+	}
+	
+	//로그아웃
+	@RequestMapping("/member/logoutAction")
+	public String logout(HttpServletRequest request, Model model) {
+		
+		request.getSession().invalidate();	
+		
+		request.getSession().setAttribute("alert", "로그아웃되었습니다.");
+		
+		return "redirect:/index";  
 	}
 }
