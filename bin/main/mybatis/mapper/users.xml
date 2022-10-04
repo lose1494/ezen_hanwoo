@@ -6,10 +6,6 @@
 
 <mapper namespace="com.study.springboot.dao.IUsersDao">
 
-	<select id="member_lsit" resultType="com.study.springboot.dto.UsersDto">
-		select * from ezen_users
-	</select>
-	
 	<select id="userList" resultType="com.study.springboot.dto.UsersDto">
 		select * from ezen_users
 	</select>
