@@ -107,13 +107,13 @@ display: block;
 
 
 /* 화살표 제거 */
-.dropdown-toggle::after { border: none; }
+/* .dropdown-toggle::after { border: none; } */
 /* 마우스오버시 팝업 */
-.dropdown:hover .dropdown-menu {
-    display: block;
+/* .dropdown:hover .dropdown-menu { */
+    /* display: block; */
     /* 팝업메뉴가 닫히지 않도록 */
-    margin-top: 0; 
-}
+    /* margin-top: 0;  */
+/* } */
 
 .header {
 	font-weight: bold;
@@ -133,11 +133,44 @@ display: block;
 .menu{
 	margin-left:auto;
 	font-size: 23px;
+  text-align: center;
 	/* color: rgb(198, 198, 198); */
 }
 .menu a:link, .menu a:hover, .menu a:visited {
 	/* color: rgb(198, 198, 198); */
 	margin: 5px 10px;
+}
+.menu span {
+  position: relative;
+  display : inline-block;
+}
+.dropMenu {
+  font-size: 16px;
+  width: 120px;
+  border: 1px solid rgb(173, 173, 173);
+  border-radius: 3px;
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.dropMenu a {
+  margin: 0;
+  display: block;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgb(173, 173, 173);
+}
+
+.dropMenu a:last-child {
+  border: none;
+}
+
+.dropMenu a:hover {
+  color: #969696;
+}
+
+.menu span:hover .dropMenu {
+  display: block;
 }
 
 .category {

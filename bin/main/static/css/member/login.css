@@ -1,9 +1,7 @@
-.header-top {
+.wrap {
     text-align: center;
-    margin-top: 100px;
-
-    
 }
+
 .box1{
     width:230pt; 
     height:30pt;
@@ -19,8 +17,8 @@
     border-radius: 4px;
     font-weight: bold;
 
-
 }
+
 .box3{
     font-size: 11px;
     margin: 10px;
@@ -30,7 +28,7 @@
     border-right: 2px solid rgb(210, 210, 210);
     padding-right: 25px;
 }
-span {
+.log_check span {
     margin: 0 45px;
 }
 p a {

@@ -5,4 +5,29 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IUsersDao">
+
+	<select id="userList" resultType="com.study.springboot.dto.UsersDto">
+		select * from ezen_users
+	</select>
+	
+	<select id="userDetail" resultType="com.study.springboot.dto.UsersDto">
+		select * from ezen_users where users_idx = #{param1}
+	</select>
+	
+	<select id="login" resultType="_int"> 
+		SELECT COUNT(*) FROM ezen_users WHERE users_id = #{param1} AND users_pw = #{param2} 
+	</select>
+	
+	<insert id="joinUser" parameterType="com.study.springboot.dto.UsersDto">
+		insert into ezen_users
+		values ( ezen_users_seq.nextval, #{users_id}, #{users_pw}, #{users_name},
+		#{users_email}, #{users_email_receive}, #{users_phone}, #{users_phone_receive}, 
+		#{users_birth_date}, #{users_point} )
+	</insert>
+	
+	<delete id="deleteUser">
+	  DELETE FROM ezen_users
+	  WHERE users_idx=#{ param1 }
+	</delete>
+	
 </mapper>

@@ -15,6 +15,9 @@ create table ezen_users(
 ​
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
+
+INSERT INTO ezen_users
+VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01', 5000);
 ​
 --상품
 drop table product;
@@ -22,7 +25,7 @@ create table product(
     product_idx number(4) primary key,
     product_name varchar2(20),
     product_price varchar2(20),
-    product_sort varchar2(20),
+    product_category varchar2(20),
     product_explanation varchar2(40),
     product_gram varchar2(20)
 );
@@ -39,8 +42,7 @@ create table product_qna(
     qna_date date,   
     qna_secret   number(1), --0: 비밀글 설정안함 1: 비밀글 설정
     qna_pw varchar2(20),
-    product_idx number(4),
-    users_idx    number(4)  
+    product_idx number(4), 
 );
 ​
 drop sequence product_qna_seq;​

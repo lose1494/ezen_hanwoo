@@ -78,6 +78,11 @@
 	text-align: center;
 }
 
+.member_table td{
+	height:70px;
+}
+
+
 .item_button{
 	margin-top: 50px;
 	margin-left: 800px;
@@ -107,4 +112,17 @@
 
 .select_list select{
 	height: 40px;
+}
+
+#main_text {
+	width:600px; 
+	height: 40px;
+}
+
+.member_var {
+	display:flex;
+	flex-direction: row;
+	width:900px;
+	justify-content: space-between;
+	margin-bottom:10px;
 }

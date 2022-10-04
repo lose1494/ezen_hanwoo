@@ -6,7 +6,14 @@
 
 <mapper namespace="com.study.springboot.dao.INoticeDao">
 
-	<select id="noticeList" resultType="com.study.springboot.dto.NoticeDto">
+	
+	<select id="admin_notice_list" resultType="com.study.springboot.dto.NoticeDto">
+		select * from Notice
+	</select>
+
+
+
+<!-- 	<select id="noticeList" resultType="com.study.springboot.dto.NoticeDto">
 		select * from Notice
 	</select>
 	
@@ -23,6 +30,6 @@
 	<delete id="deleteNotice">
 	  DELETE FROM Notice
 	  WHERE notice_idx=#{ param1 }
-	</delete>
+	</delete> -->
 	
 </mapper>

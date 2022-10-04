@@ -7,4 +7,8 @@ import com.study.springboot.dao.IReviewDao;
 public class ReviewService {
 	@Autowired
 	private	IReviewDao reviewdao;
+	
+	public list(String category, String param) {
+		
+	}
 }
