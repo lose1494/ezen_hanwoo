@@ -8,8 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/footer.css">
 
-<hr>
 <div class="footer">
+<hr>
   <div class="footer01"> 
     <div class="cs">
       <h6>고객센터</h6> 
@@ -39,11 +39,11 @@
       (공휴일 제외) 
     </div>
     <div class="return">
-    <h6>교환&환불</h6>
-    <br>
-    <b>반품주소</b>
-    <br>
-    경기도 의정부시 신흥로 258번길 25 해태프라자2층
+      <h6>교환&환불</h6>
+      <br>
+      <b>반품주소</b>
+      <br>
+      경기도 의정부시 신흥로 258번길 25 해태프라자2층
     </div>
   </div>
   
