@@ -116,7 +116,7 @@
 				<div class="gift1">
 				<a href="/">
 				<img alt="" src="/img/product/15만원세트.png"style="width:300px; height:230px;" class="product_img">
-				<div >
+				<div>
 					<h3>한우 구이용 세트</h3>
 					<p>150,000 &nbsp; (상세페이지 참조.)</p>
 					<p class="star2">★★★★★(0)</p>

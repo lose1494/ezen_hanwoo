@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/footer.css">
 
-<hr>
 <div class="footer">
+<hr>
   <div class="footer01"> 
     <div class="cs">
-      <h6>고객센터</h6> 
+      <h5>고객센터</h5> 
       <br>
       <h3>000-000-0000</h3>
       <p>
@@ -24,7 +24,7 @@
       </p>
     </div>
     <div class="bank">
-      <h6>배송안내</h6>
+      <h5>배송안내</h5>
       <br>
       <b>택배배송</b>
       <br>
@@ -39,11 +39,11 @@
       (공휴일 제외) 
     </div>
     <div class="return">
-    <h6>교환&환불</h6>
-    <br>
-    <b>반품주소</b>
-    <br>
-    경기도 의정부시 신흥로 258번길 25 해태프라자2층
+      <h5>교환&환불</h5>
+      <br>
+      <b>반품주소</b>
+      <br>
+      경기도 의정부시 신흥로 258번길 25 해태프라자2층
     </div>
   </div>
   
