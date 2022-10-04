@@ -7,7 +7,15 @@
 <mapper namespace="com.study.springboot.dao.IProduct_qnaDao">
 
 	<select id="qnaList" resultType="com.study.springboot.dto.Product_qnaDto">
-		select * from product_qna where
+		select * from product_qna 
+		<where>
+			<if test="param1 == 'qna_name'">
+				qna_name = #{param2}
+			</if>
+			<if test="param1 == 'product_idx'">
+				product_idx = #{param2}
+			</if>
+		</where>
 	</select>
 	
 	<insert id="insertQna" parameterType="com.study.springboot.dto.Product_qnaDto">

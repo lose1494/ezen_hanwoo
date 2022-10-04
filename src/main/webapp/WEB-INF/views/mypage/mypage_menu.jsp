@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <td><a href="/mypage/mypage_point">적립금</a></td>
-                <td><a href="#">장바구니</a></td>
+                <td><a href="/mypage/mypage_cart">장바구니</a></td>
                 <td><a href="/mypage/mypage_order">주문내역</a></td>
                 <td><a href="/mypage/mypage_one2one">1:1 문의</a></td>
                 <td><a href="/mypage/mypage_memberEdit">정보 수정</a></td>
