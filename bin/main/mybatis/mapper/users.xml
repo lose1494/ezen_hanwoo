@@ -5,4 +5,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IUsersDao">
+
+	<select id="member_lsit" resultType="com.study.springboot.dto.UsersDto">
+		select * from ezen_users
+	</select>
+
+
+
+
+
+
 </mapper>

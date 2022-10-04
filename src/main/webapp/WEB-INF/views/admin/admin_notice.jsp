@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<link rel="stylesheet" href="/css/admin/admin_notice.css">
+ 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<link rel="stylesheet" href="/css/admin/admin_notice.css">    
 <div class= "bg_admin text-center">
 <div>
 	<p id="title">관리자 페이지</p>
@@ -29,49 +30,48 @@
 	
 	<div class="admin_div">
 	<div class="select_list">
+	<form action="Notice_selectAction" method="post" id="notice_search">
 		<select>
-		<option>전체조회</option>
-		<option>카테고리</option>
-		<option>상품명</option>
-		
+		<option value="all">전체조회</option>
+		<option value="title">제목</option>
+		<option value="content">내용</option>
 		</select>
-	
-		<input type="text" id=main_text style="width:600px; height: 40px;">
-	 <img src=" " >
-	 
+	 <input type="text" id=main_text>
 	 <input type="submit" value="조회" class="notice_btn">
+	 </form>
 	 </div>	
 	 
-	 <form action="" >
-	 <p id="member_bar">공지 1건</p>
-	 <select class="member_select">
-		<option>최신순</option>
-		<option>오래된 순</option>
-			 
+	
+	<div class="member_var">
+	 <p id="member_bar">공지 <!-- $ { listCount } --> 건</p>
+	 <select class="member_select" id="sort">
+		<option id="asc">최신순</option>
+		<option id="desc">오래된 순</option> 
 	 </select>
+	 </div>
+	 
 	 <table class="member_table" >
 	 <tr>
 	 	<th>번호</th>
-	 	<th>날짜</th>
 	 	<th>제목</th>
+	 	<th>내용</th>
+	 	<th>날짜</th>
 	 	
 	 </tr>
-	 
+	 	<c:forEach var="dto" items ="${ admin_notice_list }" varStatus="status" > 
 	 <tr>
-	 	<td>15</td>
-	 	<td>2022-09-20</td>
-	 	<td>공지사항 입니다.</td>
+	 	<td> ${ dto.notice_idx} </td>
+	 	<td> ${ dto.notice_title } </td>
+	 	<td> ${ dto.notice_content }</td>
+		<td> <fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /> </td>
 	 	<td> <input type="button" value="수정" id="sending_mail" class="notice_btn" onclick="location.href='/admin/admin_noticewrite'" style="cursor:pointer;"> </td>
 	 	<td> <input type="button" value="삭제" id="sending_mail" class="notice_btn"></td>
 	 </tr>
+	 
+	 	</c:forEach>
 	 </table>
-	 </form>
+
 	 <button class="item_button notice_btn"  onclick="location.href='/admin/admin_noticewrite'" style="cursor:pointer;">글쓰기</button>
 	 </div>
 	 
-	      <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
 </div>	
