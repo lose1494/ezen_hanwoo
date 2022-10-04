@@ -34,7 +34,7 @@
     
     
     <div class="product">
-<div class="img_best">
+		<div class="img_best">
 	<div class="best1">
 			<a href="/" >
 				<img alt="" src="/img/product/등심3.png" style="width:300px;" class="product_img" >
@@ -103,5 +103,8 @@
 				</div>
 				  </div>
 				  </div>  
+	  </div>
+  </div>
+</div>
 </div>
 </div>
