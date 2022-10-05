@@ -69,7 +69,7 @@
 					<div class="dropMenu">
 						<a href="/Notice/notice">공지사항</a>
 						<a href="/Notice/faq">자주하는 질문</a>
-						<a href="/customer/customer01">1:1 문의</a>
+						<a href="/customer/one2one">1:1 문의</a>
 					</div>
 				</span>
 			</div>

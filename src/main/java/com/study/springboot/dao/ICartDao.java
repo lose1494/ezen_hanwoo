@@ -11,5 +11,5 @@ public interface ICartDao {
 	public List<CartDto> cartList(String users_id);
 	public int cartCount(String users_id);
 	public int insertCart(CartDto dto);
-	public int deleteCart(String users_id);
+	public int deleteCart(int users_idx);
 }

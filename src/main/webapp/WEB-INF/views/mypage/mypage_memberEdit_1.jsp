@@ -17,7 +17,7 @@
                      </tr>
                      <tr>
                      	<td></td>
-                     	<td><input type="text" class="readonly" placeholder="아이디" readonly></td>
+                     	<td><input type="text" class="readonly" value="${ member.users_id }" readonly></td>
                    	 </tr>
                      <tr>
                      	<td colspan="2">

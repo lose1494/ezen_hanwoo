@@ -5,14 +5,21 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.PointDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
+import com.study.springboot.service.One2oneService;
 import com.study.springboot.service.PointService;
 import com.study.springboot.service.UsersService;
 import com.study.springboot.service.WishlistService;
@@ -24,6 +31,7 @@ public class MyController_yerin {
 	@Autowired private PointService pointService;
 	@Autowired private CartService cartService;
 	@Autowired private WishlistService wishlistService;
+	@Autowired private One2oneService one2oneService;
 		
     //마이페이지
 	@RequestMapping("/mypage/mypage_main")
@@ -82,8 +90,15 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("/mypage/mypage_one2one")
-	public String mypage_one2one(Model model) {
+	public String mypage_one2one(Model model, HttpServletRequest request) {
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		UsersDto member = usersService.userDetail(users_id);
+		String one2one_name = member.getUsers_name();
+		
+		List<One2oneDto> one2oneList = one2oneService.one2oneList(one2one_name);
+		model.addAttribute("one2oneList", one2oneList);
 		model.addAttribute("mainPage", "mypage/mypage_one2one.jsp");
+
 		return "index";
 	}
 	
@@ -101,12 +116,32 @@ public class MyController_yerin {
 	
 	@RequestMapping("/mypage/mypage_memberEdit")
 	public String mypage_memberEdit(Model model) {
+		
 		model.addAttribute("mainPage", "mypage/mypage_memberEdit.jsp");
 		return "index";
 	}
 	
+	@RequestMapping("/mypage/password")
+	@ResponseBody
+	public String password(@RequestParam("pw") String pw,
+						   HttpServletRequest request, Model model) {
+		String users_pw = (String) request.getSession().getAttribute("users_pw");
+		System.out.println(users_pw);
+		System.out.println(pw);
+		if( !pw.equals(users_pw) ) {
+			return "<script>alert('비밀번호가 올바르지 않습니다.');history.back();</script>";
+		}else {
+			return "<script>location.href='/mypage/mypage_memberEdit_1';</script>";
+		}
+	}
+	
 	@RequestMapping("/mypage/mypage_memberEdit_1")
-	public String mypage_memberEdit_1(Model model) {
+	public String mypage_memberEdit_1(HttpServletRequest request, Model model) {
+		
+		request.getSession().getAttribute("users_id");
+		UsersDto member = usersService.userDetail(users_id);
+		
+		model.addAttribute("member", member);
 		model.addAttribute("mainPage", "mypage/mypage_memberEdit_1.jsp");
 		return "index";
 	}
@@ -144,11 +179,75 @@ public class MyController_yerin {
 	}
 	
 	//문의
-	@RequestMapping("/customer/customer01")
-	public String customer01(Model model) {
-		model.addAttribute("mainPage", "customer/customer01.jsp");
+	@RequestMapping("/customer/one2one")
+	public String one2one(Model model, HttpServletRequest request) {
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		UsersDto member = usersService.userDetail(users_id);
+		model.addAttribute("member", member);
+		model.addAttribute("mainPage", "customer/one2one.jsp");
 		return "index";
 	}
+	
+	//파일업로드 설정
+	
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(200000000); //200MB
+		multipartResolver.setMaxInMemorySize(200000000);
+		multipartResolver.setDefaultEncoding("utf-8");
+		return multipartResolver;
+	}
+	
+	
+	 @RequestMapping(value="/customer/one2oneWrite", method=RequestMethod.POST) 
+	 @ResponseBody
+	 public String one2oneWrite(@RequestParam("one2one_name") String one2one_name,
+			 					@RequestParam("one2one_title") String one2one_title,
+			 					@RequestParam("one2one_content") String one2one_content,
+			 					@RequestParam(value="image", required=false) MultipartFile file,
+			 					@RequestParam(value="one2one_email", required=false) String one2one_email,
+			 					@RequestParam(value="one2one_phone", required=false) String one2one_phone,
+			 					One2oneDto dto,
+			 					Model model) {
+
+		 dto.setOne2one_name(one2one_name);
+		 dto.setOne2one_title(one2one_title);
+		 dto.setOne2one_content(one2one_content);
+		 dto.setOne2one_email(one2one_email);
+		 dto.setOne2one_phone(one2one_phone);
+		 
+		 if( file.getOriginalFilename() != "" ) {
+			 String image = one2oneService.restore(file);
+			 System.out.println(image);
+			 if(image != null) {
+				 dto.setOne2one_image(image);
+			 }
+		 }		 	 
+			 	 
+		 int result = one2oneService.insertOne2one(dto);
+		 
+		 if( result != 1 ) {
+				System.out.println("글작성을 실패했습니다.");
+				return "<script>alert('작성 실패');history.back();</script>";
+			}else {
+				System.out.println("글작성을 성공했습니다.");
+				// "/list"로 리다이렉트함.
+				return "<script>alert('문의가 접수되었습니다.');location.href='/mypage/mypage_one2one';</script>";
+			}
+		 
+	 }
+	 
+	@RequestMapping("/customer/one2oneView")
+	public String one2oneView(@RequestParam("one2one_idx") int one2one_idx,
+							Model model) {
+		One2oneDto dto = one2oneService.one2oneDetail(one2one_idx);
+		model.addAttribute("dto", dto);
+		model.addAttribute("mainPage", "customer/one2one_view.jsp");
+		
+		return "index";
+	}
+	 
 	
 	//로그인
 	@RequestMapping("/member/loginAction")
@@ -164,6 +263,7 @@ public class MyController_yerin {
 			System.out.println("alert:" + "로그인되었습니다.");
 			request.getSession().setAttribute("alert", "로그인되었습니다.");
 			request.getSession().setAttribute("users_id", users_id);
+			request.getSession().setAttribute("users_pw", users_pw);
 			
 			return "redirect:/index"; 				 
 		}else {

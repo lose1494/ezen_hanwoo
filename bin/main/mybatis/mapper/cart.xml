@@ -21,7 +21,7 @@
 	
 	<delete id="deleteCart">
 	  DELETE FROM cart
-	  WHERE cart_users_id=#{ param1 }
+	  WHERE cart_users_idx=#{ param1 }
 	</delete>
 	
 </mapper>

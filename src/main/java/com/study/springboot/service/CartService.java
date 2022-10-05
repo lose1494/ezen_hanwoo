@@ -28,8 +28,8 @@ public class CartService {
 		return insertCart;
 	}
 	
-	public int deleteCart(String users_id) {
-		int deleteCart = cartdao.deleteCart(users_id);
+	public int deleteCart(int users_idx) {
+		int deleteCart = cartdao.deleteCart(users_idx);
 		return deleteCart;
 	}
 }

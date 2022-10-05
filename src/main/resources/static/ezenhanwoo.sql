@@ -103,13 +103,17 @@ drop sequence Notice_seq;​
 create sequence Notice_seq;
 ​
 --1:1문의
-create table one2one;
+drop table one2one;
 create table one2one(
     one2one_idx number(4) primary key,
     one2one_name varchar2(20),
     one2one_title varchar2(20),
     one2one_content varchar2(300),
-    one2one_date date  
+    one2one_image varchar2(60),
+    one2one_email varchar2(20),
+    one2one_phone varchar2(20),
+    one2one_date date,
+    one2one_status varchar(20)
 );
 
 drop sequence one2one_seq;​
@@ -128,7 +132,7 @@ create table one2one_answer(
 
 drop sequence one2one_answer_seq;​
 create sequence one2one_answer_seq;
-​
+
 --주문
 drop table orderlist;
 create table orderlist(
