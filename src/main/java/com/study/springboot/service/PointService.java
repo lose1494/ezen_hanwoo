@@ -17,4 +17,9 @@ public class PointService {
 		List<PointDto> pointList = pointdao.pointList(users_id);
 		return pointList;
 	}
+	
+	public int pointSum() {
+		int pointSum = pointdao.pointSum();
+		return pointSum;
+	}
 }

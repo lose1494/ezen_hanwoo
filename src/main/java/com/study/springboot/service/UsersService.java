@@ -18,6 +18,10 @@ public class UsersService {
 		return member_list;
 	}
 
+	public UsersDto userDetail( String users_id ) {
+		UsersDto userDetail = usersdao.userDetail(users_id);
+		return userDetail;
+	}
 	
 	public int login(String users_id, String users_pw) {
 		int result = 0;

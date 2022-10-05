@@ -8,10 +8,10 @@
 
 	<div class="wrap">
         <div class="mainMember">
-                <div>OOO회원님</div>
-                <div>적립금 <br> <span>0000원</span></div>
-                <div>장바구니 <br> <span>0건</span></div>
-                <div>관심상품 <br> <span>0건</span></div>
+                <div>${ member.users_name } <span>회원님</span></div>
+                <div>적립금 <br> <span>${ pointSum }원</span></div>
+                <div>장바구니 <br> <span>${ cartCount }건</span></div>
+                <div>관심상품 <br> <span>${ wishCount }건</span></div>
         </div>
         <div class="mainOrderList">
             <div>최근 주문내역 <span>*10건까지만 표시됩니다.</span></div>

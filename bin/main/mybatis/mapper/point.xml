@@ -7,7 +7,7 @@
 <mapper namespace="com.study.springboot.dao.IPointDao">
 
 	<select id="pointList" resultType="com.study.springboot.dto.PointDto">
-		select * from point where point_users_id=#{param1}
+		select * from point where point_users_id=#{param1} order by point_start_date desc
 	</select>
 	
 	<select id="pointSum" resultType="_int">

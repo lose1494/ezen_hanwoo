@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="userDetail" resultType="com.study.springboot.dto.UsersDto">
-		select * from ezen_users where users_idx = #{param1}
+		select * from ezen_users where users_id = #{param1}
 	</select>
 	
 	<select id="login" resultType="_int"> 

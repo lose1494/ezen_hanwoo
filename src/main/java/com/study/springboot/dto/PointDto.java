@@ -13,7 +13,7 @@ public class PointDto {
 	private int point_idx;
 	private String point_users_id;
 	private Date point_start_date;
-	private int point;
+	private int point_point;
 	private Date point_end_date;
 	private String point_content;
 }

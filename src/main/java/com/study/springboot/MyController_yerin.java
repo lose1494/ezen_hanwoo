@@ -11,20 +11,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.study.springboot.dto.PointDto;
+import com.study.springboot.dto.UsersDto;
+import com.study.springboot.service.CartService;
 import com.study.springboot.service.PointService;
 import com.study.springboot.service.UsersService;
+import com.study.springboot.service.WishlistService;
 
 @Controller
 public class MyController_yerin {
 	
 	@Autowired private UsersService usersService;
 	@Autowired private PointService pointService;
+	@Autowired private CartService cartService;
+	@Autowired private WishlistService wishlistService;
 		
     //마이페이지
 	@RequestMapping("/mypage/mypage_main")
-	public String mypage_main(Model model) {
-		model.addAttribute("mainPage", "mypage/mypage_main.jsp");
-		return "index";
+	public String mypage_main(Model model, HttpServletRequest request) {
+		
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		if(users_id == null) {
+			model.addAttribute("alert", "로그인이 필요합니다.");
+			return "redirect:/member/login";
+		} else {
+			UsersDto member = usersService.userDetail(users_id);
+			int pointSum = pointService.pointSum();
+			int cartCount = cartService.cartCount(users_id);
+			int wishCount = wishlistService.wishCount(users_id);
+			
+			model.addAttribute("member", member);
+			model.addAttribute("pointSum", pointSum);
+			model.addAttribute("cartCount", cartCount);
+			model.addAttribute("wishCount", wishCount);
+			model.addAttribute("mainPage", "mypage/mypage_main.jsp");
+			return "index";
+		}		
 	}
 
 	@RequestMapping("/mypage/mypage_point")
@@ -33,6 +54,9 @@ public class MyController_yerin {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		List<PointDto> pointList = pointService.pointList(users_id);
 		
+		int sum = pointService.pointSum();
+		
+		model.addAttribute("pointSum", sum);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("mainPage", "mypage/mypage_point.jsp");
 		
