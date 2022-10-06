@@ -74,14 +74,16 @@
 				</span>
 			</div>
 		</div>    
+		
 		<div class="category">
 
-				<a href="/product/product01">선물세트</a>
+				<a href="/product/product01?product_category=선물세트">선물세트</a>
 
-				<a href="/product/product01">구이용</a>
+				<a href="/product/product01?product_category=구이용">구이용</a>
 
-				<a href="/product/product01">국거리</a>
+				<a href="/product/product01?product_category=국거리">국거리</a>
 
-				<a href="/product/product01">조리용</a>
+				<a href="/product/product01?product_category=조리용">조리용</a>
 		</div>
+		
 	</div>

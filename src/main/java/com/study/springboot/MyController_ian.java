@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.study.springboot.dto.NoticeDto;
+import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.NoticeService;
+import com.study.springboot.service.ProductService;
 import com.study.springboot.service.UsersService;
 
 
@@ -23,7 +25,8 @@ public class MyController_ian {
 	
 	@Autowired
 	private UsersService usersService;
-
+	@Autowired
+	private ProductService productservice;
 	
 	@RequestMapping("/")
 	public String root() {
@@ -39,14 +42,20 @@ public class MyController_ian {
 		if( alertMessage != null) {
 			request.setAttribute("alert", alertMessage); 
 		}
-		
+		List<ProductDto> productlist = productservice.productlist(null);
+		model.addAttribute("productlist", productlist);
+
 		model.addAttribute("mainPage", "main.jsp");
 		return "index"; //index.jsp 디스패치 
 	}
 	
 	@RequestMapping("/product/product01")
 	public String product01(HttpServletRequest request, Model model) {
-		
+		String category = request.getParameter("product_category");
+		System.out.println(category);
+		List<ProductDto> productlist = productservice.productlist(category);
+		model.addAttribute("category", category);
+		model.addAttribute("productlist", productlist);
 		model.addAttribute("mainPage", "product/product01.jsp");
 		return "index";
 	}
