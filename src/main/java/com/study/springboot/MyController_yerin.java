@@ -146,6 +146,38 @@ public class MyController_yerin {
 		return "index";
 	}
 	
+	@RequestMapping("/mypage/userUpdate")
+	@ResponseBody
+	public String userUpdate(@RequestParam("id") String id,
+							 @RequestParam("pw") String pw,
+							 @RequestParam("email") String email,
+							 @RequestParam("phone") String phone,
+							 @RequestParam("address1") String address1,
+							 @RequestParam("address2") String address2,
+							 @RequestParam("address3") String address3,
+							 UsersDto dto,
+							 HttpServletRequest request) {
+		dto.setUsers_id(id);
+		dto.setUsers_pw(pw);
+		dto.setUsers_email(email);
+		dto.setUsers_phone(phone);
+		dto.setUsers_address1(address1);
+		dto.setUsers_address2(address2);
+		dto.setUsers_address3(address3);
+		System.out.println(pw);
+		
+		int result = usersService.updateUser(dto);
+		if( result != 1 ) {
+			System.out.println("정보수정 실패");
+			return "<script>alert('변경에 실패했습니다.');history.back();</script>";
+		}else {
+			System.out.println("정보 변경 성공");
+			request.getSession().setAttribute("users_pw", pw);
+			return "<script>alert('회원정보가 변경되었습니다.');"
+					+ "location.href='/mypage/mypage_memberEdit';</script>";
+		}	
+	}
+	
 	@RequestMapping("/mypage/mypage_addressManagement")
 	public String mypage_addressManagement(Model model) {
 		model.addAttribute("mainPage", "mypage/mypage_addressManagement.jsp");
@@ -156,6 +188,24 @@ public class MyController_yerin {
 	public String mypage_memberWithdrawal(Model model) {
 		model.addAttribute("mainPage", "mypage/mypage_memberWithdrawal.jsp");
 		return "index";
+	}
+	
+	@RequestMapping("/mypage/userDelete")
+	public String userDelete(@RequestParam("pw") String pw,
+							 HttpServletRequest request,
+							 Model model) {
+		String users_id = (String)request.getSession().getAttribute("users_id");
+		int result = usersService.deleteUser(users_id, pw);
+		if( result != 1 ) {
+			System.out.println("탈퇴 실패");
+			return "<script>alert('탈퇴에 실패했습니다.');history.back();</script>";
+		}else {
+			System.out.println("회원 탈퇴 성공");
+			request.getSession().setAttribute("alert", "회원 탈퇴가 완료되었습니다.");
+			model.addAttribute("mainPage", "main.jsp");
+			return "index";
+		}	
+		
 	}
 
 	//상품 상세

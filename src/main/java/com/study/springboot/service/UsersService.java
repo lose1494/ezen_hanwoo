@@ -30,4 +30,19 @@ public class UsersService {
 				
 		return result;
 	}
+	
+	public int joinUser(UsersDto dto) {
+		int userJoin = usersdao.joinUser(dto);
+		return userJoin;
+	}
+	
+	public int updateUser(UsersDto dto) {
+		int userUpdate = usersdao.updateUser(dto);
+		return userUpdate;
+	}
+	
+	public int deleteUser(String users_id, String users_pw) {
+		int userDelete = usersdao.deleteUser(users_id, users_pw);
+		return userDelete;
+	}
 }
