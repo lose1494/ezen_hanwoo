@@ -162,11 +162,11 @@ a, a:link, a:hover {
   transition: .5s ease;
   opacity: 0;
   position: absolute;
-  top: 35%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  
+  width: 50%;
   
 }
 
@@ -187,13 +187,23 @@ a, a:link, a:hover {
   padding: 16px 32px;
   display:flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-end;
   
 }
-.icon_img1{
-	width: 	140px;
+.best .text .icon_img1{
+	width: 	40px;
+	padding: 0;
+	margin: 0;
+	
 }
 .gift1 .icon_img1, .product1 .icon_img1, .product2 .icon_img1, .product3 .icon_img1, .product4 .icon_img1, .product5 .icon_img1, .product6 .icon_img1
 , .product7 .icon_img1, .product8 .icon_img1, .product9 .icon_img1{
 	padding: 50px;
+}
+
+.best:not(.new) .middle {
+	width: 70%;
+	height: 75px;
+	margin-top: 35px;
 }
