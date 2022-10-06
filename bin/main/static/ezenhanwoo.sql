@@ -1,4 +1,4 @@
---íšŒì›
+--È¸¿ø
 drop table ezen_users;
 create table ezen_users(
     users_idx       number(4) primary key,
@@ -6,22 +6,19 @@ create table ezen_users(
     users_pw     varchar2(20),
     users_name   varchar2(20),
     users_email   varchar2(100),
-    users_email_receive   number(1),	--0: ë¹„ìˆ˜ì‹  1: ìˆ˜ì‹    
+    users_email_receive   number(1),	--0: ºñ¼ö½Å 1: ¼ö½Å
     users_phone         varchar2(20),
-    users_phone_receive   number(1),	--0: ë¹„ìˆ˜ì‹  1: ìˆ˜ì‹ 
+    users_phone_receive   number(1),	--0: ºñ¼ö½Å 1: ¼ö½Å
     users_birth_date      date,
     users_address1 varchar(20),
     users_address2 varchar(100),
     users_address3 varchar(100)
 );
-
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
-
-INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date) 
-VALUES (ezen_users_seq.nextval, 'hong', '1234', 'í™ê¸¸ë™', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01');
-
---ìƒí’ˆ
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date)
+VALUES (ezen_users_seq.nextval, 'hong', '1234', 'È«±æµ¿', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01');
+--»óÇ°
 drop table product;
 create table product(
     product_idx number(4) primary key,
@@ -31,56 +28,49 @@ create table product(
     product_category varchar2(20),
     product_gram varchar2(20),
     product_packaging varchar2(20),
-    product_explanation varchar2(60)   
+    product_explanation varchar2(60)
 );
-drop sequence product_seq;â€‹
+drop sequence product_seq;
 create sequence product_seq;
-â€‹
---ìƒí’ˆ ë¬¸ì˜
+--»óÇ° ¹®ÀÇ
 drop table product_qna;
 create table product_qna(
     qna_idx number(4) primary key,
     qna_name varchar2(20),
     qna_title varchar2(20),
     qna_content varchar2(300),
-    qna_date date,   
-    qna_secret   number(1), --0: ë¹„ë°€ê¸€ ì„¤ì •ì•ˆí•¨ 1: ë¹„ë°€ê¸€ ì„¤ì •
+    qna_date date,
+    qna_secret   number(1), --0: ºñ¹Ğ±Û ¼³Á¤¾ÈÇÔ 1: ºñ¹Ğ±Û ¼³Á¤
     qna_pw varchar2(20),
     qna_status varchar2(20),
     product_idx number(4)
 );
-
-drop sequence product_qna_seq;â€‹
+drop sequence product_qna_seq;
 create sequence product_qna_seq;
-
---ìƒí’ˆ ë¬¸ì˜ ë‹µë³€
+--»óÇ° ¹®ÀÇ ´äº¯
 drop table product_qna_reply;
 create table product_qna_reply(
     reply_idx number(4) primary key,
     reply_name varchar2(20),
     reply_content varchar2(300),
-    reply_date date,   
+    reply_date date,
     qna_idx number(4)
 );
-
-drop sequence product_qna_reply_seq;â€‹
+drop sequence product_qna_reply_seq;
 create sequence product_qna_reply_seq;
-â€‹
---ìƒí’ˆ ë¦¬ë·°
+--»óÇ° ¸®ºä
 drop table product_review;
 create table product_review(
     review_idx number(4) primary key,
     review_name varchar2(20),
     review_title varchar2(20),
     review_content varchar2(300),
-    review_date date, 
+    review_date date,
     review_star_rating number(4),
     product_idx number(4),
 );
-
 drop sequence product_review_seq;
 create sequence product_review_seq;
-â€‹
 --FAQ
 drop table FAQ;
 create table FAQ(
@@ -91,21 +81,18 @@ create table FAQ(
 );
 drop sequence FAQ_seq;
 create sequence FAQ_seq;
-â€‹
---ê³µì§€ì‚¬í•­
+--°øÁö»çÇ×
 drop table Notice;
 create table Notice(
     notice_idx number(4) primary key,
     notice_name varchar2(20),
     notice_title varchar2(20),
     notice_content varchar2(300),
-    notice_date date    
+    notice_date date
 );
-
-drop sequence Notice_seq;â€‹
+drop sequence Notice_seq;
 create sequence Notice_seq;
-â€‹
---1:1ë¬¸ì˜
+--1:1¹®ÀÇ
 drop table one2one;
 create table one2one(
     one2one_idx number(4) primary key,
@@ -118,25 +105,21 @@ create table one2one(
     one2one_date date,
     one2one_status varchar(20)
 );
-
-drop sequence one2one_seq;â€‹
+drop sequence one2one_seq;
 create sequence one2one_seq;
-â€‹
---1:1ë¬¸ì˜ ë‹µë³€
+--1:1¹®ÀÇ ´äº¯
 drop table one2one_answer;
 create table one2one_answer(
     answer_idx number(4) primary key,
     answer_name varchar2(20),
     answer_title varchar2(20),
     answer_content varchar2(300),
-    answer_date date, 
+    answer_date date,
     one2one_answer_idx number(4)
 );
-
-drop sequence one2one_answer_seq;â€‹
+drop sequence one2one_answer_seq;
 create sequence one2one_answer_seq;
-
---ì£¼ë¬¸
+--ÁÖ¹®
 drop table orderlist;
 create table orderlist(
 order_idx number(4) primary key,
@@ -151,19 +134,16 @@ order_address2 varchar(100),
 order_address3 varchar(100),
 order_phone number(20)
 );
-
-drop sequence orderlist_seq;â€‹
+drop sequence orderlist_seq;
 create sequence orderlist_seq;
-
---ì£¼ë¬¸ ìƒì„¸
+--ÁÖ¹® »ó¼¼
 drop table orderDetail;
 create table orderDetail(
 detail_idx number(4) primary key,
 order_idx number(4),
 prouct_idx number(4)
 );
-â€‹
---ì¥ë°”êµ¬ë‹ˆ
+--Àå¹Ù±¸´Ï
 drop table cart;
 create table cart(
 cart_idx number(4) primary key,
@@ -171,11 +151,9 @@ cart_users_id varchar(20),
 cart_product_name varchar(20),
 cart_count number(4)
 );
-
 drop sequence cart_seq;
 create sequence cart_seq;
-â€‹
---ê´€ì‹¬í’ˆëª©
+--°ü½ÉÇ°¸ñ
 drop table wishlist;
 create table wishlist(
 list_idx number(4) primary key,
@@ -183,11 +161,9 @@ list_users_id varchar(20),
 list_product_name varchar(20),
 list_count number(4)
 );
-
-drop sequence wishlist_seq;â€‹
+drop sequence wishlist_seq;
 create sequence wishlist_seq;
-
---ì ë¦½ê¸ˆ
+--Àû¸³±İ
 drop table point;
 create table point(
 point_idx number(4) primary key,
@@ -197,14 +173,10 @@ point_point number(8),
 point_end_date date,
 point_content varchar(60)
 );
-
-drop sequence point_seq;â€‹
+drop sequence point_seq;
 create sequence point_seq;
-
 insert into point
-values( point_seq.nextval, 'hong', sysdate, +5000, sysdate+365, 'íšŒì›ê°€ì…');
-
+values( point_seq.nextval, 'hong', sysdate, +5000, sysdate+365, 'È¸¿ø°¡ÀÔ');
 insert into point
-values( point_seq.nextval, 'hong', sysdate, +500, sysdate+365, 'í…ŒìŠ¤íŠ¸');
-
+values( point_seq.nextval, 'hong', sysdate, +500, sysdate+365, 'Å×½ºÆ®');
 commit;
