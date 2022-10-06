@@ -43,7 +43,7 @@ public class MyController_yerin {
 			return "redirect:/member/login";
 		} else {
 			UsersDto member = usersService.userDetail(users_id);
-			int pointSum = pointService.pointSum();
+			int pointSum = pointService.pointSum(users_id);
 			int cartCount = cartService.cartCount(users_id);
 			int wishCount = wishlistService.wishCount(users_id);
 			
@@ -62,8 +62,8 @@ public class MyController_yerin {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		List<PointDto> pointList = pointService.pointList(users_id);
 		
-		int sum = pointService.pointSum();
-		
+		int sum = pointService.pointSum(users_id);
+
 		model.addAttribute("pointSum", sum);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("mainPage", "mypage/mypage_point.jsp");
@@ -190,20 +190,22 @@ public class MyController_yerin {
 		return "index";
 	}
 	
+	//회원탈퇴
 	@RequestMapping("/mypage/userDelete")
+	@ResponseBody
 	public String userDelete(@RequestParam("pw") String pw,
 							 HttpServletRequest request,
 							 Model model) {
 		String users_id = (String)request.getSession().getAttribute("users_id");
 		int result = usersService.deleteUser(users_id, pw);
-		if( result != 1 ) {
+		int point = pointService.deletePoint(users_id);
+		if( result == 1 && point == 1 ) {
+			System.out.println("회원 탈퇴 성공");
+			request.getSession().invalidate();
+			return "<script>alert('회원 탈퇴가 완료되었습니다.');location.href='/index';</script>";
+		}else {
 			System.out.println("탈퇴 실패");
 			return "<script>alert('탈퇴에 실패했습니다.');history.back();</script>";
-		}else {
-			System.out.println("회원 탈퇴 성공");
-			request.getSession().setAttribute("alert", "회원 탈퇴가 완료되었습니다.");
-			model.addAttribute("mainPage", "main.jsp");
-			return "index";
 		}	
 		
 	}

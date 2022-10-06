@@ -2,7 +2,7 @@
 drop table ezen_users;
 create table ezen_users(
     users_idx       number(4) primary key,
-    users_id      varchar2(20),
+    users_id      varchar2(20) UNIQUE,
     users_pw     varchar2(20),
     users_name   varchar2(20),
     users_email   varchar2(100),
@@ -20,6 +20,9 @@ create sequence ezen_users_seq;
 
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date)
 VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01');
+
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
+VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
 
 --상품
 drop table product;

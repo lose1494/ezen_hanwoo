@@ -9,7 +9,7 @@ import com.study.springboot.dto.PointDto;
 @Mapper
 public interface IPointDao {
 	public List<PointDto> pointList(String point_users_id);
-	public int pointSum();
+	public int pointSum(String point_users_id);
 	public int insertPoint(PointDto dto);
-	public int deletePoint();
+	public int deletePoint(String point_users_id);
 }

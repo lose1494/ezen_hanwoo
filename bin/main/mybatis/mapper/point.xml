@@ -13,7 +13,8 @@
 	</select>
 	
 	<select id="pointSum" resultType="_int">
-		select sum( point_point ) from point
+		SELECT NVL(SUM_DATA, 0)FROM 
+		(SELECT SUM(point_point) SUM_DATA FROM point WHERE point_users_id=#{param1})
 	</select>
 	
 	<insert id="insertPoint" parameterType="com.study.springboot.dto.PointDto">
@@ -24,7 +25,7 @@
 	
 	<delete id="deletePoint">
 	  DELETE FROM point
-	  WHERE point_idx=#{ param1 }
+	  WHERE point_users_id=#{ param1 }
 	</delete>
 	
 </mapper>

@@ -18,8 +18,18 @@ public class PointService {
 		return pointList;
 	}
 	
-	public int pointSum() {
-		int pointSum = pointdao.pointSum();
+	public int pointSum(String users_id) {
+		int pointSum = pointdao.pointSum(users_id);
 		return pointSum;
+	}
+	
+	public int insertPoint(PointDto dto) {
+		int insertPoint = pointdao.insertPoint(dto);
+		return insertPoint;
+	}
+	
+	public int deletePoint(String users_id) {
+		int deletePoint = pointdao.deletePoint(users_id);
+		return deletePoint;
 	}
 }
