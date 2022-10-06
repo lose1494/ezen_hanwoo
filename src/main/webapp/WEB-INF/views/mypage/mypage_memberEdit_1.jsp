@@ -16,15 +16,15 @@
                     </tr>
                     <tr>
                         <td>아이디</td>
-                        <td><input type="text" class="readonly" value="${ member.users_id }" readonly></td>
+                        <td><input type="text" name="id" class="readonly" value="${ member.users_id }" readonly></td>
                     </tr>
                     <tr>
                         <td>이름</td>
-                        <td><input type="text" class="readonly" value="${ member.users_name }" readonly></td>
+                        <td><input type="text" name="name" class="readonly" value="${ member.users_name }" readonly></td>
                     </tr>
                     <tr>
                         <td>비밀번호</td>
-                        <td><input type="password" placeholder="비밀번호"></td>
+                        <td><input type="password" name="pw" placeholder="비밀번호"></td>
                     </tr>
                     <tr>
                         <td>비밀번호 확인</td>
@@ -32,12 +32,12 @@
                     </tr>
                     <tr>
                         <td>이메일</td>
-                        <td><input type="text" value="${ member.users_email }"></td>
+                        <td><input type="text" name="email" value="${ member.users_email }"></td>
                     </tr>
                     
                     <tr>
                         <td>전화번호</td>
-                        <td><input type="text" value="${ member.users_phone }"></td>
+                        <td><input type="text" name="phone" value="${ member.users_phone }"></td>
                     </tr>
                     <tr>
                         <td>주소</td>
