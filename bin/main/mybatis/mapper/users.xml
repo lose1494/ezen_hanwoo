@@ -38,7 +38,8 @@
 	
 	<delete id="deleteUser">
 	  DELETE FROM ezen_users
-	  WHERE users_idx=#{ param1 }
+	  WHERE users_id=#{ param1 }
+	  AND users_pw=#{ param2 }
 	</delete>
 	
 </mapper>

@@ -1,7 +1,6 @@
 package com.study.springboot.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,6 +13,6 @@ public interface IUsersDao {
 	public UsersDto userDetail(String users_id);
 	public int login(String users_id, String users_pw);
 	public int joinUser(UsersDto dto);
-	public int updateUser(Map<String,Object> map);
-	public int deleteUser(int users_idx);
+	public int updateUser(UsersDto dto);
+	public int deleteUser(String users_id, String users_pw);
 }
