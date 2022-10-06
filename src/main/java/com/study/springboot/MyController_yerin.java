@@ -138,7 +138,7 @@ public class MyController_yerin {
 	@RequestMapping("/mypage/mypage_memberEdit_1")
 	public String mypage_memberEdit_1(HttpServletRequest request, Model model) {
 		
-		request.getSession().getAttribute("users_id");
+		String users_id = (String)request.getSession().getAttribute("users_id");
 		UsersDto member = usersService.userDetail(users_id);
 		
 		model.addAttribute("member", member);

@@ -9,13 +9,16 @@ create table ezen_users(
     users_email_receive   number(1),	--0: 비수신 1: 수신   
     users_phone         varchar2(20),
     users_phone_receive   number(1),	--0: 비수신 1: 수신
-    users_birth_date      date
+    users_birth_date      date,
+    users_address1 varchar(20),
+    users_address2 varchar(100),
+    users_address3 varchar(100)
 );
 
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
 
-INSERT INTO ezen_users
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date) 
 VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01');
 
 --상품

@@ -18,7 +18,7 @@
 	            <div>
 	                <button class="bright" onclick="return pwcheck()">확인</button>
 	            </div>               
-	            <button type="button" class="dark">취소</button>
+	            <button type="button" class="dark" onclick="javascript:history.back();">취소</button>
 	        </div>
         </form>
     </div>
