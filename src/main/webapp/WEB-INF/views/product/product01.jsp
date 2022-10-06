@@ -17,11 +17,11 @@
 	<div class="product_gift1">
 	<c:forEach var="dto" items="${ productlist }">
 	<div class="gift1">
-		<a href="/product/product01_1">
+		<a href="/product/product01_1?product_idx=${ dto.product_idx }">
 					<img alt="" src="${ dto.product_image }"style="width:300px; height:230px;" class="product_img">
 				
-					<h3>한우 조리용 세트</h3>
-					<p>130,000 &nbsp; (상세페이지 참조.)</p>
+					<h3>${ dto.product_name }</h3>
+					<p>${ dto.product_price }원</p>
 					<p class="star1">★★★★★(0)</p>
 					</a>
 				
