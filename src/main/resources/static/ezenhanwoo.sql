@@ -33,7 +33,7 @@ drop sequence product_seq;
 create sequence product_seq;
 
 insert into product
-values ( product_seq.nextval, '한우 [1++No.9]등심', '/img/product/등심3.png', '36,000원', '구이용', '300g', 'https://via.placeholder.com/700x1200')
+values ( product_seq.nextval, '한우 [1++No.9]등심', '/img/product/등심3.png', '36,000', '구이용', '300g', 'https://via.placeholder.com/700x1200')
 --상품 문의
 drop table product_qna;
 create table product_qna(
