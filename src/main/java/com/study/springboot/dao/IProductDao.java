@@ -20,4 +20,6 @@ public interface IProductDao {
 
 	int deleteProduct(int idx);
 	
+	public int product_count(String product_category);
+
 }

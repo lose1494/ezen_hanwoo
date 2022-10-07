@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReviewDto {
 	private int review_idx;
-	private String review_name;
+	private String review_id;
 	private String review_title;
 	private String review_content;
 	private Date review_date;

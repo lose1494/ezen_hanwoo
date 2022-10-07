@@ -51,6 +51,16 @@ values ( product_seq.nextval, '한우 [1++No.9]채끝', '/img/product/채끝2.pn
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]안창살', '/img/product/안창살2.png', '60,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
 insert into product
+values ( product_seq.nextval, '한우 [1++No.9]양지', '/img/product/양지2.png', '18,000', '국거리', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]사태', '/img/product/사태2.png', '13,500', '국거리', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]장조림', '/img/product/홍두깨2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]불고기', '/img/product/불고기2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]육전', '/img/product/육전2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
 values ( product_seq.nextval, '한우 조리용 세트', '/img/product/13만원세트.png', '130,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 insert into product
 values ( product_seq.nextval, '한우 구이용 세트', '/img/product/15만원세트.png', '150,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
@@ -67,8 +77,8 @@ select * from product;
 drop table product_qna;
 create table product_qna(
     qna_idx number(4) primary key,
-    qna_name varchar2(20),
-    qna_title varchar2(20),
+    qna_id varchar2(20),
+    qna_title varchar2(60),
     qna_content varchar2(300),
     qna_date date,
     qna_secret   number(1), --0: 비밀글 설정안함 1: 비밀글 설정
@@ -80,11 +90,24 @@ create table product_qna(
 drop sequence product_qna_seq;
 create sequence product_qna_seq;
 
+insert into product_qna
+values( product_qna_seq.nextval, 'hong', '언제쯤 배송되나요', '배송 언제쯤 되나요??', sysdate, 1, '1234', '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용', '문의 테스트', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용1', '문의 테스트1', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용2', '문의 테스트2', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용3', '문의 테스트3', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', sysdate, 0, '답변대기중', 1);
+
 --상품 문의 답변
 drop table product_qna_reply;
 create table product_qna_reply(
     reply_idx number(4) primary key,
-    reply_name varchar2(20),
+    reply_id varchar2(20),
     reply_content varchar2(300),
     reply_date date,
     qna_idx number(4)
@@ -95,7 +118,7 @@ create sequence product_qna_reply_seq;
 drop table product_review;
 create table product_review(
     review_idx number(4) primary key,
-    review_name varchar2(20),
+    review_id varchar2(20),
     review_title varchar2(20),
     review_content varchar2(300),
     review_date date,
@@ -129,7 +152,7 @@ create sequence Notice_seq;
 drop table one2one;
 create table one2one(
     one2one_idx number(4) primary key,
-    one2one_name varchar2(20),
+    one2one_id varchar2(20),
     one2one_title varchar2(20),
     one2one_content varchar2(300),
     one2one_image varchar2(60),
@@ -144,7 +167,7 @@ create sequence one2one_seq;
 drop table one2one_answer;
 create table one2one_answer(
     answer_idx number(4) primary key,
-    answer_name varchar2(20),
+    answer_id varchar2(20),
     answer_title varchar2(20),
     answer_content varchar2(300),
     answer_date date,
@@ -222,11 +245,5 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
+
 commit;
-
-select * from point where point_users_id='hong' order by point_start_date desc;
-
-select * from
-(select rownum as rnum, po.* from 
-(select * from point where point_users_id='hong' order by point_start_date desc) po)
-where rnum between 6 and 10;

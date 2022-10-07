@@ -17,10 +17,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.PointDto;
+import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.One2oneService;
 import com.study.springboot.service.PointService;
+import com.study.springboot.service.Product_qnaService;
 import com.study.springboot.service.UsersService;
 import com.study.springboot.service.WishlistService;
 
@@ -32,6 +34,7 @@ public class MyController_yerin {
 	@Autowired private CartService cartService;
 	@Autowired private WishlistService wishlistService;
 	@Autowired private One2oneService one2oneService;
+	@Autowired private Product_qnaService qnaService;
 	
 	int num_page_size = 5;
 	
@@ -62,8 +65,6 @@ public class MyController_yerin {
 	@RequestMapping("/mypage/mypage_point")
 	public String mypage_point(@RequestParam(value="page",defaultValue="1") String page,
 							Model model, HttpServletRequest request) {
-		
-		System.out.println(page);
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		List<PointDto> pointList = pointService.pointList(users_id, page, num_page_size);
@@ -100,12 +101,16 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("/mypage/mypage_one2one")
-	public String mypage_one2one(Model model, HttpServletRequest request) {
+	public String mypage_one2one(@RequestParam(value="page",defaultValue="1") String page,
+			Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		UsersDto member = usersService.userDetail(users_id);
-		String one2one_name = member.getUsers_name();
 		
-		List<One2oneDto> one2oneList = one2oneService.one2oneList(one2one_name);
+		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id, page, num_page_size);
+		int one2oneCount = one2oneService.one2oneCount(users_id);
+		int pageNum = (int)Math.ceil((double)one2oneCount/num_page_size);
+		
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("one2oneList", one2oneList);
 		model.addAttribute("mainPage", "mypage/mypage_one2one.jsp");
 
@@ -113,7 +118,19 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("/mypage/mypage_productQna")
-	public String mypage_productQna(Model model) {
+	public String mypage_productQna(@RequestParam(value="page",defaultValue="1") String page,
+			HttpServletRequest request, Model model) {
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		String sort = "qna_id";
+		int qnaCount = qnaService.qnaCount(sort, users_id);
+		int pageNum = (int)Math.ceil((double)qnaCount/num_page_size);
+		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, users_id, page, num_page_size);
+		
+		System.out.println(qnaCount);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qnaCount", qnaCount);
 		model.addAttribute("mainPage", "mypage/mypage_productQna.jsp");
 		return "index";
 	}
@@ -264,16 +281,15 @@ public class MyController_yerin {
 	
 	 @RequestMapping(value="/customer/one2oneWrite", method=RequestMethod.POST) 
 	 @ResponseBody
-	 public String one2oneWrite(@RequestParam("one2one_name") String one2one_name,
-			 					@RequestParam("one2one_title") String one2one_title,
+	 public String one2oneWrite(@RequestParam("one2one_title") String one2one_title,
 			 					@RequestParam("one2one_content") String one2one_content,
 			 					@RequestParam(value="image", required=false) MultipartFile file,
 			 					@RequestParam(value="one2one_email", required=false) String one2one_email,
 			 					@RequestParam(value="one2one_phone", required=false) String one2one_phone,
-			 					One2oneDto dto,
-			 					Model model) {
+			 					One2oneDto dto,	HttpServletRequest request,	Model model) {
 
-		 dto.setOne2one_name(one2one_name);
+		 String one2one_id = (String) request.getSession().getAttribute("users_id");
+		 dto.setOne2one_id(one2one_id);
 		 dto.setOne2one_title(one2one_title);
 		 dto.setOne2one_content(one2one_content);
 		 dto.setOne2one_email(one2one_email);

@@ -39,4 +39,8 @@ public class ProductService {
 
 
 	
+	public int product_count(String category) {
+		int product_count = productdao.product_count(category);
+		return product_count;
+	}
 }

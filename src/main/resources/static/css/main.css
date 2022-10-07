@@ -66,13 +66,21 @@ a, a:link, a:hover {
 }
 .main_product2{
 	display : flex;
-	justify-content : space-evenly;
+	flex-direction : row;
+	justify-content: space-between;
 	width : 80%;
-	margin : 0 auto;
+	margin: 0 auto;
 }
 .main_product h3{
 		margin-top: 30px;
 		
+}
+.product_gift1{
+	clear: both;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	
 }
 .best1 p{
 	text-align: left;
