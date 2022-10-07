@@ -4,16 +4,12 @@
 table {
     width: 100%;
 }
-.wrap button {
-    width: 90px;
-    font-size: 11px;
-    height: 24px;
-}
+
 input[type=text] {
     width: 250px;
-    height: 22px;
+    height: 25px;
     margin: 5px;
-    font-size: 14px;
+    font-size: 18px;
 }
 .tableName {
     margin: 10px 0;
@@ -97,13 +93,17 @@ input[type=radio] {
     text-align: end;
 }
 
+.wrap .productTable button, .wrap .orderTable button {  
+    font-size: 13px;
+    padding: 3px 5px;
+}
 /* 결제테이블 */
 .paymentTable {
     flex: 1 33%;
     background-color: rgb(233, 233, 233);
     margin: 43px 0 135px 0;
     padding: 20px;
-    font-size: 13px;
+    font-size: 15px;
 }
 .paymentTable table {
     border-bottom: 2px solid rgb(182, 182, 182);
@@ -120,7 +120,7 @@ input[type=radio] {
     color: #45494c;
     background-color: transparent;
     width: 40px;
-    font-size: 13px;
+    font-size: 15px;
     text-align: end;    
 }
 .paymentCheck {

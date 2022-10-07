@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="wishCount" resultType="_int">
-		select count(*) from wishlist
+		select count(*) from wishlist where list_users_id=#{param1}
 	</select>
 	
 	<!-- <insert id="insertWish" parameterType="com.study.springboot.dto.WishlistDto">
@@ -21,7 +21,7 @@
 	
 	<delete id="deleteWish">
 	  DELETE FROM wishlist
-	  WHERE list_idx=#{ param1 }
+	  WHERE list_users_idx=#{ param1 }
 	</delete>
 	
 </mapper>

@@ -2,9 +2,13 @@ package com.study.springboot.dto;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsersDto {
 	private int users_idx;
 	private String users_id;
@@ -18,5 +22,7 @@ public class UsersDto {
 	private String users_point;
 	private String users_address;
 	private Date users_joindate;
-	
+	private String users_address1;
+	private String users_address2;
+	private String users_address3;
 }

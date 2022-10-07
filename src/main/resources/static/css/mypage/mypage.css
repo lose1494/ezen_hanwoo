@@ -53,7 +53,7 @@ a:hover {
     color:white;
 }
 .mainMember span {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .mainOrderList {
@@ -149,8 +149,7 @@ h3 {
     text-align: left;
 }
 .editForm {
-    padding: 50px;
-    text-align: start;
+    padding: 40px;
 }
 .editForm table {
     margin: auto;
@@ -158,21 +157,31 @@ h3 {
 .editForm table td {
     padding: 5px 0;
 }
-.editForm input, .editForm select {
+.editForm table td:last-child {
+    text-align: start;
+    width: 70%;
+}
+.editForm input {
     border: 1px solid rgb(163, 163, 163);
     border-radius: 3px;
     width: 250px;
     height: 30px;
     margin: 5px;
     padding: 3px;
-    vertical-align: middle;
     font-size: 14px;
-}
-.editForm select {
-    width: 100px;
 }
 .readonly {
     background-color: rgb(214, 213, 213);
+}
+.editForm #address1, .editForm table button {
+    width: 150px;
+    vertical-align: middle;
+    margin-right: 0;
+}
+.editForm table button {
+    font-size: 13px;
+    width: 95px;
+    height: 30px;
 }
 textarea {
     margin-bottom: 20px;

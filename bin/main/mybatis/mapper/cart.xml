@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="cartCount" resultType="_int">
-		select count(*) from wishlist
+		select count(*) from cart where cart_users_id=#{param1}
 	</select>
 	
 	<insert id="insertCart" parameterType="com.study.springboot.dto.CartDto">
@@ -21,7 +21,7 @@
 	
 	<delete id="deleteCart">
 	  DELETE FROM cart
-	  WHERE cart_idx=#{ param1 }
+	  WHERE cart_users_idx=#{ param1 }
 	</delete>
 	
 </mapper>

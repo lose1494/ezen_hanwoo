@@ -28,17 +28,8 @@
 .ck-editor__editable {
   height: 300px;
 }
-.wrap .custoTable button {
+.custoTable input[type=file] {
   font-size: 14px;
-  font-weight: 400;
-  color: rgb(84, 85, 87);
-  width: 80px;
-  height: 25px;
-  margin: 0;
-  border: 1px solid rgb(175, 175, 175);
-}
-.custoTable input[type=text], .wrap .custoTable button {
-  vertical-align: middle;
 }
 .custoTable input[type=checkbox], .custoTable span {
   margin-right: 5px;
@@ -50,4 +41,14 @@
   width: 150px;
   height: 40px;
   font-size: 18px;
+}
+
+/* 문의 개별보기 */
+
+.viewTable tr:nth-child(2) td {
+  text-align: center;
+}
+.viewTable tr:last-child td {
+  height: 200px;
+  vertical-align: top;
 }

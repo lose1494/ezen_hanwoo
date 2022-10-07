@@ -16,7 +16,7 @@
                     <td>상품명</td>
                     <td>가격</td>
                     <td>수량</td>
-                    <td>추가금액</td>
+                   <!--  <td>추가금액</td> -->
                     <td>총금액</td>
                     <td>적립금</td>
                     <td>삭제/관심상품</td>
@@ -26,7 +26,7 @@
                     <td>한우 살치살</td>
                     <td>00,000원</td>
                     <td>1</td>
-                    <td>0원</td>
+                  <!--   <td>0원</td> -->
                     <td>00,000원</td>
                     <td>0원</td>
                     <td class="icon"><img src="../img/product/free-icon-cross-mark-8369334.png" alt="">

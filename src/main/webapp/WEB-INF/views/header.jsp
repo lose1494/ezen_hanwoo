@@ -69,19 +69,21 @@
 					<div class="dropMenu">
 						<a href="/Notice/notice">공지사항</a>
 						<a href="/Notice/faq">자주하는 질문</a>
-						<a href="/customer/customer01">1:1 문의</a>
+						<a href="/customer/one2one">1:1 문의</a>
 					</div>
 				</span>
 			</div>
 		</div>    
+		
 		<div class="category">
 
-				<a href="/product/product01">선물세트</a>
+				<a href="/product/product01?product_category=선물세트">선물세트</a>
 
-				<a href="/product/product01">구이용</a>
+				<a href="/product/product01?product_category=구이용">구이용</a>
 
-				<a href="/product/product01">국거리</a>
+				<a href="/product/product01?product_category=국거리">국거리</a>
 
-				<a href="/product/product01">조리용</a>
+				<a href="/product/product01?product_category=조리용">조리용</a>
 		</div>
+		
 	</div>

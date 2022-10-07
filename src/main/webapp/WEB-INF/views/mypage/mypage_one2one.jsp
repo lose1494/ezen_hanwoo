@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="./mypage/mypage_menu.jsp" />
 
@@ -12,22 +13,25 @@
             <table class="mypageTable">
                 <tr>
                     <th>번호</th>
-                    <th>답변</th>
+                    <th>문의상태</th>
                     <!-- <th>분류</th> -->
                     <th>제목</th>
                     <th>작성일</th>
                 </tr>
+                <c:forEach var="one2one" items="${ one2oneList }" varStatus="status">
                 <tr>
-                    <td>1</td>
-                    <td>처리중</td>
+                    <td><c:out value="${ status.count }" /></td>
+                    <td>${ one2one.one2one_status }</td>
                     <!-- <td>기타</td> -->
-                    <td>안녕하세요 문의드립니다.</td>
-                    <td>2022-09-02</td>
+                    <td> <a href="/customer/one2oneView?one2one_idx=${ one2one.one2one_idx}">
+                        ${ one2one.one2one_title }</a></td>
+                    <td><fmt:formatDate value="${ one2one.one2one_date }" pattern = "yyyy-MM-dd"/></td>
                 </tr>
+                </c:forEach>
             </table>
         </div>
         <div class="mypageButton">              
-            <button onclick="location.href='/customer/customer01'" class="dark">글쓰기</button>
+            <button onclick="location.href='/customer/one2one'" class="dark">글쓰기</button>
         </div>
         <div class="pageNav">
             <a href="#">처음</a>

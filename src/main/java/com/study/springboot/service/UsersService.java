@@ -11,7 +11,17 @@ import com.study.springboot.dto.UsersDto;
 @Component
 public class UsersService {
 	@Autowired
-IUsersDao usersdao;
+	private	IUsersDao usersdao;
+	
+	public List<UsersDto> member_list() {
+		List<UsersDto> member_list = usersdao.userList();
+		return member_list;
+	}
+
+	public UsersDto userDetail( String users_id ) {
+		UsersDto userDetail = usersdao.userDetail(users_id);
+		return userDetail;
+	}
 	
 	public int login(String users_id, String users_pw) {
 		int result = 0;
@@ -39,4 +49,19 @@ IUsersDao usersdao;
 	
 	
 	
+	
+	public int joinUser(UsersDto dto) {
+		int userJoin = usersdao.joinUser(dto);
+		return userJoin;
+	}
+	
+	public int updateUser(UsersDto dto) {
+		int userUpdate = usersdao.updateUser(dto);
+		return userUpdate;
+	}
+	
+	public int deleteUser(String users_id, String users_pw) {
+		int userDelete = usersdao.deleteUser(users_id, users_pw);
+		return userDelete;
+	}
 }

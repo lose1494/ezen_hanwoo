@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="userDetail" resultType="com.study.springboot.dto.UsersDto">
-		select * from ezen_users where users_idx = #{param1}
+		select * from ezen_users where users_id = #{param1}
 	</select>
 	
 	<select id="login" resultType="_int"> 
@@ -22,12 +22,24 @@
 		insert into ezen_users
 		values ( ezen_users_seq.nextval, #{users_id}, #{users_pw}, #{users_name},
 		#{users_email}, #{users_email_receive}, #{users_phone}, #{users_phone_receive}, 
-		#{users_birth_date}, #{users_point} )
+		#{users_birth_date}, #{users_address1}, #{users_address2}, #{users_address3} )
 	</insert>
+	
+	<update id="updateUser" parameterType="hashMap">
+		update ezen_users set 
+		users_pw = #{users_pw},
+		users_email = #{users_email},
+		users_phone = #{users_phone},
+		users_address1 = #{users_address1},
+		users_address2 = #{users_address2},
+		users_address3 = #{users_address3}
+		where users_id = #{users_id}
+	</update>
 	
 	<delete id="deleteUser">
 	  DELETE FROM ezen_users
-	  WHERE users_idx=#{ param1 }
+	  WHERE users_id=#{ param1 }
+	  AND users_pw=#{ param2 }
 	</delete>
 	
 	<!-- 회원 검색 -->
