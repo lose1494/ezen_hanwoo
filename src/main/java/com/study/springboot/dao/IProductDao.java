@@ -6,9 +6,18 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.study.springboot.dto.ProductDto;
 
+
 @Mapper
 public interface IProductDao {
 
 	List<ProductDto> productlist(String product_category);
 
+	List<ProductDto> item_list();
+
+	int item_Count();
+
+	List<ProductDto> item_result(String search, String text);
+
+	int deleteProduct(int idx);
+	
 }

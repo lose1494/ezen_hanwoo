@@ -107,7 +107,6 @@ public class MyController_ian {
 	public String member_search (@RequestParam("search_list") String list,
 								 @RequestParam("search_text") String text,
 								  Model model ) {
-		System.out.println(list);
 		List<UsersDto> search_result = usersService.search_result(list, text);
 		model.addAttribute("search_result", search_result);
 		model.addAttribute("list", list);
@@ -128,10 +127,43 @@ public class MyController_ian {
 	//상품관리
 	@RequestMapping("/admin/admin_item")
 	public String adminitem (Model model) {
+		String search = "all";
+		String text = "";
+		List<ProductDto> item_list = productservice.item_result(search, text);
+		int item_Count = productservice.item_Count();
+		model.addAttribute("item_Count", item_Count);
+		model.addAttribute("item_result", item_list);
 		model.addAttribute("mainPage", "admin/admin_item.jsp");
 		return "index";
 	}
 	
+	//상품 검색
+	@RequestMapping("/admin/item_search") 
+	public String item_Action (@RequestParam("item_search") String search,
+								@RequestParam("main_text") String text,
+								Model model){
+		List<ProductDto> item_result = productservice.item_result(search, text);
+		model.addAttribute("search", search);
+		model.addAttribute("text", text);
+		model.addAttribute("item_result", item_result);
+		model.addAttribute("mainPage", "admin/admin_item.jsp");
+		return "index";
+	}
+	
+	//상품 삭제
+	@RequestMapping("/delete_product")
+	@ResponseBody
+	public String delete_product ( @RequestParam("product_idx") int idx,
+								   Model model) {	
+		int result = productservice.deleteProduct(idx);
+		System.out.println(idx);
+		if ( result != 1 ) {
+			return "<script>alert('글 삭제 실패');history.back();</script>";
+		} else {
+			return "<script>alert('글 삭제 성공');location.href='/admin/admin_item';</script>";
+		}
+	}
+
 	//상품등록
 	@RequestMapping("/admin/item_register")
 	public String item_register (Model model) {

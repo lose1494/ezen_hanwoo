@@ -46,10 +46,6 @@ public class UsersService {
 		return search_result;
 	}
 
-	
-	
-	
-	
 	public int joinUser(UsersDto dto) {
 		int userJoin = usersdao.joinUser(dto);
 		return userJoin;
