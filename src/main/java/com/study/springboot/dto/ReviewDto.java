@@ -14,6 +14,7 @@ public class ReviewDto {
 	private String review_id;
 	private String review_title;
 	private String review_content;
+	private String review_image;
 	private Date review_date;
 	private int review_star_rating;
 	private int product_idx;
