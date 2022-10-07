@@ -9,7 +9,7 @@
 
 	<select id="one2oneList" resultType="com.study.springboot.dto.One2oneDto">
 		select * from one2one 
-		<if test="param1 != null">where one2one_name=#{param1}</if>		
+		<if test="param1 != null">where one2one_id=#{param1}</if>		
 	</select>
 	
 	<select id="one2oneDetail" resultType="com.study.springboot.dto.One2oneDto">
@@ -18,7 +18,7 @@
 	
 	<insert id="insertOne2one" parameterType="com.study.springboot.dto.One2oneDto">
 		insert into one2one
-		values ( one2one_seq.nextval, #{one2one_name}, #{one2one_title}, 
+		values ( one2one_seq.nextval, #{one2one_id}, #{one2one_title}, 
 		#{one2one_content}, #{one2one_image}, #{one2one_email},
 		#{one2one_phone}, sysdate, '처리중' )
 	</insert>

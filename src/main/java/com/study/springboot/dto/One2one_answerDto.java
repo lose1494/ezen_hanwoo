@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class One2one_answerDto {
 	private int answer_idx;
-	private String answer_name;
+	private String answer_id;
 	private String answer_title;
 	private String answer_content;
 	private Date answer_date;

@@ -18,8 +18,8 @@ public class One2oneService {
 	@Autowired
 	private	IOne2oneDao one2onedao;
 	
-	public List<One2oneDto> one2oneList(String one2one_name){
-		List<One2oneDto> one2oneList = one2onedao.one2oneList(one2one_name);
+	public List<One2oneDto> one2oneList(String one2one_id){
+		List<One2oneDto> one2oneList = one2onedao.one2oneList(one2one_id);
 		return one2oneList;
 	}
 	
