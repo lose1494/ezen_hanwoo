@@ -67,7 +67,7 @@ select * from product;
 drop table product_qna;
 create table product_qna(
     qna_idx number(4) primary key,
-    qna_name varchar2(20),
+    qna_id varchar2(20),
     qna_title varchar2(20),
     qna_content varchar2(300),
     qna_date date,
@@ -84,7 +84,7 @@ create sequence product_qna_seq;
 drop table product_qna_reply;
 create table product_qna_reply(
     reply_idx number(4) primary key,
-    reply_name varchar2(20),
+    reply_id varchar2(20),
     reply_content varchar2(300),
     reply_date date,
     qna_idx number(4)
@@ -95,7 +95,7 @@ create sequence product_qna_reply_seq;
 drop table product_review;
 create table product_review(
     review_idx number(4) primary key,
-    review_name varchar2(20),
+    review_id varchar2(20),
     review_title varchar2(20),
     review_content varchar2(300),
     review_date date,
@@ -129,7 +129,7 @@ create sequence Notice_seq;
 drop table one2one;
 create table one2one(
     one2one_idx number(4) primary key,
-    one2one_name varchar2(20),
+    one2one_id varchar2(20),
     one2one_title varchar2(20),
     one2one_content varchar2(300),
     one2one_image varchar2(60),
@@ -144,7 +144,7 @@ create sequence one2one_seq;
 drop table one2one_answer;
 create table one2one_answer(
     answer_idx number(4) primary key,
-    answer_name varchar2(20),
+    answer_id varchar2(20),
     answer_title varchar2(20),
     answer_content varchar2(300),
     answer_date date,
@@ -223,10 +223,3 @@ values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
 commit;
-
-select * from point where point_users_id='hong' order by point_start_date desc;
-
-select * from
-(select rownum as rnum, po.* from 
-(select * from point where point_users_id='hong' order by point_start_date desc) po)
-where rnum between 6 and 10;
