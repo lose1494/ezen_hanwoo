@@ -13,14 +13,19 @@ public class PointService {
 	@Autowired
 	private IPointDao pointdao;
 	
-	public List<PointDto> pointList(String users_id) {
-		List<PointDto> pointList = pointdao.pointList(users_id);
+	public List<PointDto> pointList(String users_id, int startRowNum, int endRowNum) {
+		List<PointDto> pointList = pointdao.pointList(users_id, startRowNum, endRowNum);
 		return pointList;
 	}
 	
 	public int pointSum(String users_id) {
 		int pointSum = pointdao.pointSum(users_id);
 		return pointSum;
+	}
+	
+	public int pointCount(String users_id) {
+		int pointCount = pointdao.pointCount(users_id);
+		return pointCount;
 	}
 	
 	public int insertPoint(PointDto dto) {

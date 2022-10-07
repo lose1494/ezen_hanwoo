@@ -57,13 +57,25 @@ public class MyController_yerin {
 	}
 
 	@RequestMapping("/mypage/mypage_point")
-	public String mypage_point(Model model, HttpServletRequest request) {
+	public String mypage_point(@RequestParam(value="page",defaultValue="1") String page,
+							Model model, HttpServletRequest request) {
+		
+		System.out.println(page);
+		int num_page_no = Integer.parseInt( page );
+		int num_page_size = 5;
+		int startRowNum = (num_page_no - 1) * num_page_size + 1;
+		int endRowNum = (num_page_no * num_page_size);
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		List<PointDto> pointList = pointService.pointList(users_id);
-		
+		List<PointDto> pointList = pointService.pointList(users_id, startRowNum, endRowNum);
+		int pointCount = pointService.pointCount(users_id);
 		int sum = pointService.pointSum(users_id);
+		
+		int pageNum = (int)Math.ceil((double)pointCount/num_page_size);
+		
 
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pointSum", sum);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("mainPage", "mypage/mypage_point.jsp");
@@ -230,7 +242,7 @@ public class MyController_yerin {
 		return "index";
 	}
 	
-	//문의
+	//1:1 문의
 	@RequestMapping("/customer/one2one")
 	public String one2one(Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");

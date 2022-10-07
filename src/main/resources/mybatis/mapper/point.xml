@@ -7,14 +7,21 @@
 <mapper namespace="com.study.springboot.dao.IPointDao">
 
 	<select id="pointList" resultType="com.study.springboot.dto.PointDto">
-		select * from point 
-		<if test="param1 !='null'">where point_users_id=#{param1} </if>
-		order by point_start_date desc
+		select * from
+			(select rownum rnum, po.* from
+				(select * from point 
+				<if test="param1 !='null'">where point_users_id=#{param1} </if>
+				order by point_start_date desc) po)
+		where rnum between #{param2} and #{param3}
 	</select>
 	
 	<select id="pointSum" resultType="_int">
 		SELECT NVL(SUM_DATA, 0)FROM 
 		(SELECT SUM(point_point) SUM_DATA FROM point WHERE point_users_id=#{param1})
+	</select>
+	
+	<select id="pointCount" resultType="_int">
+		select count(*) from point where point_users_id=#{param1}
 	</select>
 	
 	<insert id="insertPoint" parameterType="com.study.springboot.dto.PointDto">

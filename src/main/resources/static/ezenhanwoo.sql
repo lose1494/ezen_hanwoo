@@ -186,4 +186,14 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +5000, sysdate+365, '회원가입');
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +500, sysdate+365, '테스트');
+insert into point
+values( point_seq.nextval, 'hong', sysdate, +100, sysdate+365, '테스트1');
+insert into point
+values( point_seq.nextval, 'hong', sysdate, +200, sysdate+365, '테스트2');
+insert into point
+values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
+insert into point
+values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
 commit;
+
+select * from point order by point_start_date desc;
