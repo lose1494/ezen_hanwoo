@@ -222,11 +222,5 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
+
 commit;
-
-select * from point where point_users_id='hong' order by point_start_date desc;
-
-select * from
-(select rownum as rnum, po.* from 
-(select * from point where point_users_id='hong' order by point_start_date desc) po)
-where rnum between 6 and 10;

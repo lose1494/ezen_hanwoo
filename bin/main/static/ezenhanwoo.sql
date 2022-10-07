@@ -37,6 +37,7 @@ drop sequence product_seq;
 create sequence product_seq;
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]등심', '/img/product/등심3.png', '36,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]치마살', '/img/product/치마3.png', '54,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
 insert into product
@@ -59,6 +60,9 @@ insert into product
 values ( product_seq.nextval, '한우 특수부위 세트', '/img/product/40만원세트.png', '400,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 commit;
 select * from product;
+
+
+
 --상품 문의
 drop table product_qna;
 create table product_qna(
@@ -72,8 +76,10 @@ create table product_qna(
     qna_status varchar2(20),
     product_idx number(4)
 );
+
 drop sequence product_qna_seq;
 create sequence product_qna_seq;
+
 --상품 문의 답변
 drop table product_qna_reply;
 create table product_qna_reply(
@@ -208,9 +214,6 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +5000, sysdate+365, '회원가입');
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +500, sysdate+365, '테스트');
-
-commit;
-
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +100, sysdate+365, '테스트1');
 insert into point
@@ -219,12 +222,5 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
+
 commit;
-
-select * from point where point_users_id='hong' order by point_start_date desc;
-
-select * from
-(select rownum as rnum, po.* from 
-(select * from point where point_users_id='hong' order by point_start_date desc) po)
-where rnum between 6 and 10;
-
