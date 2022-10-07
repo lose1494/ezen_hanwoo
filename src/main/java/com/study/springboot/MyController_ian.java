@@ -60,8 +60,10 @@ public class MyController_ian {
 	@RequestMapping("/product/product01")
 	public String product01(HttpServletRequest request, Model model) {
 		String category = request.getParameter("product_category");
-		System.out.println(category);
+		
+		int product_count = productservice.product_count(category);
 		List<ProductDto> productlist = productservice.productlist(category);
+		model.addAttribute("product_count", product_count);
 		model.addAttribute("category", category);
 		model.addAttribute("productlist", productlist);
 		model.addAttribute("mainPage", "product/product01.jsp");

@@ -8,7 +8,7 @@
 
 	<h1>${ category }</h1>
 	<div class="title">
-	<p class="text1">상품이 모두 0개 있습니다.</p>
+	<p class="text1">상품이 모두 ${ product_count }개 있습니다.</p>
 	
 	<select class="text2">
 	<option>높은 가격순</option>

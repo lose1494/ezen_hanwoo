@@ -16,4 +16,8 @@ public class ProductService {
 		List<ProductDto> productlist = productdao.productlist(category);
 		return productlist;
 	}
+	public int product_count(String category) {
+		int product_count = productdao.product_count(category);
+		return product_count;
+	}
 }

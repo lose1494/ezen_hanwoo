@@ -51,6 +51,16 @@ values ( product_seq.nextval, '한우 [1++No.9]채끝', '/img/product/채끝2.pn
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]안창살', '/img/product/안창살2.png', '60,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
 insert into product
+values ( product_seq.nextval, '한우 [1++No.9]양지', '/img/product/양지2.png', '18,000', '국거리', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]사태', '/img/product/사태2.png', '13,500', '국거리', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]장조림', '/img/product/홍두깨2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]불고기', '/img/product/불고기2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]육전', '/img/product/육전2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
 values ( product_seq.nextval, '한우 조리용 세트', '/img/product/13만원세트.png', '130,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 insert into product
 values ( product_seq.nextval, '한우 구이용 세트', '/img/product/15만원세트.png', '150,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');

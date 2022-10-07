@@ -26,4 +26,21 @@
 	  DELETE FROM product
 	  WHERE product_idx=#{ param1 }
 	</delete>
+	<select id="product_count" resultType="_int">
+	select count(*) from product
+	<choose>
+	<when test="product_category eq '선물세트'">
+	where product_category = '선물세트'
+	</when>
+	<when test="product_category eq '구이용'">
+	where product_category = '구이용'
+	</when>
+	<when test="product_category eq '국거리'">
+	where product_category = '국거리'
+	</when>
+	<when test="product_category eq '조리용'">
+	where product_category = '조리용'
+	</when>
+	</choose>
+	</select>
 </mapper>

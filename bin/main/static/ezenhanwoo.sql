@@ -51,6 +51,16 @@ values ( product_seq.nextval, '한우 [1++No.9]채끝', '/img/product/채끝2.pn
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]안창살', '/img/product/안창살2.png', '60,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
 insert into product
+values ( product_seq.nextval, '한우 [1++No.9]양지', '/img/product/양지2.png', '18,000', '국거리', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]사태', '/img/product/사태2.png', '13,500', '국거리', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]장조림', '/img/product/홍두깨2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]불고기', '/img/product/불고기2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]육전', '/img/product/육전2.png', '15,000', '조리용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
 values ( product_seq.nextval, '한우 조리용 세트', '/img/product/13만원세트.png', '130,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 insert into product
 values ( product_seq.nextval, '한우 구이용 세트', '/img/product/15만원세트.png', '150,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
@@ -67,7 +77,7 @@ select * from product;
 drop table product_qna;
 create table product_qna(
     qna_idx number(4) primary key,
-    qna_name varchar2(20),
+    qna_id varchar2(20),
     qna_title varchar2(20),
     qna_content varchar2(300),
     qna_date date,
@@ -84,7 +94,7 @@ create sequence product_qna_seq;
 drop table product_qna_reply;
 create table product_qna_reply(
     reply_idx number(4) primary key,
-    reply_name varchar2(20),
+    reply_id varchar2(20),
     reply_content varchar2(300),
     reply_date date,
     qna_idx number(4)
@@ -95,7 +105,7 @@ create sequence product_qna_reply_seq;
 drop table product_review;
 create table product_review(
     review_idx number(4) primary key,
-    review_name varchar2(20),
+    review_id varchar2(20),
     review_title varchar2(20),
     review_content varchar2(300),
     review_date date,
@@ -129,7 +139,7 @@ create sequence Notice_seq;
 drop table one2one;
 create table one2one(
     one2one_idx number(4) primary key,
-    one2one_name varchar2(20),
+    one2one_id varchar2(20),
     one2one_title varchar2(20),
     one2one_content varchar2(300),
     one2one_image varchar2(60),
@@ -144,7 +154,7 @@ create sequence one2one_seq;
 drop table one2one_answer;
 create table one2one_answer(
     answer_idx number(4) primary key,
-    answer_name varchar2(20),
+    answer_id varchar2(20),
     answer_title varchar2(20),
     answer_content varchar2(300),
     answer_date date,

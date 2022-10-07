@@ -11,4 +11,6 @@ public interface IProductDao {
 
 	List<ProductDto> productlist(String product_category);
 
+	public int product_count(String product_category);
+
 }
