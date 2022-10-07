@@ -11,13 +11,7 @@ import com.study.springboot.dto.UsersDto;
 @Component
 public class UsersService {
 	@Autowired
-	private	IUsersDao usersdao;
-	
-	public List<UsersDto> member_list() {
-		List<UsersDto> member_list = usersdao.member_list();
-		return member_list;
-	}
-
+IUsersDao usersdao;
 	
 	public int login(String users_id, String users_pw) {
 		int result = 0;
@@ -26,4 +20,23 @@ public class UsersService {
 				
 		return result;
 	}
+
+	public List<UsersDto> userList() {
+		List<UsersDto> userList = usersdao.userList();
+		return userList;
+	}
+	
+	public int list_Count() {
+		int list_Count = usersdao.list_Count();
+		return list_Count;
+	}
+
+	public List<UsersDto> search_result(String list, String text) {
+		List<UsersDto> search_result = usersdao.userList(list , text);
+		return search_result;
+	}
+
+	
+	
+	
 }

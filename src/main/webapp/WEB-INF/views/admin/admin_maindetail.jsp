@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	
 <link rel="stylesheet" href="/css/admin/admin_maindetail.css">
 
 <div class= "bg_admin text-center">
@@ -39,16 +41,18 @@
 		<th>적릭금</th>
 		<th>가입일</th>
 	</tr>
-	
+	<c:forEach var="dto" items="${ userList }">
 	<tr>
-		<td>홍길동</td>
-		<td>1997.05.04</td>
-		<td>010-1111-2222</td>
-		<td>서울특별시 강남구 신사동</td>
-		<td>hong1111@gmail.com</td>
-		<td>10,000</td>
-		<td>2022.09.02</td>
+		<td>${ dto.users_name }</td>
+		<td><fmt:formatDate value= "${ dto.users_birth_date }" pattern="yyyy/MM/dd" /></td>
+		<td>${ dto.users_phone }</td>
+		<td>${ dto.users_address }</td>
+		<td>${ dto.users_email }</td>
+		<td>${ dto.users_point }</td>
+		<td> <fmt:formatDate value="${dto.users_joindate}" pattern="yyyy/MM/dd" /> </td>
+
 	</tr>
+	</c:forEach>
 	</table>
 	</form>
 	

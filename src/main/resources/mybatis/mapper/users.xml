@@ -30,4 +30,28 @@
 	  WHERE users_idx=#{ param1 }
 	</delete>
 	
+	<!-- 회원 검색 -->
+		<select id="search_result" resultType="com.study.springboot.dto.UsersDto">
+		SELECT * FROM ezen_users
+		<where>
+			<if test="param1 == 'all'">
+			users_id like '%${param2}%'
+			or users_name like '%${param2}%'
+			or users_joindate like '%${param2}%'
+			</if>
+			<if test="param1 != 'all'">
+			${param1} like '%${param2}%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 회원 수 -->
+	<select id="list_Count" resultType="_int">
+		SELECT COUNT(*) FROM ezen_users
+	</select>
+	
+	
+	
+	
+	
 </mapper>

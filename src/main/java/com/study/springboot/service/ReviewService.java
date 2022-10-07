@@ -8,7 +8,7 @@ public class ReviewService {
 	@Autowired
 	private	IReviewDao reviewdao;
 	
-	public list(String category, String param) {
-		
-	}
+//	public list(String category, String param) {
+//		
+//	}
 }

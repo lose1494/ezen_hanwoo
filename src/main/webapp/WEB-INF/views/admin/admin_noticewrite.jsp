@@ -26,15 +26,15 @@
 	</div>
 
 <div class="editor_whole">
-<form action="" class="write_container">
+<form action="notice_writeAction" method="post" class="write_container">
 
-<input type="text" placeholder="제목을 입력하세요."id="write_title" >
+<input type="text" placeholder="제목을 입력하세요." id="type" name="type">
 
-<div id="editor" >
+<div id="editor">
 </div>
 
 <div class="btn_wrap">
-<input type="button" value="글쓰기" id="confirm_btn">
+<input type="submit" value="글쓰기" id="confirm_btn">
 </div>
 
 </form>
@@ -157,4 +157,18 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
       'MathType'
     ]
   });
+  
+ClassicEditor
+.create(document.querySelector('#editor'), {
+	ckfinder: {
+		uploadUrl : '/image/upload'
+	}
+})
+.then(editor => {
+	console.log('Editor was initialized');
+})
+.catch(error => {
+	console.error(error);
+});
+
 </script>

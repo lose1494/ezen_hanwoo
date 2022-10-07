@@ -1,13 +1,21 @@
 package com.study.springboot;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.UsersDto;
@@ -23,7 +31,6 @@ public class MyController_ian {
 	
 	@Autowired
 	private UsersService usersService;
-
 	
 	@RequestMapping("/")
 	public String root() {
@@ -74,9 +81,27 @@ public class MyController_ian {
 	
 	//관리자 페이지 메인
 	@RequestMapping("/admin/admin_main")
-	public String memberlist (Model model) {
-		List<UsersDto> member_list = usersService.member_list();
-		model.addAttribute("member_list", member_list);
+	public String userList (Model model) {
+		String list = "all";
+		String text = "";
+		List<UsersDto> userList = usersService.search_result(list, text);
+		int list_Count = usersService.list_Count();
+		model.addAttribute("list_Count", list_Count);
+		model.addAttribute("search_result", userList);
+		model.addAttribute("mainPage", "admin/admin_main.jsp");
+		return "index";
+	}
+	
+	//회원 검색
+	@RequestMapping("/admin/member_search")
+	public String member_search (@RequestParam("search_list") String list,
+								 @RequestParam("search_text") String text,
+								  Model model ) {
+		System.out.println(list);
+		List<UsersDto> search_result = usersService.search_result(list, text);
+		model.addAttribute("search_result", search_result);
+		model.addAttribute("list", list);
+		model.addAttribute("text", text);
 		model.addAttribute("mainPage", "admin/admin_main.jsp");
 		return "index";
 	}
@@ -84,6 +109,8 @@ public class MyController_ian {
 	//회원상세조회
 	@RequestMapping("/admin/admin_maindetail")
 	public String admin_maindetail (Model model) {
+		List<UsersDto> users_list = usersService.userList();
+		model.addAttribute("userList", users_list);	
 		model.addAttribute("mainPage", "admin/admin_maindetail.jsp");
 		return "index";
 	}
@@ -160,6 +187,61 @@ public class MyController_ian {
 		model.addAttribute("mainPage", "admin/admin_noticewrite.jsp");
 		return "index";
 	}
+	
+	//ck5 파일업로드
+	@PostMapping(value = "/image/upload")
+	public ModelAndView image(MultipartHttpServletRequest request) throws Exception {
+		
+		ModelAndView mav = new ModelAndView("jsonView");
+
+		MultipartFile uploadFile = request.getFile("upload");
+
+		String originalFileName = uploadFile.getOriginalFilename();
+
+		String ext = originalFileName.substring(originalFileName.indexOf("."));
+
+		String newFileName = UUID.randomUUID() + ext;
+
+		String realPath = request.getServletContext().getRealPath("/");
+
+		String savePath = realPath + "upload/" + newFileName;
+  
+		String uploadPath = "./upload/" + newFileName; 
+
+		File file = new File(savePath);
+
+		uploadFile.transferTo(file);
+
+		mav.addObject("uploaded", true);
+		mav.addObject("url", uploadPath);
+
+		return mav;
+	}
+	
+	//글쓰기 등록
+	@RequestMapping("/notice_writeAction")
+	@ResponseBody
+	public String notice_writeAction(
+			@RequestParam("type") String notice_title,
+			@RequestParam("editor") String notice_content,
+			NoticeDto dto1 ) {
+		
+		dto1.setNotice_title(notice_title);
+		dto1.setNotice_content(notice_content);
+		
+		int result= noticeService.notice_write( dto1 );
+		System.out.println(result);
+		
+		if( result != 1) {
+			System.out.println("글쓰기 실패했습니다.");
+			return"<script>alert('글쓰기 실패');history.back();</script>";		
+		} else {
+			System.out.println("글쓰기 등록이 되었습니다.");
+			return"<script>alert('글쓰기 성공');location.href='/admin/admin_notice';</script>";		
+		}
+		
+	}
+
 	
 	//1:1문의
 	@RequestMapping("/admin/admin_one2one")

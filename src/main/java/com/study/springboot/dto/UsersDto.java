@@ -16,6 +16,7 @@ public class UsersDto {
 	private int users_phone_receive;
 	private Date users_birth_date;
 	private String users_point;
-	
+	private String users_address;
+	private Date users_joindate;
 	
 }

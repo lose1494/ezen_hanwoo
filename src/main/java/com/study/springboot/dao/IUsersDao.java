@@ -14,4 +14,8 @@ public interface IUsersDao {
 	public int login(String users_id, String users_pw);
 	public int joinUser(UsersDto dto);
 	public int deleteUser(int users_idx);
+	
+	
+	public int list_Count();
+	public List<UsersDto> userList(String list, String text);
 }
