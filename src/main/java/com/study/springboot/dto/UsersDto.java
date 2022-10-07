@@ -19,6 +19,9 @@ public class UsersDto {
 	private String users_phone;
 	private int users_phone_receive;
 	private Date users_birth_date;
+	private String users_point;
+	private String users_address;
+	private Date users_joindate;
 	private String users_address1;
 	private String users_address2;
 	private String users_address3;

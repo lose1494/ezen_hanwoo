@@ -30,6 +30,25 @@ public class UsersService {
 				
 		return result;
 	}
+
+	public List<UsersDto> userList() {
+		List<UsersDto> userList = usersdao.userList();
+		return userList;
+	}
+	
+	public int list_Count() {
+		int list_Count = usersdao.list_Count();
+		return list_Count;
+	}
+
+	public List<UsersDto> search_result(String list, String text) {
+		List<UsersDto> search_result = usersdao.userList(list , text);
+		return search_result;
+	}
+
+	
+	
+	
 	
 	public int joinUser(UsersDto dto) {
 		int userJoin = usersdao.joinUser(dto);

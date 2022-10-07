@@ -30,13 +30,13 @@
 	
 	<div class="admin_div">
 	<div class="select_list">
-	<form action="Notice_selectAction" method="post" id="notice_search">
+	<form action="Notice_selectAction" method="post" id="notice_search" name="searchType">
 		<select>
 		<option value="all">전체조회</option>
 		<option value="title">제목</option>
 		<option value="content">내용</option>
 		</select>
-	 <input type="text" id=main_text>
+	 <input type="text" id=main_text name="searchName">
 	 <input type="submit" value="조회" class="notice_btn">
 	 </form>
 	 </div>	
