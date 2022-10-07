@@ -2,7 +2,7 @@
 drop table ezen_users;
 create table ezen_users(
     users_idx       number(4) primary key,
-    users_id      varchar2(20),
+    users_id      varchar2(20) UNIQUE,
     users_pw     varchar2(20),
     users_name   varchar2(20),
     users_email   varchar2(100),
@@ -18,6 +18,10 @@ drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date)
 VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01');
+
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
+VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
+
 --상품
 drop table product;
 create table product(
@@ -204,4 +208,23 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +5000, sysdate+365, '회원가입');
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +500, sysdate+365, '테스트');
+
 commit;
+
+insert into point
+values( point_seq.nextval, 'hong', sysdate, +100, sysdate+365, '테스트1');
+insert into point
+values( point_seq.nextval, 'hong', sysdate, +200, sysdate+365, '테스트2');
+insert into point
+values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
+insert into point
+values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
+commit;
+
+select * from point where point_users_id='hong' order by point_start_date desc;
+
+select * from
+(select rownum as rnum, po.* from 
+(select * from point where point_users_id='hong' order by point_start_date desc) po)
+where rnum between 6 and 10;
+

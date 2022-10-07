@@ -34,12 +34,29 @@
             </table>
         </div>
         <div class="pageNav">
-            <a href="#">처음</a>
-            <a href="#">이전</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">다음</a>
-            <a href="#">마지막</a>
+       		<a href="/mypage/mypage_point?page=1">처음</a>
+       		<a href="/mypage/mypage_point?page=${ page-1 }">이전</a>
+       		<c:forEach var="pageNum" begin="1" end="${ pageNum }">
+       			<a href="/mypage/mypage_point?page=${ pageNum }">${ pageNum }</a>
+       		</c:forEach>
+            <a href="/mypage/mypage_point?page=${ page+1 }">다음</a>
+            <a href="/mypage/mypage_point?page=${ pageNum }">마지막</a>
         </div>
     </div>
+
+    <script>
+        $(function() {
+            $('.pageNav a').each(function() {
+            	console.log($(this).text());
+            	if($(this).text() == '이전' && "${page}" == 1) {
+            		$(this).removeAttr('href');
+            	}
+            	if($(this).text() == '다음' && "${page}" == "${pageNum}") {
+            		$(this).removeAttr('href');
+            	}
+                if($(this).text() == "${ page }" ) {
+                    $(this).removeAttr('href');
+                }
+            })
+        })
+    </script>

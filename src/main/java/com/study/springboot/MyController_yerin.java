@@ -32,6 +32,9 @@ public class MyController_yerin {
 	@Autowired private CartService cartService;
 	@Autowired private WishlistService wishlistService;
 	@Autowired private One2oneService one2oneService;
+	
+	int num_page_size = 5;
+	
 		
     //마이페이지
 	@RequestMapping("/mypage/mypage_main")
@@ -43,7 +46,7 @@ public class MyController_yerin {
 			return "redirect:/member/login";
 		} else {
 			UsersDto member = usersService.userDetail(users_id);
-			int pointSum = pointService.pointSum();
+			int pointSum = pointService.pointSum(users_id);
 			int cartCount = cartService.cartCount(users_id);
 			int wishCount = wishlistService.wishCount(users_id);
 			
@@ -57,13 +60,20 @@ public class MyController_yerin {
 	}
 
 	@RequestMapping("/mypage/mypage_point")
-	public String mypage_point(Model model, HttpServletRequest request) {
+	public String mypage_point(@RequestParam(value="page",defaultValue="1") String page,
+							Model model, HttpServletRequest request) {
+		
+		System.out.println(page);
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		List<PointDto> pointList = pointService.pointList(users_id);
+		List<PointDto> pointList = pointService.pointList(users_id, page, num_page_size);
+		int pointCount = pointService.pointCount(users_id);
+		int sum = pointService.pointSum(users_id);		
+		int pageNum = (int)Math.ceil((double)pointCount/num_page_size);
 		
-		int sum = pointService.pointSum();
-		
+
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pointSum", sum);
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("mainPage", "mypage/mypage_point.jsp");
@@ -190,20 +200,22 @@ public class MyController_yerin {
 		return "index";
 	}
 	
+	//회원탈퇴
 	@RequestMapping("/mypage/userDelete")
+	@ResponseBody
 	public String userDelete(@RequestParam("pw") String pw,
 							 HttpServletRequest request,
 							 Model model) {
 		String users_id = (String)request.getSession().getAttribute("users_id");
 		int result = usersService.deleteUser(users_id, pw);
-		if( result != 1 ) {
+		int point = pointService.deletePoint(users_id);
+		if( result == 1 && point == 1 ) {
+			System.out.println("회원 탈퇴 성공");
+			request.getSession().invalidate();
+			return "<script>alert('회원 탈퇴가 완료되었습니다.');location.href='/index';</script>";
+		}else {
 			System.out.println("탈퇴 실패");
 			return "<script>alert('탈퇴에 실패했습니다.');history.back();</script>";
-		}else {
-			System.out.println("회원 탈퇴 성공");
-			request.getSession().setAttribute("alert", "회원 탈퇴가 완료되었습니다.");
-			model.addAttribute("mainPage", "main.jsp");
-			return "index";
 		}	
 		
 	}
@@ -228,7 +240,7 @@ public class MyController_yerin {
 		return "index";
 	}
 	
-	//문의
+	//1:1 문의
 	@RequestMapping("/customer/one2one")
 	public String one2one(Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
