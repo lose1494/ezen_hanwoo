@@ -20,9 +20,9 @@
                     <th>작성일</th>
                     <th></th>
                 </tr>
-                <c:forEach var="qna" items="${ qnaList }">
+                <c:forEach var="qna" items="${ qnaList }" varStatus="status">
                 <tr>
-                    <td></td>
+                    <td>${ qnaCount - status.index - (( page-1 ) * 5 ) }</td>
                     <td>${ qna.qna_status }</td>
                     <!-- <td>기타</td> -->
                     <td></td>

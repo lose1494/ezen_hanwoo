@@ -102,11 +102,12 @@ public class MyController_yerin {
 	
 	@RequestMapping("/mypage/mypage_one2one")
 	public String mypage_one2one(@RequestParam(value="page",defaultValue="1") String page,
-												Model model, HttpServletRequest request) {
+			Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
+		
+		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id, page, num_page_size);
 		int one2oneCount = one2oneService.one2oneCount(users_id);
 		int pageNum = (int)Math.ceil((double)one2oneCount/num_page_size);
-		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id, page, num_page_size);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
@@ -118,7 +119,7 @@ public class MyController_yerin {
 	
 	@RequestMapping("/mypage/mypage_productQna")
 	public String mypage_productQna(@RequestParam(value="page",defaultValue="1") String page,
-									HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		String sort = "qna_id";
 		int qnaCount = qnaService.qnaCount(sort, users_id);

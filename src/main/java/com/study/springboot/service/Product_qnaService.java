@@ -19,13 +19,12 @@ public class Product_qnaService {
 		int startRowNum = (num_page_no - 1) * num_page_size + 1;
 		int endRowNum = (num_page_no * num_page_size);
 		
-		System.out.println(startRowNum);
 		List<Product_qnaDto> qnaList = product_qnadao.qnaList(sort, value, startRowNum, endRowNum);
 		return qnaList;
 	}
 	
 	public int qnaCount(String sort, String value) {
-		System.out.println(sort +"+"+ value);
+
 		int qnaCount = product_qnadao.qnaCount(sort, value);
 		return qnaCount;
 	}
