@@ -11,6 +11,9 @@ public interface INoticeDao {
 
 	//관리자 공지사항
 	public List<NoticeDto> admin_notice_list();
+	
+	//관리자 글쓰기
+	public int notice_write(NoticeDto dto1);
 
 
 }

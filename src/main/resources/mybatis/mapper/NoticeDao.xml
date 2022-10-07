@@ -11,6 +11,10 @@
 		select * from Notice
 	</select>
 
+	<insert id="notice_write" parameterType="com.study.springboot.dto.NoticeDto">
+	 	insert into Notice ( notice_title, notice_content )
+	 	values ( #{notice_title}, #{notice_content})
+	 </insert>
 
 
 <!-- 	<select id="noticeList" resultType="com.study.springboot.dto.NoticeDto">
