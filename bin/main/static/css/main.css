@@ -55,7 +55,6 @@ a, a:link, a:hover {
 	display : flex;
 	flex-direction: row;
 	margin : 0 auto;
-	
 	justify-content : space-evenly;
 	width:80%;
 }	
