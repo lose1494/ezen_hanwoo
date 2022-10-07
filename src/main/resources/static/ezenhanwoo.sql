@@ -75,7 +75,7 @@ drop table product_qna;
 create table product_qna(
     qna_idx number(4) primary key,
     qna_id varchar2(20),
-    qna_title varchar2(20),
+    qna_title varchar2(60),
     qna_content varchar2(300),
     qna_date date,
     qna_secret   number(1), --0: 비밀글 설정안함 1: 비밀글 설정
@@ -86,6 +86,19 @@ create table product_qna(
 
 drop sequence product_qna_seq;
 create sequence product_qna_seq;
+
+insert into product_qna
+values( product_qna_seq.nextval, 'hong', '언제쯤 배송되나요', '배송 언제쯤 되나요??', sysdate, 1, '1234', '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용', '문의 테스트', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용1', '문의 테스트1', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용2', '문의 테스트2', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용3', '문의 테스트3', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', sysdate, 0, '답변대기중', 1);
 
 --상품 문의 답변
 drop table product_qna_reply;

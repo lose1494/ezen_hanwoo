@@ -114,7 +114,8 @@ h3 {
     font-size: 14px;
 }
 .mypageTable button {
-    width: 60px;
+    width: 40px;
+    margin: 0 5px;
     height: 25px; 
     font-size: 14px;  
 }
