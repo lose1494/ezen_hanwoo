@@ -69,9 +69,6 @@ values ( product_seq.nextval, '한우 구이용 세트', '/img/product/28만원�
 insert into product
 values ( product_seq.nextval, '한우 특수부위 세트', '/img/product/40만원세트.png', '400,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 commit;
-select * from product;
-
-
 
 --상품 문의
 drop table product_qna;
