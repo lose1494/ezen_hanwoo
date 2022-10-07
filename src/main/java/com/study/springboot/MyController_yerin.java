@@ -102,10 +102,8 @@ public class MyController_yerin {
 	@RequestMapping("/mypage/mypage_one2one")
 	public String mypage_one2one(Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		UsersDto member = usersService.userDetail(users_id);
-		String one2one_name = member.getUsers_name();
 		
-		List<One2oneDto> one2oneList = one2oneService.one2oneList(one2one_name);
+		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id);
 		model.addAttribute("one2oneList", one2oneList);
 		model.addAttribute("mainPage", "mypage/mypage_one2one.jsp");
 
@@ -264,16 +262,15 @@ public class MyController_yerin {
 	
 	 @RequestMapping(value="/customer/one2oneWrite", method=RequestMethod.POST) 
 	 @ResponseBody
-	 public String one2oneWrite(@RequestParam("one2one_name") String one2one_name,
-			 					@RequestParam("one2one_title") String one2one_title,
+	 public String one2oneWrite(@RequestParam("one2one_title") String one2one_title,
 			 					@RequestParam("one2one_content") String one2one_content,
 			 					@RequestParam(value="image", required=false) MultipartFile file,
 			 					@RequestParam(value="one2one_email", required=false) String one2one_email,
 			 					@RequestParam(value="one2one_phone", required=false) String one2one_phone,
-			 					One2oneDto dto,
-			 					Model model) {
+			 					One2oneDto dto,	HttpServletRequest request,	Model model) {
 
-		 dto.setOne2one_name(one2one_name);
+		 String one2one_id = (String) request.getSession().getAttribute("users_id");
+		 dto.setOne2one_id(one2one_id);
 		 dto.setOne2one_title(one2one_title);
 		 dto.setOne2one_content(one2one_content);
 		 dto.setOne2one_email(one2one_email);

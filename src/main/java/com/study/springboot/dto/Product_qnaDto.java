@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Product_qnaDto {
 	private int qna_idx;
-	private String qna_name;
+	private String qna_id;
 	private String qna_title;
 	private String qna_content;
 	private Date qna_date;
