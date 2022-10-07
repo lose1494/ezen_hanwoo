@@ -32,6 +32,9 @@ public class MyController_yerin {
 	@Autowired private CartService cartService;
 	@Autowired private WishlistService wishlistService;
 	@Autowired private One2oneService one2oneService;
+	
+	int num_page_size = 5;
+	
 		
     //마이페이지
 	@RequestMapping("/mypage/mypage_main")
@@ -61,16 +64,11 @@ public class MyController_yerin {
 							Model model, HttpServletRequest request) {
 		
 		System.out.println(page);
-		int num_page_no = Integer.parseInt( page );
-		int num_page_size = 5;
-		int startRowNum = (num_page_no - 1) * num_page_size + 1;
-		int endRowNum = (num_page_no * num_page_size);
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		List<PointDto> pointList = pointService.pointList(users_id, startRowNum, endRowNum);
+		List<PointDto> pointList = pointService.pointList(users_id, page, num_page_size);
 		int pointCount = pointService.pointCount(users_id);
-		int sum = pointService.pointSum(users_id);
-		
+		int sum = pointService.pointSum(users_id);		
 		int pageNum = (int)Math.ceil((double)pointCount/num_page_size);
 		
 

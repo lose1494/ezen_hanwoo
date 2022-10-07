@@ -13,7 +13,12 @@ public class PointService {
 	@Autowired
 	private IPointDao pointdao;
 	
-	public List<PointDto> pointList(String users_id, int startRowNum, int endRowNum) {
+	public List<PointDto> pointList(String users_id, String page, int num_page_size) {
+		
+		int num_page_no = Integer.parseInt( page );
+		int startRowNum = (num_page_no - 1) * num_page_size + 1;
+		int endRowNum = (num_page_no * num_page_size);
+		
 		List<PointDto> pointList = pointdao.pointList(users_id, startRowNum, endRowNum);
 		return pointList;
 	}

@@ -37,6 +37,7 @@ drop sequence product_seq;
 create sequence product_seq;
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]등심', '/img/product/등심3.png', '36,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+
 --상품 문의
 drop table product_qna;
 create table product_qna(
@@ -50,8 +51,10 @@ create table product_qna(
     qna_status varchar2(20),
     product_idx number(4)
 );
+
 drop sequence product_qna_seq;
 create sequence product_qna_seq;
+
 --상품 문의 답변
 drop table product_qna_reply;
 create table product_qna_reply(
@@ -196,4 +199,9 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
 commit;
 
-select * from point order by point_start_date desc;
+select * from point where point_users_id='hong' order by point_start_date desc;
+
+select * from
+(select rownum as rnum, po.* from 
+(select * from point where point_users_id='hong' order by point_start_date desc) po)
+where rnum between 6 and 10;
