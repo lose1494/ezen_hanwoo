@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="./mypage/mypage_menu.jsp" />
 
@@ -19,28 +20,47 @@
                     <th>작성일</th>
                     <th></th>
                 </tr>
+                <c:forEach var="qna" items="${ qnaList }">
                 <tr>
-                    <td>1</td>
-                    <td>처리중</td>
+                    <td></td>
+                    <td>${ qna.qna_status }</td>
                     <!-- <td>기타</td> -->
-                    <td>한우 살치살</td>
-                    <td>고기가 이상해요</td>
-                    <td>2022-09-02</td>
+                    <td></td>
+                    <td>${ qna.qna_title }</td>
+                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
                     <td>
                         <button class="bright">수정</button>
                         <button class="dark">삭제</button>
                     </td>
                 </tr>
+                </c:forEach>
             </table>
         </div>
        
         <div class="pageNav">
-            <a href="#">처음</a>
-            <a href="#">이전</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">다음</a>
-            <a href="#">마지막</a>
+       		<a href="/mypage/mypage_productQna?page=1">처음</a>
+       		<a href="/mypage/mypage_productQna?page=${ page-1 }">이전</a>
+       		<c:forEach var="pageNum" begin="1" end="${ pageNum }">
+       			<a href="/mypage/mypage_productQna?page=${ pageNum }">${ pageNum }</a>
+       		</c:forEach>
+            <a href="/mypage/mypage_productQna?page=${ page+1 }">다음</a>
+            <a href="/mypage/mypage_productQna?page=${ pageNum }">마지막</a>
         </div>
     </div>
+    
+    <script>
+        $(function() {
+            $('.pageNav a').each(function() {
+            	console.log($(this).text());
+            	if($(this).text() == '이전' && "${page}" == 1) {
+            		$(this).removeAttr('href');
+            	}
+            	if($(this).text() == '다음' && "${page}" == "${pageNum}") {
+            		$(this).removeAttr('href');
+            	}
+                if($(this).text() == "${ page }" ) {
+                    $(this).removeAttr('href');
+                }
+            })
+        })
+    </script>

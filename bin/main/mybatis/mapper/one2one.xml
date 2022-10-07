@@ -8,12 +8,21 @@
 <mapper namespace="com.study.springboot.dao.IOne2oneDao">
 
 	<select id="one2oneList" resultType="com.study.springboot.dto.One2oneDto">
-		select * from one2one 
-		<if test="param1 != null">where one2one_id=#{param1}</if>		
+		select * from
+			(select rownum rnum, one.* from
+				(select * from one2one 
+				<if test="param1 != null">where one2one_id=#{param1} </if>
+				order by one2one_date desc) one)
+		where rnum between #{param2} and #{param3}	
 	</select>
 	
 	<select id="one2oneDetail" resultType="com.study.springboot.dto.One2oneDto">
 		select * from one2one where one2one_idx=#{param1}
+	</select>
+	
+	<select id="one2oneCount" resultType="_int">
+		select count(*) from one2one 
+		<if test="param1 != null">where one2one_id=#{param1} </if>
 	</select>
 	
 	<insert id="insertOne2one" parameterType="com.study.springboot.dto.One2oneDto">

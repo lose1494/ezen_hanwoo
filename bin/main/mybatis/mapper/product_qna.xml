@@ -7,20 +7,22 @@
 <mapper namespace="com.study.springboot.dao.IProduct_qnaDao">
 
 	<select id="qnaList" resultType="com.study.springboot.dto.Product_qnaDto">
-		select * from product_qna 
-		<where>
-			<if test="param1 == 'qna_name'">
-				qna_name = #{param2}
-			</if>
-			<if test="param1 == 'product_idx'">
-				product_idx = #{param2}
-			</if>
-		</where>
+		select * from
+			(select rownum rnum, pq.* from
+				(select * from product_qna 
+				 <if test="param2 != null">where ${param1} = #{param2}</if>
+				order by qna_date desc) pq)
+		where rnum between #{param3} and #{param4}	
+	</select>
+	
+	<select id="qnaCount" resultType="_int">
+		select count(*) from product_qna 
+		<if test="param1 != null">where ${param1} = #{param2}</if>
 	</select>
 	
 	<insert id="insertQna" parameterType="com.study.springboot.dto.Product_qnaDto">
 		insert into product_qna
-		values ( product_qna_seq.nextval, #{qna_name}, #{qna_title}, 
+		values ( product_qna_seq.nextval, #{qna_id}, #{qna_title}, 
 		#{qna_content}, sysdate, #{qna_secret}, #{product_idx} )
 	</insert>
 	

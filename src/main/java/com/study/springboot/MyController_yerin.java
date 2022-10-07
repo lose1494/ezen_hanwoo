@@ -17,10 +17,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.PointDto;
+import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.One2oneService;
 import com.study.springboot.service.PointService;
+import com.study.springboot.service.Product_qnaService;
 import com.study.springboot.service.UsersService;
 import com.study.springboot.service.WishlistService;
 
@@ -32,6 +34,7 @@ public class MyController_yerin {
 	@Autowired private CartService cartService;
 	@Autowired private WishlistService wishlistService;
 	@Autowired private One2oneService one2oneService;
+	@Autowired private Product_qnaService qnaService;
 	
 	int num_page_size = 5;
 	
@@ -62,8 +65,6 @@ public class MyController_yerin {
 	@RequestMapping("/mypage/mypage_point")
 	public String mypage_point(@RequestParam(value="page",defaultValue="1") String page,
 							Model model, HttpServletRequest request) {
-		
-		System.out.println(page);
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		List<PointDto> pointList = pointService.pointList(users_id, page, num_page_size);
@@ -100,10 +101,15 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("/mypage/mypage_one2one")
-	public String mypage_one2one(Model model, HttpServletRequest request) {
+	public String mypage_one2one(@RequestParam(value="page",defaultValue="1") String page,
+												Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
+		int one2oneCount = one2oneService.one2oneCount(users_id);
+		int pageNum = (int)Math.ceil((double)one2oneCount/num_page_size);
+		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id, page, num_page_size);
 		
-		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("one2oneList", one2oneList);
 		model.addAttribute("mainPage", "mypage/mypage_one2one.jsp");
 
@@ -111,7 +117,19 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("/mypage/mypage_productQna")
-	public String mypage_productQna(Model model) {
+	public String mypage_productQna(@RequestParam(value="page",defaultValue="1") String page,
+									HttpServletRequest request, Model model) {
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		String sort = "qna_id";
+		int qnaCount = qnaService.qnaCount(sort, users_id);
+		int pageNum = (int)Math.ceil((double)qnaCount/num_page_size);
+		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, users_id, page, num_page_size);
+		
+		System.out.println(qnaCount);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qnaCount", qnaCount);
 		model.addAttribute("mainPage", "mypage/mypage_productQna.jsp");
 		return "index";
 	}

@@ -18,8 +18,13 @@ public class One2oneService {
 	@Autowired
 	private	IOne2oneDao one2onedao;
 	
-	public List<One2oneDto> one2oneList(String one2one_id){
-		List<One2oneDto> one2oneList = one2onedao.one2oneList(one2one_id);
+	public List<One2oneDto> one2oneList(String one2one_id, String page, int num_page_size){
+		
+		int num_page_no = Integer.parseInt( page );
+		int startRowNum = (num_page_no - 1) * num_page_size + 1;
+		int endRowNum = (num_page_no * num_page_size);
+		
+		List<One2oneDto> one2oneList = one2onedao.one2oneList(one2one_id, startRowNum, endRowNum);
 		return one2oneList;
 	}
 	
@@ -28,6 +33,10 @@ public class One2oneService {
 		return one2oneDetail;
 	}
 	
+	public int one2oneCount(String one2one_id) {
+		int one2oneCount = one2onedao.one2oneCount(one2one_id);
+		return one2oneCount;
+	}
 	
 	//사진 업로드
 	private static String SAVE_PATH = "/img/customer/";
