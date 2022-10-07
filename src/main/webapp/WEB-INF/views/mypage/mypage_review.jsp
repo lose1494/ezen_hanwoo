@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="./mypage/mypage_menu.jsp" />
 
@@ -23,6 +24,7 @@
                     <th>작성일</th>
                     <th></th>
                 </tr>
+                <c:forEach var="dto" items="${ reviewList }" varStatus="status">
                 <tr>
                     <td>
                         <span class="starRating-base gray">
@@ -34,22 +36,23 @@
                         </span>
                         <b class="hide score">5</b>
                     </td>
-                    <td><img src="https://via.placeholder.com/80" alt=""></td>
-                    <td>한우 치마살</td>
-                    <td>맛있게 잘 먹었습니다!!</td>
-                    <td>2022-09-02</td>
+                    <td>${ dto.review_image }</td>
+                    <td></td>
+                    <td>${ dto.review_title }</td>
+                    <td><fmt:formatDate value="${ dto.review_date }" pattern = "yyyy-MM-dd"/></td>
                     <td><button class="dark">삭제</button></td>
                 </tr>
+                </c:forEach>
             </table>
         </div>
-        <div class="pageNav">
-            <a href="#">처음</a>
-            <a href="#">이전</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">다음</a>
-            <a href="#">마지막</a>
+         <div class="pageNav">
+       		<a href="/mypage/mypage_review?page=1">처음</a>
+       		<a href="/mypage/mypage_review?page=${ page-1 }">이전</a>
+       		<c:forEach var="pageNum" begin="1" end="${ pageNum }">
+       			<a href="/mypage/mypage_review?page=${ pageNum }">${ pageNum }</a>
+       		</c:forEach>
+            <a href="/mypage/mypage_review?page=${ page+1 }">다음</a>
+            <a href="/mypage/mypage_review?page=${ pageNum }">마지막</a>
         </div>
     </div>
 
@@ -62,4 +65,19 @@
             } 
             })      
         });
+        
+        $(function() {
+            $('.pageNav a').each(function() {
+            	console.log($(this).text());
+            	if($(this).text() == '이전' && "${page}" == 1) {
+            		$(this).removeAttr('href');
+            	}
+            	if($(this).text() == '다음' && "${page}" == "${pageNum}") {
+            		$(this).removeAttr('href');
+            	}
+                if($(this).text() == "${ page }" ) {
+                    $(this).removeAttr('href');
+                }
+            })
+        })
     </script>

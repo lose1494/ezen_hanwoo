@@ -22,4 +22,9 @@ public class ReviewService {
 		List<ReviewDto> reviewList = reviewdao.reviewList(category, value, startRowNum, endRowNum);
 		return reviewList;
 	}
+	
+	public int reviewCount(String sort, String value) {
+		int reviewCount = reviewdao.reviewCount(sort, value);
+		return reviewCount;
+	}
 }
