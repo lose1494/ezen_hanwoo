@@ -26,13 +26,35 @@ create table product(
     product_image varchar2(40),
     product_price varchar2(20),
     product_category varchar2(20),
-    product_gram varchar2(20),
+    product_gram varchar2(40),
     product_explanation varchar2(60)
 );
 drop sequence product_seq;
 create sequence product_seq;
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]등심', '/img/product/등심3.png', '36,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]치마살', '/img/product/치마3.png', '54,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]살치살', '/img/product/살치2.png', '60,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]제비추리', '/img/product/제비추리2.png', '45,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]안심', '/img/product/안심2.png', '54,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]채끝', '/img/product/채끝2.png', '42,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 [1++No.9]안창살', '/img/product/안창살2.png', '60,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 조리용 세트', '/img/product/13만원세트.png', '130,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 구이용 세트', '/img/product/15만원세트.png', '150,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 구이용 세트', '/img/product/28만원세트.png', '280,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
+insert into product
+values ( product_seq.nextval, '한우 특수부위 세트', '/img/product/40만원세트.png', '400,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
+commit;
+select * from product;
 --상품 문의
 drop table product_qna;
 create table product_qna(
@@ -68,7 +90,7 @@ create table product_review(
     review_content varchar2(300),
     review_date date,
     review_star_rating number(4),
-    product_idx number(4),
+    product_idx number(4)
 );
 drop sequence product_review_seq;
 create sequence product_review_seq;

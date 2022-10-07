@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -14,16 +15,23 @@
 
 		<div class="new best">
 			<h1 class="best">추천상품</h1>
+			
 			<div class="img_best">
 				<div class="best1">
-					<a href="/product/product01_1"> 
-						<img alt="" src="/img/product/등심3.png" style="width: 400px;" class="product_img">
+				<c:forEach var="dto" items="${ productlist }"  end="0">
+					<a href="/product/product01_1?product_idx=${ dto.product_idx }"> 
+						<img alt="" src="${ dto.product_image }" style="width: 400px;" class="product_img">
 						<div class="info">
-							<h3>한우 [1++No.9]등심</h3>
-							<p class="mon">0,000원/100g</p>
-							<p>00,000원 &nbsp; (300g/팩)</p>
+							<h3>${ dto.product_name }</h3>
+							<p class="mon"> 
+							<fmt:parseNumber value = "${ dto.product_price  }"  var = "num" integerOnly="true" />
+							<fmt:formatNumber value="${num / 3}" type="number" var="price" />
+							${ price }
+							/100g</p>
+							<p>${ dto.product_price }원 &nbsp; (300g/팩)</p>
 							<p>★★★★★(0)</p>
 					</a>
+					</c:forEach>
 					<div class="middle">
 						<div class="text">
 
@@ -38,13 +46,19 @@
 				</div>
 
 			</div>
+			<c:forEach var="dto" items="${ productlist }"  begin="1" end="1">
 			<div class="best2">
-				<a href="/"> <img alt="" src="/img/product/치마3.png"
+			
+				<a href="/product/product01_1?product_idx=${ dto.product_idx }"> <img alt="" src="${ dto.product_image }"
 					style="width: 400px;" class="product_img">
 					<div class="info">
-						<h3>한우 [1++No.9]치마살</h3>
-						<p class="mon">0,000원/100g</p>
-						<p>00,000원 &nbsp; (300g/팩)</p>
+						<h3>${ dto.product_name }</h3>
+						<p class="mon">
+						<fmt:parseNumber value = "${ dto.product_price  }"  var = "num" integerOnly="true" />
+						<fmt:formatNumber value="${num / 3}" type="number" var="price" />
+						${ price }
+						/100g</p>
+						<p>${ dto.product_price }원 &nbsp; (300g/팩)</p>
 						<p>★★★★★(0)</p></a>
 				<div class="middle">
 					<div class="text">
@@ -56,17 +70,22 @@
 					</div>
 				</div>
 			</div>
-
+</c:forEach>
 
 
 		</div>
+		<c:forEach var="dto" items="${ productlist }"  begin="2" end="2">
 		<div class="best3">
-			<a href="/"> <img alt="" src="/img/product/살치2.png"
+			<a href="/product/product01_1?product_idx=${ dto.product_idx }"> <img alt="" src="${ dto.product_image }"
 				style="width: 400px;" class="product_img">
 				<div class="info">
-					<h3>한우 [1++No.9]살치살</h3>
-					<p class="mon">0,000원/100g</p>
-					<p>00,000원 &nbsp; (300g/팩)</p>
+					<h3>${ dto.product_name }</h3>
+					<p class="mon">
+					<fmt:parseNumber value = "${ dto.product_price  }"  var = "num" integerOnly="true" />
+					<fmt:formatNumber value="${num / 3}" type="number" var="price" />
+					${ price }
+					/100g</p>
+					<p>${ dto.product_price }원 &nbsp; (300g/팩)</p>
 					<p>★★★★★(0)</p></a>
 			<div class="middle">
 				<div class="text">
@@ -78,21 +97,28 @@
 				</div>
 			</div>
 		</div>
-
+</c:forEach>
 
 	</div>
 </div>
 </div>
 
 <div class="gift best">
+
 	<h1>선물세트</h1>
-	<div class="gift_set">
-		<div class="gift1">
-			<a href="/"> <img alt="" src="/img/product/13만원세트.png"
+	
+
+	<div class="main_product" >
+		<div class="main_product2">
+		
+		<c:forEach var="dto" items="${ productlist }"  >
+	<c:if test="${ dto.product_category == '선물세트'}">
+	<div class="gift1">
+			<a href="/product/product01_1?product_idx=${ dto.product_idx }"> <img alt="" src="${ dto.product_image }"
 				style="width: 300px; height: 230px;" class="product_img">
-				<div>
-					<h3>한우 조리용 세트</h3>
-					<p>130,000 &nbsp; (상세페이지 참조.)</p>
+				
+					<h3>${ dto.product_name }</h3>
+					<p>${ dto.product_price }원 &nbsp; (상세페이지 참조.)</p>
 					<p class="star1">★★★★★(0)</p></a>
 			<div class="middle">
 				<div class="text">
@@ -101,13 +127,20 @@
 					</a> <a href="/"> <img alt="" src="/img/product/icon_wish.png"
 						class="icon_img1">
 					</a>
+					
 				</div>
+				
 			</div>
+			</div>
+			</c:if>
+</c:forEach>
 		</div>
-
+		
+		</div>
+	
 
 	</div>
-	<div class="gift1">
+	<!-- <div class="gift1">
 		<a href="/"> <img alt="" src="/img/product/15만원세트.png"
 			style="width: 300px; height: 230px;" class="product_img">
 			<div>
@@ -143,9 +176,9 @@
 			</a>
 		</div>
 	</div>
-</div>
+</div> -->
 
-
+<!-- 
 </div>
 <div class="gift1">
 	<a href="/"> <img alt="" src="/img/product/40만원세트.png"
@@ -163,7 +196,9 @@
 			</a>
 		</div>
 	</div>
-</div>
+</div> -->
+
+
 </div>
 </div>
 </div>
