@@ -4,6 +4,7 @@
 
 <c:import url="./mypage/mypage_menu.jsp" />
 
+<link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/mypage/mypage.css">
 
 	<div class="wrap">
@@ -24,13 +25,6 @@
                 </tr>
                 <tr>
                     <td>
-                        <span class="starRating-fill gold">
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>
-                        </span>
                         <span class="starRating-base gray">
                             <i class="fa-solid fa-star"></i>                       
                             <i class="fa-solid fa-star"></i>                       
@@ -38,6 +32,7 @@
                             <i class="fa-solid fa-star"></i>                       
                             <i class="fa-solid fa-star"></i>
                         </span>
+                        <b class="hide score">5</b>
                     </td>
                     <td><img src="https://via.placeholder.com/80" alt=""></td>
                     <td>한우 치마살</td>
@@ -57,3 +52,14 @@
             <a href="#">마지막</a>
         </div>
     </div>
+
+    <script>
+        $(function() {
+            console.log($('.score').text());
+            $('.score').each(function() {
+                for(i=0; i<$(this).text(); i++) {
+                $(this).closest('td').find('.fa-star').eq(i).addClass('gold');
+            } 
+            })      
+        });
+    </script>
