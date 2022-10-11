@@ -16,6 +16,29 @@ public class ProductService {
 		List<ProductDto> productlist = productdao.productlist(category);
 		return productlist;
 	}
+
+	public List<ProductDto> item_list() {
+		List<ProductDto> item_list = productdao.item_list();
+		return item_list;
+	}
+
+	public int item_Count() {
+		int item_Count = productdao.item_Count();
+		return item_Count;
+	}
+
+	public List<ProductDto> item_result(String search, String text) {
+		List<ProductDto> item_result = productdao.item_result(search,text);
+		return item_result;
+	}
+
+	public int deleteProduct(int idx) {
+		int deleteProduct = productdao.deleteProduct(idx);
+		return deleteProduct;
+	}
+
+
+	
 	public int product_count(String category) {
 		int product_count = productdao.product_count(category);
 		return product_count;

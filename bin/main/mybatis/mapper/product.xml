@@ -22,10 +22,34 @@
 		#{product_sort}, #{product_explanation}, #{product_gram} )
 	</insert>
 	
-	<delete id="deleteProduct">
-	  DELETE FROM product
-	  WHERE product_idx=#{ param1 }
+	<delete id="deleteProduct" >
+	  delete from product
+	  where product_idx = #{ param1 }
 	</delete>
+	
+	<select id="item_list" resultType="com.study.springboot.dto.ProductDto">
+		select * from product
+	</select>
+	
+	<select id="item_Count" resultType="_int">
+		select count(*) from product
+	</select>
+	
+	<select id="item_result" resultType="com.study.springboot.dto.ProductDto">
+		select * from product
+		<where>
+		<if test="param1 == 'all'">
+			product_idx like '%${param2}%'
+			or product_name like '%${param2}%'
+			or product_sort like '%${param2}%'
+			</if>
+			<if test="param1 != 'all'">
+			${param1} like '%${param2}%'
+			</if>
+		</where>
+	</select>
+	
+	
 	<select id="product_count" resultType="_int">
 	select count(*) from product
 	<choose>

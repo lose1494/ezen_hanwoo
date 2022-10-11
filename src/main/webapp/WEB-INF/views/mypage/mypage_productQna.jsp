@@ -22,7 +22,11 @@
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
                 <tr>
+
                     <td>${status.count }</td>
+
+                    <td>${ qnaCount - status.index - (( page-1 ) * 5 ) }</td>
+
                     <td>${ qna.qna_status }</td>
                     <!-- <td>기타</td> -->
                     <td></td>

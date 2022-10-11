@@ -18,11 +18,13 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.PointDto;
 import com.study.springboot.dto.Product_qnaDto;
+import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.One2oneService;
 import com.study.springboot.service.PointService;
 import com.study.springboot.service.Product_qnaService;
+import com.study.springboot.service.ReviewService;
 import com.study.springboot.service.UsersService;
 import com.study.springboot.service.WishlistService;
 
@@ -35,6 +37,7 @@ public class MyController_yerin {
 	@Autowired private WishlistService wishlistService;
 	@Autowired private One2oneService one2oneService;
 	@Autowired private Product_qnaService qnaService;
+	@Autowired private ReviewService reviewService;
 	
 	int num_page_size = 5;
 	
@@ -102,11 +105,12 @@ public class MyController_yerin {
 	
 	@RequestMapping("/mypage/mypage_one2one")
 	public String mypage_one2one(@RequestParam(value="page",defaultValue="1") String page,
-												Model model, HttpServletRequest request) {
+			Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
+		
+		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id, page, num_page_size);
 		int one2oneCount = one2oneService.one2oneCount(users_id);
 		int pageNum = (int)Math.ceil((double)one2oneCount/num_page_size);
-		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id, page, num_page_size);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
@@ -118,7 +122,7 @@ public class MyController_yerin {
 	
 	@RequestMapping("/mypage/mypage_productQna")
 	public String mypage_productQna(@RequestParam(value="page",defaultValue="1") String page,
-									HttpServletRequest request, Model model) {
+			HttpServletRequest request, Model model) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		String sort = "qna_id";
 		int qnaCount = qnaService.qnaCount(sort, users_id);
@@ -135,7 +139,19 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("/mypage/mypage_review")
-	public String mypage_review(Model model) {
+	public String mypage_review(@RequestParam(value="page",defaultValue="1") String page,
+			HttpServletRequest request, Model model) {
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		String sort = "review_id";
+		int reviewCount = reviewService.reviewCount(sort, users_id);
+		int pageNum = (int)Math.ceil((double)reviewCount/num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(sort, users_id, page, num_page_size);
+		
+		System.out.println(reviewCount);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("mainPage", "mypage/mypage_review.jsp");
 		return "index";
 	}
