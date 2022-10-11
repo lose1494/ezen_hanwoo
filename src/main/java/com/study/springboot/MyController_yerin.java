@@ -51,7 +51,7 @@ public class MyController_yerin {
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		if(users_id == null) {
-			model.addAttribute("alert", "로그인이 필요합니다.");
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
 			return "redirect:/member/login";
 		} else {
 			UsersDto member = usersService.userDetail(users_id);
@@ -430,9 +430,5 @@ public class MyController_yerin {
 		
 		return "redirect:/index";  
 	}
-	
-	//장바구니 추가
-	/*
-	 * @RequestMapping("/plusCart") public String plusCart()
-	 */
+
 }
