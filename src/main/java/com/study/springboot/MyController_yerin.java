@@ -17,12 +17,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.PointDto;
+import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.One2oneService;
 import com.study.springboot.service.PointService;
+import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
 import com.study.springboot.service.ReviewService;
 import com.study.springboot.service.UsersService;
@@ -38,6 +40,7 @@ public class MyController_yerin {
 	@Autowired private One2oneService one2oneService;
 	@Autowired private Product_qnaService qnaService;
 	@Autowired private ReviewService reviewService;
+	@Autowired private ProductService productService;
 	
 	int num_page_size = 5;
 	
@@ -254,7 +257,37 @@ public class MyController_yerin {
 
 	//상품 상세
 	@RequestMapping("/product/product01_1")
-	public String product01_1(Model model) {
+	public String product01_1(@RequestParam("product_idx") int product_idx,
+							  @RequestParam(value="revPage",defaultValue="1") String revPage,
+							  @RequestParam(value="qnaPage",defaultValue="1") String qnaPage,
+							  HttpServletRequest request,
+											Model model) {
+		ProductDto proDe = productService.productDetail(product_idx);
+		model.addAttribute("dto", proDe);
+		
+		String sort = "product_idx";
+		int reviewCount = reviewService.reviewCount(sort, String.valueOf(product_idx));
+		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(sort, String.valueOf(product_idx), revPage, num_page_size);
+		int reviewAvg = reviewService.reviewAvg(product_idx);
+
+		int qnaCount = qnaService.qnaCount(sort, String.valueOf(product_idx));
+		int qnaPageNum = (int)Math.ceil((double)qnaCount/num_page_size);
+		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, String.valueOf(product_idx), qnaPage, num_page_size);
+		
+		System.out.println(qnaCount);
+		model.addAttribute("qnaPage", qnaPage);
+		model.addAttribute("qnaPageNum", qnaPageNum);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qnaCount", qnaCount);
+		
+		
+		System.out.println(reviewCount);
+		model.addAttribute("revPage", revPage);
+		model.addAttribute("revPageNum", revPageNum);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewCount", reviewCount);
+		model.addAttribute("avgScore", reviewAvg);
 		model.addAttribute("mainPage", "product/product01_1.jsp");
 		return "index";
 	}
@@ -380,4 +413,9 @@ public class MyController_yerin {
 		
 		return "redirect:/index";  
 	}
+	
+	//장바구니 추가
+	/*
+	 * @RequestMapping("/plusCart") public String plusCart()
+	 */
 }

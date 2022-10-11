@@ -22,16 +22,17 @@
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
                 <tr>
-                    <td>${ qnaCount - status.index - (( page-1 ) * 5 ) }</td>
-                    <td>${ qna.qna_status }</td>
-                    <!-- <td>기타</td> -->
-                    <td></td>
-                    <td>${ qna.qna_title }</td>
-                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
-                    <td>
-                        <button class="bright">수정</button>
-                        <button class="dark">삭제</button>
-                    </td>
+                    <form action="deleteQna">
+                        <td>${ qnaCount - status.index - (( page-1 ) * 5 ) }</td>
+                        <td>${ qna.qna_status }</td>
+                        <!-- <td>기타</td> -->
+                        <td></td>
+                        <td>${ qna.qna_title }</td>
+                        <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
+                        <td>
+                            <button class="dark">삭제</button>
+                        </td>
+                    </form>
                 </tr>
                 </c:forEach>
             </table>

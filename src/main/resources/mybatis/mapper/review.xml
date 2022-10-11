@@ -20,6 +20,12 @@
 		<if test="param1 != null">where ${param1} = #{param2}</if>
 	</select>
 	
+	<select id="reviewAvg" resultType="_int">
+		SELECT NVL(avg, 0)FROM 
+		(select avg(review_star_rating) avg from product_review
+		where product_idx = #{param1})
+	</select>
+	
 	<insert id="insertReview" parameterType="com.study.springboot.dto.ReviewDto">
 		insert into product_review
 		values ( product_review_seq.nextval, #{review_id}, #{review_title}, 
