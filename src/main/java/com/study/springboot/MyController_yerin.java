@@ -52,7 +52,8 @@ public class MyController_yerin {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		if(users_id == null) {
 			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
-			return "redirect:/member/login";
+			request.setAttribute("url", "/member/login");
+			return "alert";
 		} else {
 			UsersDto member = usersService.userDetail(users_id);
 			int pointSum = pointService.pointSum(users_id);
@@ -154,7 +155,6 @@ public class MyController_yerin {
 			return "<script>alert('작성 실패');history.back();</script>";
 		}else {
 			System.out.println("문의 삭제 성공");
-			request.getSession().setAttribute("alert", "삭제에 실패하였습니다.");
 			return "<script>alert('삭제되었습니다.');location.href='"+referer+"';</script>";
 		}
 	}
@@ -175,6 +175,25 @@ public class MyController_yerin {
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("mainPage", "mypage/mypage_review.jsp");
 		return "index";
+	}
+	
+	@RequestMapping("*/deleteReview")
+	public String deleteReview(@RequestParam("review_idx") int review_idx, 
+							HttpServletRequest request, Model model) {
+		int deleteReview = reviewService.deleteReview(review_idx);
+		String referer = request.getHeader("referer").substring(21);
+		System.out.println(referer);
+		request.getSession().setAttribute("url", referer);
+		
+		if (deleteReview != 1) {
+			System.out.println("리뷰 삭제 실패");		
+			request.getSession().setAttribute("alert", "삭제에 실패했습니다.");			
+			return "alert";
+		}else {
+			System.out.println("리뷰 삭제 성공");
+			request.getSession().setAttribute("alert", "삭제되었습니다.");
+			return "alert";
+		}
 	}
 	
 	@RequestMapping("/mypage/mypage_memberEdit")
@@ -287,7 +306,7 @@ public class MyController_yerin {
 		int reviewCount = reviewService.reviewCount(sort, String.valueOf(product_idx));
 		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
 		List<ReviewDto> reviewList = reviewService.reviewList(sort, String.valueOf(product_idx), revPage, num_page_size);
-		int reviewAvg = reviewService.reviewAvg(product_idx);
+		double reviewAvg = reviewService.reviewAvg(product_idx);
 
 		int qnaCount = qnaService.qnaCount(sort, String.valueOf(product_idx));
 		int qnaPageNum = (int)Math.ceil((double)qnaCount/num_page_size);
@@ -405,10 +424,11 @@ public class MyController_yerin {
 		if( result == 1 ) {
 			System.out.println("alert:" + "로그인되었습니다.");
 			request.getSession().setAttribute("alert", "로그인되었습니다.");
+			request.getSession().setAttribute("url", "/index");
 			request.getSession().setAttribute("users_id", users_id);
 			request.getSession().setAttribute("users_pw", users_pw);
 			
-			return "redirect:/index"; 				 
+			return "alert"; 				 
 		}else {
 			System.out.println("alert:" + "로그인 실패하였습니다.");
 			

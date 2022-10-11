@@ -145,33 +145,42 @@
             <div class="reviewTable">
                 <table>
                 	<c:forEach var="review" items="${ reviewList }">
-                    <tr>
-                        <td>
-                            <div>
-                                <span class="starRating-base gray">
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                                <b class="score hide">${ review.review_star_rating }</b>
-                            </div>
-                        </td>
-                        <td>${ review.review_id }</td>
-                        <td><fmt:formatDate value="${ review.review_date }" pattern = "yyyy-MM-dd"/></td>
-                    </tr>
-                    <tr>
-                    	<td>${ review.review_title }</td>
-                    </tr>
-                    <tr>	
-                        <td>${ review.review_content }</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="${ review.review_image }" alt="">                                       
-                        </td>
-                    </tr>
+                    <form action="deleteReview" method="post">
+                    <input type="hidden" name="review_idx" value="${ review.review_idx }">
+                        <tr>
+                            <td>
+                                <div>
+                                    <span class="starRating-base gray">
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>
+                                    </span>
+                                    <b class="score hide">${ review.review_star_rating }</b>
+                                </div>
+                            </td>
+                            <td>${ review.review_id }</td>
+                            <td><fmt:formatDate value="${ review.review_date }" pattern = "yyyy-MM-dd"/></td>
+                        </tr>
+                        <tr>
+                            <td>${ review.review_title }</td>
+                        </tr>
+                        <tr>	
+                            <td>${ review.review_content }</td>
+                            <td></td>
+                            <td>
+                                <div class="tableBtn">
+                                    <button class="dark">삭제</button>  
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="${ review.review_image }" alt="">                                       
+                            </td>
+                        </tr>
+                    </form>
                     </c:forEach>
                 </table>
                 <div class="pageNav rev">
@@ -305,7 +314,7 @@
                 } 
             })
             for(i=0; i<$('.scoreAvg').length; i++) {
-                $('.starRating-fill').eq(i).width(20.5 * ($('.scoreAvg').eq(i).text()));
+                $('.starRating-fill').eq(i).width(17.5 * ($('.scoreAvg').eq(i).text()));
             } 
             $('.starBar-fill').each( function(index, item) {
                 $(this).width(               

@@ -59,7 +59,7 @@
 .fa-star {
     letter-spacing: -6px;
 }
-b:not(.score) {
+b:not(.scoreAvg) {
     display: none;
 }
 /* 상품 메뉴바 */

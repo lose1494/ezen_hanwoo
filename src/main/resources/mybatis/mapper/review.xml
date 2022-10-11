@@ -20,7 +20,7 @@
 		<if test="param1 != null">where ${param1} = #{param2}</if>
 	</select>
 	
-	<select id="reviewAvg" resultType="_int">
+	<select id="reviewAvg" resultType="_double">
 		SELECT NVL(avg, 0)FROM 
 		(select avg(review_star_rating) avg from product_review
 		where product_idx = #{param1})

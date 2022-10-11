@@ -28,8 +28,8 @@ public class ReviewService {
 		return reviewCount;
 	}
 	
-	public int reviewAvg(int product_idx) {
-		int reviewAvg = reviewdao.reviewAvg(product_idx);
+	public double reviewAvg(int product_idx) {
+		double reviewAvg = reviewdao.reviewAvg(product_idx);
 		return reviewAvg;
 	}
 	
