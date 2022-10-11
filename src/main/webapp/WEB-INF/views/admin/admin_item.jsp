@@ -53,12 +53,12 @@
 	 	<th>삭제</th>
 	 </tr>
 	 <c:forEach var="dto" items="${ item_result }" varStatus="status">
-	 <tr onclick="location.href='/admin/item_check'" style="cursor:pointer;" >
+	 <tr onclick="location.href='/admin/item_detail?product_idx=${ dto.product_idx }'" style="cursor:pointer;" >
 	 	<td>${ dto.product_category }</td>
 	 	<td>${ dto.product_idx }</td>
 	 	<td>${ dto.product_name }</td>
 	 	<td>${ dto.product_price }</td>
-	 	<input type="hidden" value="${ dto.product_idx }" name="product_idx"/>
+	 	<input type="hidden" value="${ product_name }" name="product_name"/>
 	 	<td> <button type="submit" id="sending_mail" onclick="javascript:form.action='/delete_product'">삭제</button> </td>
 	 </tr>
 	 	</c:forEach>

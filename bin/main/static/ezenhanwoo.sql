@@ -12,16 +12,24 @@ create table ezen_users(
     users_birth_date      date,
     users_address1 varchar(20),
     users_address2 varchar(100),
-    users_address3 varchar(100)
+    users_address3 varchar(100),
+    users_address varchar2(100),
+    users_joindate date default sysdate,
+    users_point    varchar2(20)
 );
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date)
 VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01');
+insert into ezen_users(users_idx,users_id,users_pw,users_name,users_email,users_phone,users_birth_date,users_point,users_address,users_joindate )
+values(ezen_users_seq.nextval, 'remi6513',1234,'최이안','remi6513@naver.com','010-5045-5054', '1993-11-02', '2000', '경기도 의정부시 민락동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
 
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
 VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
 
+select * from ezen_users;
+
+commit;
 --상품
 drop table product;
 create table product(
@@ -69,9 +77,6 @@ values ( product_seq.nextval, '한우 구이용 세트', '/img/product/28만원�
 insert into product
 values ( product_seq.nextval, '한우 특수부위 세트', '/img/product/40만원세트.png', '400,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 commit;
-select * from product;
-
-
 
 --상품 문의
 drop table product_qna;

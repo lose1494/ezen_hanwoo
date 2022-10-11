@@ -62,6 +62,10 @@
 		SELECT COUNT(*) FROM ezen_users
 	</select>
 	
+	<!-- 회원 상세 조회  -->
+	<select id="user_Dtail" resultType="com.study.springboot.dto.UsersDto">
+		SELECT * FROM ezen_users WHERE users_id = #{param1}
+	</select>
 	
 	
 	

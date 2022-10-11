@@ -56,12 +56,12 @@
 	 	<th>임시 비밀번호</th>
 	 </tr>
 	<c:forEach var="dto" items ="${ search_result }" varStatus="status" > 
-	 <tr onclick="location.href='/admin/admin_maindetail'" style="cursor:pointer;">
-	 	<td> ${dto.users_id }</td>
+	<tr onclick="location.href='/admin/admin_maindetail?users_id=${ dto.users_id }'" style="cursor:pointer">
+		<td> ${dto.users_id }</td>
 	 	<td> ${dto.users_name }</td>
 	 	<td> ${dto.users_email }</td>
 	 	<td> ${dto.users_phone }</td>
-	 	<td> ${dto.users_address }</td>
+	 	<td> ${dto.users_address1 }</td>
 	 	<td> <button id="sending_mail">이메일 보내기</button> </td>
 	 </tr>
 	 </c:forEach>

@@ -18,4 +18,5 @@ public interface IUsersDao {
 	public List<UsersDto> userList(String list, String text);
 	public int updateUser(UsersDto dto);
 	public int deleteUser(String users_id, String users_pw);
+	public List<UsersDto> user_Dtail(String users_id);
 }

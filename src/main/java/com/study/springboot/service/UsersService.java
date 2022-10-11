@@ -60,4 +60,9 @@ public class UsersService {
 		int userDelete = usersdao.deleteUser(users_id, users_pw);
 		return userDelete;
 	}
+
+	public List<UsersDto> user_Detail(String users_id) {
+		List<UsersDto> user_Detail = usersdao.user_Dtail(users_id);
+		return user_Detail;
+	}
 }

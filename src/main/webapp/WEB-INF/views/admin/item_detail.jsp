@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <link rel="stylesheet" href="/css/admin/item_check.css">
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class= "bg_admin text-center">
 <div>
 	<p id="title">관리자 페이지</p>
@@ -29,7 +29,7 @@
 	
 	<div class="admin_div">
 	
-<form action="" method="get">
+<form action="/item_detail_Action" method="get" >
 	 <table class="member_table" >
 	 <tr>
 	 	<th>상품코드</th>
@@ -38,39 +38,35 @@
 	 	<th>상품가격</th>
 	 	<th>수정</th>
 	 </tr>
-	 
+	 	<c:forEach var="dto" items= "${ productDetail }" varStatus="status">
 	 <tr>
-	 	<td>01</td>
-	 	<td>구이</td>
-	 	<td>채끝살</td>
-	 	<td>00,000</td>
+	 	<td>${ dto.product_idx }</td>
+	 	<td>${ dto.product_category }</td>
+	 	<td>${ dto.product_name }</td>
+	 	<td>${ dto.product_price }</td>
 	 	<td> <input type="button" value="수정" class="check_btn" onclick="location.href='/admin/item_revise'"> </td>
 	 </tr>
+	
 	 </table>
+	 </form>
 	 
 	 <form action="uploadOk" method="post" enctype="multipart/form-data">
 	  <table class="img_text">
 	 <tr>
-	<th>이미지  </th>
+		<th>이미지  </th>
 	 	<th>상품설명</th>
 	 </tr>
 	 
 	 <tr>
-	 	<td> <img src="#" alt="업로드된 이미지" /> </td> 
-	 	<td id="text_td"><textarea rows="10" cols="70"></textarea> </td>
+	 	<td> <img src=${dto.product_image } alt="업로드된 이미지" /> </td> 
+	 	<td id="text_td"> <img src=${dto.product_explanation } alt="업로드된 이미지" /> </td>
 	 </tr>
-	 
+	  	</c:forEach>
 	 </table>
 	 <div class="confirm_bar">
-	 	<input type="submit" value="확인" id="confirm" class="check_btn">
+	 	<input type="button" value="확인" id="confirm" class="check_btn" onclick="location.href='/admin/admin_item'">
 	</div>
 	</form>
 
 	 </div>
-	 
-	      <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
 </div>	

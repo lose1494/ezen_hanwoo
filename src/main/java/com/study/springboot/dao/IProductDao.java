@@ -22,4 +22,8 @@ public interface IProductDao {
 	
 	public int product_count(String product_category);
 
+	List<ProductDto> productDetail(String product_idx);
+	
+	
+
 }

@@ -41,7 +41,7 @@
 		<if test="param1 == 'all'">
 			product_idx like '%${param2}%'
 			or product_name like '%${param2}%'
-			or product_sort like '%${param2}%'
+			or product_category like '%${param2}%'
 			</if>
 			<if test="param1 != 'all'">
 			${param1} like '%${param2}%'

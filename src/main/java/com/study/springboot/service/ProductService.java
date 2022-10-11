@@ -37,10 +37,13 @@ public class ProductService {
 		return deleteProduct;
 	}
 
-
-	
 	public int product_count(String category) {
 		int product_count = productdao.product_count(category);
 		return product_count;
+	}
+
+	public List<ProductDto> productDetail(String product_idx) {
+		List<ProductDto> productDetail = productdao.productDetail(product_idx);
+		return productDetail;
 	}
 }

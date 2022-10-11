@@ -119,9 +119,11 @@ public class MyController_ian {
 	
 	//회원상세조회
 	@RequestMapping("/admin/admin_maindetail")
-	public String admin_maindetail (Model model) {
-		List<UsersDto> users_list = usersService.userList();
-		model.addAttribute("userList", users_list);	
+	public String admin_maindetail (@RequestParam ("users_id") String users_id,
+									Model model) {
+		List<UsersDto> user_Detail = usersService.user_Detail (users_id);
+		model.addAttribute("user_Detail", user_Detail);	
+		model.addAttribute("users_id", users_id);
 		model.addAttribute("mainPage", "admin/admin_maindetail.jsp");
 		return "index";
 	}
@@ -174,9 +176,14 @@ public class MyController_ian {
 	}
 	
 	//상품 상세조회
-	@RequestMapping("/admin/item_check")
-	public String item_check (Model model) {
-		model.addAttribute("mainPage", "admin/item_check.jsp");
+	@RequestMapping("/admin/item_detail")
+	public String item_detail ( HttpServletRequest request,
+								Model model) {
+		String product_idx = request.getParameter("product_idx");
+		List<ProductDto> productDetail = productservice.productDetail(product_idx);
+		model.addAttribute("product_name", product_idx);
+		model.addAttribute("productDetail", productDetail);
+		model.addAttribute("mainPage", "admin/item_detail.jsp");
 		return "index";
 	}
 	

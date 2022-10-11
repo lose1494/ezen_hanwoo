@@ -41,7 +41,7 @@
 		<th>적릭금</th>
 		<th>가입일</th>
 	</tr>
-	<c:forEach var="dto" items="${ userList }">
+	<c:forEach var="dto" items="${ user_Detail }" varStatus="status">
 	<tr>
 		<td>${ dto.users_name }</td>
 		<td><fmt:formatDate value= "${ dto.users_birth_date }" pattern="yyyy/MM/dd" /></td>
@@ -50,7 +50,7 @@
 		<td>${ dto.users_email }</td>
 		<td>${ dto.users_point }</td>
 		<td> <fmt:formatDate value="${dto.users_joindate}" pattern="yyyy/MM/dd" /> </td>
-
+		<input type="hidden" value="${dto.users_id }" name="users_id">
 	</tr>
 	</c:forEach>
 	</table>

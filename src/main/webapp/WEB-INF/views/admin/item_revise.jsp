@@ -29,7 +29,8 @@
 	
 	<div class="admin_div">
 	
-<form action="" method="get">
+<form action="" method="post">
+	
 	 <table class="member_table" >
 	 <tr>
 	 	<th>상품코드</th>
@@ -37,9 +38,8 @@
 	 	<th>추가날짜</th>
 
 	 </tr>
-	 
+	 <c:forEach var="dto" items=${ item_list } varStatus="status">
 	 <tr>
-	 	<td>2</td>
 	 	<td> <select class="item_select">
 	 		<option>선물세트</option>
 	 		<option>구이용</option>
@@ -60,7 +60,8 @@
 	 	<td> <input type="text" class="input_text"> </td>
 	 </tr>
 	  </table>
-	  
+	  </c:forEach>
+</form>
 	  <form action="uploadOk" method="post" enctype="multipart/form-data">
 	  <table class="img_text">
 	 <tr>
