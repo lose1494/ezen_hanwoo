@@ -21,7 +21,7 @@
                     <th></th>
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
-                <form action="deleteQna">
+                <form action="deleteQna" method="post">
                     <tr>
                     	<input type="hidden" name="qna_idx" value="${ qna.qna_idx }" >
                         <td>${ qnaCount - status.index - (( page-1 ) * 5 ) }</td>

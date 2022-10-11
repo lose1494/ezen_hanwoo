@@ -132,7 +132,6 @@ public class MyController_yerin {
 		int pageNum = (int)Math.ceil((double)qnaCount/num_page_size);
 		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, users_id, page, num_page_size);
 		
-		System.out.println(qnaCount);
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("qnaList", qnaList);
@@ -141,18 +140,22 @@ public class MyController_yerin {
 		return "index";
 	}
 	
-	@RequestMapping("/deleteQna")
+	@RequestMapping("*/deleteQna")
 	public String deleteQna(@RequestParam("qna_idx") int qna_idx, 
-							HttpServletRequest request) {
+							HttpServletRequest request, Model model) {
 		int deleteQna = qnaService.deleteQna(qna_idx);
+		String referer = request.getHeader("referer").substring(21);
+		System.out.println(referer);
+		
+		
 		if (deleteQna == 1) {
 			System.out.println("문의 삭제 성공");
-			request.getSession().setAttribute("alert", "삭제되었습니다.");
-			return "redirect:index";
+			request.getSession().setAttribute("alert", "삭제되었습니다.");			
+			return "redirect:"+referer;
 		}else {
 			System.out.println("문의 삭제 실패");
 			request.getSession().setAttribute("alert", "삭제에 실패하였습니다.");
-			return "redirect:index";
+			return "index";
 		}
 	}
 	
