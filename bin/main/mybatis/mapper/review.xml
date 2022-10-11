@@ -7,21 +7,23 @@
 <mapper namespace="com.study.springboot.dao.IReviewDao">
 
 	<select id="reviewList" resultType="com.study.springboot.dto.ReviewDto">
-		select * from product_review 
-		<where>
-			<if test="param1 == 'review_name'">
-				review_name = #{param2}
-			</if>
-			<if test="param1 == 'product_idx'">
-				product_idx = #{param2}
-			</if>
-		</where>
+		select * from
+			(select rownum rnum, pr.* from
+				(select * from product_review
+				 <if test="param1 != null">where ${param1} = #{param2}</if>
+				order by review_date desc) pr)
+		where rnum between #{param3} and #{param4}	
+	</select>
+	
+	<select id="reviewCount" resultType="_int">
+		select count(*) from product_review
+		<if test="param1 != null">where ${param1} = #{param2}</if>
 	</select>
 	
 	<insert id="insertReview" parameterType="com.study.springboot.dto.ReviewDto">
 		insert into product_review
-		values ( product_review_seq.nextval, #{review_name}, #{review_title}, 
-		#{review_content}, sysdate, #{review_star_rating}, #{product_idx} )
+		values ( product_review_seq.nextval, #{review_id}, #{review_title}, 
+		#{review_content}, #{review_image}, sysdate, #{review_star_rating}, #{product_idx} )
 	</insert>
 	
 	<delete id="deleteReview">

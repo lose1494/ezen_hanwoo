@@ -101,10 +101,20 @@ a:hover {
 /* 위로가기 버튼 */
 .back-to-top {
   /* cursor: pointer; */
+  position: fixed; bottom: 100px; right: 10px;
+  display: none; z-index: 9999;
+} 
+.back-to-bottom {
+  /* cursor: pointer; */
   position: fixed; bottom: 20px; right: 10px;
   display: none; z-index: 9999;
 } 
-
+.back-to-top img{
+	width:40px;
+}
+.back-to-bottom img{
+	width:40px;
+}
 /* 푸터 시작 */
 .footer {
   font-family: 'Noto Sans KR', sans-serif;

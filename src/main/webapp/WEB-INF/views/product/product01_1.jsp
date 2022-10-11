@@ -159,7 +159,7 @@
                                     <i class="fa-solid fa-star"></i>                       
                                     <i class="fa-solid fa-star"></i>
                                 </span>
-                                <b>5.0</b>
+                                <b class="score">5.0</b>
                                 <span> 아주 좋아요
                                 (abcd****)</span>
                             </div>
@@ -318,13 +318,12 @@
             </table>
         </div>
     </div>
-    <div id="footer"></div>
 
     <script>
         // 별점
         $(function() {
-            for(i=0; i<$('b').length; i++) {
-                $('.starRating-fill').eq(i).width(20.5 * ($('b').eq(i).text()));
+            for(i=0; i<$('.score').length; i++) {
+                $('.starRating-fill').eq(i).width(20.5 * ($('.score').eq(i).text()));
             } 
             $('.starBar-fill').each( function(index, item) {
                 $(this).width(               

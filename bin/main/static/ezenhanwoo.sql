@@ -119,19 +119,26 @@ create table product_qna_reply(
 );
 drop sequence product_qna_reply_seq;
 create sequence product_qna_reply_seq;
+
 --상품 리뷰
 drop table product_review;
 create table product_review(
     review_idx number(4) primary key,
     review_id varchar2(20),
-    review_title varchar2(20),
+    review_title varchar2(60),
     review_content varchar2(300),
+    review_image varchar2(100),
     review_date date,
     review_star_rating number(4),
     product_idx number(4)
 );
+
 drop sequence product_review_seq;
 create sequence product_review_seq;
+
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', '맛있게 잘 먹었습니다!!', '리뷰 내용 테스트 화면에 어떻게 보이나', sysdate, 5, 1);
+
 --FAQ
 drop table FAQ;
 create table FAQ(
