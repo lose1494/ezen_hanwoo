@@ -67,9 +67,12 @@
     </div>
   </div>
 </div>
-   
+   <a id="back-to-bottom" href="#" class="back-to-bottom" role="button" title="" data-toggle="tooltip" data-placement="left" data-original-title="" style="display: block; ">
+  <img src="/img/down.png">
+</a>
+  
 <a id="back-to-top" href="#" class="back-to-top" role="button" title="" data-toggle="tooltip" data-placement="left" data-original-title="" style="display: block;">
-  <img src="/img/icon-top.png">
+  <img src="/img/up.png">
 </a>
   
 
@@ -96,7 +99,27 @@
     });
     $('#back-to-top').tooltip('show');
   });
-   
+  $(document).ready(function(){
+	    $(window).scroll(function () {
+	      if ($(this).scrollTop() < 3000) {
+	        console.log('fadeIn');
+	        $('#back-to-bottom').fadeIn();
+	      } else {
+	        console.log('fadeOut');
+	        $('#back-to-bottom').fadeOut();
+	      }
+	    });
+	    
+	    $('#back-to-bottom').click(function () {
+	      console.log('click');
+	      $('#back-to-bottom').tooltip('hide');
+	      $('body,html').animate({
+	          scrollTop: 9999
+	      }, 500);
+	      return false;
+	    });
+	    $('#back-to-bottom').tooltip('show');
+	  });
 </script>
   
 </body>

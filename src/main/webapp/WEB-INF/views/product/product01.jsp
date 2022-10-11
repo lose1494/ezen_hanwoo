@@ -23,7 +23,7 @@
 					<img alt="" src="${ dto.product_image }"style="width:300px; height:230px;" class="product_img">
 				
 					<h3>${ dto.product_name }</h3>
-					<c:if test="${dto.product_category != '선물세트' } ">
+					<c:if test="${dto.product_category != '선물세트' }">
 					<p class="mon">
 					<fmt:parseNumber value = "${ dto.product_price  }"  var = "num" integerOnly="true" />
 					<fmt:formatNumber value="${num / 3}" type="number" var="price" />
@@ -57,7 +57,7 @@
 					<img alt="" src="${ dto.product_image }"style="width:300px; height:230px;" class="product_img">
 				
 					<h3>${ dto.product_name }</h3>
-					<c:if test="${dto.product_category != '선물세트' } ">
+					<c:if test="${dto.product_category != '선물세트' }">
 					<p class="mon">
 					<fmt:parseNumber value = "${ dto.product_price  }"  var = "num" integerOnly="true" />
 					<fmt:formatNumber value="${num / 3}" type="number" var="price" />
