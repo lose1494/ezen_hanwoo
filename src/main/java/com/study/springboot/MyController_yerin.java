@@ -141,6 +141,7 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("*/deleteQna")
+	@ResponseBody
 	public String deleteQna(@RequestParam("qna_idx") int qna_idx, 
 							HttpServletRequest request, Model model) {
 		int deleteQna = qnaService.deleteQna(qna_idx);
@@ -148,14 +149,13 @@ public class MyController_yerin {
 		System.out.println(referer);
 		
 		
-		if (deleteQna == 1) {
-			System.out.println("문의 삭제 성공");
-			request.getSession().setAttribute("alert", "삭제되었습니다.");			
-			return "redirect:"+referer;
+		if (deleteQna != 1) {
+			System.out.println("문의 삭제 실패");		
+			return "<script>alert('작성 실패');history.back();</script>";
 		}else {
-			System.out.println("문의 삭제 실패");
+			System.out.println("문의 삭제 성공");
 			request.getSession().setAttribute("alert", "삭제에 실패하였습니다.");
-			return "index";
+			return "<script>alert('삭제되었습니다.');location.href='"+referer+"';</script>";
 		}
 	}
 	
@@ -376,7 +376,6 @@ public class MyController_yerin {
 				return "<script>alert('작성 실패');history.back();</script>";
 			}else {
 				System.out.println("글작성을 성공했습니다.");
-				// "/list"로 리다이렉트함.
 				return "<script>alert('문의가 접수되었습니다.');location.href='/mypage/mypage_one2one';</script>";
 			}
 		 
