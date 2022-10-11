@@ -7,7 +7,8 @@
     width: 100%;
     text-align: start;
 }
-.productMain table tr:first-child td:last-child, tr:nth-child(8), tr:nth-child(9) td {
+/* , tr:nth-child(8), tr:nth-child(9) td */
+.productMain table tr:first-child td:last-child{
     border-bottom: 2px solid rgb(231, 231, 231);
 } 
 .productMain table tr:first-child td:last-child {
@@ -16,6 +17,8 @@
 .productMain table tr:nth-child(2) td:first-child {
     text-align: center;
     padding-right: 50px;
+    vertical-align: top;
+    width: 50%;
 }
 .productMain table tr:nth-child(9) td:last-child {
     text-align: end;
@@ -29,6 +32,9 @@
 .flexDiv {
     display: flex;
     justify-content: space-between;
+}
+.productMain img {
+    width: 100%;
 }
 .productMain button {
     margin: 10px 0;

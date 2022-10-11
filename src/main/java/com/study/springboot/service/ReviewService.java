@@ -27,4 +27,19 @@ public class ReviewService {
 		int reviewCount = reviewdao.reviewCount(sort, value);
 		return reviewCount;
 	}
+	
+	public int reviewAvg(int product_idx) {
+		int reviewAvg = reviewdao.reviewAvg(product_idx);
+		return reviewAvg;
+	}
+	
+	public int insertReview(ReviewDto dto) {
+		int insertReview = reviewdao.insertReview(dto);
+		return insertReview;
+	}
+	
+	public int deleteReview(int review_idx) {
+		int deleteReview = reviewdao.deleteReview(review_idx);
+		return deleteReview;
+	}
 }

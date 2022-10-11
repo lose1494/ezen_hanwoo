@@ -10,6 +10,7 @@ import com.study.springboot.dto.ReviewDto;
 public interface IReviewDao {
 	public List<ReviewDto> reviewList(String sort, String value, int startRowNum, int endRowNum);
 	public int reviewCount(String sort, String value);
+	public int reviewAvg(int product_idx);
 	public int insertReview(ReviewDto dto);
 	public int deleteReview(int review_idx);
 }
