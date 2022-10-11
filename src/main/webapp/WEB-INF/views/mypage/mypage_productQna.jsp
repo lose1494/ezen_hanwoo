@@ -21,8 +21,9 @@
                     <th></th>
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
-                <tr>
-                    <form action="deleteQna">
+                <form action="deleteQna">
+                    <tr>
+                    	<input type="hidden" name="qna_idx" value="${ qna.qna_idx }" >
                         <td>${ qnaCount - status.index - (( page-1 ) * 5 ) }</td>
                         <td>${ qna.qna_status }</td>
                         <!-- <td>기타</td> -->
@@ -32,8 +33,8 @@
                         <td>
                             <button class="dark">삭제</button>
                         </td>
-                    </form>
-                </tr>
+                    </tr>
+                </form>
                 </c:forEach>
             </table>
         </div>

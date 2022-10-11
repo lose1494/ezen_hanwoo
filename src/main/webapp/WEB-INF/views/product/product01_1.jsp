@@ -195,32 +195,33 @@
                     <td>작성일</td>
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
-                <tr>
-                    <td>${ qnaCount - status.index - (( qnaPage-1 ) * 5 ) }</td>
-                    <!-- <td>기타</td> -->
-                    <td class="qnaClick">${ qna.qna_title }</td>
-                    <td>${ qna.qna_status }</td>
-                    <td>${ qna.qna_id }</td>
-                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
-                </tr>
-                <tr>
-                    <td colspan="5" class="hide">
-                        <div class="productQ">                                      
-                            <i class="fa-solid fa-circle-question"></i>
-                            ${ qna.qna_content }
-                            <div class="tableBtn">
-                                <button class="bright">수정</button>
-                                <button class="dark">삭제</button>  
-                            </div> 
-                        </div>  
-                        <div class="productA">                                      
-                            <i class="fa-solid fa-circle-info"></i>
-                            안녕하세요 이젠한우입니다. <br>
-                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
-                            이용해주셔서 감사합니다!
-                        </div>                       
-                    </td>
-                </tr> 
+                <form action="deleteQna">
+	                <tr>
+	                    <td>${ qnaCount - status.index - (( qnaPage-1 ) * 5 ) }</td>
+	                    <!-- <td>기타</td> -->
+	                    <td class="qnaClick">${ qna.qna_title }</td>
+	                    <td>${ qna.qna_status }</td>
+	                    <td>${ qna.qna_id }</td>
+	                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
+	                </tr>
+	                <tr>
+	                    <td colspan="5" class="hide">
+	                        <div class="productQ">                                      
+	                            <i class="fa-solid fa-circle-question"></i>
+	                            ${ qna.qna_content }
+	                            <div class="tableBtn">
+	                                <button class="dark">삭제</button>  
+	                            </div> 
+	                        </div>  
+	                        <div class="productA">                                      
+	                            <i class="fa-solid fa-circle-info"></i>
+	                            안녕하세요 이젠한우입니다. <br>
+	                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
+	                            이용해주셔서 감사합니다!
+	                        </div>                       
+	                    </td>
+	                </tr> 
+                </form>
                 </c:forEach>    
             </table> 
             <div class="qnaBtn">

@@ -141,6 +141,21 @@ public class MyController_yerin {
 		return "index";
 	}
 	
+	@RequestMapping("/deleteQna")
+	public String deleteQna(@RequestParam("qna_idx") int qna_idx, 
+							HttpServletRequest request) {
+		int deleteQna = qnaService.deleteQna(qna_idx);
+		if (deleteQna == 1) {
+			System.out.println("문의 삭제 성공");
+			request.getSession().setAttribute("alert", "삭제되었습니다.");
+			return "redirect:index";
+		}else {
+			System.out.println("문의 삭제 실패");
+			request.getSession().setAttribute("alert", "삭제에 실패하였습니다.");
+			return "redirect:index";
+		}
+	}
+	
 	@RequestMapping("/mypage/mypage_review")
 	public String mypage_review(@RequestParam(value="page",defaultValue="1") String page,
 			HttpServletRequest request, Model model) {
