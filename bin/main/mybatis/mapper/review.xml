@@ -11,7 +11,7 @@
 			(select rownum rnum, pr.* from
 				(select * from product_review
 				 <if test="param1 != null">where ${param1} = #{param2}</if>
-				order by review_date desc) pr)
+				order by ${param5} desc) pr)
 		where rnum between #{param3} and #{param4}	
 	</select>
 	

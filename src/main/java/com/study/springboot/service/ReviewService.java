@@ -13,13 +13,13 @@ public class ReviewService {
 	@Autowired
 	private	IReviewDao reviewdao;
 	
-	public List<ReviewDto> reviewList(String category, String value, String page, int num_page_size) {
+	public List<ReviewDto> reviewList(String category, String value, String page, int num_page_size, String sort) {
 		
 		int num_page_no = Integer.parseInt( page );
 		int startRowNum = (num_page_no - 1) * num_page_size + 1;
 		int endRowNum = (num_page_no * num_page_size);
 		
-		List<ReviewDto> reviewList = reviewdao.reviewList(category, value, startRowNum, endRowNum);
+		List<ReviewDto> reviewList = reviewdao.reviewList(category, value, startRowNum, endRowNum, sort);
 		return reviewList;
 	}
 	

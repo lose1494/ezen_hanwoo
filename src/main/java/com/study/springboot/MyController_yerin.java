@@ -163,10 +163,11 @@ public class MyController_yerin {
 	public String mypage_review(@RequestParam(value="page",defaultValue="1") String page,
 			HttpServletRequest request, Model model) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		String sort = "review_id";
-		int reviewCount = reviewService.reviewCount(sort, users_id);
+		String standard = "review_id";
+		String sort = "review_date";
+		int reviewCount = reviewService.reviewCount(standard, users_id);
 		int pageNum = (int)Math.ceil((double)reviewCount/num_page_size);
-		List<ReviewDto> reviewList = reviewService.reviewList(sort, users_id, page, num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, users_id, page, num_page_size, sort);
 		
 		System.out.println(reviewCount);
 		model.addAttribute("page", page);
@@ -297,21 +298,29 @@ public class MyController_yerin {
 	public String product01_1(@RequestParam("product_idx") int product_idx,
 							  @RequestParam(value="revPage",defaultValue="1") String revPage,
 							  @RequestParam(value="qnaPage",defaultValue="1") String qnaPage,
+							  @RequestParam(value="sort",defaultValue="review_date") String sort,
 							  HttpServletRequest request,
 											Model model) {
 		ProductDto proDe = productService.productDetail(product_idx);
 		model.addAttribute("dto", proDe);
 		
-		String sort = "product_idx";
-		int reviewCount = reviewService.reviewCount(sort, String.valueOf(product_idx));
+		String standard = "product_idx";
+		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx));
 		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
-		List<ReviewDto> reviewList = reviewService.reviewList(sort, String.valueOf(product_idx), revPage, num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, String.valueOf(product_idx), revPage, num_page_size, sort);
 		double reviewAvg = reviewService.reviewAvg(product_idx);
+		if( revPageNum == 0 ) {
+			revPageNum = 1;
+		}
 
-		int qnaCount = qnaService.qnaCount(sort, String.valueOf(product_idx));
+		int qnaCount = qnaService.qnaCount(standard, String.valueOf(product_idx));
 		int qnaPageNum = (int)Math.ceil((double)qnaCount/num_page_size);
-		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, String.valueOf(product_idx), qnaPage, num_page_size);
+		List<Product_qnaDto> qnaList = qnaService.qnaList(standard, String.valueOf(product_idx), qnaPage, num_page_size);
+		if( qnaPageNum == 0 ) {
+			qnaPageNum = 1;
+		}
 		
+		System.out.println(revPageNum +","+ qnaPageNum);
 		System.out.println(qnaCount);
 		model.addAttribute("qnaPage", qnaPage);
 		model.addAttribute("qnaPageNum", qnaPageNum);
