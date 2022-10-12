@@ -114,7 +114,7 @@ h3 {
     font-size: 14px;
 }
 .mypageTable button {
-    width: 40px;
+    width: 60px;
     margin: 0 5px;
     height: 25px; 
     font-size: 14px;  
@@ -127,6 +127,30 @@ h3 {
     margin-right: auto;
     margin-left: 5px;
 }
+
+.productQ, .productA {
+    padding: 20px 50px;
+    text-align: start;
+    display: flex;
+    align-items: center;
+}
+.productQ {
+    border-bottom: 2px solid rgb(231, 231, 231);
+}
+.qnaClick {
+    cursor: pointer;
+}
+.fa-circle-question, .fa-circle-info {
+    font-size: 20px;
+    margin-right: 20px;
+}
+.fa-circle-question {
+    color: grey;
+}
+.fa-circle-info {
+    color: rgb(218, 87, 87);
+}
+
 .reviewLink {
     text-align: start;
     font-size: 14px;

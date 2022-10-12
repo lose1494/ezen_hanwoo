@@ -138,6 +138,14 @@ create sequence product_review_seq;
 
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 values(product_review_seq.nextval, 'hong', '맛있게 잘 먹었습니다!!', '리뷰 내용 테스트 화면에 어떻게 보이나', sysdate, 5, 1);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', '테스트1', '리뷰 내용 테스트1', sysdate, 4, 1);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', '테스트2', '리뷰 내용 테스트2', sysdate, 3, 1);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', '테스트3', '리뷰 내용 테스트3', sysdate, 2, 1);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', '테스트4', '리뷰 내용 테스트4', sysdate, 1, 1);
 
 --FAQ
 drop table FAQ;

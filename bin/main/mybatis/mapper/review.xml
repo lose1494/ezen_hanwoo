@@ -11,16 +11,30 @@
 			(select rownum rnum, pr.* from
 				(select * from product_review
 				 <if test="param1 != null">where ${param1} = #{param2}</if>
-				order by review_date desc) pr)
-		where rnum between #{param3} and #{param4}	
+				order by ${param5} desc) pr
+			<where>
+			<if test="param6 != null">
+			review_title like '%${param6}%'
+			or review_content like '%${param6}%'
+			</if>
+			</where>
+		)where rnum between #{param3} and #{param4}	
 	</select>
 	
 	<select id="reviewCount" resultType="_int">
 		select count(*) from product_review
-		<if test="param1 != null">where ${param1} = #{param2}</if>
+		<where>
+			<if test="param1 != null">
+			${param1} = #{param2}
+			</if>
+			<if test="param3 != null">
+			and review_title like '%${param3}%'
+			or review_content like '%${param3}%'
+			</if>
+			</where>
 	</select>
 	
-	<select id="reviewAvg" resultType="_int">
+	<select id="reviewAvg" resultType="_double">
 		SELECT NVL(avg, 0)FROM 
 		(select avg(review_star_rating) avg from product_review
 		where product_idx = #{param1})
