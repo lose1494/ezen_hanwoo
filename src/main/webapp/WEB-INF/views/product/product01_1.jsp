@@ -441,6 +441,7 @@
                             str+="</tr><tr><td>"+ item.review_content +"</td></tr>";
                             str+="<tr><td><img src='"+ item.review_image +"' alt=''></td><tr>"
                             $('.reviewTable > table').append(str);
+
                         })				 
                     }
                     $('.score').each(function() {
