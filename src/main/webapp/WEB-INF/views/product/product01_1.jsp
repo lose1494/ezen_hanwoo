@@ -138,9 +138,12 @@
                 </table> 
             </div>
             <div class="reviewSearch">
-                <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_date#productReview">최신순</a>
-                <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_star_rating#productReview">평점순</a>
-                <span><img src="/img/product/icon2.png" alt=""><input type="text" placeholder="키워드 검색"></span>               
+                <form name="search">
+                    <input type="hidden" name="product_idx" value="${ dto.product_idx}">
+                    <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_date#productReview">최신순</a>
+                    <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_star_rating#productReview">평점순</a>
+                    <span><input type="text" name="word" placeholder="키워드 검색"><button onclick="getSearchList()"><img src="/img/product/icon2.png" alt=""></button></span>  
+                </form>             
             </div>
             <div class="reviewTable">
                 <table>
@@ -165,15 +168,15 @@
                         </tr>
                         <tr>
                             <td>${ review.review_title }</td>
-                        </tr>
-                        <tr>	
-                            <td>${ review.review_content }</td>
                             <td></td>
                             <td>
                                 <div class="tableBtn">
                                     <button class="dark">삭제</button>  
                                 </div>
                             </td>
+                        </tr>
+                        <tr>	
+                            <td>${ review.review_content }</td>     
                         </tr>
                         <tr>
                             <td>
@@ -397,5 +400,57 @@
                 })
             });
         });
+
+        function formatDate(date) {
+    
+            var d = new Date(date),
+            
+            month = '' + (d.getMonth() + 1) , 
+            day = '' + d.getDate(), 
+            year = d.getFullYear();
+            
+            if (month.length < 2) month = '0' + month; 
+            if (day.length < 2) day = '0' + day; 
+            
+            return [year, month, day].join('-');
+        
+        }
+
+        // 리뷰검색
+        function getSearchList(){
+            $.ajax({
+                type: 'GET',
+                url : "/product/reviewSearch",
+                data : $("form[name=search]").serialize(),
+                success : function(result){
+                    //테이블 초기화
+                    $('.reviewTable > table tr').empty();
+                    if(result.length>=1){
+                        result.forEach(function(item){
+                            var revDate = new Date(item.review_date);
+                            
+                            console.log(revDate)
+                            str='<tr>'
+                            str += "<td><div><span class='starRating-base gray'><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i>"
+                            str += "<i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i></span>"    
+                                +"<b class='score hide'>"+ item.review_star_rating +"</b></div></td>";
+                            str+="<td>"+ item.review_id +"</td>";
+                            str+="<td>" + formatDate(revDate) + "</td>";
+                            str+="</tr><tr><td>"+ item.review_title +"</td><td></td>";
+                            str+="<td><div class='tableBtn'><button class='dark'>삭제</button></div></td>"
+                            str+="</tr><tr><td>"+ item.review_content +"</td></tr>";
+                            str+="<tr><td><img src='"+ item.review_image +"' alt=''></td><tr>"
+                            $('.reviewTable > table').append(str);
+                        })				 
+                    }
+                    $('.score').each(function() {
+                        for(i=0; i<$(this).text(); i++) {
+                        $(this).closest('div').find('.fa-star').eq(i).addClass('gold');
+                        } 
+                    })
+                }
+            })
+            
+        }
      
     </script>

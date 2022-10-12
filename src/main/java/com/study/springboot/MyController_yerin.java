@@ -165,9 +165,9 @@ public class MyController_yerin {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		String standard = "review_id";
 		String sort = "review_date";
-		int reviewCount = reviewService.reviewCount(standard, users_id);
+		int reviewCount = reviewService.reviewCount(standard, users_id, null);
 		int pageNum = (int)Math.ceil((double)reviewCount/num_page_size);
-		List<ReviewDto> reviewList = reviewService.reviewList(standard, users_id, page, num_page_size, sort);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, users_id, page, num_page_size, sort, null);
 		
 		System.out.println(reviewCount);
 		model.addAttribute("page", page);
@@ -305,13 +305,15 @@ public class MyController_yerin {
 		model.addAttribute("dto", proDe);
 		
 		String standard = "product_idx";
-		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx));
+		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx), null);
 		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
-		List<ReviewDto> reviewList = reviewService.reviewList(standard, String.valueOf(product_idx), revPage, num_page_size, sort);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, String.valueOf(product_idx), 
+															revPage, num_page_size, sort, null);
 		double reviewAvg = reviewService.reviewAvg(product_idx);
 		if( revPageNum == 0 ) {
 			revPageNum = 1;
 		}
+		
 
 		int qnaCount = qnaService.qnaCount(standard, String.valueOf(product_idx));
 		int qnaPageNum = (int)Math.ceil((double)qnaCount/num_page_size);
@@ -336,6 +338,28 @@ public class MyController_yerin {
 		model.addAttribute("avgScore", reviewAvg);
 		model.addAttribute("mainPage", "product/product01_1.jsp");
 		return "index";
+	}
+	
+	@RequestMapping("/product/reviewSearch")
+	@ResponseBody
+	public List<ReviewDto> reviewSerach(@RequestParam("product_idx") int product_idx,
+			  @RequestParam(value="revPage",defaultValue="1") String revPage,
+			  @RequestParam(value="sort",defaultValue="review_date") String sort,
+			  @RequestParam("word") String word,
+			  HttpServletRequest request,
+							Model model) {
+		String standard = "product_idx";
+		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx), word);
+		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, 
+				String.valueOf(product_idx), revPage, num_page_size, sort, word);
+		
+		model.addAttribute("revPage", revPage);
+		model.addAttribute("revPageNum", revPageNum);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("mainPage", "product/product01_1.jsp");
+		return reviewService.reviewList(standard, 
+				String.valueOf(product_idx), revPage, num_page_size, sort, word);
 	}
 	
 	//주문
