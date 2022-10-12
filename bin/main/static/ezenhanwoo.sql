@@ -216,10 +216,12 @@ create sequence orderDetail_seq;
 --장바구니
 drop table cart;
 create table cart(
-cart_idx number(4) primary key,
-cart_users_id varchar(20),
+cart_idx number(4) ,
+users_id varchar(20),
 cart_product_name varchar(20),
-cart_count number(4)
+product_idx number(4),
+cart_count number(4),
+    CONSTRAINT cart_pk PRIMARY KEY(cart_user_id, product_idx)
 );
 drop sequence cart_seq;
 create sequence cart_seq;

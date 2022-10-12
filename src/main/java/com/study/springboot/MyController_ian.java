@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.UsersDto;
+import com.study.springboot.service.CartService;
 import com.study.springboot.service.NoticeService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.UsersService;
@@ -35,6 +38,9 @@ public class MyController_ian {
 	private UsersService usersService;
 	@Autowired
 	private ProductService productservice;
+	
+	@Autowired
+	private CartService cartService;
 	
 	@RequestMapping("/")
 	public String root() {
@@ -181,11 +187,36 @@ public class MyController_ian {
 								Model model) {
 		String product_idx = request.getParameter("product_idx");
 		List<ProductDto> productDetail = productservice.productDetail(product_idx);
-		model.addAttribute("product_name", product_idx);
+		model.addAttribute("product_idx", product_idx);
 		model.addAttribute("productDetail", productDetail);
 		model.addAttribute("mainPage", "admin/item_detail.jsp");
 		return "index";
 	}
+	@RequestMapping("/mypage/mypage_cart")
+	public String mypage_cart ( 
+			Model model) {
+		
+		
+		model.addAttribute("mainPage","mypage/mypage_cart.jsp");
+		return "index";
+	}
+	/*
+	 * @GetMapping("/mypage/get_cart_list")
+       public Object get_cart_list(@RequestParam ("users_id") String
+	 * users_id) { System.out.println("12312321321" + users_id); CartService cart =
+	 * new CartService(); List<CartDto> cartList = cart.cartList(users_id); return
+	 * cartList; }
+	 */
+	
+	@GetMapping("/mypage/get_cart_list")
+	@ResponseBody
+	   public List<CartDto> get_cart_list( HttpServletRequest request) {
+		String users_id = (String)request.getSession().getAttribute("users_id");
+		System.out.println("12312321321" + users_id);
+
+        List<CartDto> cartList = cartService.cartList(users_id);
+	      return cartList;
+	   }
 	
 	//상품 수정
 	@RequestMapping("/admin/item_revise")

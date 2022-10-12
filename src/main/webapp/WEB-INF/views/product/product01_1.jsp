@@ -65,13 +65,15 @@
                 </tr>
                 <tr>
                     <td></td>
+                    <form action="/mypage/mypage_cart" method="post" >
                     <td colspan="2">
                         <div class="flexDiv">
-                            <button class="bright">장바구니</button>
+                            <button class="bright" onclick="javascript:form.action='/mypage/mypage_cart'">장바구니</button>
                             <button class="bright">관심상품</button>
                             <button class="dark">바로구매</button>
                         </div>
                     </td>
+                    </form>
                 </tr>
             </table>
         </div>
@@ -387,5 +389,5 @@
                 })
             });
         });
-     
+     	
     </script>
