@@ -248,24 +248,24 @@
 	 </tr>
 	 
 	 <tr>
-	 	<td>2022-09-24</td>
-	 	<td>2022092401</td>
-	 	<td>wrwer22</td>
-	 	<td>한우토시살</td>
-	 	<td>01</td>
-	 	<td>고기맛</td>
-	 	<td>맛있어요</td>
-	 	<td>5.0</td>
+	 <c:forEach var="dto" items=" ${ review_result }" varStatus="status">
+	 	
+	 	<td> ${ dto.review_date }</td>
+	 	<td>${ dto.review_idx }</td>
+	 	<td> ${ dto.review_id }</td>
+	 	<td>${ dto.review_title }</td>
+	 	<td>${ dto.review_id }</td>
+	 	<td>${ dto.review_id }</td>
+	 	<td>${ dto.review_id }</td>
+	 	<td>${ dto.review_id }</td>
+	 	
+	 </c:forEach>
 	 </tr>
+	
 	 </table>
 	 </form>
 	 </div>
 	 
-	      <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
 </div>	
 
    

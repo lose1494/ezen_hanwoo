@@ -15,5 +15,11 @@ public interface INoticeDao {
 	//관리자 글쓰기
 	public int notice_write(NoticeDto dto1);
 
+	//공지사항 개수
+	public int notice_count();
+
+	//공지사항 상세페이지
+	public List<NoticeDto> notice_detail(String notice_idx);
+
 
 }

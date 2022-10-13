@@ -15,25 +15,16 @@
 	 	insert into Notice ( notice_title, notice_content )
 	 	values ( #{notice_title}, #{notice_content})
 	 </insert>
+	 
+	 <select id="notice_count" resultType="_int">
+	 	select count(*) from Notice
+	 </select>
+	 
+	 <select id="notice_detail" resultType="com.study.springboot.dto.NoticeDto">
+	 	select * from Notice where notice_idx=#{param1}
+	 </select>
 
 
-<!-- 	<select id="noticeList" resultType="com.study.springboot.dto.NoticeDto">
-		select * from Notice
-	</select>
-	
-	<select id="noticeDetail" resultType="com.study.springboot.dto.NoticeDto">
-		select * from Notice where notice_idx=#{param1}
-	</select>
-	
-	<insert id="insertNotice" parameterType="com.study.springboot.dto.NoticeDto">
-		insert into Notice
-		values ( Notice_seq.nextval, #{notice_name}, #{notice_title}, 
-		#{notice_content}, sysdate )
-	</insert>
-	
-	<delete id="deleteNotice">
-	  DELETE FROM Notice
-	  WHERE notice_idx=#{ param1 }
-	</delete> -->
+
 	
 </mapper>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <link rel="stylesheet" href="/css/admin/item_revise.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class= "bg_admin text-center">
 <div>
@@ -29,62 +30,42 @@
 	
 	<div class="admin_div">
 	
-<form action="" method="post">
-	
+<form action="item_revise_Action" method="post">
 	 <table class="member_table" >
 	 <tr>
 	 	<th>상품코드</th>
 	 	<th>카테고리</th>
-	 	<th>추가날짜</th>
 
 	 </tr>
-	 <c:forEach var="dto" items=${ item_list } varStatus="status">
+
 	 <tr>
+	 	<td>${dto.product_idx }</td>
 	 	<td> <select class="item_select">
 	 		<option>선물세트</option>
 	 		<option>구이용</option>
 	 		<option>국거리</option>
 	 		<option>조리용</option>
 	 		 </select> </td>
-	 	<td> 2022-09-02 </td>
+	 	
 	 </tr>
 	 <tr>
 		 <th>상품명</th>
 		 <th>상품가격</th>
-		 <th>판매수량</th>
 	 </tr>
 	 
 	 <tr>
-	 	<td> <input type="text" class="input_text"> </td>
-	 	<td> <input type="text" class="input_text"> </td>
-	 	<td> <input type="text" class="input_text"> </td>
+	 	<td> <input type="text" class="input_text" name="product_name" id="product_name" value="${ dto.product_name }"> </td>
+	 	<td> <input type="text" class="input_text" name="product_price" id="product_price" value="${ dto.product_price }" > </td>
 	 </tr>
 	  </table>
-	  </c:forEach>
-</form>
-	  <form action="uploadOk" method="post" enctype="multipart/form-data">
-	  <table class="img_text">
-	 <tr>
-	<th>이미지 : <input type="file" name="filename" > 
-		<input type="submit" value="File Upload" class="item_btn"> </th>
-	 	<th>상품설명</th>
-	 </tr>
-	 <tr >
-	 	<td width="50%">  <img src="#" alt="업로드된 이미지" /> </td>
-	 	<td width="50%"><textarea rows="10" cols="70"></textarea> </td>
-	 </tr>
-	 </table>
-	 
-	 <div class="confirm_bar">
+
+	  
+	   <div class="confirm_bar">
 	 	<input type="submit" value="확인" id="confirm" class="item_btn" >
 	</div>
-	</form>
+</form>
+	
+	
 
 	 </div>
-	 
-	      <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
 </div>	

@@ -12,4 +12,5 @@ public interface IProduct_qnaDao {
 	public int qnaCount(String sort, String value);
 	public int insertQna(Product_qnaDto dto);
 	public int deleteQna(int qna_idx);
+	public List<Product_qnaDto> qna_list();
 }

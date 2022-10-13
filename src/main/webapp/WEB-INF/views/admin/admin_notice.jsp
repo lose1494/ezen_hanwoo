@@ -43,7 +43,7 @@
 	 
 	
 	<div class="member_var">
-	 <p id="member_bar">공지 <!-- $ { listCount } --> 건</p>
+	 <p id="member_bar">공지 ${ notice_count } 건</p>
 	 <select class="member_select" id="sort">
 		<option id="asc">최신순</option>
 		<option id="desc">오래된 순</option> 
@@ -59,7 +59,7 @@
 	 	
 	 </tr>
 	 	<c:forEach var="dto" items ="${ admin_notice_list }" varStatus="status" > 
-	 <tr>
+	 <tr onclick="location.href='/admin/notice_detail?notice_idx=${ dto.notice_idx }'" style="cursor:pointer">
 	 	<td> ${ dto.notice_idx} </td>
 	 	<td> ${ dto.notice_title } </td>
 	 	<td> ${ dto.notice_content }</td>

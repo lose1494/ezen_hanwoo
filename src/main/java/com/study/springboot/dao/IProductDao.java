@@ -1,6 +1,7 @@
 package com.study.springboot.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,6 +24,13 @@ public interface IProductDao {
 	public int product_count(String product_category);
 
 	List<ProductDto> productDetail(String product_idx);
+
+	int insert_Product();
+
+	int revise_result();
+
+	int product_revise(Map<String, Object> map);
+
 	
 	
 

@@ -23,6 +23,16 @@ public class NoticeService {
 		return dto2;
 	}
 
+	public int notice_count() {
+		int notice_count = noticedao.notice_count();
+		return notice_count;
+	}
+
+	public List<NoticeDto> notice_detail(String notice_idx) {
+		List<NoticeDto> notice_detail = noticedao.notice_detail(notice_idx);
+		return notice_detail;
+	}
+
 	
 
 }

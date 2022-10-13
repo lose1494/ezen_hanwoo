@@ -38,4 +38,11 @@ public class Product_qnaService {
 		int deleteQna = product_qnadao.deleteQna(qna_idx);
 		return deleteQna;
 	}
+
+	public List<Product_qnaDto> qna_list() {
+		List<Product_qnaDto> qna_list = product_qnadao.qna_list();
+		return qna_list;
+	}
+	
+	
 }

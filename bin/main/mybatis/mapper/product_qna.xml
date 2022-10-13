@@ -31,4 +31,8 @@
 	  WHERE qna_idx=#{ param1 }
 	</delete>
 	
+	<select id="qna_list" resultType="com.study.springboot.dto.Product_qnaDto">
+	SELECT * FROM product_qna
+	</select>
+	
 </mapper>

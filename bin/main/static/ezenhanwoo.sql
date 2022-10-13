@@ -77,7 +77,9 @@ values ( product_seq.nextval, '한우 구이용 세트', '/img/product/28만원�
 insert into product
 values ( product_seq.nextval, '한우 특수부위 세트', '/img/product/40만원세트.png', '400,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 commit;
-
+insert into product
+values ( product_seq.nextval, '테스트', '테스트', '테스트', '테스트', '상세페이지 참조', '테스트');
+commit;
 --상품 문의
 drop table product_qna;
 create table product_qna(
@@ -108,6 +110,11 @@ values( product_qna_seq.nextval, 'hong', '테스트용3', '문의 테스트3', s
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', sysdate, 0, '답변대기중', 1);
 
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4',TO_CHAR(SYSDATE,'YYYY-MM-DD') , 0, '답변대기중', 1);
+ 
+ commit;
+select * from product_qna;
 --상품 문의 답변
 drop table product_qna_reply;
 create table product_qna_reply(
@@ -133,6 +140,7 @@ create table product_review(
     product_idx number(4)
 );
 
+select * from 
 drop sequence product_review_seq;
 create sequence product_review_seq;
 
@@ -156,8 +164,14 @@ create table Notice(
     notice_name varchar2(20),
     notice_title varchar2(20),
     notice_content varchar2(300),
-    notice_date date
+    notice_date date,
+    notice_hit number(4) DEFAULT 0
 );
+
+insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
+values ( notice_seq.nextval, '관리자', '제목입니다.', '내용입니다.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
+
+commit;
 drop sequence Notice_seq;
 create sequence Notice_seq;
 --1:1문의

@@ -42,7 +42,7 @@ public class UsersService {
 	}
 
 	public List<UsersDto> search_result(String list, String text) {
-		List<UsersDto> search_result = usersdao.userList(list , text);
+		List<UsersDto> search_result = usersdao.search_result(list , text);
 		return search_result;
 	}
 

@@ -29,7 +29,7 @@
 	
 	<div class="admin_div">
 	
-<form action="/item_detail_Action" method="get" >
+<form action="" method="post" >
 	 <table class="member_table" >
 	 <tr>
 	 	<th>상품코드</th>
@@ -44,7 +44,7 @@
 	 	<td>${ dto.product_category }</td>
 	 	<td>${ dto.product_name }</td>
 	 	<td>${ dto.product_price }</td>
-	 	<td> <input type="button" value="수정" class="check_btn" onclick="location.href='/admin/item_revise'"> </td>
+	 	<td> <input type="button" value="수정" onclick="location.href='/admin/item_revise?product_idx=${ dto.product_idx}'" ></td>
 	 </tr>
 	
 	 </table>
