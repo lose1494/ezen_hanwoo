@@ -11,10 +11,12 @@ import com.study.springboot.dto.CartDto;
 @Component
 public class CartService {
 	@Autowired
-	private ICartDao cartdao;
+	ICartDao cartdao;
 	
 	public List<CartDto> cartList(String users_id) {
+		System.out.println(users_id);
 		List<CartDto> cartList = cartdao.cartList(users_id);
+		System.out.println("111");
 		return cartList;
 	}
 	

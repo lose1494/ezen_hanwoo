@@ -201,7 +201,7 @@
 
         function check() {
             if($('input[type=checkbox]').is(':checked') ) {                
-                location.href='../product/order02.html';
+                location.href='../product/order02';
             }else {
                 alert("구매진행에 동의해주세요.");
             }

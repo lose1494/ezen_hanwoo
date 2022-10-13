@@ -131,6 +131,11 @@ order_date date,
 order_address varchar(100),
 order_phone number(20)
 );
+INSERT INTO Notice
+  (order_idx, order_no, order_users_id, order_product_name, order_total_price,
+   order_comment, order_date, order_address, order_phone)
+VALUES
+  (order_seq.nextval, '관리자', '제목입니다.', '내용입니다.' , to_date(sysdate,'yyyy.mm.dd'));
 drop sequence order_seq;
 create sequence order_seq;
 --장바구니

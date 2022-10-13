@@ -12,6 +12,8 @@ import com.study.springboot.dto.ProductDto;
 public interface IProductDao {
 
 	List<ProductDto> productlist(String product_category);
+	
+	ProductDto productDetail(int product_idx);
 
 	List<ProductDto> item_list();
 

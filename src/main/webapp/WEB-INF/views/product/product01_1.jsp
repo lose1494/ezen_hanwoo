@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/product/product01_1.css">    
@@ -10,16 +12,16 @@
             <table>
                 <tr>
                     <td></td>
-                    <td colspan="2">한우 살치살</td>
+                    <td colspan="2">${ dto.product_name }</td>
                 </tr>
                 <tr>
-                    <td rowspan="8"><img src="https://via.placeholder.com/300" alt=""></td>
+                    <td rowspan="7"><img src="${ dto.product_image }" alt=""></td>
                     <td>판매가</td>
-                    <td>00,000원</td>
+                    <td>${ dto.product_price }원</td>
                 </tr>
                 <tr>
                     <td>제품중량</td>
-                    <td>200g/팩</td>
+                    <td>${ dto.product_gram }</td>
                 </tr>
                 <tr>
                     <td>포장타입</td>
@@ -54,22 +56,24 @@
                             <i class="fa-solid fa-star"></i>                       
                             <i class="fa-solid fa-star"></i>
                         </span>
-                        &nbsp; <b class="score">4.0</b> (0)                       
+                        &nbsp; <b class="scoreAvg">${ avgScore }</b> (${ reviewCount })                       
                     </td>
                 </tr>
                 <tr>
                     <td>총 금액</td>
-                    <td>00,000원</td>
+                    <td><span class="sumPrice">00000</span>원</td>
                 </tr>
                 <tr>
                     <td></td>
+                    <form action="/mypage/mypage_cart" method="post" >
                     <td colspan="2">
                         <div class="flexDiv">
-                            <button class="bright">장바구니</button>
+                            <button class="bright" onclick="javascript:form.action='/mypage/mypage_cart'">장바구니</button>
                             <button class="bright">관심상품</button>
                             <button class="dark">바로구매</button>
                         </div>
                     </td>
+                    </form>
                 </tr>
             </table>
         </div>
@@ -85,7 +89,7 @@
         </div>
     <div class="wrap">
         <div class="productDetail" id="productDetail">
-            <img src="https://via.placeholder.com/700x1200" alt="">
+            <img src="${ dto.product_explanation }" alt="">
         </div>
         <div class="productReview" id="productReview">
             <div class="reviewInfo">
@@ -93,10 +97,10 @@
                     <tr>
                         <td>
                             <p>전체 리뷰 수</p>
-                            <p><span>341</span>건</p>
+                            <p><span>${ reviewCount }</span>건</p>
                         </td>
                         <td>
-                            <p><i class="fa-solid fa-star gold"></i> 4.9</p>
+                            <p><i class="fa-solid fa-star gold"></i>&nbsp; ${ avgScore }</p>
                             <button class="dark" onclick="window.open('/product/product_review_popup','popup','width=650 height=700')">상품 리뷰 작성</button>
                         </td>
                         <td>
@@ -111,23 +115,23 @@
                                 <div class="graphDiv">
                                     <div class="starBar-base">
                                         <div class="starBar-fill"></div>
-                                        <span class="reviewCount">311</span>
+                                        <span class="reviewCount">1</span>
                                     </div>
                                     <div class="starBar-base">
                                         <div class="starBar-fill"></div>
-                                        <span class="reviewCount">18</span>
+                                        <span class="reviewCount">0</span>
                                     </div>
                                     <div class="starBar-base">
                                         <div class="starBar-fill"></div>
-                                        <span class="reviewCount">7</span>
+                                        <span class="reviewCount">0</span>
                                     </div>
                                     <div class="starBar-base">
                                         <div class="starBar-fill"></div>
-                                        <span class="reviewCount">2</span>
+                                        <span class="reviewCount">0</span>
                                     </div>
                                     <div class="starBar-base">
                                         <div class="starBar-fill"></div>
-                                        <span class="reviewCount">3</span>
+                                        <span class="reviewCount">0</span>
                                     </div>
                                 </div>
                             </div>                                
@@ -136,56 +140,63 @@
                 </table> 
             </div>
             <div class="reviewSearch">
-                <a href="">최신순</a>
-                <a href="">평점순</a>
-                <span><img src="../img/icon2.png" alt=""><input type="text" placeholder="키워드 검색"></span>               
+                <form name="search">
+                    <input type="hidden" name="product_idx" value="${ dto.product_idx}">
+                    <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_date#productReview">최신순</a>
+                    <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_star_rating#productReview">평점순</a>
+                    <span><input type="text" name="word" placeholder="키워드 검색"><button onclick="getSearchList()"><img src="/img/product/icon2.png" alt=""></button></span>  
+                </form>             
             </div>
             <div class="reviewTable">
                 <table>
-                    <tr>
-                        <td>
-                            <div>
-                                <span class="starRating-fill gold">
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                                <span class="starRating-base gray">
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                                <b class="score">5.0</b>
-                                <span> 아주 좋아요
-                                (abcd****)</span>
-                            </div>
-                        </td>
-                        <td>2022.09.21</td>
-                    </tr>
-                    <tr>
-                        <td>만족합니다</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="https://via.placeholder.com/100" alt="">                    
-                            <img src="https://via.placeholder.com/100" alt="">                    
-                            <img src="https://via.placeholder.com/100" alt="">                    
-                        </td>
-                    </tr>
+                	<c:forEach var="review" items="${ reviewList }">
+                    <form action="deleteReview" method="post">
+                    <input type="hidden" name="review_idx" value="${ review.review_idx }">
+                        <tr>
+                            <td>
+                                <div>
+                                    <span class="starRating-base gray">
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>
+                                    </span>
+                                    <b class="score hide">${ review.review_star_rating }</b>
+                                </div>
+                            </td>
+                            <td>${ review.review_id }</td>
+                            <td><fmt:formatDate value="${ review.review_date }" pattern = "yyyy-MM-dd"/></td>
+                        </tr>
+                        <tr>
+                            <td>${ review.review_title }</td>
+                            <td></td>
+                            <td>
+                                <div class="tableBtn">
+                                    <button class="dark">삭제</button>  
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>	
+                            <td>${ review.review_content }</td>     
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="${ review.review_image }" alt="">                                       
+                            </td>
+                        </tr>
+                    </form>
+                    </c:forEach>
                 </table>
-                <div class="pageNav">
-                    <a href="#">처음</a>
-                    <a href="#">이전</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">다음</a>
-                    <a href="#">마지막</a>
-                </div>
+                <div class="pageNav rev">
+		       		<a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1#productReview">처음</a>
+		       		<a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=${ revPage-1 }#productReview">이전</a>
+		       		<c:forEach var="revPageNum" begin="1" end="${ revPageNum }">
+		       			<a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=${ revPageNum }#productReview">${ revPageNum }</a>
+		       		</c:forEach>
+		            <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=${ revPage+1 }#productReview">다음</a>
+		            <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=${ revPageNum }#productReview">마지막</a>
+		        </div>
             </div>
         </div>
         <div class="productQna" id="productQna">
@@ -197,79 +208,59 @@
                     <td>작성자</td>
                     <td>작성일</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td class="qnaClick">[배송] 언제쯤 배송되나요</td>
-                    <td>답변완료</td>
-                    <td>김**</td>
-                    <td>2022.09.21</td>                       
-                </tr>                           
-                <tr>
-                    <td colspan="5" class="hide">
-                        <div class="productQ">                                      
-                            <i class="fa-solid fa-circle-question"></i>
-                            배송 언제쯤 되나요??
-                            <div class="tableBtn">
-                                <button class="bright">수정</button>
-                                <button class="dark">삭제</button>  
-                            </div> 
-                        </div>  
-                        <div class="productA">                                      
-                            <i class="fa-solid fa-circle-info"></i>
-                            안녕하세요 이젠한우입니다. <br>
-                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
-                            이용해주셔서 감사합니다!
-                        </div>                       
-                    </td>
-                </tr>  
-                <tr>
-                    <td>1</td>
-                    <td class="qnaClick">[배송] 언제쯤 배송되나요</td>
-                    <td>답변완료</td>
-                    <td>김**</td>
-                    <td>2022.09.21</td>                       
-                </tr>                           
-                <tr>
-                    <td colspan="5" class="hide">
-                        <div class="productQ">                                      
-                            <i class="fa-solid fa-circle-question"></i>
-                            배송 언제쯤 되나요??
-                            <div class="tableBtn">
-                                <button class="bright">수정</button>
-                                <button class="dark">삭제</button>  
-                            </div> 
-                        </div>  
-                        <div class="productA">                                      
-                            <i class="fa-solid fa-circle-info"></i>
-                            안녕하세요 이젠한우입니다. <br>
-                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
-                            이용해주셔서 감사합니다!
-                        </div>                       
-                    </td>
-                </tr>          
+                <c:forEach var="qna" items="${ qnaList }" varStatus="status">
+                <form action="deleteQna">
+                	<input type="hidden" name="qna_idx" value="${ qna.qna_idx }">
+	                <tr>
+	                    <td>${ qnaCount - status.index - (( qnaPage-1 ) * 5 ) }</td>
+	                    <!-- <td>기타</td> -->
+	                    <td class="qnaClick">${ qna.qna_title }</td>
+	                    <td>${ qna.qna_status }</td>
+	                    <td>${ qna.qna_id }</td>
+	                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
+	                </tr>
+	                <tr>
+	                    <td colspan="5" class="hide">
+	                        <div class="productQ">                                      
+	                            <i class="fa-solid fa-circle-question"></i>
+	                            ${ qna.qna_content }
+	                            <div class="tableBtn">
+	                                <button class="dark">삭제</button>  
+	                            </div> 
+	                        </div>  
+	                        <div class="productA">                                      
+	                            <i class="fa-solid fa-circle-info"></i>
+	                            안녕하세요 이젠한우입니다. <br>
+	                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
+	                            이용해주셔서 감사합니다!
+	                        </div>                       
+	                    </td>
+	                </tr> 
+                </form>
+                </c:forEach>    
             </table> 
             <div class="qnaBtn">
                 <button class="dark">문의하기</button>
             </div>  
-            <div class="pageNav">
-                <a href="#">처음</a>
-                <a href="#">이전</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">다음</a>
-                <a href="#">마지막</a>
-            </div>
+            <div class="pageNav qna">
+	       		<a href="/product/product01_1?product_idx=${ dto.product_idx }&qnaPage=1#productQna">처음</a>
+	       		<a href="/product/product01_1?product_idx=${ dto.product_idx }&qnaPage=${ qnaPage-1 }#productQna">이전</a>
+	       		<c:forEach var="qnaPageNum" begin="1" end="${ qnaPageNum }">
+	       			<a href="/product/product01_1?product_idx=${ dto.product_idx }&qnaPage=${ qnaPageNum }#productQna">${ qnaPageNum }</a>
+	       		</c:forEach>
+	            <a href="/product/product01_1?product_idx=${ dto.product_idx }&qnaPage=${ qnaPage+1 }#productQna">다음</a>
+	            <a href="/product/product01_1?product_idx=${ dto.product_idx }&qnaPage=${ qnaPageNum }#productQna">마지막</a>
+	        </div>
         </div>
         <div class="productInfo" id="productInfo">
             <table border="2">
                 <tr>
                     <td>품목 또는 명칭</td>
-                    <td>한우 살치살</td>
+                    <td>${ dto.product_name }</td>
                 </tr>
                 <tr>
                     <td>포장단위별 내용물의 용량(중량), 수량, 크기</td>
-                    <td>한우[1++] 살치살 200g / 1pack</td>
+                    <td>${ dto.product_name } ${ dto.product_gram } / 1pack</td>
                 </tr>
                 <tr>
                     <td>생산자(수입품의 경우 수입자를 함께 표기)</td>
@@ -295,7 +286,7 @@
                 </tr>
                 <tr>
                     <td>상품구성</td>
-                    <td>한우 살치살 200g</td>
+                    <td>${ dto.product_name } ${ dto.product_gram }</td>
                 </tr>
                 <tr>
                     <td>보관방법 또는 취급방법</td>
@@ -322,15 +313,60 @@
     <script>
         // 별점
         $(function() {
-            for(i=0; i<$('.score').length; i++) {
-                $('.starRating-fill').eq(i).width(20.5 * ($('.score').eq(i).text()));
+            $('.score').each(function() {
+                for(i=0; i<$(this).text(); i++) {
+                $(this).closest('div').find('.fa-star').eq(i).addClass('gold');
+                } 
+            })
+            for(i=0; i<$('.scoreAvg').length; i++) {
+                $('.starRating-fill').eq(i).width(17.5 * ($('.scoreAvg').eq(i).text()));
             } 
             $('.starBar-fill').each( function(index, item) {
                 $(this).width(               
                     ($('.reviewCount').eq(index).text()) / 
-                    ($('.reviewInfo table tr:eq(0) td:eq(0) span').text())*100+3+'%');
-            })       
+                    ($('.reviewInfo table tr:eq(0) td:eq(0) span').text())*100+'%');
+            })        
         });
+        
+        //페이지
+        $(function() {
+            $('.rev a').each(function() {
+            	if($(this).text() == '이전' && "${revPage}" == 1) {
+            		$(this).removeAttr('href');
+            	}
+            	if($(this).text() == '다음' && "${revPage}" == "${revPageNum}") {
+            		$(this).removeAttr('href');
+            	}
+                if($(this).text() == "${ revPage }" ) {
+                    $(this).removeAttr('href');
+                }
+            })
+            $('.qna a').each(function() {
+            	if($(this).text() == '이전' && "${qnaPage}" == 1) {
+            		$(this).removeAttr('href');
+            	}
+            	if($(this).text() == '다음' && "${qnaPage}" == "${qnaPageNum}") {
+            		$(this).removeAttr('href');
+            	}
+                if($(this).text() == "${ qnaPage }" ) {
+                    $(this).removeAttr('href');
+                }
+            })
+        })
+
+        //총 금액
+        function stringNumberToInt(string) {
+            return parseInt(string.replace(/,/g , ''));
+        }
+
+        $(function() {
+            var price = stringNumberToInt("${dto.product_price}");
+            $('.sumPrice').text( (price * $('input[type=number]').val()).toLocaleString()); 
+            $('input[type=number]').on( 'input', function() {
+                $('.sumPrice').text( (price * $('input[type=number]').val()).toLocaleString());
+            })
+        });
+
         // 문의 본문 열고닫기
         $('.qnaClick').each( function(index, item) {
             $(this).click( function() {
@@ -366,5 +402,59 @@
                 })
             });
         });
+     	
+
+        function formatDate(date) {
+    
+            var d = new Date(date),
+            
+            month = '' + (d.getMonth() + 1) , 
+            day = '' + d.getDate(), 
+            year = d.getFullYear();
+            
+            if (month.length < 2) month = '0' + month; 
+            if (day.length < 2) day = '0' + day; 
+            
+            return [year, month, day].join('-');
+        
+        }
+
+        // 리뷰검색
+        function getSearchList(){
+            $.ajax({
+                type: 'GET',
+                url : "/product/reviewSearch",
+                data : $("form[name=search]").serialize(),
+                success : function(result){
+                    //테이블 초기화
+                    $('.reviewTable > table tr').empty();
+                    if(result.length>=1){
+                        result.forEach(function(item){
+                            var revDate = new Date(item.review_date);
+                            
+                            console.log(revDate)
+                            str='<tr>'
+                            str += "<td><div><span class='starRating-base gray'><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i>"
+                            str += "<i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i></span>"    
+                                +"<b class='score hide'>"+ item.review_star_rating +"</b></div></td>";
+                            str+="<td>"+ item.review_id +"</td>";
+                            str+="<td>" + formatDate(revDate) + "</td>";
+                            str+="</tr><tr><td>"+ item.review_title +"</td><td></td>";
+                            str+="<td><div class='tableBtn'><button class='dark'>삭제</button></div></td>"
+                            str+="</tr><tr><td>"+ item.review_content +"</td></tr>";
+                            str+="<tr><td><img src='"+ item.review_image +"' alt=''></td><tr>"
+                            $('.reviewTable > table').append(str);
+
+                        })				 
+                    }
+                    $('.score').each(function() {
+                        for(i=0; i<$(this).text(); i++) {
+                        $(this).closest('div').find('.fa-star').eq(i).addClass('gold');
+                        } 
+                    })
+                }
+            })
+            
+        }
      
     </script>

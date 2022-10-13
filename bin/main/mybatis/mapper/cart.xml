@@ -7,7 +7,7 @@
 <mapper namespace="com.study.springboot.dao.ICartDao">
 
 	<select id="cartList" resultType="com.study.springboot.dto.CartDto">
-		select * from cart where cart_users_id=#{param1}
+		select * from cart where users_id = #{param1}
 	</select>
 	
 	<select id="cartCount" resultType="_int">

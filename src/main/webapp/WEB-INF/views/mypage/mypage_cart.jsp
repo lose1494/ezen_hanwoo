@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <link rel="stylesheet" href="/css/mypage/cart.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   
@@ -8,7 +9,7 @@
   <div class="container">
     <h1>장바구니</h1>
     <div class="list">
-      <table>
+      <table id="cart_table">
         <tr>
           <th><input type="checkbox" /></th>
           <th></th>
@@ -20,17 +21,20 @@
           <th>적립금</th>
           <th>삭제/관심상품</th>
         </tr>
-        <tr>
+       
+       <!--  <tr>
+        
           <td><input type="checkbox" /></td>
           <td><img src="https://via.placeholder.com/80" alt=""></td>
           <td>한우 살치살</td>
           <td>00000원</td>
           <td><input type="number" value="1" min="1" max="10"> <button>변경</button></td>
-          <!-- <td>0원</td> -->
+          <td>0원</td>
           <td>00000원</td>
           <td>0원</td>
           <td class="icon"><img src="/img/mypage/x.png" style="width:40px;"><img src="/img/mypage/heart.png" style="width:35px;"></td>
-        </tr>
+         
+        </tr> -->
       </table>
     </div>
     <div class="flexDiv">
@@ -69,8 +73,11 @@
       </div>  
     </div>
   </div>
+ 
+ </div>
+ 
+   <script>
 
-  <script>
     $('input[type=number]').on('focusin', function() {
       $(this).data('val', $(this).val());
     });
@@ -85,6 +92,36 @@
         }
       }
     })
+   $(document).ready(function() {
+           a();
+           console.log("a는 실행되었습니다");
+   }); 
+    function a (){
+        $.ajax({
+            url: "/mypage/get_cart_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            data: { users_id: "1" },  // HTTP 요청과 함께 서버로 보낼 데이터
+            method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+            dataType: "json", // 서버에서 보내줄 데이터의 타입
+            success:function(data){
+             console.log(data);
+             return;
+               const a =`<tr>
+                   <th>checkbox</th>
+                   <td>대충이미지</td>
+                   <td>${data.product_name}</td>
+                   <td>${data.money}</td>
+                   <td><input type="number" value="${data.count}" min="1" max="10"> <button>변경</button></td>
+                   <td>${data.item_pay}</td>
+                   <td>${data.total_pay}</td>
+                   <td>${data.addEventPay}</td>
+                   <td>대충이미지2</td>
+                   </tr>`
+                   const target = document.getElementById("cart_table");
+                   target.insertAdjacentHTML('beforeend', a)
+                  },
+             error:function(data){
+               console.log(data);
+            }
+           })
+         }
   </script>
-  
- </div>

@@ -20,13 +20,13 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <td>주문번호 : 00000000</td>
+                    <td>00000000</td>
                     <td><img src="https://via.placeholder.com/80" alt=""></td>
                     <td>상품 이름 <br> <span>000원/100g</span></td>
                     <td>00,000원</td>
-                    <td>주문일자 : 2022-09-02</td>
+                    <td>2022-09-02</td>
                     <td>결제완료</td>
-                    <td><button class="bright" onclick="window.open('/mypage/mypage_orderDetail','test','width=600 height=700')">상세조회</button></td>
+                    <td><button class="dark" onclick="window.open('/mypage/mypage_orderDetail','test','width=600 height=700')">상세조회</button></td>
                 </tr>
             </table>
         </div>

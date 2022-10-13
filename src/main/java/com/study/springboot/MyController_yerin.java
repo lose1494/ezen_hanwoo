@@ -17,12 +17,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.PointDto;
+import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.One2oneService;
 import com.study.springboot.service.PointService;
+import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
 import com.study.springboot.service.ReviewService;
 import com.study.springboot.service.UsersService;
@@ -38,6 +40,7 @@ public class MyController_yerin {
 	@Autowired private One2oneService one2oneService;
 	@Autowired private Product_qnaService qnaService;
 	@Autowired private ReviewService reviewService;
+	@Autowired private ProductService productService;
 	
 	int num_page_size = 5;
 	
@@ -48,8 +51,9 @@ public class MyController_yerin {
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		if(users_id == null) {
-			model.addAttribute("alert", "로그인이 필요합니다.");
-			return "redirect:/member/login";
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login");
+			return "alert";
 		} else {
 			UsersDto member = usersService.userDetail(users_id);
 			int pointSum = pointService.pointSum(users_id);
@@ -129,7 +133,6 @@ public class MyController_yerin {
 		int pageNum = (int)Math.ceil((double)qnaCount/num_page_size);
 		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, users_id, page, num_page_size);
 		
-		System.out.println(qnaCount);
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("qnaList", qnaList);
@@ -138,14 +141,33 @@ public class MyController_yerin {
 		return "index";
 	}
 	
+	@RequestMapping("*/deleteQna")
+	@ResponseBody
+	public String deleteQna(@RequestParam("qna_idx") int qna_idx, 
+							HttpServletRequest request, Model model) {
+		int deleteQna = qnaService.deleteQna(qna_idx);
+		String referer = request.getHeader("referer").substring(21);
+		System.out.println(referer);
+		
+		
+		if (deleteQna != 1) {
+			System.out.println("문의 삭제 실패");		
+			return "<script>alert('작성 실패');history.back();</script>";
+		}else {
+			System.out.println("문의 삭제 성공");
+			return "<script>alert('삭제되었습니다.');location.href='"+referer+"';</script>";
+		}
+	}
+	
 	@RequestMapping("/mypage/mypage_review")
 	public String mypage_review(@RequestParam(value="page",defaultValue="1") String page,
 			HttpServletRequest request, Model model) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		String sort = "review_id";
-		int reviewCount = reviewService.reviewCount(sort, users_id);
+		String standard = "review_id";
+		String sort = "review_date";
+		int reviewCount = reviewService.reviewCount(standard, users_id, null);
 		int pageNum = (int)Math.ceil((double)reviewCount/num_page_size);
-		List<ReviewDto> reviewList = reviewService.reviewList(sort, users_id, page, num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, users_id, page, num_page_size, sort, null);
 		
 		System.out.println(reviewCount);
 		model.addAttribute("page", page);
@@ -154,6 +176,25 @@ public class MyController_yerin {
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("mainPage", "mypage/mypage_review.jsp");
 		return "index";
+	}
+	
+	@RequestMapping("*/deleteReview")
+	public String deleteReview(@RequestParam("review_idx") int review_idx, 
+							HttpServletRequest request, Model model) {
+		int deleteReview = reviewService.deleteReview(review_idx);
+		String referer = request.getHeader("referer").substring(21);
+		System.out.println(referer);
+		request.getSession().setAttribute("url", referer);
+		
+		if (deleteReview != 1) {
+			System.out.println("리뷰 삭제 실패");		
+			request.getSession().setAttribute("alert", "삭제에 실패했습니다.");			
+			return "alert";
+		}else {
+			System.out.println("리뷰 삭제 성공");
+			request.getSession().setAttribute("alert", "삭제되었습니다.");
+			return "alert";
+		}
 	}
 	
 	@RequestMapping("/mypage/mypage_memberEdit")
@@ -254,9 +295,71 @@ public class MyController_yerin {
 
 	//상품 상세
 	@RequestMapping("/product/product01_1")
-	public String product01_1(Model model) {
+	public String product01_1(@RequestParam("product_idx") int product_idx,
+							  @RequestParam(value="revPage",defaultValue="1") String revPage,
+							  @RequestParam(value="qnaPage",defaultValue="1") String qnaPage,
+							  @RequestParam(value="sort",defaultValue="review_date") String sort,
+							  HttpServletRequest request,
+											Model model) {
+		ProductDto proDe = productService.productDetail(product_idx);
+		model.addAttribute("dto", proDe);
+		
+		String standard = "product_idx";
+		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx), null);
+		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, String.valueOf(product_idx), 
+															revPage, num_page_size, sort, null);
+		double reviewAvg = reviewService.reviewAvg(product_idx);
+		if( revPageNum == 0 ) {
+			revPageNum = 1;
+		}
+		
+
+		int qnaCount = qnaService.qnaCount(standard, String.valueOf(product_idx));
+		int qnaPageNum = (int)Math.ceil((double)qnaCount/num_page_size);
+		List<Product_qnaDto> qnaList = qnaService.qnaList(standard, String.valueOf(product_idx), qnaPage, num_page_size);
+		if( qnaPageNum == 0 ) {
+			qnaPageNum = 1;
+		}
+		
+		System.out.println(revPageNum +","+ qnaPageNum);
+		System.out.println(qnaCount);
+		model.addAttribute("qnaPage", qnaPage);
+		model.addAttribute("qnaPageNum", qnaPageNum);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qnaCount", qnaCount);
+		
+		
+		System.out.println(reviewCount);
+		model.addAttribute("revPage", revPage);
+		model.addAttribute("revPageNum", revPageNum);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewCount", reviewCount);
+		model.addAttribute("avgScore", reviewAvg);
 		model.addAttribute("mainPage", "product/product01_1.jsp");
 		return "index";
+	}
+	
+	@RequestMapping("/product/reviewSearch")
+	@ResponseBody
+	public List<ReviewDto> reviewSerach(@RequestParam("product_idx") int product_idx,
+			  @RequestParam(value="revPage",defaultValue="1") String revPage,
+			  @RequestParam(value="sort",defaultValue="review_date") String sort,
+			  @RequestParam("word") String word,
+			  HttpServletRequest request,
+							Model model) {
+		String standard = "product_idx";
+		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx), word);
+		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, 
+				String.valueOf(product_idx), revPage, num_page_size, sort, word);
+		
+		model.addAttribute("revPage", revPage);
+		model.addAttribute("revPageNum", revPageNum);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("mainPage", "product/product01_1.jsp");
+		return reviewService.reviewList(standard, 
+				String.valueOf(product_idx), revPage, num_page_size, sort, word);
 	}
 	
 	//주문
@@ -325,7 +428,6 @@ public class MyController_yerin {
 				return "<script>alert('작성 실패');history.back();</script>";
 			}else {
 				System.out.println("글작성을 성공했습니다.");
-				// "/list"로 리다이렉트함.
 				return "<script>alert('문의가 접수되었습니다.');location.href='/mypage/mypage_one2one';</script>";
 			}
 		 
@@ -355,10 +457,11 @@ public class MyController_yerin {
 		if( result == 1 ) {
 			System.out.println("alert:" + "로그인되었습니다.");
 			request.getSession().setAttribute("alert", "로그인되었습니다.");
+			request.getSession().setAttribute("url", "/index");
 			request.getSession().setAttribute("users_id", users_id);
 			request.getSession().setAttribute("users_pw", users_pw);
 			
-			return "redirect:/index"; 				 
+			return "alert"; 				 
 		}else {
 			System.out.println("alert:" + "로그인 실패하였습니다.");
 			
@@ -380,4 +483,5 @@ public class MyController_yerin {
 		
 		return "redirect:/index";  
 	}
+
 }

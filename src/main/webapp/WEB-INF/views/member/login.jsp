@@ -33,8 +33,8 @@
             </div>
 			<div class="footer-1">
             <p>
-			    <a class="box4">아이디.비밀번호 찾기</a>
-                <a class="box5">회원가입</a>
+			    <a href="/member/idFind" class="box4">아이디.비밀번호 찾기</a>
+                <a href="/member/join2" class="box5">회원가입</a>
             </p>
 		</div>
 		</section>

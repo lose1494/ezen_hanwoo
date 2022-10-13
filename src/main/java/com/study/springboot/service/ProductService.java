@@ -22,6 +22,11 @@ public class ProductService {
 		List<ProductDto> productlist = productdao.productlist(category);
 		return productlist;
 	}
+	
+	public ProductDto productDetail(int product_idx) {
+		ProductDto productDetail = productdao.productDetail(product_idx);
+		return productDetail;
+	}
 
 	public List<ProductDto> item_list() {
 		List<ProductDto> item_list = productdao.item_list();
