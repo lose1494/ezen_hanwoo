@@ -31,6 +31,12 @@ public class MyController_minwoo {
 		model.addAttribute("mainPage","member/join2.jsp");
 		return "index";
 	}
+	
+	@RequestMapping("/member/idFind")
+	public String idFind (Model model) {
+		model.addAttribute("mainPage","member/idFind.jsp");
+		return "index";
+	}
 
 
 }
