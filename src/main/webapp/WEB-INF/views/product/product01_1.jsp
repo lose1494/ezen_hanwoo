@@ -65,14 +65,15 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <form action="/mypage/mypage_cart" method="post" >
-                    <td colspan="2">
-                        <div class="flexDiv">
-                            <button class="bright" onclick="javascript:form.action='/mypage/mypage_cart'">장바구니</button>
-                            <button class="bright">관심상품</button>
-                            <button class="dark">바로구매</button>
-                        </div>
-                    </td>
+                    <form action="order01" method="post" >
+	                    <td colspan="2">
+	                        <div class="flexDiv">
+	                        	<input type="hidden" name="product_idx" value="${ dto.product_idx }">
+	                            <button class="bright" onclick="javascript:form.action='/mypage/mypage_cart'">장바구니</button>
+	                            <button class="bright">관심상품</button>
+	                            <button class="dark">바로구매</button>
+	                        </div>
+	                    </td>
                     </form>
                 </tr>
             </table>
@@ -101,7 +102,10 @@
                         </td>
                         <td>
                             <p><i class="fa-solid fa-star gold"></i>&nbsp; ${ avgScore }</p>
-                            <button class="dark" onclick="window.open('/product/product_review_popup','popup','width=650 height=700')">상품 리뷰 작성</button>
+                            <form action="" method="post">
+                                <input type="hidden" name="pro" value="${ dto.product_idx }">
+                                <button class="dark" onclick="javascript:window.open('/product/product_review_popup?product_idx=${ dto.product_idx }','popup','width=650 height=700')">상품 리뷰 작성</button>
+                            </form>
                         </td>
                         <td>
                             <div class="starGraph">
@@ -111,28 +115,16 @@
                                     <div>보통이에요</div>
                                     <div>그냥 그래요</div>
                                     <div>별로예요</div>
-                                </div>                                   
+                                </div>
+                                                                   
                                 <div class="graphDiv">
+                                <c:forEach var="bar" items="${ starGraph }" >
                                     <div class="starBar-base">
                                         <div class="starBar-fill"></div>
+                                        ${ bar.review_star_rating } ${ bar.count }
                                         <span class="reviewCount">1</span>
                                     </div>
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">0</span>
-                                    </div>
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">0</span>
-                                    </div>
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">0</span>
-                                    </div>
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">0</span>
-                                    </div>
+                                </c:forEach>    
                                 </div>
                             </div>                                
                         </td>
@@ -152,6 +144,7 @@
                 	<c:forEach var="review" items="${ reviewList }">
                     <form action="deleteReview" method="post">
                     <input type="hidden" name="review_idx" value="${ review.review_idx }">
+                    <input type="hidden" name="review_image" value="${ review.review_image }">
                         <tr>
                             <td>
                                 <div>
@@ -182,7 +175,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <img src="${ review.review_image }" alt="">                                       
+                                <img src="${ review.review_image }" >                                     
                             </td>
                         </tr>
                     </form>
@@ -214,13 +207,17 @@
 	                <tr>
 	                    <td>${ qnaCount - status.index - (( qnaPage-1 ) * 5 ) }</td>
 	                    <!-- <td>기타</td> -->
-	                    <td class="qnaClick">${ qna.qna_title }</td>
+	                    <td class="qnaClick">
+	                    <c:if test="${ qna.qna_secret == 1 }"><i class="fa-solid fa-lock"></i></c:if>
+                            ${ qna.qna_title }
+                        </td>
 	                    <td>${ qna.qna_status }</td>
 	                    <td>${ qna.qna_id }</td>
 	                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
 	                </tr>
 	                <tr>
 	                    <td colspan="5" class="hide">
+	                    	<c:if test="${ qna.qna_secret == 1 }"></c:if>
 	                        <div class="productQ">                                      
 	                            <i class="fa-solid fa-circle-question"></i>
 	                            ${ qna.qna_content }
@@ -228,7 +225,7 @@
 	                                <button class="dark">삭제</button>  
 	                            </div> 
 	                        </div>  
-	                        <div class="productA">                                      
+	                        <div class="productA">                                   
 	                            <i class="fa-solid fa-circle-info"></i>
 	                            안녕하세요 이젠한우입니다. <br>
 	                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
@@ -240,7 +237,7 @@
                 </c:forEach>    
             </table> 
             <div class="qnaBtn">
-                <button class="dark">문의하기</button>
+                <button class="dark" onclick="javascript:window.open('/product/product_qna_popup?product_idx=${ dto.product_idx }','popup','width=650 height=700')">문의하기</button>
             </div>  
             <div class="pageNav qna">
 	       		<a href="/product/product01_1?product_idx=${ dto.product_idx }&qnaPage=1#productQna">처음</a>
@@ -260,7 +257,9 @@
                 </tr>
                 <tr>
                     <td>포장단위별 내용물의 용량(중량), 수량, 크기</td>
-                    <td>${ dto.product_name } ${ dto.product_gram } / 1pack</td>
+                    <td>${ dto.product_name } ${ dto.product_gram } 
+                    <c:if test="${ dto.product_category ne '선물세트' }">/ 1pack</c:if>
+                    </td>
                 </tr>
                 <tr>
                     <td>생산자(수입품의 경우 수입자를 함께 표기)</td>
@@ -403,7 +402,7 @@
             });
         });
      	
-
+        //날짜 형식 바꾸기
         function formatDate(date) {
     
             var d = new Date(date),
@@ -434,9 +433,9 @@
                             
                             console.log(revDate)
                             str='<tr>'
-                            str += "<td><div><span class='starRating-base gray'><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i>"
-                            str += "<i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i></span>"    
-                                +"<b class='score hide'>"+ item.review_star_rating +"</b></div></td>";
+                            str += "<td><div><span class='starRating-base gray'>"
+                            str += "<i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i>"    
+                                +"</span><b class='score hide'>"+ item.review_star_rating +"</b></div></td>";
                             str+="<td>"+ item.review_id +"</td>";
                             str+="<td>" + formatDate(revDate) + "</td>";
                             str+="</tr><tr><td>"+ item.review_title +"</td><td></td>";
@@ -456,5 +455,8 @@
             })
             
         }
+
+        //상품문의 비밀글
+
      
     </script>

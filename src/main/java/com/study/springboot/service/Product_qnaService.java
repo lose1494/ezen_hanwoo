@@ -38,4 +38,9 @@ public class Product_qnaService {
 		int deleteQna = product_qnadao.deleteQna(qna_idx);
 		return deleteQna;
 	}
+	
+	public List<Product_qnaDto> joinTest() {
+		List<Product_qnaDto> join = product_qnadao.joinTest();
+		return join;
+	}
 }

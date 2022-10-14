@@ -36,8 +36,14 @@
 	
 	<select id="reviewAvg" resultType="_double">
 		SELECT NVL(avg, 0)FROM 
-		(select avg(review_star_rating) avg from product_review
+		(select round(avg(review_star_rating), 1) avg from product_review
 		where product_idx = #{param1})
+	</select>
+	
+	<select id="reviewGraph" resultType="com.study.springboot.dto.ReviewDto">
+		select review_star_rating, count(review_star_rating) count from product_review
+		where product_idx = #{param1}
+		group by review_star_rating
 	</select>
 	
 	<insert id="insertReview" parameterType="com.study.springboot.dto.ReviewDto">

@@ -27,7 +27,7 @@
                         <td>${ qnaCount - status.index - (( page-1 ) * 5 ) }</td>
                         <td class="qnaClick">${ qna.qna_title }</td>
                         <!-- <td>기타</td> -->
-                        <td></td>                       
+                        <td>${ joinTest[status.index].productDto.product_name }</td>                       
                         <td>${ qna.qna_status }</td>
                         <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
                         <td>

@@ -18,4 +18,6 @@ public class ReviewDto {
 	private Date review_date;
 	private int review_star_rating;
 	private int product_idx;
+	
+	private int count;
 }

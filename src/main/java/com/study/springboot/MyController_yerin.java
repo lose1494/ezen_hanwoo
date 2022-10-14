@@ -132,7 +132,9 @@ public class MyController_yerin {
 		int qnaCount = qnaService.qnaCount(sort, users_id);
 		int pageNum = (int)Math.ceil((double)qnaCount/num_page_size);
 		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, users_id, page, num_page_size);
+		List<Product_qnaDto> joinTest = qnaService.joinTest();
 		
+		model.addAttribute("joinTest", joinTest);
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("qnaList", qnaList);
@@ -180,8 +182,9 @@ public class MyController_yerin {
 	
 	@RequestMapping("*/deleteReview")
 	public String deleteReview(@RequestParam("review_idx") int review_idx, 
+							   @RequestParam("review_image") String review_image,
 							HttpServletRequest request, Model model) {
-		int deleteReview = reviewService.deleteReview(review_idx);
+		int deleteReview = reviewService.deleteReview(review_idx, review_image);
 		String referer = request.getHeader("referer").substring(21);
 		System.out.println(referer);
 		request.getSession().setAttribute("url", referer);
@@ -313,6 +316,7 @@ public class MyController_yerin {
 		if( revPageNum == 0 ) {
 			revPageNum = 1;
 		}
+		List<ReviewDto> reviewGraph = reviewService.reviewGraph(product_idx);
 		
 
 		int qnaCount = qnaService.qnaCount(standard, String.valueOf(product_idx));
@@ -322,20 +326,18 @@ public class MyController_yerin {
 			qnaPageNum = 1;
 		}
 		
-		System.out.println(revPageNum +","+ qnaPageNum);
-		System.out.println(qnaCount);
 		model.addAttribute("qnaPage", qnaPage);
 		model.addAttribute("qnaPageNum", qnaPageNum);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("qnaCount", qnaCount);
 		
-		
-		System.out.println(reviewCount);
 		model.addAttribute("revPage", revPage);
 		model.addAttribute("revPageNum", revPageNum);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("avgScore", reviewAvg);
+		model.addAttribute("starGraph", reviewGraph);
+		
 		model.addAttribute("mainPage", "product/product01_1.jsp");
 		return "index";
 	}
@@ -362,11 +364,118 @@ public class MyController_yerin {
 				String.valueOf(product_idx), revPage, num_page_size, sort, word);
 	}
 	
+	@RequestMapping("/product/reviewWrite")
+	@ResponseBody
+	public String reviewWrite(@RequestParam("product_idx") int product_idx,
+						   @RequestParam("review_star_rating") int review_star_rating,
+						   @RequestParam("review_title") String review_title,
+						   @RequestParam("review_content") String review_content,
+						   @RequestParam(value="file", required=false) MultipartFile file,
+						   ReviewDto dto,
+						   Model model, HttpServletRequest request) {
+		System.out.println(review_star_rating);
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		dto.setReview_id(users_id);
+		dto.setReview_title(review_title);
+		dto.setReview_content(review_content);
+		dto.setReview_star_rating(review_star_rating);
+		dto.setProduct_idx(product_idx);
+	 	
+		System.out.println(file.getOriginalFilename());
+	 	if( file.getOriginalFilename() != "" ) {
+			 String image = reviewService.restore(file, users_id);
+		 	 System.out.println(image);
+		 	if( image != null ) {
+				if( image.length() > 0 ) {
+					dto.setReview_image(image);
+					System.out.println("업로드 성공!");
+				}else {
+					System.out.println("업로드 실패!");	
+				}
+			 }else {
+				System.out.println("업로드 실패!");
+			 }
+		 }
+		
+		int result = reviewService.insertReview(dto);
+		if (result != 1) {
+			return "<script>alert('작성에 실패했습니다.');history.back();</script>";
+		} else {
+			return "<script>alert('문의가 접수되었습니다.');opener.location.reload();window.close();</script>";
+		}
+		
+	}
+	
+	//상품상세페이지 문의
+	@RequestMapping("/product/product_qna_popup")
+	public String product_qna_popup(@RequestParam("product_idx") int product_idx,
+			Model model, HttpServletRequest request) {
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		UsersDto user = usersService.userDetail(users_id);
+		ProductDto product = productService.productDetail(product_idx);
+		model.addAttribute("user", user);
+		model.addAttribute("product", product);
+		return "product/product_qna_popup";
+	} 
+	
+	@RequestMapping("/product/qnaWrite")
+	@ResponseBody
+	public String qnaWrite(@RequestParam("product_idx") int product_idx,
+						   @RequestParam("qna_title") String qna_title,
+						   @RequestParam("qna_content") String qna_content,
+						   @RequestParam(value="qna_secret", defaultValue="0") int qna_secret,
+						   @RequestParam(value="qna_pw", required = false) String qna_pw,
+						   Product_qnaDto dto,
+						   Model model, HttpServletRequest request) {
+		System.out.println(qna_pw);
+		String qna_status = "답변대기중";
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		dto.setQna_id(users_id);
+		dto.setQna_title(qna_title);
+		dto.setQna_content(qna_content);
+		dto.setQna_secret(qna_secret);
+		dto.setQna_pw(qna_pw);
+		dto.setQna_status(qna_status);
+		dto.setProduct_idx(product_idx);
+		
+		int result = qnaService.insertQna(dto);
+		if (result != 1) {
+			return "<script>alert('작성에 실패했습니다.');history.back();</script>";
+		} else {
+			return "<script>alert('문의가 접수되었습니다.');opener.location.reload();window.close();</script>";
+		}
+	}
+	
+	//바로구매
+	/*
+	 * @RequestMapping("/product/order") public String
+	 * order01(@RequestParam("product_idx") int product_idx, Model model,
+	 * HttpServletRequest request) { System.out.println(product_idx);
+	 * 
+	 * }
+	 */
+	
 	//주문
 	@RequestMapping("/product/order01")
-	public String order01(Model model) {
-		model.addAttribute("mainPage", "product/order01.jsp");
-		return "index";
+	public String order01(@RequestParam("product_idx") int product_idx,
+			Model model, HttpServletRequest request) {
+		
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		if(users_id == null) {
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login");
+			return "alert";
+		} else {
+			ProductDto product = productService.productDetail(product_idx);
+			UsersDto user = usersService.userDetail(users_id);
+			System.out.println(product);
+			model.addAttribute("product", product);
+			model.addAttribute("user", user);
+			model.addAttribute("mainPage", "product/order01.jsp");
+			return "index";
+		}
+		
+		
 	}
 	
 	@RequestMapping("/product/order02")
@@ -413,14 +522,21 @@ public class MyController_yerin {
 		 dto.setOne2one_email(one2one_email);
 		 dto.setOne2one_phone(one2one_phone);
 		 
-		 if( file.getOriginalFilename() != "" ) {
-			 String image = one2oneService.restore(file);
-			 System.out.println(image);
-			 if(image != null) {
-				 dto.setOne2one_image(image);
+		 if( file.getOriginalFilename() != null ) {
+			 String image = reviewService.restore(file, one2one_id);
+		 	 System.out.println(image);
+		 	if( image != null ) {
+				if( image.length() > 0 ) {
+					dto.setOne2one_image(image);
+					System.out.println("업로드 성공!");
+				}else {
+					System.out.println("업로드 실패!");	
+				}
+			 }else {
+				System.out.println("업로드 실패!");
 			 }
-		 }		 	 
-			 	 
+		 }
+	 	 
 		 int result = one2oneService.insertOne2one(dto);
 		 
 		 if( result != 1 ) {
