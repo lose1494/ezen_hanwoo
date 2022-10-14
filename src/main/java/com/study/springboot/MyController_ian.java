@@ -23,11 +23,13 @@ import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
+import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.NoticeService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
+import com.study.springboot.service.ReviewService;
 import com.study.springboot.service.UsersService;
 
 @Controller
@@ -44,6 +46,9 @@ public class MyController_ian {
 	private Product_qnaService product_qnaService;
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@RequestMapping("/")
 	public String root() {
@@ -278,9 +283,11 @@ public class MyController_ian {
 
 	// 리뷰 관리
 	@RequestMapping("/admin/admin_review")
-	public String admin_review(Model model) {
+	public String admin_review(Model model, HttpServletRequest request) {
 		
+		List<ReviewDto> review_result = reviewService.review_result();
 		
+		model.addAttribute("review_result", review_result);
 		model.addAttribute("mainPage", "admin/admin_review.jsp");
 		
 		return "index";

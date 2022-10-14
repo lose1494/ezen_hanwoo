@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
     
      <link rel="stylesheet" href="/css/member/join.css" />
-    
-
+	<link rel="stylesheet" href="/css/common.css">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script type="text/javascript" src="event.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type="text/javascript">
+<!--         <script type="text/javascript">
             window.onload = function(){
                 function idcheck(){
                     var insertId=document.inputForm.id.value;
@@ -49,92 +49,174 @@
            
            
   
-        </script>
+        </script> -->
 
-    <div id="header"></div>
-  <div class="header2">
-    <h2>회원정보 입력</h2>
-  <div class="header3">기본정보입력(필수)</div>
-    <form class="fom"method="GET" name="inputForm">
-        <table>
+  <div class="header2 wrap">
+    <h2 id="title">회원정보 입력</h2>
+
+    <form action="/member/joinAction" class="fom" method="POST" name="usersInfo">
+    <div class="form_wrap">
+        <table class="input_form">
          
 
 
             <tr>
-                
+                <td> <label>아이디</label> </td>
                 <td>
-                    <input type="text" name="id" placeholder="아이디 ">
-                    <input class="fonbutton"type="button" id="check" value="중복확인">
+        <input type="text" name="users_id" id="search_id"> 
+        <input type="button" name="check_btn" id="check_btn" value="중복확인" class="fonbutton">
+        <span id="result"></span>
+                </td>
+             </tr>
+             <tr>
+               <td> <label>이름</label> </td>
+                <td>
+                  <input type="text" name="users_name" > 
+              	</td>
+             </tr>
+             <tr>
+               <td> <label>비밀번호</label> </td>
+              	<td>
+                    <input type="text" name="users_pw"> 
                 </td>
             </tr>
-            <tr>
-             
-              <td>
-                  <input type="text" name="email" placeholder="이메일 "id="email"> @
-                  <input type="text" name="email" placeholder="이메일 "id="email">
-                  <select id="email2">
-                      <option value="0">직접입력</option>
-                      <option value="1">http://www.google.com</option>
-                      <option value="2">http://www.naver.com</option>
-                      <option value="3">http://www.daum.com</option>
-                  </select>
-                  
-              </td>
-          </tr>
-            <tr>
-               
+            <tr>    <td> <label>비밀번호 확인</label> </td>
                 <td>
-                    <input type="text" name="pwd"placeholder="비밀번호"  > 
+                    <input type="text" name="pwCheck" >
+                </td>
+            </tr>
+            
                    
-                </td>
-            </tr>
-            <tr>
-                
-                <td>
-                    <input type="text" name="pwdCheck" placeholder="비밀번호 확인">
-                </td>
-            </tr>
-            <tr>
-              
-              <td>
-                  <input type="text" name="sname"  placeholder="이름 "> 
-              </td>
-          </tr>
-            <tr>
-                 
-                    <td >
-                    <input class=""type="date">
-                        <hr>
-                       
-
-                         <h4>본인인증</h4>
-                         <div>이미 가입된 휴대전화 번호로는 가입하실 수 없습니다.</div>
-                    </td>
-               </tr>
-               
                <tr>
                 
-                <td>
-                    <input type="text" name="id" placeholder="휴대전화 번호 " >
-                    <input class="fonbutton"type="button" id="check2" value="인증하기">
-                </td>
+               <td> <label>이메일</label> </td>
+                   <td> <input type="text" name="users_email" >
+                   </td>
             </tr>
+            <tr><td> <label>핸드폰 번호</label> </td>
+            	<td>
+            		<input type="text" name="users_phone" >
+            	</td>
+            </tr>
+
             <tr>
-              
-              <td>
-                  <input type="text" name="id" placeholder="인증번호 입력" >
-                  <input class="fonbutton fonbutton3"type="button" id="check" value="인증확인">
-              </td>
-          </tr>
-          
-          
-            
-       
-        </table>
-      </form>
-        <input class="button"type="button" id="join" value="확인">
-        <input class="button2"type="submit" value="취소">
+		    <td> <label>주소</label> </td>
+		 	<td><input type="text" id="users_address1" name="users_address1" placeholder="우편번호">
+		  		<input type="button" onclick="addressAdd()" value="우편번호 찾기" class="fonbutton1"><br>	
+		 	 	<input type="text" id=users_address2 name="users_address2" placeholder="도로명주소"><br>
+	 	 		<input type="text" id="users_address3" name="users_address3" placeholder="상세주소"><br>
+	 	 	</td>
+ 			</tr>
+ 			
+ 	 		<tr> 
+ 	 		<td> <label>생년월일</label> </td>
+ 	 		<td>
+ 	 		<div>
+ 	 			<input type="date" name="users_birth_date" > </div>
+ 	 		</td>
+ 	 		
+ 	 		</tr>
+  		</table>
+  		</div>
+        <input class="button" type="submit" id="join" value="확인">
+        <input class="button2"type="reset" value="취소"> 
+        
+        </form>
       </div>
+     
+<!-- 주소찾기 -->
+	<script> 
+	   function addressAdd() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	            
+	                var roadAddr = data.roadAddress; // 도로명 주소 변수
+	                
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('users_address1').value = data.zonecode; //우편번호
+	                document.getElementById("users_address2").value = roadAddr; //도로명 
+	                document.getElementById("users_address3").value = data.jibunAddress; //상세주소
+	                self.close();
+	            }
+	        }).open();
+	    }
+	</script>
+<!-- 중복확인 -->
+    <script>
+   $(function() {
+	   $("#check_btn").click(function(){
 
+	   var userId = $("#search_id").val();
+	   console.log(userId);
+	   
+	   $.ajax({
+		async: true,
+		type: 'POST',
+		data: userId,
+		url: "/member/join",
+		dataType: "json",
+		contentType: "application/json; charset-UTF-8",
+		success: function(data) { 
+			console.log( data );
+			var data_num = Number( data );
+			if ( data_num == 0 ) {
+			$("#result").text('사용할 수 있는 아이디입니다.');
+		} else {
+			
+			$("result").text('사용할 수 없는 아이디입니다.');
+			result=1;	
+			} },
+			error : function(error) {
+			alert("아이디를 입력해주세요.");
+			}
+		});
+	   });
+   });
+ 
+  </script>
+  <!-- 알림 -->
+  <script>
+  function checkValue() { 
+		if(!document.userInfo.users_id.value) { //empty: null, 길이 0
+			alert("아이디을 입력해주세요");
+			document.getElementById('users_id').focus();
+			return false; //submit전송이 안됨
+		}
+		if(document.userInfo.users_id_check.value == 'no') { //empty: null, 길이 0
+			alert("아이디 중복확인을 입력해주세요");
+			document.getElementById('users_id').focus();
+			return false; //submit전송이 안됨
+		}
 
-    
+		if(!document.userInfo.users_pw.value) { //empty: null, 길이 0
+			alert("암호을 입력해주세요");
+			document.getElementById('users_pw').focus();
+			return false; //submit전송이 안됨
+		}
+			
+		if( ! (document.userInfo.users_pw.value == document.userInfo.pwCheck.value) ) {
+			alert("암호가 일치하지 않습니다. 다시 입력해주세요");
+			document.getElementById('users_pw').focus();
+			return false; //submit전송이 안됨
+		}
+		if(!document.userInfo.users_name.value) { //empty: null, 길이 0
+			alert("이름을 입력해주세요");
+			document.getElementById('users_name').focus();
+			return false; //submit전송이 안됨
+		}
+		
+		if(!document.userInfo.users_email.value) {
+			alert("이메일을 입력해주세요");
+			document.getElementById('users_email').focus();
+			return false; 
+		} 		
+		
+		if(!document.userInfo.users_phone.value) {
+			alert("전화번호를 입력해주세요");
+			document.getElementById('users_phone').focus();
+			return false; 
+		}
+		
+		return true;
+	}
+  </script>

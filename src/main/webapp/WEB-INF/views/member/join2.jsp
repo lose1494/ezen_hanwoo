@@ -93,7 +93,7 @@
         }
       }
       if( isAllCheck == true ) {
-        window.location.href = "./join2.html";
+        window.location.href = "/member/join";
       }else{
         alert("이용약관에 모두 동의하셔야 회원으로 가입하실 수 있습니다.");
       }

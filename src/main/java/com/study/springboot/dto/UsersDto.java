@@ -2,6 +2,8 @@ package com.study.springboot.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ public class UsersDto {
 	private int users_email_receive;
 	private String users_phone;
 	private int users_phone_receive;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date users_birth_date;
 	private String users_address1;
 	private String users_address2;

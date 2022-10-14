@@ -44,4 +44,9 @@ public class ReviewService {
 		int deleteReview = reviewdao.deleteReview(review_idx);
 		return deleteReview;
 	}
+
+	public List<ReviewDto> review_result() {
+		List<ReviewDto> review_result = reviewdao.review_result();
+		return review_result;
+	}
 }

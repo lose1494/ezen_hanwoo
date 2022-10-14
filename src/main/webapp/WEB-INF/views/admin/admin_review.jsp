@@ -248,9 +248,9 @@
 	 </tr>
 	 
 	 <tr>
-	 <c:forEach var="dto" items=" ${ review_result }" varStatus="status">
+	 <c:forEach var="dto" items="${ review_result }" varStatus="status">
 	 	
-	 	<td> ${ dto.review_date }</td>
+	 	<td> <fmt:formatDate value="${dto.review_date}" pattern="yyyy/MM/dd" /> </td>
 	 	<td>${ dto.review_idx }</td>
 	 	<td> ${ dto.review_id }</td>
 	 	<td>${ dto.review_title }</td>

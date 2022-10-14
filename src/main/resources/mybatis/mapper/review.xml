@@ -51,4 +51,16 @@
 	  WHERE review_idx=#{ param1 }
 	</delete>
 	
+	<select id="review_result" resultType="com.study.springboot.dto.ReviewDto">
+		SELECT 
+		    review.review_id, prod.product_name, prod.product_idx, review.review_date, review.review_content, review.review_title
+		FROM 
+		    product_review review
+		JOIN 
+		    PRODUCT prod
+		ON 
+		    review.product_idx = prod.product_idx
+	</select>
+	
+	
 </mapper>

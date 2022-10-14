@@ -65,4 +65,15 @@ public class UsersService {
 		List<UsersDto> user_Detail = usersdao.user_Dtail(users_id);
 		return user_Detail;
 	}
+
+	public int id_check_result(String users_id) {
+		int id_check_result = usersdao.id_check_result(users_id);
+		return id_check_result;
+	}
+
+	public int memberJoin( UsersDto dto) {
+		
+		int memberJoin = usersdao.memberJoin( dto );
+		return memberJoin;
+	}
 }

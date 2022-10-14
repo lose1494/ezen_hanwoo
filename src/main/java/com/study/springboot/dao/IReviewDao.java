@@ -14,4 +14,5 @@ public interface IReviewDao {
 	public double reviewAvg(int product_idx);
 	public int insertReview(ReviewDto dto);
 	public int deleteReview(int review_idx);
+	public List<ReviewDto> review_result();
 }
