@@ -12,15 +12,15 @@
             <table>
                 <tr>
                     <td></td>
-                    <td colspan="2">${ dto.product_name }</td>
+                    <td colspan="2" id="product_name" value="${ dto.product_idx }" >${ dto.product_name }</td>
                 </tr>
                 <tr>
-                    <td rowspan="7"><img src="${ dto.product_image }" alt=""></td>
+                    <td rowspan="7" id="product_img"><img src="${ dto.product_image }" alt=""></td>
                     <td>판매가</td>
-                    <td>${ dto.product_price }원</td>
+                    <td id="product_price">${ dto.product_price }원</td>
                 </tr>
                 <tr>
-                    <td>제품중량</td>
+<!--                     <td>제품중량</td> -->
                     <td>${ dto.product_gram }</td>
                 </tr>
                 <tr>
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <td>수량</td>
-                    <td><input type="number" max="10" min="1" value="1"></td>
+                    <td ><input type="number" max="10" min="1" value="1"  id="product_count"></td>
                 </tr>
                 <tr>
                     <td>리뷰 수</td>
@@ -68,7 +68,7 @@
                     <form action="/mypage/mypage_cart" method="post" >
                     <td colspan="2">
                         <div class="flexDiv">
-                            <button class="bright" onclick="javascript:form.action='/mypage/mypage_cart'">장바구니</button>
+                            <button class="bright" onclick="b()">장바구니</button>
                             <button class="bright">관심상품</button>
                             <button class="dark">바로구매</button>
                         </div>
@@ -299,6 +299,7 @@
     </div>
 
     <script>
+    
         // 별점
         $(function() {
             $('.score').each(function() {
@@ -390,5 +391,25 @@
                 })
             });
         });
-     	
+        
+        function b(){
+        	const pd_name = document.getElementById("product_name").innerText
+        	const price = document.getElementById("product_price").innerText
+        	const count = document.getElementById("product_count").value
+        	const pdx = document.getElementById("product_name").getAttribute('value') 
+     	$.ajax({
+     		url: "/mypage/cartdb",
+     		dataType: "json",
+     		data : {
+     				cart_count : count,
+     				cart_product_name : pd_name,
+     				product_idx : pdx,
+     				product_price : price
+     		},
+    	success: function(data){
+            console.log(data);
+         	location.href="/mypage/mypage_cart"   
+     	}
+     	})
+        }
     </script>
