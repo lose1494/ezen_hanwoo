@@ -1,7 +1,10 @@
 package com.study.springboot;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.study.springboot.dto.CartProductDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.ProductDto;
@@ -238,14 +242,28 @@ public class MyController_ian {
     // 공지사항 관리
     @RequestMapping("/admin/admin_notice")
     public String admin_notice(Model model) {
-        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
-        int notice_count = noticeService.notice_count();
-        model.addAttribute("notice_count", notice_count);
-        model.addAttribute("admin_notice_list", admin_notice_list);
+        
+        /*
+         * List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
+         * int notice_count = noticeService.notice_count();
+         * model.addAttribute("notice_count", notice_count);
+         * model.addAttribute("admin_notice_list", admin_notice_list);
+         * model.addAttribute("mainPage", "admin/admin_notice.jsp");
+         */
         model.addAttribute("mainPage", "admin/admin_notice.jsp");
         return "index";
     }
-    
+    @GetMapping("/admin/notice_list")
+    @ResponseBody
+    public List<NoticeDto> notice_list(@RequestParam("notice_idx") String notice_idx,
+                              @RequestParam("notice_title") String notice_title,
+                              @RequestParam("notice_date") Date notice_date
+            ) {
+        
+        
+        List<NoticeDto> noticelist = noticeService.noticelist(notice_idx, notice_title, notice_date);
+        return noticelist;
+    }
     //공지사항 상세 페이지
     @RequestMapping("/admin/notice_detail")
     public String notice_detail ( HttpServletRequest request, Model model ) {
@@ -267,8 +285,23 @@ public class MyController_ian {
         noticeService.noticeWrite(param);
         return "redirect:admin/admin_notice";
     }
-    
-    
+    @RequestMapping("/admin/admin_noticewrite2")
+    public String admin_noticewrite2(Model model) {
+        
+        
+        model.addAttribute("mainPage", "admin/admin_noticewrite2.jsp");
+        return "index";
+    }
+    @GetMapping("/admin/notice_update")
+    @ResponseBody
+    public List<NoticeDto> notice_update(@RequestParam("notice_idx") String notice_idx,
+                                       @RequestParam("notice_title") String notice_title,
+                                       @RequestParam("notice_content") String notice_content
+            ) {
+        List<NoticeDto> updatelist = noticeService.updatelist(notice_idx, notice_title, notice_content);
+        System.out.println(updatelist);
+        return updatelist;
+    }
     // 1:1문의
     @RequestMapping("/admin/admin_one2one")
     public String admin_one2one(Model model) {
@@ -303,8 +336,6 @@ public class MyController_ian {
     @RequestMapping("/mypage/mypage_cart")
     public String mypage_cart ( 
             Model model) {
-        
-        
         model.addAttribute("mainPage","mypage/mypage_cart.jsp");
         return "index";
     }

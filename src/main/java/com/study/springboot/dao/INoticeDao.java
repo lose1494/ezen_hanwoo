@@ -1,5 +1,6 @@
 package com.study.springboot.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,10 @@ public interface INoticeDao {
 	public List<NoticeDto> notice_detail(String notice_idx);
 
 	public void noticeWrite(Map<String, String> param);
-
-
+	
+	public List<NoticeDto> noticelist(String notice_idx, String notice_title, Date Notice_date);
+	
+	public int noticeupdate(String notice_idx, String notice_title, String notice_content);
+	
+	public List<NoticeDto> updatelist(String notice_idx, String notice_title, String notice_content);
 }
