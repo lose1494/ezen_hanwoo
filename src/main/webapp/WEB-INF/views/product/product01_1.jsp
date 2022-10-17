@@ -120,9 +120,10 @@
                                 <div class="graphDiv">
                                 <c:forEach var="bar" items="${ starGraph }" >        
                                     <div class="starBar-base">                                        
-                                        <div class="starBar-fill"></div>                                       
+                                        <div class="starBar-fill">                                    
+                                        </div>                                       
                                     </div>
-                                    <span class="reviewCount">${ bar.count }</span>           
+                                    (<span class="reviewCount">${ bar.count }</span>)                                  
                                 </c:forEach>    
                                 </div>
                             </div>                                
@@ -444,16 +445,22 @@
                             var revDate = new Date(item.review_date);
                             
                             console.log(revDate)
-                            str='<tr>'
-                            str += "<td><div><span class='starRating-base gray'>"
-                            str += "<i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i>"    
-                                +"</span><b class='score hide'>"+ item.review_star_rating +"</b></div></td>";
-                            str+="<td>"+ item.review_id +"</td>";
-                            str+="<td>" + formatDate(revDate) + "</td>";
-                            str+="</tr><tr><td>"+ item.review_title +"</td><td></td>";
-                            str+="<td><div class='tableBtn'><button class='dark'>삭제</button></div></td>"
-                            str+="</tr><tr><td>"+ item.review_content +"</td></tr>";
-                            str+="<tr><td><img src='"+ item.review_image +"' alt=''></td><tr>"
+                            str="<tr>"
+                                + "<td><div>"
+                                + "<span class='starRating-base gray'>"
+                                + "<i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i>"    
+                                + "</span><b class='score hide'>"+ item.review_star_rating +"</b>"
+                                + "</div></td>"
+                                + "<td>"+ item.review_id +"</td>"
+                                + "<td>" + formatDate(revDate) + "</td>"
+                                + "</tr><tr>" 
+                                + "<td>"+ item.review_title +"</td><td></td>"
+                                + "<td><div class='tableBtn'><button class='dark'>삭제</button></div></td>"
+                                + "</tr><tr>"
+                                + "<td>"+ item.review_content +"</td>"
+                                + "</tr><tr>"
+                                + "<td><img src='"+ item.review_image +"' alt=''></td>"
+                                + "</tr>"
                             $('.reviewTable > table').append(str);
 
                         })				 

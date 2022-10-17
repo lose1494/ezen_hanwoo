@@ -105,6 +105,7 @@ b:not(.scoreAvg) {
 .reviewInfo {
     border-top: 2px solid rgb(231, 231, 231);
     border-bottom: 2px solid rgb(231, 231, 231);
+    font-size: 16px;
     /* margin-top: 30px; */
 }
 .reviewInfo table {
@@ -126,26 +127,33 @@ b:not(.scoreAvg) {
 .starGraph {
     display: flex;
     /* align-items: center; */
-    padding: 5px 15px;
-    border: 1px solid black;
+    padding: 5px 0;
+}
+.graphLabel {
+    flex: 1 50%;
 }
 .graphDiv {
     width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 .graphDiv div {
     border-radius: 10px;
     height: 15px;   
 }
 .starBar-base {
-    margin: 8px; 
+    flex: 1 50%;
+    max-width: 260px;
+    margin: 0 5px;
     background-color: rgb(207, 207, 207);
 }
 .starBar-fill {
     background-color: rgb(46, 40, 40);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .reviewCount {
-    display: none;
+
 }
 
 .reviewSearch form {
@@ -170,6 +178,9 @@ b:not(.scoreAvg) {
     border: none;
     font-size: 13px;
     width: 100px;
+}
+.reviewSearch span button {
+    background-color: transparent;
 }
 
 .reviewTable table {
