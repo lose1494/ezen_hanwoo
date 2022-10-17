@@ -23,7 +23,7 @@
     <form class="fom"method="GET" name="inputForm">
         <table>
         
-             <tr class=idname>     
+             <tr>     
                 <td>
                     <h4>아이디 찾기</h4>
                 </td>
