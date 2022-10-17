@@ -8,6 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <div class="wrap">
+    <div class="name dark">리뷰 작성</div>
     <p><img alt="" src="${ product.product_image }"> <span>${ product.product_name }</span></p>
     <form action="qnaWrite" method="post">
         <input type="hidden" name="product_idx" value="${ product.product_idx }"> 

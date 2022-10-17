@@ -9,11 +9,10 @@
 
 <div class="wrap">
 	<form action="reviewWrite" method="post" enctype="multipart/form-data">
-		<label class="name">리뷰 작성</label>
-		<hr>
+		<div class="name dark">리뷰 작성</div>
 		<p><img alt="" src="${ product.product_image }"> <span>${ product.product_name }</span></p>
 
-		<label class="name">상품만족도</label>
+		<div class="name">상품만족도</div>
 		<p> ${ user.users_name }님, 상품은 어땠나요? </p>
 		<span class="starRating-base gray">
 			<i class="fa-solid fa-star" value=1></i>                       
@@ -24,25 +23,19 @@
 		</span>
 		<input type="hidden"  name="review_star_rating" value=1>
 
-		<br>
-
-
-
-		<label class="name">리뷰작성</label>
+		<div class="name">상품리뷰</div>
 		<p>상품에 대해 작성해주세요</p>
 		<input type="hidden" name="product_idx" value="${ product.product_idx }"> 
 		<input type="text" name="review_title" placeholder="제목"> <br>
 		<textarea name="review_content" id="" cols="30" rows="10"></textarea>
 
-
-
-		<label class="name">사진첨부</label>
+		<div class="name">사진첨부</div>
 		<p>도움이 되는 사진을 첨부해주세요.</p>
 		<div id='image_preview'>
 			<input type='file' name="file" id='btnAtt' multiple='multiple'/>
 			<div id='file_upload' 
 				data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
-		</div>
+			</div>
 		<div>
 			<button class="dark">등록하기</button>
 			<button type="button" class="bright" onclick="javascript:window.close();">취소</button>

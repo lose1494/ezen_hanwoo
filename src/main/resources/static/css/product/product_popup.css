@@ -1,20 +1,19 @@
-#file_upload{
-	width: 500px;
-	min-height:150px;
-	padding:10px;
-	background-color: lightgray;
-}
-#file_upload:empty:before{
-	content : attr(data-placeholder);
-	color : #999;
-	font-size:.9em;
-}
-* {
+*:not(html) {
 	margin: 10px 0;
 }
 .wrap {
 	margin: 0 auto;
+	width: 100%;
 	text-align: center;
+}
+.wrap .name {
+	margin-top: 0;
+	padding: 20px 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.wrap .name:first-child {
+	margin-top: 0;
 }
 .wrap p {
 	vertical-align: middle;
@@ -26,7 +25,19 @@
 .wrap span {
 	font-weight: bold;
 	font-size: 20px;
-	margin-left: 30px;
+	/* margin-left: 30px; */
+}
+
+#file_upload{
+	width: 500px;
+	min-height:100px;
+	padding:10px;
+	background-color: lightgray;
+}
+#file_upload:empty:before{
+	content : attr(data-placeholder);
+	color : #999;
+	font-size:.9em;
 }
 
 .wrap input[type=text], .wrap input[type=password] {
