@@ -27,18 +27,22 @@
 	</div>
 
 <div class="editor_whole">
-<form action="notice_writeAction" method="post" class="write_container">
+  <!-- <form action="notice_writeAction" method="post" class="write_container"> -->
+  <div class="write_container">
+    <input type="text" placeholder="제목을 입력하세요." id="contentTitle">
 
-<input type="text" placeholder="제목을 입력하세요." id="type" name="type">
+    <div id="editor"></div>
+    <div style="margin-top: 10px;">
+      <input id="uploadImage" type="file" size="10" accept="image/jpeg,image/gif, image/png" name="myPhoto" onchange="PreviewImage();" />
+      <img id="uploadPreview" style="width: 150px; height: 150px;" /><br />
+    </div>
 
-<div id="editor">
-</div>
+    <div class="btn_wrap">
+      <button id="confirm_btn">글쓰기</button>
+    </div>
+  </div>
 
-<div class="btn_wrap">
-<input type="submit" value="글쓰기" id="confirm_btn">
-</div>
-
-</form>
+  <!-- </form> -->
 </div>
 </div>
 
@@ -158,18 +162,49 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
       'MathType'
     ]
   });
-  
-ClassicEditor
-.create(document.querySelector('#editor'), {
-	ckfinder: {
-		uploadUrl : '/image/upload'
-	}
-})
-.then(editor => {
-	console.log('Editor was initialized');
-})
-.catch(error => {
-	console.error(error);
-});
+var imgData;
+/*
+ * imgData 는 change event때 선택된 이미지의 데이터를 담아두기 위해 선언
+ */
+function PreviewImage() {
+    var oFReader = new FileReader();
+    oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+    oFReader.onload = function (oFReader) {
+        document.getElementById("uploadPreview").src = oFReader.target.result;
+        imgData = oFReader.target.result;
+    };
+};
 
+$("#confirm_btn").click(function() {
+  // console.log($(".ck"));
+
+  var noticeTitle = $("#contentTitle").val();
+  var noticeContent = $(".ck .ck-editor__main").find('p')[0].innerText;
+  var data = {
+    "title": noticeTitle,
+    "content": noticeContent,
+    "imgData": imgData
+  };
+
+  $.ajax({
+    async : true,
+    type : 'POST',
+    data : JSON.stringify(data),
+    url : "/notice_writeAction",
+    // dataType : "json",
+    contentType : "application/json; charset-UTF-8",
+    success : function(data) {
+      // console.log("success", data);
+      alert("저장되었습니다.");
+      location.href='/admin/admin_notice';
+    },
+    error : function(error) {
+      // console.log("error", error);
+      alert("다시 시도해주세요.");
+      // location.href='/admin/admin_noticewrite';
+      return;
+    }
+  });
+  
+});
 </script>

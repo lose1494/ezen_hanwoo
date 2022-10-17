@@ -1,15 +1,15 @@
 package com.study.springboot;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.UsersService;
 
 @Controller
@@ -30,49 +30,57 @@ public class MyController_minwoo {
 		return "index";
 	}
 
-
-	@RequestMapping("/member/joinAction") 
-	public String memberJoin (Model model, @ModelAttribute UsersDto usersInfo ) {	 
-		System.out.println(usersInfo);
-	
-		int result = 0;
-		try { 
-			result = usersService.memberJoin( usersInfo ); 
-		} catch (Exception e) {
-			e.printStackTrace(); 
-		}
-		System.out.println("result:" + result); 
-		
-		if( result == 1 ) {
-			model.addAttribute("mainPage", "/main.jsp");
-			System.out.println("dd");
-		} else {
-			return "<script>alert('회원가입 실패!');history.back();</script>";
-		}
-		return "redirect:/index";
-	}
-
-	@RequestMapping("/member/join2")
-	public String join2 (Model model) {
-		model.addAttribute("mainPage","member/join2.jsp");
-		return "index";
-	}
-
-	@RequestMapping("/member/idFind")
-	public String idFind (Model model) {
-		model.addAttribute("mainPage","member/idFind.jsp");
-		return "index";
-	}
-
-	@PostMapping("/member/join")
+	@PostMapping("/member/idCheck")
 	@ResponseBody
 	public int id_check_result ( Model model, @RequestBody String userId ){
 	System.out.println("ID:" + userId); 
 	int count = 0;
 		count = usersService.id_check_result(userId);
-		System.out.println("result  : " + count); 
+		System.out.println("count  : " + count); 
 		model.addAttribute("result", count);
 		return count;
 	}
+	//Map 사용 시 Dto로 값을 안받아도 된다.
+	@RequestMapping("/member/joinAction") 
+	public String joinAction (@RequestBody Map<String, String> param ) {	 
+		System.out.println(param); 
+	
+		int result = 0;
+		try { 
+			result = usersService.joinAction( param ); 
+		} catch (Exception e) {
+			e.printStackTrace(); 
+		}
+		System.out.println("query result:" + result); 
+		if( result == 1 ) {
+			return "redirect:login";
+		} else {
+			return "redirect:join";
+		}
+	}
+
+	@RequestMapping("/member/join2")
+    public String join2 (Model model) {
+        model.addAttribute("mainPage","member/join2.jsp");
+        return "index";
+    }
+
+	@RequestMapping("/member/idFind")
+    public String idFind (Model model) {
+        model.addAttribute("mainPage","member/idFind.jsp");
+        return "index";
+    }
+
+	@RequestMapping("/member/find")
+	@ResponseBody
+	public Map<String, String> find (Model model, @RequestBody Map<String, String> param) {
+        /*
+         * System.out.println(param);
+         * System.out.println(usersService.find(param));
+         */
+	      
+	    return  usersService.find(param);
+	}
+	
 
 }

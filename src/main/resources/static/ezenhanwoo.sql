@@ -1,8 +1,8 @@
 --회원
 drop table ezen_users;
 create table ezen_users(
-    users_idx       number(4) primary key,
-    users_id      varchar2(20) UNIQUE,
+    users_idx       number(4) UNIQUE,
+    users_id      varchar2(20) primary key,
     users_pw     varchar2(20),
     users_name   varchar2(20),
     users_email   varchar2(100),
@@ -17,6 +17,24 @@ create table ezen_users(
     users_joindate date default sysdate,
     users_point    varchar2(20)
 );
+--create table ezen_users(
+--    users_idx       number(4) not null,
+--    users_id      varchar2(20) not null,
+--    users_pw     varchar2(20) not null,
+--    users_name   varchar2(20) not null,
+--    users_email   varchar2(100) null,
+--    users_email_receive   number(1) null,	--0: 비수신 1: 수신
+--    users_phone         varchar2(20) null,
+--    users_phone_receive   number(1) null,	--0: 비수신 1: 수신
+--    users_birth_date      date null,
+--    users_address varchar(20) null,
+--    users_address varchar2(100) null,
+--    users_joindate date default sysdate null,
+--    users_point    varchar2(20) null,
+--    
+--    CONSTRAINT ezen_users_pk PRIMARY KEY (users_id)
+--);
+
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date)
@@ -43,6 +61,8 @@ create table product(
 );
 drop sequence product_seq;
 create sequence product_seq;
+
+
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]등심', '/img/product/등심3.png', '36,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
 
@@ -178,6 +198,7 @@ create table Notice(
     notice_title varchar2(20),
     notice_content varchar2(300),
     notice_date date,
+    notice_img clob,
     notice_hit number(4) DEFAULT 0
 );
 

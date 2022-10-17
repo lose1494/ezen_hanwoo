@@ -1,9 +1,7 @@
 package com.study.springboot;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,13 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.NoticeDto;
@@ -33,11 +28,11 @@ import com.study.springboot.service.ReviewService;
 import com.study.springboot.service.UsersService;
 
 @Controller
+/* @RequestMapping("/admin") */
 public class MyController_ian {
 
 	@Autowired
 	private NoticeService noticeService;
-
 	@Autowired
 	private UsersService usersService;
 	@Autowired
@@ -46,7 +41,6 @@ public class MyController_ian {
 	private Product_qnaService product_qnaService;
 	@Autowired
 	private CartService cartService;
-	
 	@Autowired
 	private ReviewService reviewService;
 	
@@ -193,21 +187,12 @@ public class MyController_ian {
 		return "index";
 	}
 	
-	 @RequestMapping("/admin/write_Action")
-	 @ResponseBody public String write_Action(@RequestParam("product_category")
-	 String product_category,
-	 
-	 @RequestParam("product_name") String
-	 product_name, @RequestParam("product_price") String product_price,
-	  HttpServletRequest request, ProductDto dto) {
-	 dto.setProduct_category(product_category); dto.setProduct_name(product_name);
-	 dto.setProduct_price(product_price);
-	 
-	 int result = productservice.insert_Product(dto); if (result != 1) { return
-	 "<script>alert('글 작성 실패');history.back();</script>"; } else { return
-	 "<script>alert('글 작성이 등록되었습니다.');" +
-	 "location.href='/admin/admin_item';</script>"; } 
-	 }
+	@RequestMapping("/admin/productRegister")
+	    public String productRegister( @RequestBody Map<String, String>register) {
+	        productservice.productRegister(register);
+	        return "redirect:admin/item_register";
+	    }
+   
 
 	// 상품 상세조회
 	@RequestMapping("/admin/item_detail")
@@ -221,14 +206,34 @@ public class MyController_ian {
 	}
 
 	// 상품 수정
-	@RequestMapping("/mypage/mypage_cart")
-	public String mypage_cart ( 
-			Model model) {
-		
-		
-		model.addAttribute("mainPage","mypage/mypage_cart.jsp");
-		return "index";
-	}
+    /*
+     * @RequestMapping("/admin/item_revise_Action")
+     * 
+     * @ResponseBody
+     * public String mypage_cart (
+     * Model model,
+     * 
+     * @RequestParam("product_idx") String product_idx,
+     * 
+     * @RequestParam("product_name") String product_name,
+     * 
+     * @RequestParam("product_price") String product_price,
+     * Map<String, Object> map) {
+     * 
+     * map.put("product_idx",product_idx );
+     * map.put("product_name",product_name );
+     * map.put("product_price",product_price );
+     * 
+     * int result = productservice.updateMap( map );
+     * if( result != 1 ) {
+     * System.out.println("수정을 실패했습니다.");
+     * return "<script>alert('수정 실패');history.back();</script>";
+     * }else {
+     * System.out.println("수정을 성공했습니다.");
+     * return "<script>alert('수정 성공');location.href='/list';</script>";
+     * }
+     * }
+     */
 	/*
 	 * @GetMapping("/mypage/get_cart_list")
        public Object get_cart_list(@RequestParam ("users_id") String
@@ -250,22 +255,10 @@ public class MyController_ian {
 	//상품 수정
 	@RequestMapping("/admin/item_revise")
 	@ResponseBody
-	public String item_revise(
-			@RequestParam("product_idx") String product_idx,
-			@RequestParam("product_name") String product_name,
-			@RequestParam("product_price") String product_price,
-			Map<String, Object> map, Model model) {
-		
-		map.put("product_idx",product_idx);
-		map.put("product_name",product_name);
-		map.put("product_price",product_price);
-		
-		int result = productservice.product_revise( map ); 
-  		if( result != 1 ) {
-  			return "<script>alert('수정 실패');history.back();</script>";
-  		}else {
-  			return "<script>alert('수정 성공');" + "location.href='/admin/item_revise';</script>"; 
-  			}	
+	public String item_revise( Model model) {
+	      model.addAttribute("mainPage", "admin/item_revise.jsp");
+	        return "index";
+	
   	}	
 	// 주문관리
 	@RequestMapping("/admin/admin_order")
@@ -332,58 +325,14 @@ public class MyController_ian {
 		return "index";
 	}
 
-	// ck5 파일업로드
-	@PostMapping(value = "/image/upload")
-	public ModelAndView image(MultipartHttpServletRequest request) throws Exception {
-
-		ModelAndView mav = new ModelAndView("jsonView");
-
-		MultipartFile uploadFile = request.getFile("upload");
-
-		String originalFileName = uploadFile.getOriginalFilename();
-
-		String ext = originalFileName.substring(originalFileName.indexOf("."));
-
-		String newFileName = UUID.randomUUID() + ext;
-
-		String realPath = request.getServletContext().getRealPath("/");
-
-		String savePath = realPath + "upload/" + newFileName;
-
-		String uploadPath = "./upload/" + newFileName;
-
-		File file = new File(savePath);
-
-		uploadFile.transferTo(file);
-
-		mav.addObject("uploaded", true);
-		mav.addObject("url", uploadPath);
-
-		return mav;
-	}
-
-	// 글쓰기 등록
+	//공지사항 글쓰기 Action
 	@RequestMapping("/notice_writeAction")
-	@ResponseBody
-	public String notice_writeAction(@RequestParam("type") String notice_title,
-			@RequestParam("editor") String notice_content, NoticeDto dto1) {
-
-		dto1.setNotice_title(notice_title);
-		dto1.setNotice_content(notice_content);
-
-		int result = noticeService.notice_write(dto1);
-		System.out.println(result);
-
-		if (result != 1) {
-			System.out.println("글쓰기 실패했습니다.");
-			return "<script>alert('글쓰기 실패');history.back();</script>";
-		} else {
-			System.out.println("글쓰기 등록이 되었습니다.");
-			return "<script>alert('글쓰기 성공');" + "location.href='/admin/admin_notice';</script>";
-		}
-
+	public String notice_writeAction(@RequestBody Map<String, String> param) {
+		noticeService.noticeWrite(param);
+		return "redirect:admin/admin_notice";
 	}
-
+	
+	
 	// 1:1문의
 	@RequestMapping("/admin/admin_one2one")
 	public String admin_one2one(Model model) {

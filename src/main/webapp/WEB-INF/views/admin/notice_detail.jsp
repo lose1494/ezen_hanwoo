@@ -34,6 +34,11 @@
 		<tr>
 			<td colspan="4" id="content"> ${ dto.notice_content }</td>
 		</tr>
+		<tr>
+			<td colspan="4" style="display: flex; align-items: center; justify-content: center; height: 700px !important;">
+				<img src="${ dto.notice_img }" id="img" style="width: 500px; height: 500px;">
+			</td>
+		</tr>
 		<input type="hidden" value="${ dto.notice_idx }" name="notice_idx"/>
 		</c:forEach>
 	</table>

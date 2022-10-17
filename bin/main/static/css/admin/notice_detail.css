@@ -52,6 +52,7 @@ table {
 }
 
 th,td {
+	width: 100%;
 	border-bottom: 1px solid;
 	border-collapse:collapse;
 	height: 50px;

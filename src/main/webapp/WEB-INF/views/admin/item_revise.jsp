@@ -30,7 +30,7 @@
 	
 	<div class="admin_div">
 	
-<form action="item_revise_Action" method="post">
+<form action="item_revise_Action" method="post" name="item_revise" >
 	 <table class="member_table" >
 	 <tr>
 	 	<th>상품코드</th>

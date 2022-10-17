@@ -1,6 +1,7 @@
 package com.study.springboot.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,6 +21,8 @@ public interface INoticeDao {
 
 	//공지사항 상세페이지
 	public List<NoticeDto> notice_detail(String notice_idx);
+
+	public void noticeWrite(Map<String, String> param);
 
 
 }
