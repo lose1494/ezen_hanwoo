@@ -1,6 +1,7 @@
 package com.study.springboot.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -71,9 +72,12 @@ public class UsersService {
 		return id_check_result;
 	}
 
-	public int memberJoin( UsersDto dto) {
-		
-		int memberJoin = usersdao.memberJoin( dto );
+	public int joinAction( Map<String, String> param) {
+		int memberJoin = usersdao.joinAction( param );
 		return memberJoin;
 	}
+
+    public Map<String, String> find(Map<String, String> param) {
+        return usersdao.find(param);
+    }
 }

@@ -38,32 +38,103 @@
 	 </tr>
 	 
 	 <tr>
-	 	<td> <select style="width:110px; height:40px; text-align: center;">
+	 	<td> <select style="width:110px; height:40px; text-align: center;" id="sort">
 	 		<option>선물세트</option>
 	 		<option>구이용</option>
 	 		<option>국거리</option>
 	 		<option>조리용</option>
-	 		 </select> </td>
-	 	<td> <input type="text" style="width:250px; height:40px;"> 
+	 		 </select> 
+	 	</td>
+	 	<td> <input type="text" style="width:250px; height:40px;" id="productName"> 
 	 	 </td>
-	 	<td> <input type="text" style="width:250px; height:40px;"> </td>
+	 	<td> <input type="text" style="width:250px; height:40px;" id="productPrice"> </td>
 	 </tr>
 	 
 	 <tr>
-	 	<td></td>
-	 
-	 
+	<td> <input type="text" id="contentTitle"> </td>
+	
 	 </tr>
 	 
-	 
-	 
-	 
+	 <tr>
+	 	<td>  
+	 	<input type="file" id="uploadImage" accept="image/jped,image/gif,image/png" onchange="PreviewImage();">
+	 	<img id="uploadPreview" style="width: 150px; height: 150px;">
+	 	</td>
+	 </tr>
 	  </table>
 	  </form>
 	  
 
 	 <div class="confirm_bar">
-	 	<input type="submit" value="확인" id="confirm" class="item_btn">
+	 	<button id="confirm_btn">확인</button>
 	</div>
 	 </div>
 </div>	
+
+	<script>
+		var imgData;
+		
+		function PreviewImage(){
+			var oFReader = new FildeReader();
+			oFReader.readAsDataURL(document.getElementById("uploadImage").file[0]);
+			oFReader.onload = function (oFReader) {
+				document.getElementById("uploadPreview").src = oFReader.target.result;
+				imgData = oFReader.target.result;
+			};
+		};
+			
+		$("#confirm_btn").click(function() {
+			  // console.log($(".ck"));
+			  var noticeTitle = $("#contentTitle").val();
+			  var sort = $("#sort").text();
+			  var productName = $("#productName").val();
+			  var productPrice = $("#productPrice").val();
+			  
+			  var data = {
+			    "title": noticeTitle,
+			    "imgData": imgData,
+			    "sort" : sort,
+			    "productName" : productName,
+			    "productPrice" : productPrice
+			  };
+
+			  $.ajax({
+			    async : true,
+			    type : 'POST',
+			    data : JSON.stringify(data),
+			    url : "/productRegister",
+			    // dataType : "json",
+			    contentType : "application/json; charset-UTF-8",
+			    success : function(data) {
+			      // console.log("success", data);
+			      alert("저장되었습니다.");
+			      location.href='/admin/admin_notice';
+			    },
+			    error : function(error) {
+			      // console.log("error", error);
+			      alert("다시 시도해주세요.");
+			      // location.href='/admin/admin_noticewrite';
+			      return;
+			    }
+			  });
+			
+			
+			
+			
+			
+			
+			
+		});
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	</script>
+
+

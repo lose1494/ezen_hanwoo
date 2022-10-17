@@ -33,6 +33,8 @@ public interface IProductDao {
 
 	int product_revise(Map<String, Object> map);
 
+    void productRegister(Map<String, String> register);
+
 	
 	
 

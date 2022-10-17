@@ -72,11 +72,13 @@
 	</when>
 	</choose>
 	</select>
-	
-	<update id="product_revise" parameterType = "hashMap">
-	 	UPDATE PRODUCT SET
-	 	PRODUCT_IDX = #{ PRODUCT_IDX },
-	 	PRODUCT_NAME = #{ PRODUCT_NAME },
-	 	PRODUCT_TITLE = #{ PRODUCT_PRICE },
-	 </update>
+	 
+	<insert id="productRegister" parameterType="HashMap">
+		insert into product(product_idx,product_name,product_image,product_price,product_category,product_gram,product_explanation)
+		values (01)
+	</insert>
+	 
+	 
+	 
+	 
 </mapper>

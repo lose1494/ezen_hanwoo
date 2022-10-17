@@ -1,6 +1,7 @@
 package com.study.springboot.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,10 @@ public class NoticeService {
 	public List<NoticeDto> notice_detail(String notice_idx) {
 		List<NoticeDto> notice_detail = noticedao.notice_detail(notice_idx);
 		return notice_detail;
+	}
+
+	public void noticeWrite(Map<String, String> param) {
+		noticedao.noticeWrite(param);
 	}
 
 	
