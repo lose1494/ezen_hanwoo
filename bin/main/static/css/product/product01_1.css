@@ -29,6 +29,9 @@
 .productMain table td {
     padding: 10px;
 }
+.productMain input[type=number] {
+    width: 50px;
+}
 .flexDiv {
     display: flex;
     justify-content: space-between;
@@ -59,7 +62,7 @@
 .fa-star {
     letter-spacing: -6px;
 }
-b:not(.score) {
+b:not(.scoreAvg) {
     display: none;
 }
 /* 상품 메뉴바 */
@@ -102,6 +105,7 @@ b:not(.score) {
 .reviewInfo {
     border-top: 2px solid rgb(231, 231, 231);
     border-bottom: 2px solid rgb(231, 231, 231);
+    font-size: 16px;
     /* margin-top: 30px; */
 }
 .reviewInfo table {
@@ -122,49 +126,61 @@ b:not(.score) {
 }
 .starGraph {
     display: flex;
-    align-items: center;
-    padding: 5px 15px;
-    border: 1px solid black;
+    /* align-items: center; */
+    padding: 5px 0;
+}
+.graphLabel {
+    flex: 1 50%;
 }
 .graphDiv {
     width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 .graphDiv div {
     border-radius: 10px;
     height: 15px;   
 }
 .starBar-base {
-    margin: 8px; 
+    flex: 1 50%;
+    max-width: 260px;
+    margin: 0 5px;
     background-color: rgb(207, 207, 207);
 }
 .starBar-fill {
     background-color: rgb(46, 40, 40);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .reviewCount {
-    display: none;
+
 }
-.reviewSearch {
-    border-bottom: 2px solid rgb(231, 231, 231);
-    padding: 10px 0;
+
+.reviewSearch form {
+    width: 100%;
     display: flex;
-} 
+    padding: 10px 0;
+    border-bottom: 2px solid rgb(231, 231, 231);
+}
 .reviewSearch a {
     margin-right: 5px;
 }
 .reviewSearch span {
     border: 1px solid rgb(231, 231, 231);
     border-radius: 3px;
+    padding: 0 10px;
     margin-left: auto;
 }
 .reviewSearch img {
-    width: 15px;
+    width: 13px;
 }
-.reviewSearch span img, .reviewSearch span input {
-    vertical-align: middle;
-    padding-left: 5px;
+.reviewSearch span input {
     border: none;
-    font-size: 12px;
+    font-size: 13px;
+    width: 100px;
+}
+.reviewSearch span button {
+    background-color: transparent;
 }
 
 .reviewTable table {
@@ -178,12 +194,8 @@ b:not(.score) {
 .reviewTable table tr:last-child td {
     padding-bottom: 30px;
 }
-.reviewTable span {
-    /* font-size: 14px; */
-    /* margin-left: 5px; */
-}
-.reviewTable .starRating-base, .reviewTable .starRating-fill {
-    /* font-size: 16px; */
+.reviewTable img {
+    width: 150px;
 }
 .pageNav {
     margin: 20px;
@@ -210,8 +222,14 @@ b:not(.score) {
     display: flex;
     align-items: center;
 }
-.productQ {
-    border-bottom: 2px solid rgb(231, 231, 231);
+.align{
+    display: block;
+}
+.align button {
+    width: 80px;
+}
+.productA {
+    border-top: 2px solid rgb(231, 231, 231);
 }
 .qnaClick {
     cursor: pointer;

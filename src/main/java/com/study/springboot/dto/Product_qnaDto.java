@@ -20,4 +20,6 @@ public class Product_qnaDto {
 	private String qna_status;
 	private int product_idx;
 	
+	private ProductDto productDto;
+	
 }

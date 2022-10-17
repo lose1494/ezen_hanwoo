@@ -29,7 +29,7 @@
 	
 	<div class="admin_div">
 	
-<form action="" method="get">
+<form action="/write_Action" method="post" name="writeForm">
 	 <table class="member_table" >
 	 <tr>
 	 	<th>카테고리</th>
@@ -48,32 +48,22 @@
 	 	 </td>
 	 	<td> <input type="text" style="width:250px; height:40px;"> </td>
 	 </tr>
-	  </table>
-	  
-	  
-	  <form action="uploadOk" method="post" enctype="multipart/form-data">
-	  <table class="img_text">
+	 
 	 <tr>
-	<td>이미지 : <input type="file" name="filename" > 
-		<input type="submit" value="File Upload" class="item_btn"> </td>
-	 	<th>상품설명</th>
+	 	<td></td>
+	 
+	 
 	 </tr>
-	 <tr >
-	 	<td width="50%"> <img src="#" alt="업로드된 이미지" /> </td>
-	 	<td width="50%"><textarea rows="10" cols="70"></textarea> </td>
-	 </tr>
-	 </table>
-	 </form>
+	 
+	 
+	 
+	 
+	  </table>
+	  </form>
+	  
+
 	 <div class="confirm_bar">
 	 	<input type="submit" value="확인" id="confirm" class="item_btn">
 	</div>
-	</form>
-
 	 </div>
-	 
-	      <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
 </div>	

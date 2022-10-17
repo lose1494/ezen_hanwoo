@@ -79,31 +79,12 @@
 	height: 50px;
 }
 
+.member_table tr th{
+	background-color: #ebebeb;
+}
+
 .member_table td {
 	height: 50px;
-}
-
-.img_text {
-	width:1300px;
-	height: 100px;
-	text-align:center;
-}
-
-.img_text th {
-	height: 50px;
-}
-
-.img_text td {
-	height: 270px;
-}
-
-.item_button{
-	margin-top: 50px;
-	margin-left: 800px;
-}
-
-#member_bar {
-	margin-top: 30px;
 }
 
 .confirm_bar {

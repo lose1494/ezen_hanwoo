@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <td><img src="https://via.placeholder.com/80" alt=""></td>
-                    <td>한우 살치살</td>
+                    <td>${ product.product_name }</td>
                     <td>00,000원</td>
                     <td>1</td>
                   <!--   <td>0원</td> -->
@@ -40,7 +40,7 @@
                 <table>
                     <tr>
                         <th>성함(주문자)</th>
-                        <td>김xx</td>
+                        <td>${ user.users_name }</td>
                     </tr>
                     <tr>
                         <th>휴대전화번호</th>

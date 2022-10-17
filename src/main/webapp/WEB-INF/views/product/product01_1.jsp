@@ -65,6 +65,7 @@
                 </tr>
                 <tr>
                     <td></td>
+<<<<<<< HEAD
                     <form action="/mypage/mypage_cart" method="post" >
                     <td colspan="2">
                         <div class="flexDiv">
@@ -73,6 +74,17 @@
                             <button class="dark">바로구매</button>
                         </div>
                     </td>
+=======
+                    <form action="order01" method="post" >
+	                    <td colspan="2">
+	                        <div class="flexDiv">
+	                        	<input type="hidden" name="product_idx" value="${ dto.product_idx }">
+	                            <button class="bright" onclick="javascript:form.action='/mypage/mypage_cart'">장바구니</button>
+	                            <button class="bright">관심상품</button>
+	                            <button class="dark">바로구매</button>
+	                        </div>
+	                    </td>
+>>>>>>> 470d008378cd75cc924be180b2c66cc5d034d235
                     </form>
                 </tr>
             </table>
@@ -101,7 +113,10 @@
                         </td>
                         <td>
                             <p><i class="fa-solid fa-star gold"></i>&nbsp; ${ avgScore }</p>
-                            <button class="dark" onclick="window.open('/product/product_review_popup','popup','width=650 height=700')">상품 리뷰 작성</button>
+                            <form action="" method="post">
+                                <input type="hidden" name="pro" value="${ dto.product_idx }">
+                                <button class="dark" onclick="javascript:window.open('/product/product_review_popup?product_idx=${ dto.product_idx }','popup','width=650 height=700')">상품 리뷰 작성</button>
+                            </form>
                         </td>
                         <td>
                             <div class="starGraph">
@@ -111,28 +126,16 @@
                                     <div>보통이에요</div>
                                     <div>그냥 그래요</div>
                                     <div>별로예요</div>
-                                </div>                                   
+                                </div>
+                                                                   
                                 <div class="graphDiv">
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">1</span>
+                                <c:forEach var="bar" items="${ starGraph }" >        
+                                    <div class="starBar-base">                                        
+                                        <div class="starBar-fill">                                    
+                                        </div>                                       
                                     </div>
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">0</span>
-                                    </div>
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">0</span>
-                                    </div>
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">0</span>
-                                    </div>
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        <span class="reviewCount">0</span>
-                                    </div>
+                                    (<span class="reviewCount">${ bar.count }</span>)                                  
+                                </c:forEach>    
                                 </div>
                             </div>                                
                         </td>
@@ -140,40 +143,53 @@
                 </table> 
             </div>
             <div class="reviewSearch">
-                <a href="">최신순</a>
-                <a href="">평점순</a>
-                <span><img src="../img/icon2.png" alt=""><input type="text" placeholder="키워드 검색"></span>               
+                <form name="search">
+                    <input type="hidden" name="product_idx" value="${ dto.product_idx}">
+                    <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_date#productReview">최신순</a>
+                    <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_star_rating#productReview">평점순</a>
+                    <span><input type="text" name="word" placeholder="키워드 검색"><button onclick="getSearchList()"><img src="/img/product/icon2.png" alt=""></button></span>  
+                </form>             
             </div>
             <div class="reviewTable">
                 <table>
                 	<c:forEach var="review" items="${ reviewList }">
-                    <tr>
-                        <td>
-                            <div>
-                                <span class="starRating-base gray">
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>                       
-                                    <i class="fa-solid fa-star"></i>
-                                </span>
-                                <b class="score hide">${ review.review_star_rating }</b>
-                            </div>
-                        </td>
-                        <td>${ review.review_id }</td>
-                        <td><fmt:formatDate value="${ review.review_date }" pattern = "yyyy-MM-dd"/></td>
-                    </tr>
-                    <tr>
-                    	<td>${ review.review_title }</td>
-                    </tr>
-                    <tr>	
-                        <td>${ review.review_content }</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="${ review.review_image }" alt="">                                       
-                        </td>
-                    </tr>
+                    <form action="deleteReview" method="post">
+                    <input type="hidden" name="review_idx" value="${ review.review_idx }">
+                    <input type="hidden" name="review_image" value="${ review.review_image }">
+                        <tr>
+                            <td>
+                                <div>
+                                    <span class="starRating-base gray">
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>                       
+                                        <i class="fa-solid fa-star"></i>
+                                    </span>
+                                    <b class="score hide">${ review.review_star_rating }</b>
+                                </div>
+                            </td>
+                            <td>${ review.review_id }</td>
+                            <td><fmt:formatDate value="${ review.review_date }" pattern = "yyyy-MM-dd"/></td>
+                        </tr>
+                        <tr>
+                            <td>${ review.review_title }</td>
+                            <td></td>
+                            <td>
+                                <div class="tableBtn">
+                                    <button class="dark">삭제</button>  
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>	
+                            <td>${ review.review_content }</td>     
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="${ review.review_image }" >                                     
+                            </td>
+                        </tr>
+                    </form>
                     </c:forEach>
                 </table>
                 <div class="pageNav rev">
@@ -197,38 +213,55 @@
                     <td>작성일</td>
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
-                <form action="deleteQna">
+                <form action="" name="qnaForm">
+                    <input type="hidden" name="qna_pw" value="${ qna.qna_pw }">
                 	<input type="hidden" name="qna_idx" value="${ qna.qna_idx }">
 	                <tr>
 	                    <td>${ qnaCount - status.index - (( qnaPage-1 ) * 5 ) }</td>
 	                    <!-- <td>기타</td> -->
-	                    <td class="qnaClick">${ qna.qna_title }</td>
+	                    <td class="qnaClick">
+	                    <c:if test="${ qna.qna_secret == 1 }"><i class="fa-solid fa-lock"></i></c:if>
+                            ${ qna.qna_title }
+                        </td>
 	                    <td>${ qna.qna_status }</td>
 	                    <td>${ qna.qna_id }</td>
 	                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
 	                </tr>
 	                <tr>
-	                    <td colspan="5" class="hide">
-	                        <div class="productQ">                                      
-	                            <i class="fa-solid fa-circle-question"></i>
-	                            ${ qna.qna_content }
-	                            <div class="tableBtn">
-	                                <button class="dark">삭제</button>  
-	                            </div> 
-	                        </div>  
-	                        <div class="productA">                                      
-	                            <i class="fa-solid fa-circle-info"></i>
-	                            안녕하세요 이젠한우입니다. <br>
-	                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
-	                            이용해주셔서 감사합니다!
-	                        </div>                       
+	                    <td colspan="5" class="hide qnaDe">
+	                    	<c:choose>
+	                    		<c:when test="${ qna.qna_secret == 1 }">
+	                    			<div class="secret">
+		                    			<div class="productQ align">
+	                                        <p>비밀번호를 입력해주세요.</p>                                      
+	                                        <input type="password" id="user_pw"> <br>
+	                                        <button type="button" class="dark" onclick="javascript:pwCheck()">확인</button>
+		                    			</div>
+		                    		</div>	
+	                    		</c:when>
+	                    		<c:otherwise>
+                                    <div class="productQ">                                      
+                                        <i class="fa-solid fa-circle-question"></i>
+                                        ${ qna.qna_content }
+                                        <div class="tableBtn">
+                                            <button class="dark" onclick="javascript:form.action='/product/deleteQna'">삭제</button>  
+                                        </div> 
+                                    </div>  
+                                    <div class="productA">                                   
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        안녕하세요 이젠한우입니다. <br>
+                                        문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
+                                        이용해주셔서 감사합니다!
+                                    </div>
+	                    		</c:otherwise>
+	                    	</c:choose>                                     
 	                    </td>
 	                </tr> 
                 </form>
                 </c:forEach>    
             </table> 
             <div class="qnaBtn">
-                <button class="dark">문의하기</button>
+                <button class="dark" onclick="javascript:window.open('/product/product_qna_popup?product_idx=${ dto.product_idx }','popup','width=650 height=700')">문의하기</button>
             </div>  
             <div class="pageNav qna">
 	       		<a href="/product/product01_1?product_idx=${ dto.product_idx }&qnaPage=1#productQna">처음</a>
@@ -248,7 +281,9 @@
                 </tr>
                 <tr>
                     <td>포장단위별 내용물의 용량(중량), 수량, 크기</td>
-                    <td>${ dto.product_name } ${ dto.product_gram } / 1pack</td>
+                    <td>${ dto.product_name } ${ dto.product_gram } 
+                    <c:if test="${ dto.product_category ne '선물세트' }">/ 1pack</c:if>
+                    </td>
                 </tr>
                 <tr>
                     <td>생산자(수입품의 경우 수입자를 함께 표기)</td>
@@ -308,7 +343,7 @@
                 } 
             })
             for(i=0; i<$('.scoreAvg').length; i++) {
-                $('.starRating-fill').eq(i).width(20.5 * ($('.scoreAvg').eq(i).text()));
+                $('.starRating-fill').eq(i).width(17.5 * ($('.scoreAvg').eq(i).text()));
             } 
             $('.starBar-fill').each( function(index, item) {
                 $(this).width(               
@@ -391,6 +426,7 @@
                 })
             });
         });
+<<<<<<< HEAD
         
         function b(){
         	const pd_name = document.getElementById("product_name").innerText
@@ -412,4 +448,106 @@
      	}
      	})
         }
+=======
+     	
+        //날짜 형식 바꾸기
+        function formatDate(date) {
+    
+            var d = new Date(date),
+            
+            month = '' + (d.getMonth() + 1) , 
+            day = '' + d.getDate(), 
+            year = d.getFullYear();
+            
+            if (month.length < 2) month = '0' + month; 
+            if (day.length < 2) day = '0' + day; 
+            
+            return [year, month, day].join('-');
+        
+        }
+
+        // 리뷰검색
+        function getSearchList(){
+            $.ajax({
+                type: 'GET',
+                url : "/product/reviewSearch",
+                data : $("form[name=search]").serialize(),
+                success : function(result){
+                    //테이블 초기화
+                    $('.reviewTable > table tr').empty();
+                    if(result.length>=1){
+                        result.forEach(function(item){
+                            var revDate = new Date(item.review_date);
+                            
+                            console.log(revDate)
+                            str="<tr>"
+                                + "<td><div>"
+                                + "<span class='starRating-base gray'>"
+                                + "<i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i><i class='fa-solid fa-star'></i>"    
+                                + "</span><b class='score hide'>"+ item.review_star_rating +"</b>"
+                                + "</div></td>"
+                                + "<td>"+ item.review_id +"</td>"
+                                + "<td>" + formatDate(revDate) + "</td>"
+                                + "</tr><tr>" 
+                                + "<td>"+ item.review_title +"</td><td></td>"
+                                + "<td><div class='tableBtn'><button class='dark'>삭제</button></div></td>"
+                                + "</tr><tr>"
+                                + "<td>"+ item.review_content +"</td>"
+                                + "</tr><tr>"
+                                + "<td><img src='"+ item.review_image +"' alt=''></td>"
+                                + "</tr>"
+                            $('.reviewTable > table').append(str);
+
+                        })				 
+                    }
+                    $('.score').each(function() {
+                        for(i=0; i<$(this).text(); i++) {
+                        $(this).closest('div').find('.fa-star').eq(i).addClass('gold');
+                        } 
+                    })
+                }
+            })
+            
+        }
+
+        $('input[type="password"]').keydown(function() {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                pwCheck();
+            };
+        });
+
+        //상품문의 비밀글
+        function pwCheck(){
+            if( $('input[name=qna_pw]').val() != $('#user_pw').val()) {
+                alert('비밀번호가 맞지 않습니다.');
+            } else {
+                $.ajax({
+                    type: 'get',
+                    url : "/product/qnapwCheck",
+                    data : {   produt_idx : $('input[name=product_idx_ajax]').val(),
+                            qna_idx : $('input[name=qna_idx]').val(),
+                            user_pw : $('#user_pw').val()
+                            },
+                    success : function(data){
+                        console.log(data);
+                        $('.secret').empty();
+                        str = "<div class='productQ'>"
+                   					+ "<i class='fa-solid fa-circle-question'></i>"
+                                    + data.qna_content
+                                    + "<div class='tableBtn'><button class='dark'>삭제</button></div>"    
+                                    + "</div><div class='productA'>"
+                                    + "<i class='fa-solid fa-circle-info'></i>"
+                                    + "안녕하세요 이젠한우입니다. <br>문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다.<br>"
+                                    + "이용해주셔서 감사합니다!</div>";
+                                    console.log(str);
+                                    $('.secret').append(str); 
+                        
+                    }
+                })
+            }
+     
+        }
+     
+>>>>>>> 470d008378cd75cc924be180b2c66cc5d034d235
     </script>

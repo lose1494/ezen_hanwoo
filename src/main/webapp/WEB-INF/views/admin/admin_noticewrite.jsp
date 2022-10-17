@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="/css/admin/admin_noticewrite.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+    
     <div class= "bg_admin text-center">
 <div>
 	<p id="title">관리자 페이지</p>

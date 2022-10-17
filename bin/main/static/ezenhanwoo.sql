@@ -77,8 +77,15 @@ values ( product_seq.nextval, 'ÇÑ¿ì ±¸ÀÌ¿ë ¼¼Æ®', '/img/product/28¸¸¿ø¼¼Æ®.png',
 insert into product
 values ( product_seq.nextval, 'ÇÑ¿ì Æ¯¼öºÎÀ§ ¼¼Æ®', '/img/product/40¸¸¿ø¼¼Æ®.png', '400,000', '¼±¹°¼¼Æ®', '»ó¼¼ÆäÀÌÁö ÂüÁ¶', 'https://via.placeholder.com/700x1200');
 commit;
+<<<<<<< HEAD
 
 --»óÇ° ¹®ÀÇ
+=======
+insert into product
+values ( product_seq.nextval, 'í…ŒìŠ¤íŠ¸', 'í…ŒìŠ¤íŠ¸', 'í…ŒìŠ¤íŠ¸', 'í…ŒìŠ¤íŠ¸', 'ìƒì„¸í˜ì´ì§€ ì°¸ì¡°', 'í…ŒìŠ¤íŠ¸');
+commit;
+--ìƒí’ˆ ë¬¸ì˜
+>>>>>>> 470d008378cd75cc924be180b2c66cc5d034d235
 drop table product_qna;
 create table product_qna(
     qna_idx number(4) primary key,
@@ -108,7 +115,16 @@ values( product_qna_seq.nextval, 'hong', 'Å×½ºÆ®¿ë3', '¹®ÀÇ Å×½ºÆ®3', sysdate, 0
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', 'Å×½ºÆ®¿ë4', '¹®ÀÇ Å×½ºÆ®4', sysdate, 0, '´äº¯´ë±âÁß', 1);
 
+<<<<<<< HEAD
 --»óÇ° ¹®ÀÇ ´äº¯
+=======
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', 'í…ŒìŠ¤íŠ¸ìš©4', 'ë¬¸ì˜ í…ŒìŠ¤íŠ¸4',TO_CHAR(SYSDATE,'YYYY-MM-DD') , 0, 'ë‹µë³€ëŒ€ê¸°ì¤‘', 1);
+ 
+ commit;
+select * from product_qna;
+--ìƒí’ˆ ë¬¸ì˜ ë‹µë³€
+>>>>>>> 470d008378cd75cc924be180b2c66cc5d034d235
 drop table product_qna_reply;
 create table product_qna_reply(
     reply_idx number(4) primary key,
@@ -137,7 +153,30 @@ drop sequence product_review_seq;
 create sequence product_review_seq;
 
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+<<<<<<< HEAD
 values(product_review_seq.nextval, 'hong', '¸ÀÀÖ°Ô Àß ¸Ô¾ú½À´Ï´Ù!!', '¸®ºä ³»¿ë Å×½ºÆ® È­¸é¿¡ ¾î¶»°Ô º¸ÀÌ³ª', sysdate, 5, 1);
+=======
+values(product_review_seq.nextval, 'hong', 'ë§›ìˆê²Œ ì˜ ë¨¹ì—ˆìŠµë‹ˆë‹¤!!', 'ë¦¬ë·° ë‚´ìš© í…ŒìŠ¤íŠ¸ í™”ë©´ì— ì–´ë–»ê²Œ ë³´ì´ë‚˜', sysdate, 5, 1);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', 'í…ŒìŠ¤íŠ¸1', 'ë¦¬ë·° ë‚´ìš© í…ŒìŠ¤íŠ¸1', sysdate, 4, 1);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', 'í…ŒìŠ¤íŠ¸2', 'ë¦¬ë·° ë‚´ìš© í…ŒìŠ¤íŠ¸2', sysdate, 3, 1);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', 'í…ŒìŠ¤íŠ¸3', 'ë¦¬ë·° ë‚´ìš© í…ŒìŠ¤íŠ¸3', sysdate, 2, 1);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, 'hong', 'í…ŒìŠ¤íŠ¸4', 'ë¦¬ë·° ë‚´ìš© í…ŒìŠ¤íŠ¸4', sysdate, 1, 1);
+
+drop table review_star;
+create table review_star(
+    star_score number(1) primary key
+);
+
+insert into review_star values(1);
+insert into review_star values(2);
+insert into review_star values(3);
+insert into review_star values(4);
+insert into review_star values(5);
+>>>>>>> 470d008378cd75cc924be180b2c66cc5d034d235
 
 --FAQ
 drop table FAQ;
@@ -156,8 +195,14 @@ create table Notice(
     notice_name varchar2(20),
     notice_title varchar2(20),
     notice_content varchar2(300),
-    notice_date date
+    notice_date date,
+    notice_hit number(4) DEFAULT 0
 );
+
+insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
+values ( notice_seq.nextval, 'ê´€ë¦¬ì', 'ì œëª©ì…ë‹ˆë‹¤.', 'ë‚´ìš©ì…ë‹ˆë‹¤.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
+
+commit;
 drop sequence Notice_seq;
 create sequence Notice_seq;
 --1:1¹®ÀÇ

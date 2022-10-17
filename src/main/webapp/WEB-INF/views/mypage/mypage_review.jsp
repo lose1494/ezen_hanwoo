@@ -25,23 +25,27 @@
                     <th></th>
                 </tr>
                 <c:forEach var="dto" items="${ reviewList }" varStatus="status">
-                <tr>
-                    <td>
-                        <span class="starRating-base gray">
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>
-                        </span>
-                        <b class="hide score">5</b>
-                    </td>
-                    <td>${ dto.review_image }</td>
-                    <td></td>
-                    <td>${ dto.review_title }</td>
-                    <td><fmt:formatDate value="${ dto.review_date }" pattern = "yyyy-MM-dd"/></td>
-                    <td><button class="dark">삭제</button></td>
-                </tr>
+                <form action="deleteReview" method="post">
+                    <input type="hidden" name="review_idx" value="${ dto.review_idx }"> 
+                    <input type="hidden" name="review_image" value="${ dto.review_image }">     
+                    <tr>
+                        <td>
+                            <span class="starRating-base gray">
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>
+                            </span>
+                            <b class="hide score">${ dto.review_star_rating }</b>
+                        </td>
+                        <td><img src="${ dto.review_image }" ></td>
+                        <td></td>
+                        <td>${ dto.review_title }</td>
+                        <td><fmt:formatDate value="${ dto.review_date }" pattern = "yyyy-MM-dd"/></td>
+                        <td><button class="dark">삭제</button></td>
+                    </tr>
+                </form>
                 </c:forEach>
             </table>
         </div>

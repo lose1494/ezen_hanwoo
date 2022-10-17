@@ -29,7 +29,7 @@
 	</div>
 	
 	<div class="admin_div">
-	<form action="/item_search" method="post" id="item_list"> 
+	<form action="item_search" method="post" id="item_list"> 
 	<div class="select_list">
 		<select id="item_search" name="item_search">
 		<option value="all"> <c:if test="${type eq 'all'}">selected</c:if> 전체조회</option>
@@ -42,7 +42,7 @@
 	 </div>	
 	 </form>
 	 
-	 <form action="/item_Action" method="post" id="item_action" >
+	 <form action="item_Action" method="post" id="item_action" >
 	 <p id="member_bar">상품 ${ item_Count } 건</p>
 	 <table class="member_table" >
 	 <tr>
@@ -59,7 +59,7 @@
 	 	<td>${ dto.product_name }</td>
 	 	<td>${ dto.product_price }</td>
 	 	<input type="hidden" value="${ product_name }" name="product_name"/>
-	 	<td> <button type="submit" id="sending_mail" onclick="javascript:form.action='/delete_product'">삭제</button> </td>
+	 	<td> <button type="submit" id="sending_mail" onclick="javascript:form.action='/admin/delete_product?product_idx=${ dto.product_idx }'">삭제</button> </td>
 	 </tr>
 	 	</c:forEach>
 	 	

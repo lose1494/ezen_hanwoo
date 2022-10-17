@@ -11,19 +11,50 @@
 			(select rownum rnum, pr.* from
 				(select * from product_review
 				 <if test="param1 != null">where ${param1} = #{param2}</if>
-				order by review_date desc) pr)
-		where rnum between #{param3} and #{param4}	
+				order by ${param5} desc) pr
+			<where>
+			<if test="param6 != null">
+			review_title like '%${param6}%'
+			or review_content like '%${param6}%'
+			</if>
+			</where>
+		)where rnum between #{param3} and #{param4}	
 	</select>
 	
 	<select id="reviewCount" resultType="_int">
 		select count(*) from product_review
-		<if test="param1 != null">where ${param1} = #{param2}</if>
+		<where>
+			<if test="param1 != null">
+			${param1} = #{param2}
+			</if>
+			<if test="param3 != null">
+			and review_title like '%${param3}%'
+			or review_content like '%${param3}%'
+			</if>
+			</where>
 	</select>
 	
-	<select id="reviewAvg" resultType="_int">
+	<select id="reviewAvg" resultType="_double">
 		SELECT NVL(avg, 0)FROM 
-		(select avg(review_star_rating) avg from product_review
+		(select round(avg(review_star_rating), 1) avg from product_review
 		where product_idx = #{param1})
+	</select>
+	
+	<resultMap type="com.study.springboot.dto.ReviewDto" id="review_star">	
+	<result column="star_score" property="star_score"/>	
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.ReviewDto" id="ReviewDto">	
+	<collection property="Star" resultMap="Star"></collection>
+	</resultMap>
+	
+	<select id="reviewGraph" resultType="com.study.springboot.dto.ReviewDto">
+		select s.star_score, nvl(a.c, 0) count from
+		(select review_star_rating, count(review_star_rating) c
+		from product_review where product_idx = #{param1}
+		group by review_star_rating) a, review_star s
+		where a.review_star_rating(+) = s.star_score
+		order by s.star_score desc
 	</select>
 	
 	<insert id="insertReview" parameterType="com.study.springboot.dto.ReviewDto">
@@ -36,5 +67,17 @@
 	  DELETE FROM product_review
 	  WHERE review_idx=#{ param1 }
 	</delete>
+	
+	<select id="review_result" resultType="com.study.springboot.dto.ReviewDto">
+		SELECT 
+		    review.review_id, prod.product_name, prod.product_idx, review.review_date, review.review_content, review.review_title
+		FROM 
+		    product_review review
+		JOIN 
+		    PRODUCT prod
+		ON 
+		    review.product_idx = prod.product_idx
+	</select>
+	
 	
 </mapper>

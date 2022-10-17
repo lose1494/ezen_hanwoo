@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <link rel="stylesheet" href="/css/admin/item_inquiry.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class= "bg_admin text-center">
 <div>
@@ -30,25 +32,37 @@
 	<div class="admin_div">
 	
 <form action="" method="get">
+	
 	 <table class="member_table" >
 	 <tr>
-	 	<th>상품코드</th>
+	 	<th>번호</th>
 	 	<th>ID</th>
 	 	<th>날짜</th>
 	 	<th>상품명</th>
 	 	<th>답변여부</th>
-	 	<th>내용</th>
+	 	<th>제목</th>
+	 </tr>
+	 <c:forEach var="dto" items= "${ qna_list }" varStatus="status">
+	 <tr onclick="location.href='/admin/admin_inquiry?qna_idx=${ dto.qna_idx}'" style="cursor:pointer">
+	 	<td> ${ dto.qna_idx }</td>
+	 	<td> ${ dto.qna_id }</td>
+	 	<td><fmt:formatDate value="${dto.qna_date}" pattern="yyyy/MM/dd" /></td>
+	 	<td> 상품명 <td>
+	 	<td>${ dto.qna_status }</td>
+	 	<td>${ dto.qna_title }</td>
 	 </tr>
 	 
 	 <tr>
-	 	<td>01</td>
-	 	<td>asd22</td>
-	 	<td>2022-09-02</td>
-	 	<td>안심</td>
-	 	<td>Y</td>
-	 	<td>언제 배송되나요?</td>
+	 	<th colspan="6">내용</th>
 	 </tr>
 	 
+	 <tr>
+	 <td colspan="6"> ${dto.qna_content} </td>
+	 
+	 </tr>
+	 	
+	 
+	 </c:forEach>
 	 <tr class="text_comment">
 	 	<td colspan="4" id="text"  > <textarea rows="5" cols="130" ></textarea> </td>
 	 	<td > <input type="button" value="수정" > </td>
@@ -62,9 +76,5 @@
 
 	 </div>
 	 
-	      <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
+
 </div>	

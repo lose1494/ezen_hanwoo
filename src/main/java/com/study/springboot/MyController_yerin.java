@@ -52,7 +52,8 @@ public class MyController_yerin {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		if(users_id == null) {
 			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
-			return "redirect:/member/login";
+			request.setAttribute("url", "/member/login");
+			return "alert";
 		} else {
 			UsersDto member = usersService.userDetail(users_id);
 			int pointSum = pointService.pointSum(users_id);
@@ -131,7 +132,9 @@ public class MyController_yerin {
 		int qnaCount = qnaService.qnaCount(sort, users_id);
 		int pageNum = (int)Math.ceil((double)qnaCount/num_page_size);
 		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, users_id, page, num_page_size);
+		List<Product_qnaDto> joinTest = qnaService.joinTest();
 		
+		model.addAttribute("joinTest", joinTest);
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("qnaList", qnaList);
@@ -154,7 +157,6 @@ public class MyController_yerin {
 			return "<script>alert('작성 실패');history.back();</script>";
 		}else {
 			System.out.println("문의 삭제 성공");
-			request.getSession().setAttribute("alert", "삭제에 실패하였습니다.");
 			return "<script>alert('삭제되었습니다.');location.href='"+referer+"';</script>";
 		}
 	}
@@ -163,10 +165,11 @@ public class MyController_yerin {
 	public String mypage_review(@RequestParam(value="page",defaultValue="1") String page,
 			HttpServletRequest request, Model model) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		String sort = "review_id";
-		int reviewCount = reviewService.reviewCount(sort, users_id);
+		String standard = "review_id";
+		String sort = "review_date";
+		int reviewCount = reviewService.reviewCount(standard, users_id, null);
 		int pageNum = (int)Math.ceil((double)reviewCount/num_page_size);
-		List<ReviewDto> reviewList = reviewService.reviewList(sort, users_id, page, num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, users_id, page, num_page_size, sort, null);
 		
 		System.out.println(reviewCount);
 		model.addAttribute("page", page);
@@ -175,6 +178,26 @@ public class MyController_yerin {
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("mainPage", "mypage/mypage_review.jsp");
 		return "index";
+	}
+	
+	@RequestMapping("*/deleteReview")
+	public String deleteReview(@RequestParam("review_idx") int review_idx, 
+							   @RequestParam("review_image") String review_image,
+							HttpServletRequest request, Model model) {
+		int deleteReview = reviewService.deleteReview(review_idx, review_image);
+		String referer = request.getHeader("referer").substring(21);
+		System.out.println(referer);
+		request.getSession().setAttribute("url", referer);
+		
+		if (deleteReview != 1) {
+			System.out.println("리뷰 삭제 실패");		
+			request.getSession().setAttribute("alert", "삭제에 실패했습니다.");			
+			return "alert";
+		}else {
+			System.out.println("리뷰 삭제 성공");
+			request.getSession().setAttribute("alert", "삭제되었습니다.");
+			return "alert";
+		}
 	}
 	
 	@RequestMapping("/mypage/mypage_memberEdit")
@@ -278,43 +301,197 @@ public class MyController_yerin {
 	public String product01_1(@RequestParam("product_idx") int product_idx,
 							  @RequestParam(value="revPage",defaultValue="1") String revPage,
 							  @RequestParam(value="qnaPage",defaultValue="1") String qnaPage,
+							  @RequestParam(value="sort",defaultValue="review_date") String sort,
 							  HttpServletRequest request,
 											Model model) {
 		ProductDto proDe = productService.productDetail(product_idx);
 		model.addAttribute("dto", proDe);
 		
-		String sort = "product_idx";
-		int reviewCount = reviewService.reviewCount(sort, String.valueOf(product_idx));
+		String standard = "product_idx";
+		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx), null);
 		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
-		List<ReviewDto> reviewList = reviewService.reviewList(sort, String.valueOf(product_idx), revPage, num_page_size);
-		int reviewAvg = reviewService.reviewAvg(product_idx);
-
-		int qnaCount = qnaService.qnaCount(sort, String.valueOf(product_idx));
-		int qnaPageNum = (int)Math.ceil((double)qnaCount/num_page_size);
-		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, String.valueOf(product_idx), qnaPage, num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, String.valueOf(product_idx), 
+															revPage, num_page_size, sort, null);
+		double reviewAvg = reviewService.reviewAvg(product_idx);
+		if( revPageNum == 0 ) {
+			revPageNum = 1;
+		}
+		List<ReviewDto> reviewGraph = reviewService.reviewGraph(product_idx);
 		
-		System.out.println(qnaCount);
+
+		int qnaCount = qnaService.qnaCount(standard, String.valueOf(product_idx));
+		int qnaPageNum = (int)Math.ceil((double)qnaCount/num_page_size);
+		List<Product_qnaDto> qnaList = qnaService.qnaList(standard, String.valueOf(product_idx), qnaPage, num_page_size);
+		if( qnaPageNum == 0 ) {
+			qnaPageNum = 1;
+		}
+		
 		model.addAttribute("qnaPage", qnaPage);
 		model.addAttribute("qnaPageNum", qnaPageNum);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("qnaCount", qnaCount);
 		
-		
-		System.out.println(reviewCount);
 		model.addAttribute("revPage", revPage);
 		model.addAttribute("revPageNum", revPageNum);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("avgScore", reviewAvg);
+		model.addAttribute("starGraph", reviewGraph);
+		
 		model.addAttribute("mainPage", "product/product01_1.jsp");
 		return "index";
 	}
 	
+	@RequestMapping("/product/reviewSearch")
+	@ResponseBody
+	public List<ReviewDto> reviewSearch(@RequestParam("product_idx") int product_idx,
+			  @RequestParam(value="revPage",defaultValue="1") String revPage,
+			  @RequestParam(value="sort",defaultValue="review_date") String sort,
+			  @RequestParam("word") String word,
+			  HttpServletRequest request,
+							Model model) {
+		String standard = "product_idx";
+		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx), word);
+		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
+		List<ReviewDto> reviewList = reviewService.reviewList(standard, 
+				String.valueOf(product_idx), revPage, num_page_size, sort, word);
+		
+		model.addAttribute("revPage", revPage);
+		model.addAttribute("revPageNum", revPageNum);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("mainPage", "product/product01_1.jsp");
+		return reviewService.reviewList(standard, 
+				String.valueOf(product_idx), revPage, num_page_size, sort, word);
+	}
+	
+	@RequestMapping("/product/reviewWrite")
+	@ResponseBody
+	public String reviewWrite(@RequestParam("product_idx") int product_idx,
+						   @RequestParam("review_star_rating") int review_star_rating,
+						   @RequestParam("review_title") String review_title,
+						   @RequestParam("review_content") String review_content,
+						   @RequestParam(value="file", required=false) MultipartFile file,
+						   ReviewDto dto,
+						   Model model, HttpServletRequest request) {
+		System.out.println(review_star_rating);
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		dto.setReview_id(users_id);
+		dto.setReview_title(review_title);
+		dto.setReview_content(review_content);
+		dto.setReview_star_rating(review_star_rating);
+		dto.setProduct_idx(product_idx);
+	 	
+		System.out.println(file.getOriginalFilename());
+	 	if( file.getOriginalFilename() != "" ) {
+			 String image = reviewService.restore(file, users_id);
+		 	 System.out.println(image);
+		 	if( image != null ) {
+				if( image.length() > 0 ) {
+					dto.setReview_image(image);
+					System.out.println("업로드 성공!");
+				}else {
+					System.out.println("업로드 실패!");	
+				}
+			 }else {
+				System.out.println("업로드 실패!");
+			 }
+		 }
+		
+		int result = reviewService.insertReview(dto);
+		if (result != 1) {
+			return "<script>alert('작성에 실패했습니다.');history.back();</script>";
+		} else {
+			return "<script>alert('문의가 접수되었습니다.');opener.location.reload();window.close();</script>";
+		}
+		
+	}
+	
+	//상품상세페이지 문의
+	@RequestMapping("/product/product_qna_popup")
+	public String product_qna_popup(@RequestParam("product_idx") int product_idx,
+			Model model, HttpServletRequest request) {
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		if(users_id == null) {
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login");
+			return "alert";
+		} else {
+			UsersDto user = usersService.userDetail(users_id);
+			ProductDto product = productService.productDetail(product_idx);
+			model.addAttribute("user", user);
+			model.addAttribute("product", product);
+			return "product/product_qna_popup";
+		}
+		
+	} 
+	
+	@RequestMapping("/product/qnaWrite")
+	@ResponseBody
+	public String qnaWrite(@RequestParam("product_idx") int product_idx,
+						   @RequestParam("qna_title") String qna_title,
+						   @RequestParam("qna_content") String qna_content,
+						   @RequestParam(value="qna_secret", defaultValue="0") int qna_secret,
+						   @RequestParam(value="qna_pw", required = false) String qna_pw,
+						   Product_qnaDto dto,
+						   Model model, HttpServletRequest request) {
+		System.out.println(qna_pw);
+		String qna_status = "답변대기중";
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		dto.setQna_id(users_id);
+		dto.setQna_title(qna_title);
+		dto.setQna_content(qna_content);
+		dto.setQna_secret(qna_secret);
+		dto.setQna_pw(qna_pw);
+		dto.setQna_status(qna_status);
+		dto.setProduct_idx(product_idx);
+		
+		int result = qnaService.insertQna(dto);
+		if (result != 1) {
+			return "<script>alert('작성에 실패했습니다.');history.back();</script>";
+		} else {
+			return "<script>alert('문의가 접수되었습니다.');opener.location.reload();window.close();</script>";
+		}
+	}
+	
+	@RequestMapping("/product/qnapwCheck")
+	@ResponseBody
+	public Product_qnaDto qnapwCheck(
+									 @RequestParam("qna_idx") int qna_idx,
+									 @RequestParam("user_pw") String user_pw) {
+		Product_qnaDto qnaDetail = qnaService.qnaDetail(qna_idx);
+		return qnaDetail;
+	}
+	
+	//바로구매
+	/*
+	 * @RequestMapping("/product/order") public String
+	 * order01(@RequestParam("product_idx") int product_idx, Model model,
+	 * HttpServletRequest request) { System.out.println(product_idx);
+	 * 
+	 * }
+	 */
+	
 	//주문
 	@RequestMapping("/product/order01")
-	public String order01(Model model) {
-		model.addAttribute("mainPage", "product/order01.jsp");
-		return "index";
+	public String order01(@RequestParam("product_idx") int product_idx,
+			Model model, HttpServletRequest request) {
+		
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		if(users_id == null) {
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login");
+			return "alert";
+		} else {
+			ProductDto product = productService.productDetail(product_idx);
+			UsersDto user = usersService.userDetail(users_id);
+			System.out.println(product);
+			model.addAttribute("product", product);
+			model.addAttribute("user", user);
+			model.addAttribute("mainPage", "product/order01.jsp");
+			return "index";
+		}
+		
+		
 	}
 	
 	@RequestMapping("/product/order02")
@@ -327,6 +504,12 @@ public class MyController_yerin {
 	@RequestMapping("/customer/one2one")
 	public String one2one(Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
+		if(users_id == null) {
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login");
+			return "alert";
+		}
+
 		UsersDto member = usersService.userDetail(users_id);
 		model.addAttribute("member", member);
 		model.addAttribute("mainPage", "customer/one2one.jsp");
@@ -361,14 +544,21 @@ public class MyController_yerin {
 		 dto.setOne2one_email(one2one_email);
 		 dto.setOne2one_phone(one2one_phone);
 		 
-		 if( file.getOriginalFilename() != "" ) {
-			 String image = one2oneService.restore(file);
-			 System.out.println(image);
-			 if(image != null) {
-				 dto.setOne2one_image(image);
+		 if( file.getOriginalFilename() != null ) {
+			 String image = reviewService.restore(file, one2one_id);
+		 	 System.out.println(image);
+		 	if( image != null ) {
+				if( image.length() > 0 ) {
+					dto.setOne2one_image(image);
+					System.out.println("업로드 성공!");
+				}else {
+					System.out.println("업로드 실패!");	
+				}
+			 }else {
+				System.out.println("업로드 실패!");
 			 }
-		 }		 	 
-			 	 
+		 }
+	 	 
 		 int result = one2oneService.insertOne2one(dto);
 		 
 		 if( result != 1 ) {
@@ -391,6 +581,13 @@ public class MyController_yerin {
 		return "index";
 	}
 	 
+	//검색
+	@RequestMapping("/product/search_result")
+	public String search_result(Model model) {
+		model.addAttribute("mainPage", "product/search_result.jsp");
+		
+		return "index";
+	}
 	
 	//로그인
 	@RequestMapping("/member/loginAction")
@@ -405,10 +602,11 @@ public class MyController_yerin {
 		if( result == 1 ) {
 			System.out.println("alert:" + "로그인되었습니다.");
 			request.getSession().setAttribute("alert", "로그인되었습니다.");
+			request.getSession().setAttribute("url", "/index");
 			request.getSession().setAttribute("users_id", users_id);
 			request.getSession().setAttribute("users_pw", users_pw);
 			
-			return "redirect:/index"; 				 
+			return "alert"; 				 
 		}else {
 			System.out.println("alert:" + "로그인 실패하였습니다.");
 			

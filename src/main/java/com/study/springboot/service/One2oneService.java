@@ -1,5 +1,6 @@
 package com.study.springboot.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
@@ -42,7 +43,7 @@ public class One2oneService {
 	private static String SAVE_PATH = "/img/customer/";
 	private static String PREFIX_URL = "/img/customer/";
 	
-	public String restore(MultipartFile multipartFile) {
+	public String restore(MultipartFile multipartFile, String users_id) {
 		
 		String url = null;
 		String savefileName = "";
@@ -50,8 +51,11 @@ public class One2oneService {
 		//C:\Users\Gi7A-00\Documents\sprintboot\ex13_FileUploadWithParam\bin\main\static\ upload
 		//C:\Users\Gi7A-00\Documents\sprintboot\ex13_FileUploadWithParam\src\main\resources\static\ upload
 		try {
+			System.out.println(users_id);
 			String savepath = ResourceUtils.getFile("classpath:static/img/customer/").toPath().toString();
 			System.out.println("savepath:" + savepath);
+			savepath = savepath + "/" + users_id;
+			System.out.println(users_id);
 			
 			savepath = savepath.replace("\\", "/");
 			System.out.println("savepath2 : " + savepath);
@@ -76,15 +80,21 @@ public class One2oneService {
 			System.out.println("size : " + size);
 			System.out.println("saveFileName : " + savefileName);
 			
+			File file = new File(savepath);
+			if(!file.exists()) {
+				file.mkdirs();
+				System.out.println("폴더 생성 완료");
+			}
+			
 			writeFile(multipartFile, savefileName);
 			url = PREFIX_URL + "/" + savefileName;
 		}
 		catch(IOException e) {
-			
+			System.out.println("파일설정 제대로 안됨");
 		}
 		
 		// "/upload/20210114121803123.jpg"
-		return "/img/customer/" + savefileName;
+		return "/img/customer/"+ users_id +"/"+ savefileName;
 	}
 	
 	// 현재 시간을 기준으로 파일 이름 생성

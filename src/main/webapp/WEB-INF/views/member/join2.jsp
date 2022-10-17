@@ -7,12 +7,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 ​
-<script>
-  $(document).ready(function(){
-    $('#header').load("/header.html");
-    $('#footer').load("/footer.html");
-  });
-</script>
+
 ​
 </head>
 <body>
@@ -98,7 +93,7 @@
         }
       }
       if( isAllCheck == true ) {
-        window.location.href = "./join2.html";
+        window.location.href = "/member/join";
       }else{
         alert("이용약관에 모두 동의하셔야 회원으로 가입하실 수 있습니다.");
       }
