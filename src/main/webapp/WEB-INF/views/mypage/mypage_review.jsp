@@ -26,7 +26,8 @@
                 </tr>
                 <c:forEach var="dto" items="${ reviewList }" varStatus="status">
                 <form action="deleteReview" method="post">
-                    <input type="hidden" name="review_idx" value="${ dto.review_idx }">    
+                    <input type="hidden" name="review_idx" value="${ dto.review_idx }"> 
+                    <input type="hidden" name="review_image" value="${ dto.review_image }">     
                     <tr>
                         <td>
                             <span class="starRating-base gray">
@@ -38,7 +39,7 @@
                             </span>
                             <b class="hide score">${ dto.review_star_rating }</b>
                         </td>
-                        <td>${ dto.review_image }</td>
+                        <td><img src="${ dto.review_image }" ></td>
                         <td></td>
                         <td>${ dto.review_title }</td>
                         <td><fmt:formatDate value="${ dto.review_date }" pattern = "yyyy-MM-dd"/></td>

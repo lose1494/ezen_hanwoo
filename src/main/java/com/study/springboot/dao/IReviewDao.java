@@ -12,6 +12,7 @@ public interface IReviewDao {
 			int startRowNum, int endRowNum, String sort, String word);
 	public int reviewCount(String sort, String value, String word);
 	public double reviewAvg(int product_idx);
+	public List<ReviewDto> reviewGraph(int product_idx);
 	public int insertReview(ReviewDto dto);
 	public int deleteReview(int review_idx);
 	public List<ReviewDto> review_result();

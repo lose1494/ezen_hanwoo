@@ -6,17 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.study.springboot.dao.ICartDao;
-import com.study.springboot.dto.CartDto;
+import com.study.springboot.dto.CartProductDto;
 
 @Component
 public class CartService {
 	@Autowired
 	ICartDao cartdao;
 	
-	public List<CartDto> cartList(String users_id) {
-		System.out.println(users_id);
-		List<CartDto> cartList = cartdao.cartList(users_id);
-		System.out.println("111");
+	public List<CartProductDto> cartList(String users_id) {
+		List<CartProductDto> cartList = cartdao.cartList(users_id);
 		return cartList;
 	}
 	
@@ -25,13 +23,21 @@ public class CartService {
 		return cartCount;
 	}
 	
-	public int insertCart(CartDto dto) {
+	public int insertCart(CartProductDto dto) {
 		int insertCart = cartdao.insertCart(dto);
 		return insertCart;
 	}
 	
-	public int deleteCart(int users_idx) {
-		int deleteCart = cartdao.deleteCart(users_idx);
+	public int deleteCart(int product_idx ,String users_id ) {
+		int deleteCart = cartdao.deleteCart(product_idx,users_id);
 		return deleteCart;
+	}
+	public int updateCart(int cart_count, String users_id, int product_idx) {
+		int updateCart = cartdao.updateCart(cart_count , users_id, product_idx);
+		return updateCart;
+	}
+	public int deleteCartall(String users_id ) {
+		int deleteCartall = cartdao.deleteCartall(users_id);
+		return deleteCartall;
 	}
 }

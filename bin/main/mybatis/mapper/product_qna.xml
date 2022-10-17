@@ -20,10 +20,14 @@
 		<if test="param1 != null">where ${param1} = #{param2}</if>
 	</select>
 	
+	<select id="qnaDetail" resultType="com.study.springboot.dto.Product_qnaDto">
+		select * from product_qna where qna_idx = #{param1}
+	</select>
+	
 	<insert id="insertQna" parameterType="com.study.springboot.dto.Product_qnaDto">
 		insert into product_qna
 		values ( product_qna_seq.nextval, #{qna_id}, #{qna_title}, 
-		#{qna_content}, sysdate, #{qna_secret}, #{product_idx} )
+		#{qna_content}, sysdate, #{qna_secret}, #{qna_pw}, #{qna_status}, #{product_idx} )
 	</insert>
 	
 	<delete id="deleteQna">
@@ -35,4 +39,25 @@
 	SELECT * FROM product_qna
 	</select>
 	
+	<resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">	
+	<result column="product_idx" property="product_idx"/>	
+	<result column="product_name" property="product_name"/>	
+	<result column="product_image" property="product_image"/>
+	<result column="product_price" property="product_price"/>
+	<result column="product_category" property="product_category"/>
+	<result column="product_gram" property="product_gram"/>
+	<result column="product_explanation" property="product_explanation"/>
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.Product_qnaDto" id="Product_qnaDto">	
+	<collection property="productDto" resultMap="ProductDto"></collection>
+	</resultMap>
+	
+	<select id="joinTest" resultMap="Product_qnaDto">
+	select q.*, p.product_name 
+	from product_qna q, product p 
+	where q.product_idx = p.product_idx
+	</select>
+	
 </mapper>
+	
