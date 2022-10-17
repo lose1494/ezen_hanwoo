@@ -1,6 +1,5 @@
 package com.study.springboot;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -206,15 +205,18 @@ public class MyController_ian {
 		return "index";
 	}
 
-	@GetMapping("/mypage/get_cart_list")
-	@ResponseBody
-	   public List<CartDto> get_cart_list( HttpServletRequest request) {
-		String users_id = (String)request.getSession().getAttribute("users_id");
-		System.out.println("12312321321" + users_id);
-
-        List<CartDto> cartList = cartService.cartList(users_id);
-	      return cartList;
-	   }
+    /*
+     * @GetMapping("/mypage/get_cart_list")
+     * 
+     * @ResponseBody
+     * public List<CartDto> get_cart_list( HttpServletRequest request) {
+     * String users_id = (String)request.getSession().getAttribute("users_id");
+     * System.out.println("12312321321" + users_id);
+     * 
+     * List<CartDto> cartList = cartService.cartList(users_id);
+     * return cartList;
+     * }
+     */
 	
 	//상품 수정
 	@RequestMapping("/admin/item_revise")

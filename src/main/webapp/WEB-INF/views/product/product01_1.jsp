@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                     <td></td>
-<<<<<<< HEAD
+
                     <form action="/mypage/mypage_cart" method="post" >
                     <td colspan="2">
                         <div class="flexDiv">
@@ -74,18 +74,8 @@
                             <button class="dark">바로구매</button>
                         </div>
                     </td>
-=======
-                    <form action="order01" method="post" >
-	                    <td colspan="2">
-	                        <div class="flexDiv">
-	                        	<input type="hidden" name="product_idx" value="${ dto.product_idx }">
-	                            <button class="bright" onclick="javascript:form.action='/mypage/mypage_cart'">장바구니</button>
-	                            <button class="bright">관심상품</button>
-	                            <button class="dark">바로구매</button>
-	                        </div>
-	                    </td>
->>>>>>> 470d008378cd75cc924be180b2c66cc5d034d235
-                    </form>
+
+                    
                 </tr>
             </table>
         </div>
@@ -426,7 +416,7 @@
                 })
             });
         });
-<<<<<<< HEAD
+
         
         function b(){
         	const pd_name = document.getElementById("product_name").innerText
@@ -448,7 +438,7 @@
      	}
      	})
         }
-=======
+
      	
         //날짜 형식 바꾸기
         function formatDate(date) {
@@ -549,5 +539,5 @@
      
         }
      
->>>>>>> 470d008378cd75cc924be180b2c66cc5d034d235
+
     </script>
