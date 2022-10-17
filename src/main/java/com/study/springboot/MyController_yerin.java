@@ -581,6 +581,13 @@ public class MyController_yerin {
 		return "index";
 	}
 	 
+	//검색
+	@RequestMapping("/product/search_result")
+	public String search_result(Model model) {
+		model.addAttribute("mainPage", "product/search_result.jsp");
+		
+		return "index";
+	}
 	
 	//로그인
 	@RequestMapping("/member/loginAction")
