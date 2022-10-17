@@ -140,7 +140,6 @@ create table product_review(
     product_idx number(4)
 );
 
-select * from 
 drop sequence product_review_seq;
 create sequence product_review_seq;
 

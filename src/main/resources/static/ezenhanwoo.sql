@@ -140,14 +140,8 @@ create table product_review(
     product_idx number(4)
 );
 
---select * from ;
 drop sequence product_review_seq;
 create sequence product_review_seq;
-
-SELECT 
-    *
-FROM 
-    product_review;
 
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 values(product_review_seq.nextval, 'hong', '맛있게 잘 먹었습니다!!', '리뷰 내용 테스트 화면에 어떻게 보이나', sysdate, 5, 1);
