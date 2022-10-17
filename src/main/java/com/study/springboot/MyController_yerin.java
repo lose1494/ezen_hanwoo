@@ -344,7 +344,7 @@ public class MyController_yerin {
 	
 	@RequestMapping("/product/reviewSearch")
 	@ResponseBody
-	public List<ReviewDto> reviewSerach(@RequestParam("product_idx") int product_idx,
+	public List<ReviewDto> reviewSearch(@RequestParam("product_idx") int product_idx,
 			  @RequestParam(value="revPage",defaultValue="1") String revPage,
 			  @RequestParam(value="sort",defaultValue="review_date") String sort,
 			  @RequestParam("word") String word,
@@ -411,11 +411,18 @@ public class MyController_yerin {
 	public String product_qna_popup(@RequestParam("product_idx") int product_idx,
 			Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		UsersDto user = usersService.userDetail(users_id);
-		ProductDto product = productService.productDetail(product_idx);
-		model.addAttribute("user", user);
-		model.addAttribute("product", product);
-		return "product/product_qna_popup";
+		if(users_id == null) {
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login");
+			return "alert";
+		} else {
+			UsersDto user = usersService.userDetail(users_id);
+			ProductDto product = productService.productDetail(product_idx);
+			model.addAttribute("user", user);
+			model.addAttribute("product", product);
+			return "product/product_qna_popup";
+		}
+		
 	} 
 	
 	@RequestMapping("/product/qnaWrite")
@@ -444,6 +451,15 @@ public class MyController_yerin {
 		} else {
 			return "<script>alert('문의가 접수되었습니다.');opener.location.reload();window.close();</script>";
 		}
+	}
+	
+	@RequestMapping("/product/qnapwCheck")
+	@ResponseBody
+	public Product_qnaDto qnapwCheck(
+									 @RequestParam("qna_idx") int qna_idx,
+									 @RequestParam("user_pw") String user_pw) {
+		Product_qnaDto qnaDetail = qnaService.qnaDetail(qna_idx);
+		return qnaDetail;
 	}
 	
 	//바로구매
@@ -488,6 +504,12 @@ public class MyController_yerin {
 	@RequestMapping("/customer/one2one")
 	public String one2one(Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
+		if(users_id == null) {
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login");
+			return "alert";
+		}
+
 		UsersDto member = usersService.userDetail(users_id);
 		model.addAttribute("member", member);
 		model.addAttribute("mainPage", "customer/one2one.jsp");

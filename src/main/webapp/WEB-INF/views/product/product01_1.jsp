@@ -118,12 +118,11 @@
                                 </div>
                                                                    
                                 <div class="graphDiv">
-                                <c:forEach var="bar" items="${ starGraph }" >
-                                    <div class="starBar-base">
-                                        <div class="starBar-fill"></div>
-                                        ${ bar.review_star_rating } ${ bar.count }
-                                        <span class="reviewCount">1</span>
+                                <c:forEach var="bar" items="${ starGraph }" >        
+                                    <div class="starBar-base">                                        
+                                        <div class="starBar-fill"></div>                                       
                                     </div>
+                                    <span class="reviewCount">${ bar.count }</span>           
                                 </c:forEach>    
                                 </div>
                             </div>                                
@@ -202,7 +201,8 @@
                     <td>작성일</td>
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
-                <form action="deleteQna">
+                <form action="" name="qnaForm">
+                    <input type="hidden" name="qna_pw" value="${ qna.qna_pw }">
                 	<input type="hidden" name="qna_idx" value="${ qna.qna_idx }">
 	                <tr>
 	                    <td>${ qnaCount - status.index - (( qnaPage-1 ) * 5 ) }</td>
@@ -216,21 +216,33 @@
 	                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
 	                </tr>
 	                <tr>
-	                    <td colspan="5" class="hide">
-	                    	<c:if test="${ qna.qna_secret == 1 }"></c:if>
-	                        <div class="productQ">                                      
-	                            <i class="fa-solid fa-circle-question"></i>
-	                            ${ qna.qna_content }
-	                            <div class="tableBtn">
-	                                <button class="dark">삭제</button>  
-	                            </div> 
-	                        </div>  
-	                        <div class="productA">                                   
-	                            <i class="fa-solid fa-circle-info"></i>
-	                            안녕하세요 이젠한우입니다. <br>
-	                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
-	                            이용해주셔서 감사합니다!
-	                        </div>                       
+	                    <td colspan="5" class="hide qnaDe">
+	                    	<c:choose>
+	                    		<c:when test="${ qna.qna_secret == 1 }">
+	                    			<div class="secret">
+		                    			<div class="productQ align">
+	                                        <p>비밀번호를 입력해주세요.</p>                                      
+	                                        <input type="password" id="user_pw"> <br>
+	                                        <button type="button" class="dark" onclick="javascript:pwCheck()">확인</button>
+		                    			</div>
+		                    		</div>	
+	                    		</c:when>
+	                    		<c:otherwise>
+                                    <div class="productQ">                                      
+                                        <i class="fa-solid fa-circle-question"></i>
+                                        ${ qna.qna_content }
+                                        <div class="tableBtn">
+                                            <button class="dark" onclick="javascript:form.action='/product/deleteQna'">삭제</button>  
+                                        </div> 
+                                    </div>  
+                                    <div class="productA">                                   
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        안녕하세요 이젠한우입니다. <br>
+                                        문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
+                                        이용해주셔서 감사합니다!
+                                    </div>
+	                    		</c:otherwise>
+	                    	</c:choose>                                     
 	                    </td>
 	                </tr> 
                 </form>
@@ -456,7 +468,43 @@
             
         }
 
-        //상품문의 비밀글
+        $('input[type="password"]').keydown(function() {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                pwCheck();
+            };
+        });
 
+        //상품문의 비밀글
+        function pwCheck(){
+            if( $('input[name=qna_pw]').val() != $('#user_pw').val()) {
+                alert('비밀번호가 맞지 않습니다.');
+            } else {
+                $.ajax({
+                    type: 'get',
+                    url : "/product/qnapwCheck",
+                    data : {   produt_idx : $('input[name=product_idx_ajax]').val(),
+                            qna_idx : $('input[name=qna_idx]').val(),
+                            user_pw : $('#user_pw').val()
+                            },
+                    success : function(data){
+                        console.log(data);
+                        $('.secret').empty();
+                        str = "<div class='productQ'>"
+                   					+ "<i class='fa-solid fa-circle-question'></i>"
+                                    + data.qna_content
+                                    + "<div class='tableBtn'><button class='dark'>삭제</button></div>"    
+                                    + "</div><div class='productA'>"
+                                    + "<i class='fa-solid fa-circle-info'></i>"
+                                    + "안녕하세요 이젠한우입니다. <br>문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다.<br>"
+                                    + "이용해주셔서 감사합니다!</div>";
+                                    console.log(str);
+                                    $('.secret').append(str); 
+                        
+                    }
+                })
+            }
+     
+        }
      
     </script>

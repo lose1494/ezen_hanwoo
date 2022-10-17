@@ -342,13 +342,20 @@ public class MyController_ian {
 	@RequestMapping("/product/product_review_popup")
 	public String product_review_popup(@RequestParam("product_idx") int product_idx,
 			Model model, HttpServletRequest request) {
-		System.out.println(product_idx);
 		String users_id = (String) request.getSession().getAttribute("users_id");
-		UsersDto user = usersService.userDetail(users_id);
-		ProductDto product = productservice.productDetail(product_idx);
-		model.addAttribute("user", user);
-		model.addAttribute("product", product);
-		return "product/product_review_popup";
+		if(users_id == null) {
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			
+			request.setAttribute("url", "/member/login");
+			return "alert";
+		} else {
+			UsersDto user = usersService.userDetail(users_id);
+			ProductDto product = productservice.productDetail(product_idx);
+			model.addAttribute("user", user);
+			model.addAttribute("product", product);
+			return "product/product_review_popup";
+		}
+	
 	}  
 	
 }

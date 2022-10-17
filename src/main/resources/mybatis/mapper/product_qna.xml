@@ -20,6 +20,10 @@
 		<if test="param1 != null">where ${param1} = #{param2}</if>
 	</select>
 	
+	<select id="qnaDetail" resultType="com.study.springboot.dto.Product_qnaDto">
+		select * from product_qna where qna_idx = #{param1}
+	</select>
+	
 	<insert id="insertQna" parameterType="com.study.springboot.dto.Product_qnaDto">
 		insert into product_qna
 		values ( product_qna_seq.nextval, #{qna_id}, #{qna_title}, 

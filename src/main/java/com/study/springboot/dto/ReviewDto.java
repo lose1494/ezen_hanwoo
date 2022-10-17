@@ -20,4 +20,11 @@ public class ReviewDto {
 	private int product_idx;
 	
 	private int count;
+	private review_star star;
+	
+	public class review_star {
+		private int star_score;
+	}
 }
+
+

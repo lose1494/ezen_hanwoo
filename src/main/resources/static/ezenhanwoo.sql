@@ -147,6 +147,17 @@ values(product_review_seq.nextval, 'hong', '테스트3', '리뷰 내용 테스�
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 values(product_review_seq.nextval, 'hong', '테스트4', '리뷰 내용 테스트4', sysdate, 1, 1);
 
+drop table review_star;
+create table review_star(
+    star_score number(1) primary key
+);
+
+insert into review_star values(1);
+insert into review_star values(2);
+insert into review_star values(3);
+insert into review_star values(4);
+insert into review_star values(5);
+
 --FAQ
 drop table FAQ;
 create table FAQ(
