@@ -39,7 +39,6 @@
 	SELECT * FROM product_qna
 	</select>
 	
-</mapper>
 	<resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">	
 	<result column="product_idx" property="product_idx"/>	
 	<result column="product_name" property="product_name"/>	

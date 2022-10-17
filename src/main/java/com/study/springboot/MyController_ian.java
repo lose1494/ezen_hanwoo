@@ -405,8 +405,8 @@ public class MyController_ian {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		if(users_id == null) {
 			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
-			
 			request.setAttribute("url", "/member/login");
+			request.setAttribute("windowCheck", "popup");
 			return "alert";
 		} else {
 			UsersDto user = usersService.userDetail(users_id);
@@ -420,4 +420,3 @@ public class MyController_ian {
 	
 }
 
-}

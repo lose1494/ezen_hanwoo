@@ -159,4 +159,5 @@ public class ReviewService {
 		List<ReviewDto> review_result = reviewdao.review_result();
 		return review_result;
 	}
+
 }

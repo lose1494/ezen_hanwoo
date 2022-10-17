@@ -48,9 +48,7 @@ public class Product_qnaService {
 		List<Product_qnaDto> qna_list = product_qnadao.qna_list();
 		return qna_list;
 	}
-	
-	
-	
+		
 	public List<Product_qnaDto> joinTest() {
 		List<Product_qnaDto> join = product_qnadao.joinTest();
 		return join;
