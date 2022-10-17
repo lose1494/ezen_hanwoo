@@ -1,5 +1,6 @@
 package com.study.springboot;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.springboot.dto.CartDto;
+import com.study.springboot.dto.CartProductDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
@@ -205,43 +206,6 @@ public class MyController_ian {
 		return "index";
 	}
 
-	// 상품 수정
-    /*
-     * @RequestMapping("/admin/item_revise_Action")
-     * 
-     * @ResponseBody
-     * public String mypage_cart (
-     * Model model,
-     * 
-     * @RequestParam("product_idx") String product_idx,
-     * 
-     * @RequestParam("product_name") String product_name,
-     * 
-     * @RequestParam("product_price") String product_price,
-     * Map<String, Object> map) {
-     * 
-     * map.put("product_idx",product_idx );
-     * map.put("product_name",product_name );
-     * map.put("product_price",product_price );
-     * 
-     * int result = productservice.updateMap( map );
-     * if( result != 1 ) {
-     * System.out.println("수정을 실패했습니다.");
-     * return "<script>alert('수정 실패');history.back();</script>";
-     * }else {
-     * System.out.println("수정을 성공했습니다.");
-     * return "<script>alert('수정 성공');location.href='/list';</script>";
-     * }
-     * }
-     */
-	/*
-	 * @GetMapping("/mypage/get_cart_list")
-       public Object get_cart_list(@RequestParam ("users_id") String
-	 * users_id) { System.out.println("12312321321" + users_id); CartService cart =
-	 * new CartService(); List<CartDto> cartList = cart.cartList(users_id); return
-	 * cartList; }
-	 */
-	
 	@GetMapping("/mypage/get_cart_list")
 	@ResponseBody
 	   public List<CartDto> get_cart_list( HttpServletRequest request) {
@@ -349,8 +313,80 @@ public class MyController_ian {
 
 	// 상품상세페이지 리뷰등록
 	@RequestMapping("/product/product_review_popup")
-	public String product_review_popup() {
-		return "product/product_review_popup";
+	public String product_review_popup(@RequestParam("product_idx") int product_idx,
+			Model model, HttpServletRequest request) {
+		String users_id = (String) request.getSession().getAttribute("users_id");
+		if(users_id == null) {
+			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+			request.setAttribute("url", "/member/login");
+			request.setAttribute("windowCheck", "popup");
+			return "alert";
+		} else {
+			UsersDto user = usersService.userDetail(users_id);
+			ProductDto product = productservice.productDetail(product_idx);
+			model.addAttribute("user", user);
+			model.addAttribute("product", product);
+			return "product/product_review_popup";
+		}
+	
 	}
-
+    @RequestMapping("/mypage/mypage_cart")
+    public String mypage_cart ( 
+            Model model) {
+        
+        
+        model.addAttribute("mainPage","mypage/mypage_cart.jsp");
+        return "index";
+    }
+    
+    @GetMapping("/mypage/get_cart_list")
+    @ResponseBody
+       public List<CartProductDto> get_cart_list( HttpServletRequest request) {
+        String users_id = (String)request.getSession().getAttribute("users_id");
+        List<CartProductDto> cartList = cartService.cartList(users_id);
+          return cartList;
+       }
+    
+    @GetMapping("/mypage/cartdb")
+    @ResponseBody
+        public Object cartdb(@RequestParam ("cart_count") int cart_count,
+                             @RequestParam ("cart_product_name") String cart_product_name,
+                             @RequestParam ("product_idx") int product_idx,
+                             HttpServletRequest request) {
+    	CartProductDto cartdto = new CartProductDto();
+        String users_id = (String)request.getSession().getAttribute("users_id");
+        cartdto.setCart_count(cart_count);
+        cartdto.setCart_product_name(cart_product_name);
+        cartdto.setProduct_idx(product_idx);
+        cartdto.setUsers_id(users_id);
+        cartService.insertCart(cartdto);
+        return "cartdb";
+    }
+    @GetMapping("/mypage/cart_Update")
+    @ResponseBody
+    public Object cart_Update(@RequestParam("cart_count") int cart_count,
+    						  @RequestParam("product_idx") int product_idx,
+    		HttpServletRequest request
+    						  ) {
+    	String users_id = (String)request.getSession().getAttribute("users_id");
+    	cartService.updateCart(cart_count, users_id, product_idx);
+    	return "care_Update";
+    }
+    @GetMapping("/mypage/cart_delete")
+    @ResponseBody
+    public Object cart_delete(@RequestParam("product_idx") int product_idx,
+    		HttpServletRequest request) { 
+    	String users_id = (String)request.getSession().getAttribute("users_id");
+    	cartService.deleteCart(product_idx,users_id );
+    	return "cart_delete";
+    }
+    @GetMapping("/mypage/cart_deleteall")
+    @ResponseBody
+    public Object cart_deleteall(
+    		HttpServletRequest request) { 
+    	String users_id = (String)request.getSession().getAttribute("users_id");
+    	cartService.deleteCartall(users_id );
+    	return "cart_deleteall";
+    }
+	
 }

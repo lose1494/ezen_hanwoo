@@ -5,6 +5,16 @@
 <script>
     var msg = "<c:out value='${alert}'/>";
     var url = "<c:out value='${url}'/>";
-    alert(msg);
-    location.href = url;
+    var windowCheck = "<c:out value='${windowCheck}'/>";
+    
+    console.log(document.referrer);
+    if( windowCheck == 'popup' ) {
+    	alert(msg);
+    	opener.document.location.href= url;
+    	self.close();
+    } else {
+    	alert(msg);
+   	    location.href = url;
+    }
+   
 </script>

@@ -29,6 +29,11 @@ public class Product_qnaService {
 		return qnaCount;
 	}
 	
+	public Product_qnaDto qnaDetail(int qna_idx) {
+		Product_qnaDto qnaDetail = product_qnadao.qnaDetail(qna_idx);
+		return qnaDetail;
+	}
+	
 	public int insertQna(Product_qnaDto dto) {
 		int insertQna = product_qnadao.insertQna(dto);
 		return insertQna;
@@ -43,6 +48,9 @@ public class Product_qnaService {
 		List<Product_qnaDto> qna_list = product_qnadao.qna_list();
 		return qna_list;
 	}
-	
-	
+		
+	public List<Product_qnaDto> joinTest() {
+		List<Product_qnaDto> join = product_qnadao.joinTest();
+		return join;
+	}
 }

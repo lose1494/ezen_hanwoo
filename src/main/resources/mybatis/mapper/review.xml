@@ -36,8 +36,25 @@
 	
 	<select id="reviewAvg" resultType="_double">
 		SELECT NVL(avg, 0)FROM 
-		(select avg(review_star_rating) avg from product_review
+		(select round(avg(review_star_rating), 1) avg from product_review
 		where product_idx = #{param1})
+	</select>
+	
+	<resultMap type="com.study.springboot.dto.ReviewDto" id="review_star">	
+	<result column="star_score" property="star_score"/>	
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.ReviewDto" id="ReviewDto">	
+	<collection property="Star" resultMap="Star"></collection>
+	</resultMap>
+	
+	<select id="reviewGraph" resultType="com.study.springboot.dto.ReviewDto">
+		select s.star_score, nvl(a.c, 0) count from
+		(select review_star_rating, count(review_star_rating) c
+		from product_review where product_idx = #{param1}
+		group by review_star_rating) a, review_star s
+		where a.review_star_rating(+) = s.star_score
+		order by s.star_score desc
 	</select>
 	
 	<insert id="insertReview" parameterType="com.study.springboot.dto.ReviewDto">
