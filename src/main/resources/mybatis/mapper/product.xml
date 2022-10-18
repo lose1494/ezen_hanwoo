@@ -74,8 +74,8 @@
 	</select>
 	 
 	<insert id="productRegister" parameterType="HashMap">
-		insert into product(product_idx,product_name,product_image,product_price,product_category,product_gram,product_explanation)
-		values (01)
+		insert into product(product_idx,product_name,product_image_ex,product_image,product_price,product_category,product_gram,)
+		values (product_seq.nextval, #{product_name}, #{product_image_ex}, #{product_image},#{product_price},#{product_category},#{product_gram})
 	</insert>
 	 
 	 
