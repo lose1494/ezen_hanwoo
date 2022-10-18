@@ -73,23 +73,25 @@
 </div>
 
 <script>
+	//주소찾기 
+	function addressAdd() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+	
+						var roadAddr = data.roadAddress; // 도로명 주소 변수
+	
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('users_address1').value = data.zonecode; //우편번호
+						document.getElementById("users_address2").value = roadAddr; //도로명 
+						document.getElementById("users_address3").value = data.jibunAddress; //상세주소
+						self.close();
+					}
+				}).open();
+	}
 	$(function() {
-		//주소찾기 
-		function addressAdd() {
-			new daum.Postcode(
-					{
-						oncomplete : function(data) {
-
-							var roadAddr = data.roadAddress; // 도로명 주소 변수
-
-							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('users_address1').value = data.zonecode; //우편번호
-							document.getElementById("users_address2").value = roadAddr; //도로명 
-							document.getElementById("users_address3").value = data.jibunAddress; //상세주소
-							self.close();
-						}
-					}).open();
-		}
+		
+		
 		
 		//중복확인 
 		var idCheck = false;
@@ -117,7 +119,7 @@
 					}
 				},
 				error : function(error) {
-					alert("error.");
+					alert("사용할 아이디를 입력해주세요.");
 				}
 			});
 		});

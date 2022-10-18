@@ -26,16 +26,57 @@
 	crossorigin="anonymous"></script>
 
 
- <div class="wrap">
-    <h2>아이디/비밀번호찾기</h2>  
-    <form class="fom"method="GET" name="inputForm">
-        <table>
-        
-             <tr>     
-                <td>
-                    <h4>아이디 찾기</h4>
-                </td>
-            </tr>         
+
+<div class="wrap">
+	<h2>아이디/비밀번호찾기</h2>
+	<div class="inputForm">
+	<div class="idFind">
+		<table> 
+			<tr class="idname">
+				<td>
+					<h4>아이디 찾기</h4>
+				</td>
+			</tr>
+			<tr>
+				<td>
+                    <input id="userNameI" type="text" placeholder="이름 ">
+				</td>
+			</tr>
+			<tr>
+				<td>
+                    <input id="userPhoneI" type="text" placeholder="휴대전화 번호">
+				</td>	
+		</tr>
+			<tr>
+				<td>
+                    <Button class="button" id="idFindBtn">아이디 찾기</Button>
+				</td>
+			</tr>
+	</table>
+	</div>
+	
+	<div class="pwFind">
+	<table>
+
+			<tr>
+				<td>
+					<h4>비밀번호찾기</h4>
+				</td>
+			</tr>
+			<tr>
+				<td>
+                    <input id="userIdP" type="text" placeholder="아이디"></td>
+			</tr>
+			<tr>
+				<td>
+                    <input id="userNameP" type="text" placeholder="이름 ">
+				</td>
+			</tr>
+			<tr>
+				<td>
+                    <input id="userPhoneP" type="text" placeholder="휴대전화 번호 ">
+				</td>
+			</tr>
             <tr>
 				<td>
                     <Button class="button" id="pwFindBtn">비밀번호 찾기</Button>
@@ -43,7 +84,7 @@
 			</tr>
 		</table>
 	</div>
-
+</div>
 </div>
 
 <script>
