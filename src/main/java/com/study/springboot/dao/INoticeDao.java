@@ -1,5 +1,6 @@
 package com.study.springboot.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,5 +26,11 @@ public interface INoticeDao {
 	//공지사항 검색결과
     public List<NoticeDto> searchResult(String search_type, String search_contents);
 
+	
+	public List<NoticeDto> noticelist(String notice_idx, String notice_title, Date Notice_date);
+	
+	public int noticeupdate(String notice_idx, String notice_title, String notice_content);
+	
+	public List<NoticeDto> updatelist(String notice_idx, String notice_title, String notice_content);
 
 }

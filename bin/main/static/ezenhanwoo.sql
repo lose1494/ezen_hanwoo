@@ -1,8 +1,8 @@
 --회원
 drop table ezen_users;
 create table ezen_users(
-    users_idx       number(4) UNIQUE,
-    users_id      varchar2(20) primary key,
+    users_idx       number(4) primary key,
+    users_id      varchar2(20) UNIQUE,
     users_pw     varchar2(20),
     users_name   varchar2(20),
     users_email   varchar2(100),
@@ -208,6 +208,8 @@ insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_da
 values ( notice_seq.nextval, '관리자', '제목입니다.', '내용입니다.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
 insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
 values ( notice_seq.nextval, '관리자', '제목입니다11.', '내용입니다.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
+
+select * from notice
 
 commit;
 drop sequence Notice_seq;

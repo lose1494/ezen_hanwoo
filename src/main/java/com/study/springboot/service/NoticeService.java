@@ -1,5 +1,6 @@
 package com.study.springboot.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,11 +34,22 @@ public class NoticeService {
 		noticedao.noticeWrite(param);
 	}
 
+
     public List<NoticeDto> searchResult(String search_type, String search_contents) {
         List<NoticeDto> searchResult = noticedao.searchResult(search_type, search_contents);
         return searchResult;
     }
 
 	
+
+	public List<NoticeDto> noticelist(String notice_idx, String notice_title, Date notice_date) {
+        List<NoticeDto> noticelist = noticedao.noticelist(notice_idx, notice_title, notice_date);
+        return noticelist;
+    }
+	public List<NoticeDto> updatelist(String notice_idx, String notice_title, String notice_content) {
+        List<NoticeDto> updatelist = noticedao.updatelist(notice_idx, notice_title, notice_content);
+        return updatelist;
+    }
+
 
 }

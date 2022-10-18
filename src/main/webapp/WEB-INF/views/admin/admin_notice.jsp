@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
  	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+	
 <link rel="stylesheet" href="/css/admin/admin_notice.css">    
 <div class= "bg_admin text-center">
 <div>
@@ -50,14 +50,12 @@
 	 </select>
 	 </div>
 	 
-	 <table class="member_table" >
+	 <table class="member_table" id="notice_table">
 	 <tr>
 	 	<th>번호</th>
 	 	<th>제목</th>
-	 	<th>내용</th>
-	 	<th>날짜</th>
-	 	
-	 </tr>
+	 	<th value=" ${ notice_date }" id="notice_table_date">날짜</th>	 	
+	 </tr><%-- 
 	 	<c:forEach var="dto" items ="${ admin_notice_list }" varStatus="status" > 
 	 <tr onclick="location.href='/admin/notice_detail?notice_idx=${ dto.notice_idx }'" style="cursor:pointer">
 	 	<td> ${ dto.notice_idx} </td>
@@ -68,10 +66,61 @@
 	 	<td> <input type="button" value="삭제" id="sending_mail" class="notice_btn"></td>
 	 </tr>
 	 
-	 	</c:forEach>
+	 	</c:forEach> --%>
 	 </table>
 
 	 <button class="item_button notice_btn"  onclick="location.href='/admin/admin_noticewrite'" style="cursor:pointer;">글쓰기</button>
 	 </div>
 	 
 </div>	
+<script>
+$(document).ready(function() {
+    notice();
+    console.log("a는 실행되었습니다");
+}); 
+function notice() {
+	
+	
+    $.ajax({
+        url: "/admin/notice_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+        data: { notice_idx: "1",
+        		notice_title : "1",
+        		notice_date : "2022/07/11" },  // HTTP 요청과 함께 서버로 보낼 데이터
+        method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+        dataType: "json", // 서버에서 보내줄 데이터의 타입
+        success: function (data) {
+        	
+        	
+            let htmls = "";
+            const dataLen = data.length;
+            const target = document.getElementById("notice_table");
+            for (let i = 0; i < dataLen; i++) {
+            	
+
+        		
+            	
+                 htmls += '<tr>'
+                     + '<td>'+ data[i].notice_idx +'</td>'
+                     +'<td>' +data[i].notice_title+ '</td>'
+                     +'<td>'+ data[i].notice_date +'</td>'
+                     +'<td><button onclick="notice_detail()" idx="'+ i +'"id="sending_mail" class="notice_btn">수정</td>'
+                     +'<td><button onclick="delete_Cart_table(this)" idx="'+ i +'"id="sending_mail" class="notice_btn">삭제</td>'
+				     +'</tr>'
+                    
+                     console.log(htmls);
+            		
+            }
+            
+            target.insertAdjacentHTML('beforeend', htmls)
+        },
+   		
+        error: function (data) {
+        	console.log("122222");
+        }
+    })
+}
+function notice_detail(){
+	location.href="/admin/admin_noticewrite2"
+}
+
+</script>
