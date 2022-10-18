@@ -19,11 +19,6 @@ public class NoticeService {
 		return admin_notice_list;
 	}
 
-	public int notice_write(NoticeDto dto1) {
-		int dto2 = noticedao.notice_write(dto1);
-		return dto2;
-	}
-
 	public int notice_count() {
 		int notice_count = noticedao.notice_count();
 		return notice_count;
@@ -37,6 +32,11 @@ public class NoticeService {
 	public void noticeWrite(Map<String, String> param) {
 		noticedao.noticeWrite(param);
 	}
+
+    public List<NoticeDto> searchResult(String search_type, String search_contents) {
+        List<NoticeDto> searchResult = noticedao.searchResult(search_type, search_contents);
+        return searchResult;
+    }
 
 	
 

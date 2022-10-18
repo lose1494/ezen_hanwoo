@@ -38,7 +38,7 @@
 	 </tr>
 	 
 	 <tr>
-	 	<td> <select style="width:110px; height:40px; text-align: center;" id="sort">
+	 	<td> <select style="width:110px; height:40px; text-align: center;" id="productCategory">
 	 		<option>선물세트</option>
 	 		<option>구이용</option>
 	 		<option>국거리</option>
@@ -51,14 +51,30 @@
 	 </tr>
 	 
 	 <tr>
-	<td> <input type="text" id="contentTitle"> </td>
-	
+	 	<th>gram</th>
+	 	<th>설명</th>
+	 	<th>이미지</th>
 	 </tr>
+	
+	 <tr>
+	 <td> <input type="text" id="productGram"> 
+	 </td>
+	<td> <input type="text" id="contentTitle"> 
+	</td>
+	<td> 
+		<input id="uploadImage" type="file" accept="image/jped,image/gif,image/png" >
+	 	 <img id="uploadPreview" style="width: 150px; height: 150px;"> 
+	</td>
+	 </tr>
+	 
+	 <tr> 
+	 	<th>설명 이미지</th>
+	  </tr>
 	 
 	 <tr>
 	 	<td>  
-	 	<input type="file" id="uploadImage" accept="image/jped,image/gif,image/png" onchange="PreviewImage();">
-	 	<img id="uploadPreview" style="width: 150px; height: 150px;">
+		 	<input id="uploadImage1" type="file"  accept="image/jped,image/gif,image/png">
+		 	<img id="uploadPreview1" style="width: 150px; height: 150px;">
 	 	</td>
 	 </tr>
 	  </table>
@@ -72,43 +88,66 @@
 </div>	
 
 	<script>
-		var imgData;
+		var imgData = {};
 		
-		function PreviewImage(){
-			var oFReader = new FildeReader();
-			oFReader.readAsDataURL(document.getElementById("uploadImage").file[0]);
-			oFReader.onload = function (oFReader) {
-				document.getElementById("uploadPreview").src = oFReader.target.result;
-				imgData = oFReader.target.result;
-			};
-		};
+		$('#uploadImage').on('change', function(e) {
+			var fileData = e.currentTarget.files[0];
+			var previewTargetId = e.currentTarget.nextElementSibling.attributes[0].value;
+			var previewTarget = document.getElementById(previewTargetId);
 			
+			PreviewImage(fileData, previewTarget, previewTargetId);
+		});
+		$('#uploadImage1').on('change', function(e) {
+			var fileData = e.currentTarget.files[0];
+			var previewTargetId = e.currentTarget.nextElementSibling.attributes[0].value;
+			var previewTarget = document.getElementById(previewTargetId);
+			
+			PreviewImage(fileData, previewTarget, previewTargetId);
+		});
+		
+		function PreviewImage(fileData, preview, previewTargetId) {
+		    var oFReader = new FileReader();
+		    oFReader.readAsDataURL(fileData);
+		    oFReader.onload = function (oFReader) {
+		    	preview.src = oFReader.target.result;
+		    	
+		    	if (previewTargetId === 'uploadPreview') {
+    				imgData.uploadImage = oFReader.target.result;
+		    	} else if (previewTargetId === 'uploadPreview1') {
+		    		imgData.uploadImage1 = oFReader.target.result;
+		    	}
+		    };
+		};
+		
 		$("#confirm_btn").click(function() {
 			  // console.log($(".ck"));
 			  var noticeTitle = $("#contentTitle").val();
-			  var sort = $("#sort").text();
+			  var productCategory = $("#productCategory").text();
 			  var productName = $("#productName").val();
 			  var productPrice = $("#productPrice").val();
+			  var productGram = $('#productGram').val();
 			  
 			  var data = {
 			    "title": noticeTitle,
-			    "imgData": imgData,
-			    "sort" : sort,
+			    "product_image": imgData.uploadImage, 
+			    "product_image_ex": imgData.uploadImage1, 
+			    "productCategory" : productCategory,
 			    "productName" : productName,
-			    "productPrice" : productPrice
+			    "productPrice" : productPrice,
+			    "productGram" : productGram
 			  };
-
+			  console.log(data);
 			  $.ajax({
 			    async : true,
 			    type : 'POST',
 			    data : JSON.stringify(data),
-			    url : "/productRegister",
+			    url : "/admin/productRegister",
 			    // dataType : "json",
 			    contentType : "application/json; charset-UTF-8",
 			    success : function(data) {
 			      // console.log("success", data);
 			      alert("저장되었습니다.");
-			      location.href='/admin/admin_notice';
+			      location.href='/admin/admin_item';
 			    },
 			    error : function(error) {
 			      // console.log("error", error);
@@ -117,24 +156,7 @@
 			      return;
 			    }
 			  });
-			
-			
-			
-			
-			
-			
-			
 		});
-		
-		
-		
-		
-	
-	
-	
-	
-	
-	
 	</script>
 
 

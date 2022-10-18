@@ -20,7 +20,7 @@
                     <td id="product_price">${ dto.product_price }원</td>
                 </tr>
                 <tr>
-<!--                     <td>제품중량</td> -->
+                    <td>제품중량</td>
                     <td>${ dto.product_gram }</td>
                 </tr>
                 <tr>
@@ -91,7 +91,7 @@
         </div>
     <div class="wrap">
         <div class="productDetail" id="productDetail">
-            <img src="${ dto.product_explanation }" alt="">
+            <img src="${ dto.product_image_ex }" alt="">
         </div>
         <div class="productReview" id="productReview">
             <div class="reviewInfo">

@@ -28,6 +28,9 @@
 		insert into Notice(notice_idx, notice_title, notice_content, notice_date, notice_img)
 		values (Notice_seq.nextval, #{title}, #{content}, sysdate, #{imgData})
 	</insert>
-
+	
+	<select id="searchResult" resultType="com.study.springboot.dto.NoticeDto">
+		select * from Notice where ${param1} like '%'||#{param2}||'%'
+	</select>
 	
 </mapper>
