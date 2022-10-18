@@ -182,6 +182,7 @@ create table Notice(
 
 insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
 values ( notice_seq.nextval, '관리자', '제목입니다.', '내용입니다.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
+
 commit;
 drop sequence Notice_seq;
 create sequence Notice_seq;
