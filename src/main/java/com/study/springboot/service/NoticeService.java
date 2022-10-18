@@ -20,11 +20,6 @@ public class NoticeService {
 		return admin_notice_list;
 	}
 
-	public int notice_write(NoticeDto dto1) {
-		int dto2 = noticedao.notice_write(dto1);
-		return dto2;
-	}
-
 	public int notice_count() {
 		int notice_count = noticedao.notice_count();
 		return notice_count;
@@ -38,6 +33,15 @@ public class NoticeService {
 	public void noticeWrite(Map<String, String> param) {
 		noticedao.noticeWrite(param);
 	}
+
+
+    public List<NoticeDto> searchResult(String search_type, String search_contents) {
+        List<NoticeDto> searchResult = noticedao.searchResult(search_type, search_contents);
+        return searchResult;
+    }
+
+	
+
 	public List<NoticeDto> noticelist(String notice_idx, String notice_title, Date notice_date) {
         List<NoticeDto> noticelist = noticedao.noticelist(notice_idx, notice_title, notice_date);
         return noticelist;
@@ -46,5 +50,6 @@ public class NoticeService {
         List<NoticeDto> updatelist = noticedao.updatelist(notice_idx, notice_title, notice_content);
         return updatelist;
     }
+
 
 }

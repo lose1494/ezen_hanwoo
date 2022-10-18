@@ -48,19 +48,36 @@ VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
 select * from ezen_users;
 
 commit;
---상품
+--상품등록
 drop table product;
 create table product(
     product_idx number(4) primary key,
     product_name varchar2(40),
-    product_image varchar2(40),
+    product_image_ex clob,
+    product_image clob,
     product_price varchar2(20),
     product_category varchar2(20),
     product_gram varchar2(40),
-    product_explanation varchar2(60)
+    product_explanation varchar2(60)  
 );
 drop sequence product_seq;
 create sequence product_seq;
+select * from product;
+commit;
+--
+----상품
+--drop table product;
+--create table product(
+--    product_idx number(4) primary key,
+--    product_name varchar2(40),
+--    product_image varchar2(40),
+--    product_price varchar2(20),
+--    product_category varchar2(20),
+--    product_gram varchar2(40),
+--    product_explanation varchar2(60)
+--);
+--drop sequence product_seq;
+--create sequence product_seq;
 
 
 insert into product

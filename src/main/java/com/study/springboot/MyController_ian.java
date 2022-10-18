@@ -72,16 +72,38 @@ public class MyController_ian {
     }
     // 이용자 공지사항
     @RequestMapping("/Notice/notice")
-    public String notice(Model model) {
+    public String notice(@RequestParam(value="search_type",required=false) String search_type, 
+                         @RequestParam(value="search_contents",required=false) String search_contents,
+                         Model model) {
+        
+        /* int notice_count = noticeService.notice_count(); */
+        
+        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
+       
+        List<NoticeDto> searchResult; /* = noticeService.searchResult(search_type,search_contents); */
+       
+        if(search_type != null) {
+            searchResult = noticeService.searchResult(search_type, search_contents);
+            model.addAttribute("admin_notice_list", searchResult);
+        }else {
+            model.addAttribute("admin_notice_list", admin_notice_list);
+        }
+
+        /* model.addAttribute("notice_count", notice_count); */
         model.addAttribute("mainPage", "notice/notice.jsp");
         return "index";
     }
+    
     // 이용자 공지사항 글
     @RequestMapping("/Notice/notice_view")
-    public String notice_view(Model model) {
+    public String notice_view( HttpServletRequest request,  Model model) {
+        String notice_idx = request.getParameter("notice_idx");
+        List<NoticeDto> notice_detail = noticeService.notice_detail(notice_idx);
+        model.addAttribute("notice_detail", notice_detail);
         model.addAttribute("mainPage", "notice/notice_view.jsp");
         return "index";
     }
+    
     // 이용자 자주하는 질문
     @RequestMapping("/Notice/faq")
     public String faq(Model model) {
@@ -173,7 +195,7 @@ public class MyController_ian {
     @RequestMapping("/admin/productRegister")
         public String productRegister( @RequestBody Map<String, String>register) {
             productservice.productRegister(register);
-            return "redirect:admin/item_register";
+            return "redirect:item_register";
         }
    
     // 상품 상세조회
@@ -186,26 +208,13 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/item_detail.jsp");
         return "index";
     }
-    /*
-     * @GetMapping("/mypage/get_cart_list")
-     * 
-     * @ResponseBody
-     * public List<CartDto> get_cart_list( HttpServletRequest request) {
-     * String users_id = (String)request.getSession().getAttribute("users_id");
-     * System.out.println("12312321321" + users_id);
-     * 
-     * List<CartDto> cartList = cartService.cartList(users_id);
-     * return cartList;
-     * }
-     */
-    
+
     //상품 수정
     @RequestMapping("/admin/item_revise")
     @ResponseBody
     public String item_revise( Model model) {
           model.addAttribute("mainPage", "admin/item_revise.jsp");
             return "index";
-    
     }   
     // 주문관리
     @RequestMapping("/admin/admin_order")
