@@ -95,7 +95,7 @@
 
 
 
-
+/* 
 
 .navbar {
         width: auto; 
@@ -105,14 +105,25 @@
         justify-content: center;
         align-items: center;
         font-size: 16px; 
+} */
+
+.accordion-header, .accordion-body {
+        display: flex;
+        align-items: center;
 }
 
-.img {
-        margin:10px 30px;
-        width: 30px;
+.fa-circle-question, .fa-circle-info {
+        font-size: 25px;
+        margin-right: 20px;
+}
+.fa-circle-question {
+        color: grey;
+}
+.fa-circle-info {
+        color: rgb(218, 87, 87);
+}
+.accordion-body {
+        font-size: 15px;
 }
 
-.title {
-    	font-size: 17px;
-}
 

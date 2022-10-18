@@ -37,14 +37,19 @@
 
 <div class="accordion accordion-flush" id="accordionFlushExample">
   <div class="accordion-item">
-    <h2 class="accordion-header" id="flush-headingOne">
+    <div class="accordion-header" id="flush-headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-      <img src="/img/notice/q.png" class="img"> <span class="title"> [배송] 배송날짜를 지정할 수 있나요? </span>
+        <i class="fa-solid fa-circle-question"></i> <span class="title"> [배송] 배송날짜를 지정할 수 있나요? </span>
       </button>
-    </h2>
+    </div>
     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-      1
+        <i class="fa-solid fa-circle-info"></i>
+        쇼핑몰 자체 결제 시스템을 이용하여 주문해주시는 경우에는 수령을 원하시는 날짜로 지정할 수 있습니다. <br>
+        (현재 네이버페이로 주문해주시는 경우에는 희망수령일 선택이 불가능합니다) <br> 
+        수령일 기준 7일까지 희망수령일 선택가능하며, 주문 완료 후 수령일 변경을 원하시는 경우에는 <br>
+        1:1 문의 및 고객센터(043-877-1613)로 연락주시면 도와드릴 수 있도록 하겠습니다. <br>
+        다만, 주문 마감 시간(오후 2시) 이후에는 수령일 변경이 불가능합니다. <br>
       </div>
     </div>
   </div>
@@ -52,7 +57,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-       <img src="/img/notice/q.png" class="img"> <span class="title"> [교환/환불]교환 또는 바품 신청시에 사진을 첨부해야하나요? </span>
+       <img src="/img/notice/q.png" class="img" width="30"> <span class="title"> [교환/환불]교환 또는 바품 신청시에 사진을 첨부해야하나요? </span>
         </button>
     </h2>
     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">

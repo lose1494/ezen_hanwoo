@@ -334,6 +334,9 @@
                 $('.starRating-fill').eq(i).width(17.5 * ($('.scoreAvg').eq(i).text()));
             } 
             $('.starBar-fill').each( function(index, item) {
+                if($('.reviewInfo table tr:eq(0) td:eq(0) span').text() == 0) {
+                    $('.starBar-fill').width(0+'%');
+                }
                 $(this).width(               
                     ($('.reviewCount').eq(index).text()) / 
                     ($('.reviewInfo table tr:eq(0) td:eq(0) span').text())*100+'%');
