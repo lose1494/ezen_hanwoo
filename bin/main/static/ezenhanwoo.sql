@@ -1,8 +1,8 @@
 --회원
 drop table ezen_users;
 create table ezen_users(
-    users_idx       number(4) primary key,
-    users_id      varchar2(20) UNIQUE,
+    users_idx       number(4) UNIQUE,
+    users_id      varchar2(20) primary key,
     users_pw     varchar2(20),
     users_name   varchar2(20),
     users_email   varchar2(100),
@@ -48,7 +48,7 @@ VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
 select * from ezen_users;
 
 commit;
---상품
+--상품등록
 drop table product;
 create table product(
     product_idx number(4) primary key,
@@ -58,11 +58,26 @@ create table product(
     product_price varchar2(20),
     product_category varchar2(20),
     product_gram varchar2(40),
-    product_explanation varchar2(60)
-    
+    product_explanation varchar2(60)  
 );
 drop sequence product_seq;
 create sequence product_seq;
+select * from product;
+commit;
+--
+----상품
+--drop table product;
+--create table product(
+--    product_idx number(4) primary key,
+--    product_name varchar2(40),
+--    product_image varchar2(40),
+--    product_price varchar2(20),
+--    product_category varchar2(20),
+--    product_gram varchar2(40),
+--    product_explanation varchar2(60)
+--);
+--drop sequence product_seq;
+--create sequence product_seq;
 
 
 insert into product
@@ -206,11 +221,7 @@ create table Notice(
 
 insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
 values ( notice_seq.nextval, '관리자', '제목입니다.', '내용입니다.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
-insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
-values ( notice_seq.nextval, '관리자', '제목입니다11.', '내용입니다.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
-
-select * from notice
-
+select * from notice;
 commit;
 drop sequence Notice_seq;
 create sequence Notice_seq;
