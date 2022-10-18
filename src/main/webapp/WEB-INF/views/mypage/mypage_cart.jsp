@@ -153,6 +153,7 @@
 		const pdx = document.getElementById("product_name" + idx).getAttribute('value') 
 		console.log(e)
 		console.log(pdx)
+		
 		$.ajax({
 			url: "/mypage/cart_Update",
 			data :{ cart_count : parseInt( $("#count_input" + idx).val()),
@@ -162,11 +163,12 @@
 			dataType : "json",
 			 
 			success: function (data) {
-				
+	
+	
 			}
-					
+				
 		})
-		
+		location.reload()
 	}
 	function delete_Cart_table(f){
 		const idx = f.getAttribute('idx')
@@ -240,10 +242,44 @@
 	// bool = this.checked : name이 all인 체크박스의 체크속성( ture, false )
 	
 	function allselect(bool){
+		var ca = 0;
+        var total = 0;
+        var total2 = 0;
+		
 		var chks = document.getElementsByName("buy_check");
+		console.log(bool);
+		
 		for(var i = 0; i < chks.length; i++){
 			chks[i].checked = bool;
+			
+			
+			const idx = chks[i].getAttribute('idx')
+			const pdx = document.getElementById("product_price" + idx).getAttribute('value')
+			const cot = document.getElementById("count_input" + idx).getAttribute('value')
+			const cup = "5,000"
+			console.log(pdx);
+			console.log(cot);
+			console.log(document.getElementById("product_price" + idx).getAttribute('value'));
+			ca = stringNumberToInt(pdx) * (cot);
+			cpa = stringNumberToInt(cup);
+			console.log(ca);
+	         total += ca;
+	         total2 = total + cpa;
+	       
 		}
+		  if(bool == true){
+				document.getElementById("order_price").innerText = total.toLocaleString() + "원";
+				document.getElementById("order_price2").innerText = cpa.toLocaleString() + "원";
+				document.getElementById("order_price3").innerText = total2.toLocaleString() + "원";
+				console.log("22222222");
+		         }
+		  else{
+		        	 console.log("11111111");
+		        	 document.getElementById("order_price").innerText = "0" + "원";
+		 			document.getElementById("order_price2").innerText = "0" + "원";
+		 			document.getElementById("order_price3").innerText = "0" + "원";
+		  }  
+		      
 	}
 	function check_price(){
 	
@@ -278,6 +314,10 @@
 			document.getElementById("order_price2").innerText = cpa.toLocaleString() + "원";
 			document.getElementById("order_price3").innerText = total2.toLocaleString() + "원";
 			console.log("112233");
+		}else{
+			document.getElementById("order_price").innerText = "0" + "원";
+			document.getElementById("order_price2").innerText = "0" + "원";
+			document.getElementById("order_price3").innerText = "0" + "원";
 		}
 		
 	}

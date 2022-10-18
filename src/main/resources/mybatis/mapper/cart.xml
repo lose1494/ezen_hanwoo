@@ -16,7 +16,7 @@
    B.product_price,
    B.product_category,
    B.product_gram,
-   B.product_explanation
+   B.product_image_ex
    from cart A
    left outer join product B 
    on
