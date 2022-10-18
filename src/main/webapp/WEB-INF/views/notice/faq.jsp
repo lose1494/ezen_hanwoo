@@ -2,53 +2,44 @@
     pageEncoding="UTF-8"%>
     
 <link rel="stylesheet" href="/css/notice/faq.css">
+<link rel="stylesheet" href="/css/common.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script>
 
- $('.faq_bar a').each( function() {
-    $(this).click( function() {
-        $('.faq_bar a').removeClass('abc');
-        $(this).addClass('abc');
-    })
-})
-
-
-</script>
-<div class="faq wrap">
+<div class="wrap">
     
 	<p class="title_tag">자주하는 질문</p>
 
    	<div class="faq_bar">
           <ul >
-            <li><a href="#" class="abc">전체보기</a></li>
-            <li><a href="#">주문결제</a></li>
-            <li><a href="#">배송</a></li>
-            <li><a href="#">취소</a></li>
-            <li><a href="#">교환/환불</a></li>
-            <li><a href="#">회원</a></li>
-            <li><a href="#">기타</a></li>
+            <li class="abc"><a href="#faq_bar">전체보기</a></li>
+            <li><a href="#faq_bar">주문결제</a></li>
+            <li><a href="#faq_bar">배송</a></li>
+            <li><a href="#faq_bar">취소</a></li>
+            <li><a href="#faq_bar">교환/환불</a></li>
+            <li><a href="#faq_bar">회원</a></li>
+            <li><a href="#faq_bar">기타</a></li>
           </ul> 
     </div>
       
       <div>
     <div class="faq_box1">
-	<select id="faq_select1">
-	<option>제목</option>
-	<option>내용</option>
-	</select>
-	<input type="text" id="faq_text">
-	<input type="image" src="/img/notice/search.png" width="30" id="faq_img">
+      <select id="faq_select1">
+        <option>제목</option>
+        <option>내용</option>
+      </select>
+      <input type="text" id="faq_text">
+      <input type="image" src="/img/notice/search.png" id="faq_img">
     </div>
 
 <div class="accordion accordion-flush" id="accordionFlushExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-      <img src="/img/notice/q.png" class="img" width="30"> <span class="title"> [배송] 배송날짜를 지정할 수 있나요? </span>
+      <img src="/img/notice/q.png" class="img"> <span class="title"> [배송] 배송날짜를 지정할 수 있나요? </span>
       </button>
     </h2>
     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -61,7 +52,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-       <img src="/img/notice/q.png" class="img" width="30"> <span class="title"> [교환/환불]교환 또는 바품 신청시에 사진을 첨부해야하나요? </span>
+       <img src="/img/notice/q.png" class="img"> <span class="title"> [교환/환불]교환 또는 바품 신청시에 사진을 첨부해야하나요? </span>
         </button>
     </h2>
     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
@@ -163,7 +154,7 @@
   </div>
 </div>
 </div>
-<div class="pageNav">
+  <div class="pageNav">
                 <a href="#">처음</a>
                 <a href="#">이전</a>
                 <a href="#">1</a>
@@ -173,3 +164,15 @@
                 <a href="#">마지막</a>
             </div>
 </div>
+
+<script>
+
+  $('.faq_bar a').each( function() {
+     $(this).click( function() {
+         $('.faq_bar li').removeClass('abc');
+         $(this).parents('li').addClass('abc');
+     })
+ })
+ 
+ 
+ </script>
