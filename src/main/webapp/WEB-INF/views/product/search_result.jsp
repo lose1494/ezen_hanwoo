@@ -13,7 +13,7 @@
 	<h1>검색결과</h1>
 	<form action="search_product">
 		<div class="search_condition">
-			<input type="text" name="word" placeholder="검색어를 입력해 주세요." id="text_input">
+			<input type="text" name="word" placeholder="검색어를 입력해 주세요." id="text_input" value="${ word }">
 			<button class="search_btn">검색</button>
 		</div>
 		<div class="list">
@@ -48,8 +48,8 @@
 	</form>
 
 	<c:choose>
-		<c:when test="${ word eq '' || searchList eq null }">
-			<div>검색결과가 없습니다.</div>
+		<c:when test="${ word eq '' || searchList eq null || searchList eq '[]' }">
+			<div class="product">검색결과가 없습니다.</div>
 		</c:when>
 		<c:otherwise>
 			<div class="product">
