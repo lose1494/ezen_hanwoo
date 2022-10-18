@@ -1,8 +1,8 @@
 --회원
 drop table ezen_users;
 create table ezen_users(
-    users_idx       number(4) UNIQUE,
-    users_id      varchar2(20) primary key,
+    users_idx       number(4) primary key,
+    users_id      varchar2(20) UNIQUE,
     users_pw     varchar2(20),
     users_name   varchar2(20),
     users_email   varchar2(100),
