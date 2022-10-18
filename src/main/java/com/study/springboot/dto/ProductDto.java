@@ -15,4 +15,6 @@ public class ProductDto {
 	private String product_category;
 	private String product_gram;
 	private String product_explanation;
+
+	private ReviewDto reviewDto;
 }

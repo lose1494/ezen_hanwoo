@@ -16,4 +16,5 @@ public interface IReviewDao {
 	public int insertReview(ReviewDto dto);
 	public int deleteReview(int review_idx);
 	public List<ReviewDto> review_result();
+//	List<ReviewDto> searchProduct(String word, String sort);
 }

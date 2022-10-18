@@ -33,7 +33,8 @@ public interface IProductDao {
 
 	int product_revise(Map<String, Object> map);
 
+	List<ProductDto> searchProduct(String word, String sort, int startRowNum, int endRowNum);
 	
+	int productCount(String word);
 	
-
 }

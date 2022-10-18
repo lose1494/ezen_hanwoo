@@ -49,7 +49,7 @@
 		</where>
 	</select>
 	
-		<insert id="insert_Product" parameterType="com.study.springboot.dto.ProductDto">
+	<insert id="insert_Product" parameterType="com.study.springboot.dto.ProductDto">
 		insert into product
 		values ( product_seq.nextval, #{product_name}, #{product_price},
 		#{product_sort}, #{product_explanation}, #{product_gram} )
@@ -78,5 +78,64 @@
 	 	PRODUCT_IDX = #{ PRODUCT_IDX },
 	 	PRODUCT_NAME = #{ PRODUCT_NAME },
 	 	PRODUCT_TITLE = #{ PRODUCT_PRICE },
-	 </update>
+	</update>
+	
+	
+	<resultMap type="com.study.springboot.dto.ReviewDto" id="ReviewDto">	
+	<result column="review_idx" property="review_idx"/>
+	<result column="review_star_rating" property="review_star_rating"/>	
+	<result column="product_idx" property="product_idx"/>
+	<result column="starRating" property="starRating"/>
+	<result column="count" property="count"/>
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">
+	<result column="product_idx" property="product_idx"/>
+	<result column="product_name" property="product_name"/>
+	<result column="product_image" property="product_image"/>	
+	<result column="product_price" property="product_price"/>
+	<result column="product_category" property="product_category"/>
+	<result column="product_gram" property="product_gram"/>
+	<result column="product_explanation" property="product_explanation"/>
+	<collection property="reviewDto" resultMap="ReviewDto"></collection>
+	</resultMap>
+	
+	<select id="searchProduct" resultMap="ProductDto">
+		
+		select * from	
+			(select rownum rnum, tb.* from
+				(select * from
+				
+				(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
+				from product_review group by product_idx) r,
+				 
+				(select product.*, to_number(replace(product_price, ',')) rp 
+				from product) p
+				
+				where r.pi(+) = p.product_idx
+				and p.product_name like '%${param1}%'
+				
+				<if test="param2 != 'select'">
+					<include refid="searchSort"></include>
+				</if> ) tb)
+			where rnum between #{param3} and #{param4}
+		
+	</select>
+	
+	<sql id="searchSort">
+		<if test="param2 == 'star_rating'">
+			order by r.starRating desc nulls last
+		</if>
+		<if test="param2 == 'price_high'">
+			order by rp desc
+		</if>
+		<if test="param2 == 'price_row'">
+			order by rp
+		</if>
+	</sql>
+	
+	<select id="productCount" resultType="_int">
+		select count(*) from product
+		where product_name like '%${param1}%'
+	</select>
 </mapper>

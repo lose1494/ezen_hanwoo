@@ -49,7 +49,9 @@
 	<result column="product_explanation" property="product_explanation"/>
 	</resultMap>
 	
-	<resultMap type="com.study.springboot.dto.Product_qnaDto" id="Product_qnaDto">	
+	<resultMap type="com.study.springboot.dto.Product_qnaDto" id="Product_qnaDto">
+	<result column="qna_idx" property="qna_idx"/>
+	<result column="product_idx" property="product_idx"/>	
 	<collection property="productDto" resultMap="ProductDto"></collection>
 	</resultMap>
 	
@@ -57,6 +59,7 @@
 	select q.*, p.product_name 
 	from product_qna q, product p 
 	where q.product_idx = p.product_idx
+	order by q.qna_date desc
 	</select>
 	
 </mapper>

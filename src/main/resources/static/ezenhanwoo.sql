@@ -76,9 +76,7 @@ insert into product
 values ( product_seq.nextval, '한우 구이용 세트', '/img/product/28만원세트.png', '280,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 insert into product
 values ( product_seq.nextval, '한우 특수부위 세트', '/img/product/40만원세트.png', '400,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
-commit;
-insert into product
-values ( product_seq.nextval, '테스트', '테스트', '테스트', '테스트', '상세페이지 참조', '테스트');
+
 commit;
 --상품 문의
 drop table product_qna;
@@ -113,8 +111,6 @@ values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', s
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4',TO_CHAR(SYSDATE,'YYYY-MM-DD') , 0, '답변대기중', 1);
  
- commit;
-select * from product_qna;
 --상품 문의 답변
 drop table product_qna_reply;
 create table product_qna_reply(
@@ -253,7 +249,7 @@ users_id varchar(20),
 cart_product_name varchar(20),
 product_idx number(4),
 cart_count number(4),
-    CONSTRAINT cart_pk PRIMARY KEY(cart_user_id, product_idx)
+    CONSTRAINT cart_pk PRIMARY KEY(users_id, product_idx)
 );
 drop sequence cart_seq;
 create sequence cart_seq;

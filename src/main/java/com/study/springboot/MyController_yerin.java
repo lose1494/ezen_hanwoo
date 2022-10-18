@@ -133,6 +133,7 @@ public class MyController_yerin {
 		int pageNum = (int)Math.ceil((double)qnaCount/num_page_size);
 		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, users_id, page, num_page_size);
 		List<Product_qnaDto> joinTest = qnaService.joinTest();
+		System.out.println(joinTest);
 		
 		model.addAttribute("joinTest", joinTest);
 		model.addAttribute("page", page);
@@ -584,6 +585,30 @@ public class MyController_yerin {
 	//검색
 	@RequestMapping("/product/search_result")
 	public String search_result(Model model) {
+		model.addAttribute("mainPage", "product/search_result.jsp");
+		model.addAttribute("searchList", null);
+		
+		return "index";
+	}
+	
+
+	@RequestMapping("/product/search_product")
+	public String search_product(@RequestParam("word") String word,
+								 @RequestParam("sort") String sort,
+								 @RequestParam(value="page",defaultValue="1") String page,
+								 HttpServletRequest request, Model model) {
+
+		num_page_size = 6;
+		int productCount = productService.productCount(word);
+		int pageNum = (int)Math.ceil((double)productCount/num_page_size); 
+		List<ProductDto> searchProduct = productService.searchProduct(word, sort, page, num_page_size);
+		
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("searchList", searchProduct);
+		model.addAttribute("searchCount", productCount);
+		model.addAttribute("sort", sort);		
+		model.addAttribute("word", word);
 		model.addAttribute("mainPage", "product/search_result.jsp");
 		
 		return "index";

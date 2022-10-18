@@ -22,10 +22,13 @@ public class ReviewDto {
 	
 	private int count;
 	private review_star star;
+	private ProductDto productDto;
+	private double starRating;
 	
 	public class review_star {
 		private int star_score;
 	}
+	
 }
 
 

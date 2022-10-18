@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="cartCount" resultType="_int">
-		select count(*) from cart where cart_users_id=#{param1}
+		select count(*) from cart where users_id=#{param1}
 	</select>
 	
 	<insert id="insertCart" parameterType="com.study.springboot.dto.CartDto">
