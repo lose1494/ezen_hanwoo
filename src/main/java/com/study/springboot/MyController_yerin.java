@@ -473,7 +473,7 @@ public class MyController_yerin {
 	
 	//주문
 	@RequestMapping("/product/order01")
-	public String order01(@RequestParam("product_idx") int product_idx,
+	public String order01(
 			Model model, HttpServletRequest request) {
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
@@ -482,10 +482,9 @@ public class MyController_yerin {
 			request.setAttribute("url", "/member/login");
 			return "alert";
 		} else {
-			ProductDto product = productService.productDetail(product_idx);
+			
 			UsersDto user = usersService.userDetail(users_id);
-			System.out.println(product);
-			model.addAttribute("product", product);
+			
 			model.addAttribute("user", user);
 			model.addAttribute("mainPage", "product/order01.jsp");
 			return "index";

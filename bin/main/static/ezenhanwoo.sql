@@ -1,8 +1,8 @@
 --회원
 drop table ezen_users;
 create table ezen_users(
-    users_idx       number(4) UNIQUE,
-    users_id      varchar2(20) primary key,
+    users_idx       number(4) primary key,
+    users_id      varchar2(20) UNIQUE,
     users_pw     varchar2(20),
     users_name   varchar2(20),
     users_email   varchar2(100),
@@ -17,24 +17,6 @@ create table ezen_users(
     users_joindate date default sysdate,
     users_point    varchar2(20)
 );
---create table ezen_users(
---    users_idx       number(4) not null,
---    users_id      varchar2(20) not null,
---    users_pw     varchar2(20) not null,
---    users_name   varchar2(20) not null,
---    users_email   varchar2(100) null,
---    users_email_receive   number(1) null,	--0: 비수신 1: 수신
---    users_phone         varchar2(20) null,
---    users_phone_receive   number(1) null,	--0: 비수신 1: 수신
---    users_birth_date      date null,
---    users_address varchar(20) null,
---    users_address varchar2(100) null,
---    users_joindate date default sysdate null,
---    users_point    varchar2(20) null,
---    
---    CONSTRAINT ezen_users_pk PRIMARY KEY (users_id)
---);
-
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date)
@@ -61,8 +43,6 @@ create table product(
 );
 drop sequence product_seq;
 create sequence product_seq;
-
-
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]등심', '/img/product/등심3.png', '36,000', '구이용', '300g', 'https://via.placeholder.com/700x1200');
 
@@ -96,9 +76,7 @@ insert into product
 values ( product_seq.nextval, '한우 구이용 세트', '/img/product/28만원세트.png', '280,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
 insert into product
 values ( product_seq.nextval, '한우 특수부위 세트', '/img/product/40만원세트.png', '400,000', '선물세트', '상세페이지 참조', 'https://via.placeholder.com/700x1200');
-commit;
-insert into product
-values ( product_seq.nextval, '테스트', '테스트', '테스트', '테스트', '상세페이지 참조', '테스트');
+
 commit;
 --상품 문의
 drop table product_qna;
@@ -133,8 +111,6 @@ values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', s
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4',TO_CHAR(SYSDATE,'YYYY-MM-DD') , 0, '답변대기중', 1);
  
- commit;
-select * from product_qna;
 --상품 문의 답변
 drop table product_qna_reply;
 create table product_qna_reply(
@@ -160,14 +136,8 @@ create table product_review(
     product_idx number(4)
 );
 
---select * from ;
 drop sequence product_review_seq;
 create sequence product_review_seq;
-
-SELECT 
-    *
-FROM 
-    product_review;
 
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 values(product_review_seq.nextval, 'hong', '맛있게 잘 먹었습니다!!', '리뷰 내용 테스트 화면에 어떻게 보이나', sysdate, 5, 1);
@@ -179,6 +149,17 @@ insert into product_review(review_idx, review_id, review_title, review_content, 
 values(product_review_seq.nextval, 'hong', '테스트3', '리뷰 내용 테스트3', sysdate, 2, 1);
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 values(product_review_seq.nextval, 'hong', '테스트4', '리뷰 내용 테스트4', sysdate, 1, 1);
+
+drop table review_star;
+create table review_star(
+    star_score number(1) primary key
+);
+
+insert into review_star values(1);
+insert into review_star values(2);
+insert into review_star values(3);
+insert into review_star values(4);
+insert into review_star values(5);
 
 --FAQ
 drop table FAQ;
@@ -194,17 +175,16 @@ create sequence FAQ_seq;
 drop table Notice;
 create table Notice(
     notice_idx number(4) primary key,
-    notice_name varchar2(40),
-    notice_title varchar2(40),
+    notice_name varchar2(20),
+    notice_title varchar2(20),
     notice_content varchar2(300),
     notice_date date,
-    notice_img clob,
     notice_hit number(4) DEFAULT 0
 );
 
 insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
 values ( notice_seq.nextval, '관리자', '제목입니다.', '내용입니다.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
-select * from notice
+
 commit;
 drop sequence Notice_seq;
 create sequence Notice_seq;
@@ -269,7 +249,7 @@ users_id varchar(20),
 cart_product_name varchar(40),
 product_idx number(4),
 cart_count number(4),
-    CONSTRAINT cart_pk PRIMARY KEY(cart_user_id, product_idx)
+    CONSTRAINT cart_pk PRIMARY KEY(users_id, product_idx)
 );
 drop sequence cart_seq;
 create sequence cart_seq;
