@@ -70,7 +70,7 @@ public class MyController_yerin {
 	}
 
 	@RequestMapping("/mypage/mypage_point")
-	public String mypage_point(@RequestParam(value="page",defaultValue="1") String page,
+	public String mypage_point(@RequestParam(value="page",defaultValue="1") String page,							
 							Model model, HttpServletRequest request) {
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
