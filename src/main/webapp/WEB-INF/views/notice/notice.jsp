@@ -30,7 +30,7 @@
 	            <td id="number">${ dto.notice_idx } </td>
 	            <td id="title"> ${ dto.notice_title }</td>
 	            <td id="writer"> ${ dto.notice_name }</td>
-	            <td id="date"> ${ dto.notice_date }</td>
+	            <td id="date"><fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /></td>
 	        </tr>
 	       </c:forEach>
 	    </tbody>

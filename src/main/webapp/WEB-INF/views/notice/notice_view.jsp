@@ -35,7 +35,7 @@
 		
 		</c:forEach>
 	</table>
-<input type="button" value="목록" id="button" onclick="location.href='/notice/notice'" style="cursor:pointer">
+<input type="button" value="목록" id="button" onclick="location.href='/Notice/notice'" style="cursor:pointer">
 </div>	
 
 

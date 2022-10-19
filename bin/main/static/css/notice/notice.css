@@ -1,4 +1,4 @@
-.wrap {
+.wrap > *:not(span) {
 	text-align: center;
 }
 .title_tag {
