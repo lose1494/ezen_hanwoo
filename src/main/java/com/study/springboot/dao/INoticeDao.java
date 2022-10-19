@@ -21,5 +21,4 @@ public interface INoticeDao {
 	//공지사항 상세페이지
 	public List<NoticeDto> notice_detail(String notice_idx);
 
-
 }

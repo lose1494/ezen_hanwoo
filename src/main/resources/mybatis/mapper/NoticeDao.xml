@@ -24,7 +24,5 @@
 	 	select * from Notice where notice_idx=#{param1}
 	 </select>
 
-
-
 	
 </mapper>

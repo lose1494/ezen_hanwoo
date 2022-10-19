@@ -91,6 +91,7 @@ public class MyController_ian {
 	// 이용자 공지사항
 	@RequestMapping("/Notice/notice")
 	public String notice(Model model) {
+
 		model.addAttribute("mainPage", "notice/notice.jsp");
 		return "index";
 	}
@@ -98,6 +99,7 @@ public class MyController_ian {
 	// 이용자 공지사항 글
 	@RequestMapping("/Notice/notice_view")
 	public String notice_view(Model model) {
+		
 		model.addAttribute("mainPage", "notice/notice_view.jsp");
 		return "index";
 	}

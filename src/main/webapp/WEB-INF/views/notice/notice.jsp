@@ -23,13 +23,15 @@
 	        </tr>
 	    </thead>
 	    <tbody>
+			<c:forEach var="dto" items="${noticeList}" varStatus="status">
 	        <tr onclick="location.href='/Notice/notice_view'" style="cursor:pointer;" >
 	            <td id="number">[공지]</td>
-	            <td id="title">배송지연안내</td>
-	            <td id="writer">관리자</td>
-	            <td id="date">2022-09-14</td>
+	            <td id="title">${ dto.notice_title }</td>
+	            <td id="writer">${ dto.notice_name }</td>
+	            <td id="date">${ dto.notice_date }</td>
 	            <td id="hitter">1</td>
 	        </tr>
+			</c:forEach>
 	    </tbody>
 	    </table>
 

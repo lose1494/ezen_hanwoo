@@ -32,7 +32,6 @@ public class NoticeService {
 		List<NoticeDto> notice_detail = noticedao.notice_detail(notice_idx);
 		return notice_detail;
 	}
-
 	
 
 }
