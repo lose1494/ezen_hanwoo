@@ -79,5 +79,42 @@
 		    review.product_idx = prod.product_idx
 	</select>
 	
+	<!-- <resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">
+	<result column="product_idx" property="product_idx"/>
+	<result column="product_name" property="product_name"/>
+	<result column="product_image" property="product_image"/>	
+	<result column="product_price" property="product_price"/>
+	<result column="product_category" property="product_category"/>
+	<result column="product_gram" property="product_gram"/>
+	<result column="product_explanation" property="product_explanation"/>
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.ReviewDto" id="ReviewDto2">
+	<result column="product_idx" property="product_idx"/>	
+	<collection property="productDto" resultMap="ProductDto"></collection>
+	</resultMap>
+	
+	<select id="searchProduct" resultMap="ReviewDto2">
+		select * from
+		(select round(avg(review_star_rating), 1) starRating, pr.product_idx from product_review pr
+		group by pr.product_idx) r, product p
+		where r.product_idx(+) = p.product_idx
+		and p.product_name like '%${param1}%'
+		<if test="param2 != 'select'">
+			<include refid="searchSort"></include>
+		</if>
+	</select>
+	
+	<sql id="searchSort">
+		<if test="param2 == 'star_rating'">
+			order by r.starRating desc nulls last
+		</if>
+		<if test="param2 == 'price_high'">
+			order by p.product_price desc nulls last
+		</if>
+		<if test="param2 == 'prict_row'">
+			order by p.product_price nulls last
+		</if>
+	</sql> -->
 	
 </mapper>

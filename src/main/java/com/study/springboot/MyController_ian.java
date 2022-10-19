@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springboot.dto.CartProductDto;
+import com.study.springboot.dto.CartDto;
+import com.study.springboot.dto.FaqDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
+import com.study.springboot.service.FaqService;
 import com.study.springboot.service.NoticeService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
@@ -41,6 +44,10 @@ public class MyController_ian {
     private CartService cartService;
     @Autowired
     private ReviewService reviewService;
+	@Autowired
+	private FaqService faqService;
+	
+	int num_page_size = 5;
     
     @RequestMapping("/")
     public String root() {
@@ -106,10 +113,46 @@ public class MyController_ian {
     
     // 이용자 자주하는 질문
     @RequestMapping("/Notice/faq")
-    public String faq(Model model) {
-        model.addAttribute("mainPage", "notice/faq.jsp");
-        return "index";
-    }
+	public String faq(@RequestParam(value="page",defaultValue="1") String page,
+			@RequestParam(value="faq_type",defaultValue="all") String faq_type,
+			Model model, HttpServletRequest request) {
+		
+		String sort = "faq_title";
+		String word = "";
+		List<FaqDto> faqList = faqService.faqList(faq_type, sort, word, page, num_page_size);
+		int faqCount = faqService.faqCount(faq_type, sort, word);
+		int pageNum = (int)Math.ceil((double)faqCount/num_page_size);
+		
+		model.addAttribute("type", faq_type);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("faqList", faqList);
+		model.addAttribute("mainPage", "notice/faq.jsp");
+		return "index";
+	}
+	
+	@RequestMapping("/Notice/searchFaq")
+	public String searchFaq(@RequestParam(value="page",defaultValue="1") String page,
+			@RequestParam(value="faq_type",defaultValue="all") String faq_type,
+			@RequestParam(value="sort",defaultValue="faq_title") String sort,
+			@RequestParam("word") String word,
+			Model model, HttpServletRequest request) {
+		
+		System.out.println(word);
+		List<FaqDto> faqList = faqService.faqList(faq_type, sort, word, page, num_page_size);
+		int faqCount = faqService.faqCount(faq_type, sort, word);
+		int pageNum = (int)Math.ceil((double)faqCount/num_page_size);
+		System.out.println(pageNum);
+		
+		model.addAttribute("type", faq_type);
+		model.addAttribute("sort", sort);
+		model.addAttribute("word", word);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("faqList", faqList);
+		model.addAttribute("mainPage", "notice/faq.jsp");
+		return "index";
+	}
     
     // 관리자 페이지 메인
     @RequestMapping("/admin/admin_main")
@@ -431,4 +474,16 @@ public class MyController_ian {
         return "cart_deleteall";
     }
     
+
+	/*
+	 * @GetMapping("/mypage/get_cart_list")
+       public Object get_cart_list(@RequestParam ("users_id") String
+	 * users_id) { System.out.println("12312321321" + users_id); CartService cart =
+	 * new CartService(); List<CartDto> cartList = cart.cartList(users_id); return
+	 * cartList; }
+	 */
+	
+	
+	
+	
 }

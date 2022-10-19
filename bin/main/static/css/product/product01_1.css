@@ -152,10 +152,6 @@ b:not(.scoreAvg) {
     background-color: rgb(46, 40, 40);
     /* overflow: hidden; */
 }
-.reviewCount {
-
-}
-
 .reviewSearch form {
     width: 100%;
     display: flex;

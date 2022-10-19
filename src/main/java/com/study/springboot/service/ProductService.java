@@ -71,5 +71,29 @@ public class ProductService {
         int updateItem = productdao.updateItem( reviseAction );
         return updateItem;
     }
+	public int product_revise(Map<String, Object> map) {
+		int product_revise = productdao.product_revise(map);
+		return product_revise;
+	}
+
+	public List<ProductDto> searchProduct(String word, String sort, String page, 
+			int num_page_size) {
+		
+		int num_page_no = Integer.parseInt( page );
+		int startRowNum = (num_page_no - 1) * num_page_size + 1;
+		int endRowNum = (num_page_no * num_page_size);
+		
+		System.out.println(startRowNum +","+endRowNum);
+		
+		List<ProductDto> searchProduct = productdao.searchProduct(word, sort, 
+				startRowNum, endRowNum);
+		System.out.println(searchProduct);
+		return searchProduct;
+	}
+
+	public int productCount(String word) {
+		int productCount = productdao.productCount(word);
+		return productCount;
+	}
 
 }
