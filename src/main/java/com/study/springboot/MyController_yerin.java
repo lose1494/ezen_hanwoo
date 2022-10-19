@@ -599,6 +599,14 @@ public class MyController_yerin {
 		System.out.println("result:" + result);
 		
 		if( result == 1 ) {
+		    if ( users_id.equals("admin")) {
+                System.out.println("alert:" + "관리자로그인되었습니다.");
+                
+                request.getSession().setAttribute("alert", "관리자로그인되었습니다.");
+                request.getSession().setAttribute("users_id", users_id);
+                
+                return "redirect:/admin/admin_main";
+            }
 			System.out.println("alert:" + "로그인되었습니다.");
 			request.getSession().setAttribute("alert", "로그인되었습니다.");
 			request.getSession().setAttribute("url", "/index");

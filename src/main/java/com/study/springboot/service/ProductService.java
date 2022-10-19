@@ -67,6 +67,9 @@ public class ProductService {
         productdao.productRegister(register);
     }
 
-
+    public int updateItem(Map<String, Object> reviseAction) {
+        int updateItem = productdao.updateItem( reviseAction );
+        return updateItem;
+    }
 
 }

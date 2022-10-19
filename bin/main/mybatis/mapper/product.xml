@@ -78,7 +78,13 @@
 		values (product_seq.nextval, #{product_name}, #{product_image_ex}, #{product_image},#{product_price},#{product_category},#{product_gram})
 	</insert>
 	 
-	 
+	<update id="updateItem" parameterType = "hashMap" >
+	 	UPDATE product SET
+	 	product_idx = #{ product_idx },
+	 	product_name = #{ product_name },
+	 	product_price = #{ product_price }
+	 	WHERE product_idx = #{ product_idx }
+	 </update>
 	 
 	 
 </mapper>

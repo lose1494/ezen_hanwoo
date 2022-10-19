@@ -44,7 +44,7 @@
 	 	<td>${ dto.product_category }</td>
 	 	<td>${ dto.product_name }</td>
 	 	<td>${ dto.product_price }</td>
-	 	<td> <input type="button" value="수정" onclick="location.href='/admin/item_revise?product_idx=${ dto.product_idx}'" ></td>
+	 	<td> <input id="reviseBtn" type="button" value="수정" onclick="location.href='/admin/item_revise?product_idx=${ dto.product_idx}'" ></td>
 	 </tr>
 	
 	 </table>
@@ -59,7 +59,7 @@
 	 
 	 <tr>
 	 	<td> <img src=${dto.product_image } alt="업로드된 이미지" /> </td> 
-	 	<td id="text_td"> <img src=${dto.product_explanation } alt="업로드된 이미지" /> </td>
+	 	<td id="text_td"> <img src=${dto.product_image_ex } alt="업로드된 이미지" /> </td>
 	 </tr>
 	  	</c:forEach>
 	 </table>

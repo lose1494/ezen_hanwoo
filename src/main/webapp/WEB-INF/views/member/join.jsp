@@ -73,7 +73,7 @@
 </div>
 
 <script>
-	$(function() {
+
 		//주소찾기 
 		function addressAdd() {
 			new daum.Postcode(
@@ -92,6 +92,7 @@
 		}
 		
 		//중복확인 
+	$(function() {		
 		var idCheck = false;
 		$("#check_btn").click(function() { //check_btn 클릭 시 실행되는 함수 
 
@@ -125,7 +126,10 @@
 		// 유효성 체크
 		$("#submitBtn").click(function() {
 			if (idCheck) {
-				var data = {}; //
+				
+				var data = {
+						
+				}; //
 				var inputData = document.querySelectorAll(".inputData"); // inputData클래스 전체 선택 == getElementsByClassName
 				try {
 					inputData.forEach(function(item, idx) {            	 // forEach Callback => 변수.forEach(function( element, index) { });
@@ -154,7 +158,10 @@
 							} else if ($(item)[0].name ==="users_address3"){
 								alert("주소를 확인해 주세요.");
 								throw new Error("");
-							}					 
+							} else if ($(item)[0].name ==="users_birth_date"){
+								alert("생년월일을 입력해 주세요.");
+								throw new Error("");
+							}				 
 						} else {
 							if ($(item)[0].name ==="users_id") {
 								data.users_id = $(item)[0].value;
@@ -172,7 +179,9 @@
 								data.users_address2 = $(item)[0].value;
 							} else if ($(item)[0].name ==="users_address3"){
 								data.users_address3 = $(item)[0].value;
-							}	
+							} else if ($(item)[0].name ==="users_birth_date"){
+								data.users_birth_date = $(itme)[0].value;
+							}
 						}
 					});
 					console.log(data);

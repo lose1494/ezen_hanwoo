@@ -36,7 +36,9 @@
 		<th>이름</th>
 		<th>생년월일</th>
 		<th>연락처</th>
-		<th>주소</th>
+		<th>우편번호</th>
+		<th>도로명주소</th>
+		<th>상세주소</th>
 		<th>이메일</th>
 		<th>적릭금</th>
 		<th>가입일</th>
@@ -46,7 +48,9 @@
 		<td>${ dto.users_name }</td>
 		<td><fmt:formatDate value= "${ dto.users_birth_date }" pattern="yyyy/MM/dd" /></td>
 		<td>${ dto.users_phone }</td>
-		<td>${ dto.users_address }</td>
+		<td>${ dto.users_address1 }</td>
+		<td>${ dto.users_address2 }</td>
+		<td>${ dto.users_address3 }</td>
 		<td>${ dto.users_email }</td>
 		<td>${ dto.users_point }</td>
 		<td> <fmt:formatDate value="${dto.users_joindate}" pattern="yyyy/MM/dd" /> </td>
@@ -55,6 +59,8 @@
 	</c:forEach>
 	</table>
 	</form>
+	
+	<button id="listBtn" onclick="location.href='/admin/admin_main'">목록</button>
 	
 
 </div>	

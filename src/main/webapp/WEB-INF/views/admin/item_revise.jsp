@@ -3,12 +3,11 @@
     
 <link rel="stylesheet" href="/css/admin/item_revise.css">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <div class= "bg_admin text-center">
 <div>
 	<p id="title">관리자 페이지</p>
 	<img src="/img/admin/background.png" style="width: 100%; height: 100%;">
-	<p id="title1">>관리자페이지>상품관리>상품 정보 수정</p>
+	<p id="title1">>관리자페이지>상품관리>상품 상세 조회</p>
 	</div>
 </div> 
 
@@ -30,42 +29,48 @@
 	
 	<div class="admin_div">
 	
-<form action="item_revise_Action" method="post" name="item_revise" >
+<form action="reviseAction" method="post" >
 	 <table class="member_table" >
 	 <tr>
 	 	<th>상품코드</th>
 	 	<th>카테고리</th>
-
+	 	<th>상품명</th>
+	 	<th>상품가격</th>
 	 </tr>
-
+	 	<c:forEach var="dto" items= "${ item_detail }" varStatus="status">
 	 <tr>
-	 	<td>${dto.product_idx }</td>
-	 	<td> <select class="item_select">
-	 		<option>선물세트</option>
-	 		<option>구이용</option>
-	 		<option>국거리</option>
-	 		<option>조리용</option>
+	 	<td> <input type="text" value="${ dto.product_idx }" name="product_idx"></td>
+	 	<td> <select id="productCategory">
+	 		<option value="category">선물세트</option>
+	 		<option value="category">구이용</option>
+	 		<option value="category">국거리</option>
+	 		<option value="category">조리용</option>
 	 		 </select> </td>
-	 	
+	 	<td> <input type="text" value="${ dto.product_name }" name="product_name"></td>
+	 	<td> <input type="text" value="${ dto.product_price }" name="product_price"></td>
 	 </tr>
+
+	 
 	 <tr>
-		 <th>상품명</th>
-		 <th>상품가격</th>
+		<th>이미지  </th>
+	 	<th>상세설명</th>
 	 </tr>
 	 
 	 <tr>
-	 	<td> <input type="text" class="input_text" name="product_name" id="product_name" value="${ dto.product_name }"> </td>
-	 	<td> <input type="text" class="input_text" name="product_price" id="product_price" value="${ dto.product_price }" > </td>
+	 	<td> <img src=${dto.product_image } alt="업로드된 이미지" /> </td> 
+	 	<td id="text_td"> <img src=${dto.product_image_ex } alt="업로드된 이미지" /> </td>
 	 </tr>
-	  </table>
-
-	  
-	   <div class="confirm_bar">
-	 	<input type="submit" value="확인" id="confirm" class="item_btn" >
+	  	</c:forEach>
+	</table>
+	 <div class="confirm_bar">
+	 	<input type="submit" value="확인" id="confirm">
 	</div>
-</form>
-	
-	
+
+	</form>
 
 	 </div>
 </div>	
+
+<script>
+
+</script>
