@@ -577,8 +577,11 @@ public class MyController_yerin {
 	@RequestMapping("/customer/one2oneView")
 	public String one2oneView(@RequestParam("one2one_idx") int one2one_idx,
 							Model model) {
+	    
 		One2oneDto dto = one2oneService.one2oneDetail(one2one_idx);
+		One2one_answerDto answer = answerService.one2oneAnswer(one2one_idx);
 		model.addAttribute("dto", dto);
+		model.addAttribute("answer", answer);
 		model.addAttribute("mainPage", "customer/one2one_view.jsp");
 		
 		return "index";
