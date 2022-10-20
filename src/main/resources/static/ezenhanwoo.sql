@@ -26,6 +26,8 @@ values(ezen_users_seq.nextval, 'remi6513',1234,'최이안','remi6513@naver.com',
 
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
 VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
+VALUES (ezen_users_seq.nextval, 'admin', '1111', '테스트');
 
 select * from ezen_users;
 
@@ -217,15 +219,18 @@ create table one2one(
 );
 drop sequence one2one_seq;
 create sequence one2one_seq;
+
+insert into one2one
+values(one2one_seq.nextval, 'hong', '문의 테스트', '1:1 문의 테스트', null, null, null, sysdate, '답변대기중');
+commit;
 --1:1문의 답변
 drop table one2one_answer;
 create table one2one_answer(
     answer_idx number(4) primary key,
     answer_id varchar2(20),
-    answer_title varchar2(20),
     answer_content varchar2(300),
     answer_date date,
-    one2one_answer_idx number(4)
+    one2one_idx number(4) unique
 );
 drop sequence one2one_answer_seq;
 create sequence one2one_answer_seq;

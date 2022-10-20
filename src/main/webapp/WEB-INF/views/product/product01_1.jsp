@@ -134,7 +134,7 @@
             </div>
             <div class="reviewSearch">
                 <form name="search">
-                    <input type="hidden" name="product_idx" value="${ dto.product_idx}">
+                    <input type="hidden" name="product_idx" value="${ dto.product_idx }">
                     <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_date#productReview">최신순</a>
                     <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_star_rating#productReview">평점순</a>
                     <span><input type="text" name="word" placeholder="키워드 검색"><button onclick="getSearchList()"><img src="/img/product/icon2.png" alt=""></button></span>  

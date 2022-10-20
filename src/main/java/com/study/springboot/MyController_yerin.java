@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.study.springboot.dto.One2oneDto;
+import com.study.springboot.dto.One2one_answerDto;
 import com.study.springboot.dto.PointDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
@@ -23,6 +24,7 @@ import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.One2oneService;
+import com.study.springboot.service.One2one_answerService;
 import com.study.springboot.service.PointService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
@@ -41,6 +43,7 @@ public class MyController_yerin {
 	@Autowired private Product_qnaService qnaService;
 	@Autowired private ReviewService reviewService;
 	@Autowired private ProductService productService;
+	@Autowired private One2one_answerService answerService;
 	
 	int num_page_size = 5;
 	
@@ -112,7 +115,7 @@ public class MyController_yerin {
 			Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		
-		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id, page, num_page_size);
+		List<One2one_answerDto> one2oneList = answerService.one2oneList(users_id, page, num_page_size);
 		int one2oneCount = one2oneService.one2oneCount(users_id);
 		int pageNum = (int)Math.ceil((double)one2oneCount/num_page_size);
 		
@@ -544,8 +547,8 @@ public class MyController_yerin {
 		 dto.setOne2one_email(one2one_email);
 		 dto.setOne2one_phone(one2one_phone);
 		 
-		 if( file.getOriginalFilename() != null ) {
-			 String image = reviewService.restore(file, one2one_id);
+		 if( file.getOriginalFilename() != "" ) {
+			 String image = one2oneService.restore(file, one2one_id);
 		 	 System.out.println(image);
 		 	if( image != null ) {
 				if( image.length() > 0 ) {
@@ -628,9 +631,10 @@ public class MyController_yerin {
                 System.out.println("alert:" + "관리자로그인되었습니다.");
                 
                 request.getSession().setAttribute("alert", "관리자로그인되었습니다.");
+                request.getSession().setAttribute("url", "/admin/admin_main");
                 request.getSession().setAttribute("users_id", users_id);
                 
-                return "redirect:/admin/admin_main";
+                return "alert";
             }
 			System.out.println("alert:" + "로그인되었습니다.");
 			request.getSession().setAttribute("alert", "로그인되었습니다.");

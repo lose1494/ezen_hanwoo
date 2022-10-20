@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/css/common.css">
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="event.js"></script>
+<!-- <script type="text/javascript" src="event.js"></script> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -107,7 +107,7 @@
 					}
 				}).open();
 	}
-	$(function() {
+	// $(function() {
 		
 		//중복확인 
 	$(function() {		
@@ -144,7 +144,6 @@
 		// 유효성 체크
 		$("#submitBtn").click(function() {
 			if (idCheck) {
-				
 				var data = {
 						
 				}; //
@@ -198,7 +197,8 @@
 							} else if ($(item)[0].name ==="users_address3"){
 								data.users_address3 = $(item)[0].value;
 							} else if ($(item)[0].name ==="users_birth_date"){
-								data.users_birth_date = $(itme)[0].value;
+								data.users_birth_date = $(item)[0].value;
+
 							}
 						}
 					});

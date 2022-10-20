@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springboot.dto.CartProductDto;
-import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.FaqDto;
 import com.study.springboot.dto.NoticeDto;
+import com.study.springboot.dto.One2oneDto;
+import com.study.springboot.dto.One2one_answerDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.ReviewDto;
@@ -25,6 +26,8 @@ import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.FaqService;
 import com.study.springboot.service.NoticeService;
+import com.study.springboot.service.One2oneService;
+import com.study.springboot.service.One2one_answerService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
 import com.study.springboot.service.ReviewService;
@@ -46,6 +49,10 @@ public class MyController_ian {
     private ReviewService reviewService;
 	@Autowired
 	private FaqService faqService;
+	@Autowired
+    private One2oneService one2oneService;
+	@Autowired
+    private One2one_answerService answerService;
 	
 	int num_page_size = 5;
     
@@ -388,10 +395,79 @@ public class MyController_ian {
     }
     // 1:1문의
     @RequestMapping("/admin/admin_one2one")
-    public String admin_one2one(Model model) {
+    public String admin_one2one(@RequestParam(value="page",defaultValue="1") String page,
+            HttpServletRequest request, Model model) {
+        String users_id = (String) request.getSession().getAttribute("users_id");
+        
+        List<One2one_answerDto> one2oneList = answerService.one2oneList(users_id, page, num_page_size);
+        int one2oneCount = one2oneService.one2oneCount(users_id);
+        int pageNum = (int)Math.ceil((double)one2oneCount/num_page_size);
+        
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("one2oneList", one2oneList);
         model.addAttribute("mainPage", "admin/admin_one2one.jsp");
+
         return "index";
     }
+    
+    @RequestMapping("/admin/answerWrite")
+    @ResponseBody
+    public int answerWrite(@RequestParam("one2one_idx") int one2one_idx,
+                              @RequestParam("answer_content") String answer_content,
+                              One2one_answerDto dto, One2oneDto one,
+                              HttpServletRequest request, Model model ) {
+        System.out.println(one2one_idx);
+        String answer_id = (String) request.getSession().getAttribute("users_id");
+        dto.setAnswer_id(answer_id);
+        dto.setAnswer_content(answer_content);
+        dto.setOne2one_idx(one2one_idx);        
+        
+        int result = answerService.insertAnswer(dto);
+        
+        if( result == 1 ) {
+            one.setOne2one_status("답변완료");
+            one.setOne2one_idx(one2one_idx);
+            int updateStatus = one2oneService.updateStatus(one);
+        }
+        
+        return result;
+    }
+    
+    @RequestMapping("/admin/answerUpdate")
+    @ResponseBody
+    public int answerUpdate(@RequestParam("answer_idx") int answer_idx,
+                            @RequestParam("answer_content") String answer_content,
+                            One2one_answerDto dto, 
+                            HttpServletRequest request, Model model ) {
+
+        dto.setAnswer_content(answer_content);
+        dto.setOne2one_idx(answer_idx);        
+        
+        int result = answerService.updateAnswer(dto);
+   
+        
+        return result;
+    }
+    
+    @RequestMapping("/admin/answerDelete")
+    @ResponseBody
+    public int answerDelete(@RequestParam("one2one_idx") int one2one_idx,
+                            @RequestParam("answer_idx") int answer_idx,
+                            One2oneDto one,
+                            HttpServletRequest request, Model model ) {
+
+        int result = answerService.deleteAnswer(answer_idx);
+        
+        if( result == 1 ) {
+            one.setOne2one_status("답변 대기중");
+            one.setOne2one_idx(one2one_idx);
+            int updateStatus = one2oneService.updateStatus(one);
+        }
+        
+        return result;
+    }
+    
     // 자주하는 질문
     @RequestMapping("/admin/admin_faq")
     public String admin_faq(Model model) {
