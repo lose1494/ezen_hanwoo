@@ -92,11 +92,13 @@
   max-width: 300px;
   transition:all .5s ease;
 }
+
 .product_img:hover{
 	-ms-transform:scale(1.02,1.02);
-	 -webkit-transform:scale(1.02,1.02);
-	  transform:scale(1.02,1.02);
+  -webkit-transform:scale(1.02,1.02);
+  transform:scale(1.02,1.02);
 }
+
 .best1:hover .product_img {
   opacity: 0.3;
 }
@@ -104,12 +106,15 @@
 .best1:hover .middle {
   opacity:1;
 }
+
 .best1 p, .best1 h3{
   margin: 10px 0;
 }
+
 .mon {
   color: #F35958;
 }
+
 .middle {
   transition: 0.5s ease;
   opacity: 0;
@@ -119,11 +124,13 @@
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
+
 .text {
   color:black;
   display:flex;
   justify-content: space-around; 
 }
+
 .icon_img1{
   width: 	40px;
 }

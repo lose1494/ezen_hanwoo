@@ -64,7 +64,7 @@
           </tr>
           <tr>
             <td colspan="2">
-              <button onclick="test()">주문하기</button>
+              <button onclick="check_order()">주문하기</button>
             </td>
             <td></td>
           </tr>
@@ -142,18 +142,6 @@
             }
         })
     }
-
-	function test() {
-		var arr = new Array();
-		console.log('afds');
-		$('input[name=buy_check]').each(function(index, item) {
-			if($(this).is(':checked')) {
-				console.log($(this).val());
-				arr.push($(this).val());
-			}
-		})
-		console.log(arr);
-	}
    
 	function update_Cart_count(e){
 		
@@ -323,6 +311,19 @@
 			document.getElementById("order_price3").innerText = "0" + "원";
 		}
 		
+	}
+
+	
+	function check_order() {
+		var arr = new Array();
+		console.log('afds');
+		$('input[name=buy_check]').each(function(index, item) {
+			if($(this).is(':checked')) {
+				console.log($(this).val());
+				arr.push($(this).val());
+			}
+		})
+		console.log(arr);
 	}
   </script>
   
