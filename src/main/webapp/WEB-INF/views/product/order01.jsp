@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <link rel="stylesheet" href="/css/product/order.css">
 <link rel="stylesheet" href="/css/common.css">
@@ -16,22 +18,25 @@
                     <td>상품명</td>
                     <td>가격</td>
                     <td>수량</td>
-                   <!--  <td>추가금액</td> -->
                     <td>총금액</td>
                     <td>적립금</td>
                     <td>삭제/관심상품</td>
                 </tr>
-                <tr>
-                    <td><img src="https://via.placeholder.com/80" alt=""></td>
-                    <td>${ product.product_name }</td>
-                    <td>00,000원</td>
-                    <td>1</td>
-                  <!--   <td>0원</td> -->
-                    <td>00,000원</td>
-                    <td>0원</td>
-                    <td class="icon"><img src="../img/product/free-icon-cross-mark-8369334.png" alt="">
-                        <img src="../img/product/heart.png" alt=""></td>
-                </tr>
+                <c:forEach var="pro" items="${ orderList }">
+                    <tr>
+                        <td><img src="${ pro.product_image }" alt=""></td>
+                        <td>${ pro.product_name }</td>
+                        <td>${ pro.product_price }원</td>
+                        <td>${ pro.cart_count }</td>
+                        <fmt:parseNumber value = "${ pro.product_price }"  var = "num" integerOnly="true" />
+						<fmt:formatNumber value="${ num * pro.cart_count }" type="number" var="price" />
+                        <fmt:formatNumber value="${ num * pro.cart_count / 100 }" type="number" var="point" />
+                        <td class="price">${ price }원</td>
+                        <td>${ point }원</td>
+                        <td class="icon"><img src="/img/mypage/x.png" alt="">
+                            <img src="/img/mypage/heart.png" alt=""></td>
+                    </tr>
+                </c:forEach>
             </table>
        </div>
        <div class="flexDiv">
@@ -44,7 +49,7 @@
                     </tr>
                     <tr>
                         <th>휴대전화번호</th>
-                        <td>010-0000-0000</td>
+                        <td>${ user.users_phone }</td>
                     </tr>
                 </table>
                 <div class="tableName">배송지 정보</div>
@@ -84,7 +89,7 @@
                     <table>
                         <tr>
                             <td>보유</td>
-                            <td id="userPoint">3,000 원</td>
+                            <td id="userPoint">${ user.users_point } 원</td>
                             <td></td>
                         </tr>
                         <tr>
@@ -100,7 +105,7 @@
                 <table id="paymentTable">
                     <tr>
                         <td>상품 합계 금액</td>
-                        <td>10,000 원</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>배송료</td>
@@ -112,7 +117,7 @@
                     </tr>
                     <tr>
                         <td>총 결제 금액</td>
-                        <td>13,000원</td>
+                        <td></td>
                     </tr>
                 </table>
                 <div class="tableName">결제 수단</div>
@@ -134,6 +139,48 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <script>
+        //전화번호 하이픈, 합계 금액, 총 결제 금액
+        function hyphen(number) {
+           return number.replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/\-{1,2}$/g, "");
+        }
+
+        $(function() {
+            var phone = hyphen('${ user.users_phone }');
+            $('.orderTable > table tr:eq(1) td').text(phone);
+            
+            var sumPrice = 0;
+            
+            $('.price').each(function() {
+               sumPrice += stringNumberToInt($(this).text());
+            });
+            $('#paymentTable tr:eq(0) td:eq(1)').text(sumPrice.toLocaleString()+"원");
+
+            var totalPrice = 0;
+
+            for( var i=0; i<2; i++) {
+                totalPrice += stringNumberToInt($("#paymentTable").find("tr").eq(i).find("td:eq(1)").text());
+            };
+            totalPrice -= stringNumberToInt($('#outputPoint').val());
+            console.log($("#paymentTable tr:eq(3) > td:eq(1)").text());
+            $("#paymentTable tr:eq(3) > td:eq(1)").text(totalPrice.toLocaleString()+'원');
+        });
+
+        //배송지 선택
+        $('input[name=address]').click(function() {
+            console.log($(this).val());
+            if($(this).val() == 'default') {
+                $('.orderTable input[name=name]').val('${user.users_name}');
+                $('.orderTable input[name=phone]').val('${user.users_phone}');
+                $('.orderTable input[name=address1]').val('${user.users_address1}');
+                $('.orderTable input[name=address2]').val('${user.users_address2}');
+                $('.orderTable input[name=address3]').val('${user.users_address3}');
+            }else if ($(this).val() == 'new') {
+                for(var i=0; i<$('.orderTable input[type=text]').length-1; i++) {
+                    $<$('.orderTable input[type=text]').eq(i).removeAttr('value');
+                }
+            }
+        })
+
         //콤마 지우고 숫자형으로 바꿈
         function stringNumberToInt(string) {
             return parseInt(string.replace(/,/g , ''));
@@ -201,7 +248,7 @@
 
         function check() {
             if($('input[type=checkbox]').is(':checked') ) {                
-                location.href='../product/order02';
+                location.href='/product/order02';
             }else {
                 alert("구매진행에 동의해주세요.");
             }

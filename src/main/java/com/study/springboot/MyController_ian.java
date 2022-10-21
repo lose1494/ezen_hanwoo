@@ -1,4 +1,5 @@
 package com.study.springboot;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -574,7 +575,39 @@ public class MyController_ian {
 	 * cartList; }
 	 */
 	
-	
+	@RequestMapping("/mypage/cartOrder")
+	public String cartOrder(@RequestParam("checkList") String checkIdx,
+	        HttpServletRequest request, Model model) {
+	    String check[] = checkIdx.split(",");
+	    for(int i=0; i<check.length; i++) {
+	        System.out.println(check[i]);
+	    }
+	    
+	    String users_id = (String)request.getSession().getAttribute("users_id");
+	    List<CartProductDto> cartList = cartService.cartList(users_id);
+	    List<CartProductDto> orderList = new ArrayList<CartProductDto>();
+	    for(int i=0; i<cartList.size(); i++) {
+	        for(int j=0; j<check.length; j++) {
+	            if( cartList.get(i).getProduct_idx() == Integer.valueOf(check[j]) ) {
+	                orderList.add(cartList.get(i));
+	            }
+	        }
+	       
+	    }
+        if(users_id == null) {
+            request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+            request.setAttribute("url", "/member/login");
+            return "alert";
+        } else {
+            
+            UsersDto user = usersService.userDetail(users_id);
+            
+            model.addAttribute("user", user);
+            model.addAttribute("orderList", orderList);
+            model.addAttribute("mainPage", "product/order01.jsp");
+            return "index";
+        }
+	}
 	
 	
 }

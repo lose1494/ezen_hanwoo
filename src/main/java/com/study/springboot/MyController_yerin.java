@@ -1,6 +1,7 @@
 package com.study.springboot;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.One2one_answerDto;
@@ -466,20 +468,16 @@ public class MyController_yerin {
 		return qnaDetail;
 	}
 	
-	//바로구매
-	/*
-	 * @RequestMapping("/product/order") public String
-	 * order01(@RequestParam("product_idx") int product_idx, Model model,
-	 * HttpServletRequest request) { System.out.println(product_idx);
-	 * 
-	 * }
-	 */
 	
 	//주문
 	@RequestMapping("/product/order01")
 	public String order01(
 			Model model, HttpServletRequest request) {
 		
+	    Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
+	    
+//	    List<CartProductDto> orderList = (List<CartProductDto>)flashMap.get("orderList");
+//	    System.out.println(orderList);
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		if(users_id == null) {
 			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
@@ -490,6 +488,7 @@ public class MyController_yerin {
 			UsersDto user = usersService.userDetail(users_id);
 			
 			model.addAttribute("user", user);
+//			model.addAttribute("orderList", orderList);
 			model.addAttribute("mainPage", "product/order01.jsp");
 			return "index";
 		}

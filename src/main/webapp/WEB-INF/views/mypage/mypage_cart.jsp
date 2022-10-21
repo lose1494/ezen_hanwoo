@@ -21,7 +21,6 @@
           <th>적립금</th>
           <th>삭제/관심상품</th>
         </tr>
-       
        <!--  <tr>
         
           <td><input type="checkbox" /></td>
@@ -64,7 +63,10 @@
           </tr>
           <tr>
             <td colspan="2">
-              <button onclick="check_order()">주문하기</button>
+				<form class="checkForm" method="post">
+					<input type="hidden" name="checkList">
+              		<button type="button" onclick="check_order()">주문하기</button>
+				</form>
             </td>
             <td></td>
           </tr>
@@ -313,17 +315,36 @@
 		
 	}
 
+	// function delete_Cart_tableall(){
+	// 	$.ajax({
+	// 		url : "/mypage/cart_deleteall",
+	// 		data :{
+	// 			users_id : "1"
+	// 		},
+	// 			method : "GET",
+	// 			dataType : "json",
+				
+	// 				success: function (data) {
+						
+	// 				}
+	// 	})
+	// 	alert("삭제했습니다.");	
+	// 	location.reload();
 	
+	// }
 	function check_order() {
 		var arr = new Array();
-		console.log('afds');
 		$('input[name=buy_check]').each(function(index, item) {
 			if($(this).is(':checked')) {
 				console.log($(this).val());
 				arr.push($(this).val());
 			}
-		})
-		console.log(arr);
+			console.log(arr);			
+		});
+		$('input[name=checkList]').val(arr);
+		console.log($('input[name=checkList]').val());
+		$('.checkForm').attr('action','/mypage/cartOrder');
+		$('.checkForm').submit();
 	}
+
   </script>
-  

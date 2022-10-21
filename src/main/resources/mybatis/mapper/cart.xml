@@ -21,7 +21,7 @@
    left outer join product B 
    on
    A.product_idx = B.product_idx
-   where A.users_id = #{param1};
+   where A.users_id = #{param1}
 	</select>
 	
 	<select id="cartCount" resultType="_int">
