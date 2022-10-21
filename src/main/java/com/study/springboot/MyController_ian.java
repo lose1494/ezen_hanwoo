@@ -89,20 +89,27 @@ public class MyController_ian {
     
     // 이용자 공지사항
     @RequestMapping("/Notice/notice")
-    public String notice(@RequestParam(value="search_type",required=false) String search_type, 
+    public String notice(@RequestParam(value="page", defaultValue="1") String page,
+                         @RequestParam(value="search_type",defaultValue="notice_title") String search_type, 
                          @RequestParam(value="search_contents",required=false) String search_contents,
                          Model model) {
         
-        int notice_count = noticeService.notice_count();
-        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
+        int notice_count = noticeService.notice_count(search_type, search_contents);
+        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list(page, num_page_size);
         List<NoticeDto> searchResult;
+        int pageNum = (int)Math.ceil((double)notice_count/num_page_size);
        
         if(search_type != null) {
-            searchResult = noticeService.searchResult(search_type, search_contents);
+            searchResult = noticeService.searchResult(search_type, search_contents, page, num_page_size);
             model.addAttribute("admin_notice_list", searchResult);
         }else {
             model.addAttribute("admin_notice_list", admin_notice_list);
         }
+        
+        model.addAttribute("type", search_type);
+        model.addAttribute("word", search_contents);
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
         model.addAttribute("notice_count", notice_count);
         model.addAttribute("mainPage", "notice/notice.jsp");
         return "index";
@@ -495,9 +502,16 @@ public class MyController_ian {
     }
     @RequestMapping("/mypage/mypage_cart")
     public String mypage_cart ( 
-            Model model) {
+            Model model, HttpServletRequest request) {
+        String users_id = (String) request.getSession().getAttribute("users_id");
+        if(users_id == null) {
+            request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+            request.setAttribute("url", "/member/login");
+            return "alert";
+        } else {
         model.addAttribute("mainPage","mypage/mypage_cart.jsp");
         return "index";
+        }
     }
     
     @GetMapping("/mypage/get_cart_list")
@@ -514,6 +528,7 @@ public class MyController_ian {
                              @RequestParam ("cart_product_name") String cart_product_name,
                              @RequestParam ("product_idx") int product_idx,
                              HttpServletRequest request) {
+        System.out.println(cart_count);
         CartProductDto cartdto = new CartProductDto();
         String users_id = (String)request.getSession().getAttribute("users_id");
         cartdto.setCart_count(cart_count);

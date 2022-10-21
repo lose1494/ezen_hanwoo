@@ -64,7 +64,7 @@
           </tr>
           <tr>
             <td colspan="2">
-              <button>주문하기</button>
+              <button onclick="test()">주문하기</button>
             </td>
             <td></td>
           </tr>
@@ -98,7 +98,6 @@
     
    $(document).ready(function() {
            a();
-           console.log("a는 실행되었습니다");
    }); 
    
     function a() {
@@ -110,8 +109,6 @@
             success: function (data) {
             	
             	
-            	  
-                console.log(data);
                 let htmls = "";
                 const dataLen = data.length;
                 const target = document.getElementById("cart_table");
@@ -135,7 +132,6 @@
                          +'<td><button onclick="delete_Cart_table(this)" idx="'+ i +'"><img src="/img/mypage/x.png" style="width:30px;"></button><img src="/img/mypage/heart.png" style="width:25px;"></td>'
                          +'</tr>'
                         
-                         console.log(htmls);
                 }
                 
                 target.insertAdjacentHTML('beforeend', htmls)
@@ -146,14 +142,24 @@
             }
         })
     }
+
+	function test() {
+		var arr = new Array();
+		console.log('afds');
+		$('input[name=buy_check]').each(function(index, item) {
+			if($(this).is(':checked')) {
+				console.log($(this).val());
+				arr.push($(this).val());
+			}
+		})
+		console.log(arr);
+	}
    
 	function update_Cart_count(e){
 		
 		const idx = e.getAttribute('idx')
 		const pdx = document.getElementById("product_name" + idx).getAttribute('value') 
-		console.log(e)
-		console.log(pdx)
-		
+
 		$.ajax({
 			url: "/mypage/cart_Update",
 			data :{ cart_count : parseInt( $("#count_input" + idx).val()),
@@ -247,7 +253,6 @@
         var total2 = 0;
 		
 		var chks = document.getElementsByName("buy_check");
-		console.log(bool);
 		
 		for(var i = 0; i < chks.length; i++){
 			chks[i].checked = bool;
@@ -257,12 +262,11 @@
 			const pdx = document.getElementById("product_price" + idx).getAttribute('value')
 			const cot = document.getElementById("count_input" + idx).getAttribute('value')
 			const cup = "5,000"
-			console.log(pdx);
-			console.log(cot);
+
 			console.log(document.getElementById("product_price" + idx).getAttribute('value'));
 			ca = stringNumberToInt(pdx) * (cot);
 			cpa = stringNumberToInt(cup);
-			console.log(ca);
+
 	         total += ca;
 	         total2 = total + cpa;
 	       
@@ -271,10 +275,10 @@
 				document.getElementById("order_price").innerText = total.toLocaleString() + "원";
 				document.getElementById("order_price2").innerText = cpa.toLocaleString() + "원";
 				document.getElementById("order_price3").innerText = total2.toLocaleString() + "원";
-				console.log("22222222");
+
 		         }
 		  else{
-		        	 console.log("11111111");
+
 		        	 document.getElementById("order_price").innerText = "0" + "원";
 		 			document.getElementById("order_price2").innerText = "0" + "원";
 		 			document.getElementById("order_price3").innerText = "0" + "원";
@@ -298,22 +302,21 @@
 		const pdx = document.getElementById("product_price" + idx).getAttribute('value')	
 		const cot = document.getElementById("count_input" + idx).getAttribute('value')
 		const cup = "5,000"
-		console.log(pdx);
-		console.log(cot);
+
 		console.log(document.getElementById("product_price" + idx).getAttribute('value'));
 		ca = stringNumberToInt(pdx) * (cot);
 		cpa = stringNumberToInt(cup);
-		console.log(ca);
+
          total += ca;
          total2 = total + cpa;
-		console.log(cup);
+
       	  }
 		if(checkboxs.length > 0 ){
-			console.log("1122");
+
 			document.getElementById("order_price").innerText = total.toLocaleString() + "원";
 			document.getElementById("order_price2").innerText = cpa.toLocaleString() + "원";
 			document.getElementById("order_price3").innerText = total2.toLocaleString() + "원";
-			console.log("112233");
+
 		}else{
 			document.getElementById("order_price").innerText = "0" + "원";
 			document.getElementById("order_price2").innerText = "0" + "원";

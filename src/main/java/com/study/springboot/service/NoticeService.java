@@ -15,13 +15,18 @@ public class NoticeService {
 	@Autowired
 	INoticeDao noticedao;
 
-	public List<NoticeDto> admin_notice_list() {
-		List<NoticeDto> admin_notice_list = noticedao.admin_notice_list();
+	public List<NoticeDto> admin_notice_list( String page, int num_page_size ) {
+	    
+	    int num_page_no = Integer.parseInt( page );
+        int startRowNum = (num_page_no - 1) * num_page_size + 1;
+        int endRowNum = (num_page_no * num_page_size);
+        
+		List<NoticeDto> admin_notice_list = noticedao.admin_notice_list(startRowNum, endRowNum);
 		return admin_notice_list;
 	}
 
-	public int notice_count() {
-		int notice_count = noticedao.notice_count();
+	public int notice_count(String search_type, String search_contents) {
+		int notice_count = noticedao.notice_count(search_type, search_contents);
 		return notice_count;
 	}
 
@@ -35,8 +40,14 @@ public class NoticeService {
 	}
 
 
-    public List<NoticeDto> searchResult(String search_type, String search_contents) {
-        List<NoticeDto> searchResult = noticedao.searchResult(search_type, search_contents);
+    public List<NoticeDto> searchResult(String search_type, String search_contents, 
+            String page, int num_page_size) {
+        
+        int num_page_no = Integer.parseInt( page );
+        int startRowNum = (num_page_no - 1) * num_page_size + 1;
+        int endRowNum = (num_page_no * num_page_size);
+        
+        List<NoticeDto> searchResult = noticedao.searchResult(search_type, search_contents, startRowNum, endRowNum);
         return searchResult;
     }
 

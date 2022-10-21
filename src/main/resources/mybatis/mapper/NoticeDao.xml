@@ -12,11 +12,11 @@
 	</select>
 	
 	<select id="updatelist" resultType="com.study.springboot.dto.NoticeDto">
-		select * from notice
+		select * from notice 
 		WHERE notice_idx = #{param1}
 	</select>
 	<select id="admin_notice_list" resultType="com.study.springboot.dto.NoticeDto">
-		select * from Notice
+		select rownum, Notice.* from Notice where rownum between #{param1} and #{param2}
 	</select>
 
 	<insert id="notice_write" parameterType="com.study.springboot.dto.NoticeDto">
@@ -25,7 +25,7 @@
 	 </insert>
 	 
 	 <select id="notice_count" resultType="_int">
-	 	select count(*) from Notice
+	 	select count(*) from Notice where ${param1} like '%${param2}%'
 	 </select>
 	 
 	 <select id="notice_detail" resultType="com.study.springboot.dto.NoticeDto">
@@ -38,7 +38,8 @@
 	</insert>
 	
 	<select id="searchResult" resultType="com.study.springboot.dto.NoticeDto">
-		select * from Notice where ${param1} like '%'||#{param2}||'%'
+		select rownum, Notice.* from Notice where ${param1} like '%'||#{param2}||'%'
+		and rownum between #{param3} and #{param4}
 	</select>
 	
 	<update id="noticeupdate" parameterType="com.study.springboot.dto.NoticeDto">
@@ -47,4 +48,5 @@
    	notice_content = #{param3}
 	WHERE notice_idx = #{param1}
 	</update>
+	
 </mapper>

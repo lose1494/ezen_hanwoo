@@ -11,10 +11,10 @@
     
     <div class="wrap">
 
-    	<p class="title_tag">공지사항</p>
+    	<h2 class="title_tag">공지사항</h2>
 
 		<span>공지 ${ notice_count }건</span>
-	    <form action="notice_Action" method="get" name="searchType">
+	    <form action="notice" method="get" name="searchType">
 	    <table  class="Notice_table" >
 	        <thead>
 	        <tr class="Notice_tr1">
@@ -38,8 +38,8 @@
 
     	<div class="search">
 	         <select name="search_type" id="select1">
-	            <option value="title">제목</option>
-	            <option value="content">내용</option>
+	            <option value="notice_title">제목</option>
+	            <option value="notice_content">내용</option>
 	         </select>
 
          	<input type="text" placeholder="검색어를 입력하세요." id="search_contents" name="search_contents">
@@ -48,13 +48,30 @@
   		</div>
   </form>
   		<div class="pageNav">
-            <a href="#">처음</a>
-            <a href="#">이전</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">다음</a>
-            <a href="#">마지막</a>
+            <a href="/Notice/notice?search_type=${type}&search_contents=${word}&page=1">처음</a>
+            <a href="/Notice/notice?search_type=${type}&search_contents=${word}&page=${ page-1 }">이전</a>
+			<c:forEach var="pageNum" begin="1" end="${pageNum}">
+            <a href="/Notice/notice?search_type=${type}&search_contents=${word}&page=${pageNum}">${pageNum}</a>
+			</c:forEach>
+            <a href="/Notice/notice?search_type=${type}&search_contents=${word}&page=${ page+1 }">다음</a>
+            <a href="/Notice/notice?search_type=${type}&search_contents=${word}&page=${pageNum}">마지막</a>
         </div>
 
 	</div>
+
+<script>
+	$(function() {
+            $('.pageNav a').each(function() {
+            	console.log($(this).text());
+            	if($(this).text() == '이전' && "${page}" == 1) {
+            		$(this).removeAttr('href');
+            	}
+            	if($(this).text() == '다음' && "${page}" == "${pageNum}") {
+            		$(this).removeAttr('href');
+            	}
+                if($(this).text() == "${ page }" ) {
+                    $(this).removeAttr('href');
+                }
+            })
+	})
+</script>	
