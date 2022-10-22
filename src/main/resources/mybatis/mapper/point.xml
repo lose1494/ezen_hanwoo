@@ -35,19 +35,5 @@
 	  WHERE point_users_id=#{ param1 }
 	</delete>
 	
-<!-- 	<update id="userPoint">
-	  UPDATE ezen_users user
-		SET
-    user = (SELECT sum(B.point_point) FROM point B WHERE user.users_id = B.point_users_id)
-WHERE EXISTS (
-    SELECT
-        0
-    FROM
-        point B
-    WHERE
-        user.users_id = B.point_users_id
-    )
-	;
-	</update> -->
 	
 </mapper>

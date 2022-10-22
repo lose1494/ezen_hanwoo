@@ -25,7 +25,7 @@
                 <c:forEach var="pro" items="${ orderList }">
                     <tr>
                         <td><img src="${ pro.product_image }" alt=""></td>
-                        <td>${ pro.product_name }</td>
+                        <td class="proName">${ pro.product_name }</td>
                         <td>${ pro.product_price }원</td>
                         <td>${ pro.cart_count }</td>
                         <fmt:parseNumber value = "${ pro.product_price }"  var = "num" integerOnly="true" />
@@ -117,14 +117,14 @@
                     </tr>
                     <tr>
                         <td>총 결제 금액</td>
-                        <td></td>
+                        <td class="total"></td>
                     </tr>
                 </table>
                 <div class="tableName">결제 수단</div>
                 <table>
-                    <tr><td><input type="radio" name="paymentMethod" id=""> 신용카드</td></tr>
-                    <tr><td><input type="radio" name="paymentMethod" id=""> 계좌이체</td></tr>
-                    <tr><td><input type="radio" name="paymentMethod" id=""> 가상계좌</td></tr>
+                    <tr><td><input type="radio" name="paymentMethod" value="card"> 신용카드</td></tr>
+                    <tr><td><input type="radio" name="paymentMethod" value="trans"> 계좌이체</td></tr>
+                    <tr><td><input type="radio" name="paymentMethod" value="vbank"> 가상계좌</td></tr>
                 </table>
                 <div class="paymentCheck">
                     <input type="checkbox"> <span> 결제 정보를 확인했으며, <br>
@@ -137,7 +137,7 @@
 
 
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script>
         //전화번호 하이픈, 합계 금액, 총 결제 금액
         function hyphen(number) {
@@ -176,7 +176,7 @@
                 $('.orderTable input[name=address3]').val('${user.users_address3}');
             }else if ($(this).val() == 'new') {
                 for(var i=0; i<$('.orderTable input[type=text]').length-1; i++) {
-                    $<$('.orderTable input[type=text]').eq(i).removeAttr('value');
+                    $('.orderTable input[type=text]').eq(i).val('');
                 }
             }
         })
@@ -248,9 +248,68 @@
 
         function check() {
             if($('input[type=checkbox]').is(':checked') ) {                
-                location.href='/product/order02';
+                payment();
             }else {
                 alert("구매진행에 동의해주세요.");
             }
+        }
+
+        //문서가 준비되면 제일 먼저 실행
+        $(document).ready(function(){ 
+            $("#iamportPayment").click(function(){ 
+                payment(); //버튼 클릭하면 호출 
+            }); 
+        })
+
+
+        //버튼 클릭하면 실행
+        function getYyyyMmDdMmSsToString(date)
+        {
+			var dd = date.getDate();
+			var mm = date.getMonth()+1; //January is 0!
+		
+			var yy = date.getYear();
+			if(yy>=100){yy=yy-100} if(yy<10){yy='0'+yy}
+			if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+			
+			yy = yy.toString();
+			mm = mm.toString();
+			dd = dd.toString();
+			
+			var h = date.getHours();
+			var m = date.getMinutes();
+			var s = date.getSeconds();
+
+			if(h<10){h='0'+h} if(m<10){m='0'+m} if(s<10){s='0'+s}
+			h = h.toString();
+			m = m.toString();
+			s = s.toString();
+		
+			var s1 = yy+mm+dd+h+m+s;
+			return s1;
+        }
+
+        function payment(data) {
+            var date = new Date();
+            console.log(getYyyyMmDdMmSsToString(date));
+            let IMP = window.IMP;
+            IMP.init('imp34801804');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+            IMP.request_pay({// param
+                pg: "html5_inicis.INIpayTest", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+                pay_method: $('input[name=paymentMethod]:checked').val(), //지불 방법
+                merchant_uid: getYyyyMmDdMmSsToString(date), //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+                name: $('.proName').eq(0).text()+"외", //결제창에 노출될 상품명
+                amount: stringNumberToInt($('.total').text()), //금액
+                buyer_email : "testiamport@naver.com", 
+                buyer_name : "홍길동",
+                buyer_tel : "01012341234"
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    console.log(rsp);
+                    alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
+                } else {
+                    alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
+                }
+            });
         }
     </script>

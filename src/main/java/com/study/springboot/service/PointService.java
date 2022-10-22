@@ -42,4 +42,5 @@ public class PointService {
 		int deletePoint = pointdao.deletePoint(users_id);
 		return deletePoint;
 	}
+
 }

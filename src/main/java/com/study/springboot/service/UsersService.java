@@ -55,8 +55,13 @@ public class UsersService {
 	public int updateUser(UsersDto dto) {
 		int userUpdate = usersdao.updateUser(dto);
 		return userUpdate;
-	}
-	
+	}	
+	   
+    public int updatePoint(String users_id) {
+        int updatePoint = usersdao.updatePoint(users_id);
+        return updatePoint;
+    }
+    
 	public int deleteUser(String users_id, String users_pw) {
 		int userDelete = usersdao.deleteUser(users_id, users_pw);
 		return userDelete;

@@ -36,6 +36,12 @@
 		where users_id = #{users_id}
 	</update>
 	
+	<update id="updatePoint">
+		update ezen_users set
+		users_point = #{users_point}
+		where users_id = #{users_id}
+	</update>
+	
 	<delete id="deleteUser">
 	  DELETE FROM ezen_users
 	  WHERE users_id=#{ param1 }
