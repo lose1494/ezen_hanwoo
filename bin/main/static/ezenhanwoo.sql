@@ -238,12 +238,12 @@ create sequence one2one_answer_seq;
 drop table orderlist;
 create table orderlist(
 order_idx number(4) primary key,
-order_no number(8),
+order_no number(10),
 order_users_id varchar2(20),
 order_total_price number(4),
 order_comment varchar2(100),
 order_date date,
-order_recipient varchar2(20),
+order_name varchar2(20),
 order_address1 varchar(20),
 order_address2 varchar(100),
 order_address3 varchar(100),

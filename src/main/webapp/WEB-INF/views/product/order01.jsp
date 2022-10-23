@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 <link rel="stylesheet" href="/css/product/order.css">
 <link rel="stylesheet" href="/css/common.css">
@@ -22,7 +23,7 @@
                     <td>적립금</td>
                     <td>삭제/관심상품</td>
                 </tr>
-                <c:forEach var="pro" items="${ orderList }">
+                <c:forEach var="pro" items="${ orderList }" varStatus="status">
                     <tr>
                         <td><img src="${ pro.product_image }" alt=""></td>
                         <td class="proName">${ pro.product_name }</td>
@@ -122,7 +123,7 @@
                 </table>
                 <div class="tableName">결제 수단</div>
                 <table>
-                    <tr><td><input type="radio" name="paymentMethod" value="card"> 신용카드</td></tr>
+                    <tr><td><input type="radio" name="paymentMethod" value="card" checked> 신용카드</td></tr>
                     <tr><td><input type="radio" name="paymentMethod" value="trans"> 계좌이체</td></tr>
                     <tr><td><input type="radio" name="paymentMethod" value="vbank"> 가상계좌</td></tr>
                 </table>
@@ -168,7 +169,7 @@
         //배송지 선택
         $('input[name=address]').click(function() {
             console.log($(this).val());
-            if($(this).val() == 'default') {
+            if($('input[name=address]:checked').val() == 'default') {
                 $('.orderTable input[name=name]').val('${user.users_name}');
                 $('.orderTable input[name=phone]').val('${user.users_phone}');
                 $('.orderTable input[name=address1]').val('${user.users_address1}');
@@ -179,7 +180,7 @@
                     $('.orderTable input[type=text]').eq(i).val('');
                 }
             }
-        })
+        });
 
         //콤마 지우고 숫자형으로 바꿈
         function stringNumberToInt(string) {
@@ -231,7 +232,7 @@
             };
             sum -= stringNumberToInt($(this).val());
             console.log($("#paymentTable tr:eq(3) > td:eq(1)").text());
-            $("#paymentTable tr:eq(3) > td:eq(1)").text(sum.toLocaleString()+'원');
+            $(".total").text(sum.toLocaleString()+'원');
         });
 
         function allPoint() {
@@ -254,16 +255,7 @@
             }
         }
 
-        //문서가 준비되면 제일 먼저 실행
-        $(document).ready(function(){ 
-            $("#iamportPayment").click(function(){ 
-                payment(); //버튼 클릭하면 호출 
-            }); 
-        })
-
-
-        //버튼 클릭하면 실행
-        function getYyyyMmDdMmSsToString(date)
+        function getYyMmDdMmSsToString(date)
         {
 			var dd = date.getDate();
 			var mm = date.getMonth()+1; //January is 0!
@@ -291,18 +283,26 @@
 
         function payment(data) {
             var date = new Date();
-            console.log(getYyyyMmDdMmSsToString(date));
+            console.log(getYyMmDdMmSsToString(date));            
+            if("${orderCount}" <= 1 ) {
+            	var proName = $('.proName').eq(0).text();
+            }else{
+            	var proName = $('.proName').eq(0).text()+" 외 ${orderCount-1}건";
+            }
+            
             let IMP = window.IMP;
             IMP.init('imp34801804');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
             IMP.request_pay({// param
                 pg: "html5_inicis.INIpayTest", //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
                 pay_method: $('input[name=paymentMethod]:checked').val(), //지불 방법
-                merchant_uid: getYyyyMmDdMmSsToString(date), //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
-                name: $('.proName').eq(0).text()+"외", //결제창에 노출될 상품명
-                amount: stringNumberToInt($('.total').text()), //금액
-                buyer_email : "testiamport@naver.com", 
-                buyer_name : "홍길동",
-                buyer_tel : "01012341234"
+                merchant_uid: getYyMmDdMmSsToString(date), //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+                name: proName, //결제창에 노출될 상품명
+                amount: 100,
+                	//stringNumberToInt($('.total').text()), //금액
+                buyer_name: $('input[name=name]').val(),
+                buyer_tel: $('input[name=phone]').val(),
+                buyer_postcode: $('input[name=address1]').val(),
+                buyer_addr: $('input[name=address2]').val()+","+$('input[name=address3]').val()
             }, function (rsp) { // callback
                 if (rsp.success) {
                     console.log(rsp);

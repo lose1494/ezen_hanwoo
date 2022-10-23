@@ -603,6 +603,7 @@ public class MyController_ian {
             UsersDto user = usersService.userDetail(users_id);
             
             model.addAttribute("user", user);
+            model.addAttribute("orderCount", check.length);
             model.addAttribute("orderList", orderList);
             model.addAttribute("mainPage", "product/order01.jsp");
             return "index";
