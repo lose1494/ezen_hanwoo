@@ -13,10 +13,12 @@ public class OrderlistDto {
 	private int order_idx;
 	private int order_no;
 	private String order_users_id;
-	private String order_product_name;
 	private int order_total_price;
 	private String order_comment;
 	private Date order_date;
-	private String order_address;
-	private int order_phone;
+	private String order_name;
+	private String order_address1;
+	private String order_address2;
+	private String order_address3;
+	private String order_phone;
 }

@@ -244,10 +244,10 @@ order_total_price number(4),
 order_comment varchar2(100),
 order_date date,
 order_name varchar2(20),
-order_address1 varchar(20),
-order_address2 varchar(100),
-order_address3 varchar(100),
-order_phone number(20)
+order_address1 varchar2(20),
+order_address2 varchar2(100),
+order_address3 varchar2(100),
+order_phone varchar2(20)
 );
 drop sequence orderlist_seq;
 create sequence orderlist_seq;
@@ -256,8 +256,12 @@ drop table orderDetail;
 create table orderDetail(
 detail_idx number(4) primary key,
 order_idx number(4),
-prouct_idx number(4)
+product_idx number(4),
+product_count number(2),
+product_price varchar2(20),
+pay_method varchar2(20)
 );
+
 drop sequence orderDetail_seq;
 create sequence orderDetail_seq;
 --장바구니

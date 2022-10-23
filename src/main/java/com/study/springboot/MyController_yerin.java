@@ -1,5 +1,6 @@
 package com.study.springboot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.One2one_answerDto;
+import com.study.springboot.dto.OrderDetailDto;
+import com.study.springboot.dto.OrderlistDto;
 import com.study.springboot.dto.PointDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
@@ -27,6 +30,7 @@ import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.One2oneService;
 import com.study.springboot.service.One2one_answerService;
+import com.study.springboot.service.OrderlistService;
 import com.study.springboot.service.PointService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
@@ -46,6 +50,7 @@ public class MyController_yerin {
 	@Autowired private ReviewService reviewService;
 	@Autowired private ProductService productService;
 	@Autowired private One2one_answerService answerService;
+	@Autowired private OrderlistService orderService;
 	
 	int num_page_size = 5;
 	
@@ -491,9 +496,36 @@ public class MyController_yerin {
 //			model.addAttribute("orderList", orderList);
 			model.addAttribute("mainPage", "product/order01.jsp");
 			return "index";
-		}
+		}		
 		
-		
+	}
+	
+	@RequestMapping("/product/paymentOrder")
+	@ResponseBody
+	public String paymentOrder(@RequestParam("imp_uid") String imp_uid,
+                	        @RequestParam("no") String no,
+                	        @RequestParam("total_price") int total_price,
+                	        @RequestParam("comment") String comment,
+                	        @RequestParam("name") String name,
+                	        @RequestParam("address1") String address1,
+                	        @RequestParam("address2") String address2,
+                	        @RequestParam("address3") String address3,
+                	        @RequestParam("phone") String phone,
+                	        @RequestParam("product_idx[]") ArrayList<Integer> product_idx,
+                	        @RequestParam("product_count[]") ArrayList<Integer> product_count,
+                	        @RequestParam("pay_method") String pay_method,
+	        OrderlistDto order, OrderDetailDto detail, HttpServletRequest request) {
+	    String users_id = (String) request.getSession().getAttribute("users_id");
+	    order.setOrder_no(Integer.valueOf(no));
+	    order.setOrder_users_id(users_id);
+	    order.setOrder_total_price(total_price);
+	    order.setOrder_comment(comment);
+	    order.setOrder_name(name);
+	    order.setOrder_address1(address1);
+	    order.setOrder_address2(address2);
+	    order.setOrder_address3(address3);
+	    order.setOrder_phone(phone);
+	    return "넘어온당";
 	}
 	
 	@RequestMapping("/product/order02")
@@ -666,5 +698,9 @@ public class MyController_yerin {
 		
 		return "redirect:/index";  
 	}
+	
+	
+	    
+
 
 }

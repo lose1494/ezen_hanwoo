@@ -25,10 +25,11 @@
                 </tr>
                 <c:forEach var="pro" items="${ orderList }" varStatus="status">
                     <tr>
+                        <input type="hidden" name="product_idx" value="${ pro.product_idx }">
                         <td><img src="${ pro.product_image }" alt=""></td>
                         <td class="proName">${ pro.product_name }</td>
                         <td>${ pro.product_price }원</td>
-                        <td>${ pro.cart_count }</td>
+                        <td class="proCount">${ pro.cart_count }</td>
                         <fmt:parseNumber value = "${ pro.product_price }"  var = "num" integerOnly="true" />
 						<fmt:formatNumber value="${ num * pro.cart_count }" type="number" var="price" />
                         <fmt:formatNumber value="${ num * pro.cart_count / 100 }" type="number" var="point" />
@@ -302,10 +303,42 @@
                 buyer_name: $('input[name=name]').val(),
                 buyer_tel: $('input[name=phone]').val(),
                 buyer_postcode: $('input[name=address1]').val(),
-                buyer_addr: $('input[name=address2]').val()+","+$('input[name=address3]').val()
+                buyer_addr: $('input[name=address2]').val()+","+$('input[name=address3]').val(),
             }, function (rsp) { // callback
                 if (rsp.success) {
                     console.log(rsp);
+             	/* 	var arr = Object.keys(rsp).map(item => rsp[item]);
+                    console.log(arr);
+                    console.log(typeof(arr)); */
+                    var arr1 = [];
+                    var arr2 = [];
+                    for(i=0; i<'${orderCount}'; i++) {
+                        arr1.push($('input[name=product_idx]').eq(i).val());
+                        arr2.push(Number($('.proCount').eq(i).text()));
+                    }
+                    console.log(arr1+","+arr2);
+                    var addr = rsp.buyer_addr.split(',');
+                    $.ajax({
+                    	type: 'get',
+                    	url: '/product/paymentOrder',
+                    	data: { imp_uid : rsp.imp_uid,
+                			no : rsp.merchant_uid,
+                		    total_price : rsp.paid_amount,
+                			comment : $('input[name=orderRequest]').val(),
+                			name : rsp.buyer_name,
+                			address1 : rsp.buyer_postcode,
+                			address2 : addr[0],
+                            address3 : addr[1],
+                            phone : rsp.buyer_tel,
+                            product_idx : arr1,
+                            product_count : arr2,
+                            pay_method : rsp.pay_method
+                		},
+                    	success: function(data) {
+                    		console.log(data);
+                    	}
+                 
+                    });
                     alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
                 } else {
                     alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
