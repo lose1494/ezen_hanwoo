@@ -67,6 +67,6 @@ public class ProductService {
         productdao.productRegister(register);
     }
 
-
+  
 
 }

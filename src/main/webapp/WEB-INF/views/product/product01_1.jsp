@@ -15,7 +15,7 @@
                     <td colspan="2" id="product_name" value="${ dto.product_idx }" >${ dto.product_name }</td>
                 </tr>
                 <tr>
-                    <td rowspan="7" id="product_img"><img src="${ dto.product_image }" alt=""></td>
+                    <td rowspan="7" id="product_img" value="${ dto.product_image }"><img src="${ dto.product_image }" alt=""></td>
                     <td>판매가</td>
                     <td id="product_price">${ dto.product_price }원</td>
                 </tr>
@@ -66,15 +66,15 @@
                 <tr>
                     <td></td>
 
-                    <form action="/mypage/mypage_cart" method="post" >
+                    
                     <td colspan="2">
                         <div class="flexDiv">
                             <button class="bright" onclick="b()">장바구니</button>
                             <button class="bright">관심상품</button>
-                            <button class="dark">바로구매</button>
+                            <button class="dark"  onclick="c()">바로구매</button>
                         </div>
                     </td>
-
+ 
                     
                 </tr>
             </table>
@@ -416,8 +416,8 @@
                 })
             });
         });
-
         
+       
         function b(){
         	const pd_name = document.getElementById("product_name").innerText
         	const price = document.getElementById("product_price").innerText
@@ -425,7 +425,7 @@
         	const pdx = document.getElementById("product_name").getAttribute('value') 
      	$.ajax({
      		url: "/mypage/cartdb",
-     		dataType: "json",
+     		dataType: "text",
      		data : {
      				cart_count : count,
      				cart_product_name : pd_name,
@@ -435,10 +435,32 @@
     	success: function(data){
             console.log(data);
          	location.href="/mypage/mypage_cart"   
-     	}
+     	},
+     	error : function(data){
+     		console.log("123213123");
+     	},
      	})
         }
-
+        console.log(document.getElementById("product_img").img);
+      function c(){
+    	  
+    	const img = document.getElementById("product_img").value
+    	const count = document.getElementById("product_count").value
+      	const pdx = document.getElementById("product_name").getAttribute('value') 
+      	const price = document.getElementById("product_price").innerText
+      	const pd_name = document.getElementById("product_name").innerText
+    	var a =  pdx  
+    	var b =  count
+    	var c = price
+    	var d = pd_name
+    	var e = img
+      	localStorage.setItem("product_idx", JSON.stringify(a));
+    	localStorage.setItem("product_count", JSON.stringify(b));
+    	localStorage.setItem("product_price", JSON.stringify(c));
+    	localStorage.setItem("product_name", JSON.stringify(d));
+    	localStorage.setItem("product_image", JSON.stringify(e));
+    	location.href="/product/order01"
+      }
      	
         //날짜 형식 바꾸기
         function formatDate(date) {

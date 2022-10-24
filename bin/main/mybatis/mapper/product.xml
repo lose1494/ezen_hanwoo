@@ -12,6 +12,8 @@
 		</if>
 	</select>
 	
+	
+	
 	<select id="productDetail" resultType="com.study.springboot.dto.ProductDto">
 		select * from product where product_idx = #{param1}
 	</select>

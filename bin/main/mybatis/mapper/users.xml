@@ -97,5 +97,10 @@
 			and users_phone = #{userPhone}
 	</select> 
 	
+	<update id="updatepoint" parameterType="com.study.springboot.dto.UsersDto">
+   	UPDATE ezen_users 
+   	SET users_point  = #{param1}
+	WHERE users_id = #{param2}
+	</update>
 	
 </mapper>

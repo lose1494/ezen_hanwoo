@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springboot.dto.CartProductDto;
 import com.study.springboot.dto.NoticeDto;
+import com.study.springboot.dto.OrderlistDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.NoticeService;
+import com.study.springboot.service.OrderlistService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
 import com.study.springboot.service.ReviewService;
@@ -41,7 +43,8 @@ public class MyController_ian {
     private CartService cartService;
     @Autowired
     private ReviewService reviewService;
-    
+    @Autowired
+    private OrderlistService orderservice;
     @RequestMapping("/")
     public String root() {
         return "redirect:index";
@@ -347,6 +350,20 @@ public class MyController_ian {
         List<CartProductDto> cartList = cartService.cartList(users_id);
           return cartList;
        }
+    @GetMapping("/mypage/get_order_list")
+    @ResponseBody
+       public List<CartProductDto> get_order_list( HttpServletRequest request) {
+        String users_id = (String)request.getSession().getAttribute("users_id");
+        List<CartProductDto> cartList = cartService.cartList(users_id);
+          return cartList;
+       }
+    @GetMapping("/mypage/get_order2_list")
+    @ResponseBody
+       public List<OrderlistDto> get_order2_list( HttpServletRequest request) {
+        String users_id = (String)request.getSession().getAttribute("users_id");
+        List<OrderlistDto> orderlist = orderservice.orderlist(users_id);
+          return orderlist;
+       }
     
     @GetMapping("/mypage/cartdb")
     @ResponseBody
@@ -363,6 +380,7 @@ public class MyController_ian {
         cartService.insertCart(cartdto);
         return "cartdb";
     }
+   
     @GetMapping("/mypage/cart_Update")
     @ResponseBody
     public Object cart_Update(@RequestParam("cart_count") int cart_count,
@@ -372,6 +390,19 @@ public class MyController_ian {
         String users_id = (String)request.getSession().getAttribute("users_id");
         cartService.updateCart(cart_count, users_id, product_idx);
         return "care_Update";
+    }
+    @GetMapping("/mypage/check_Update")
+    @ResponseBody
+    public Object check_Update(@RequestParam("cart_check") int cart_check,
+                              @RequestParam("product_idx") int product_idx,
+            HttpServletRequest request
+                              ) {
+        String users_id = (String)request.getSession().getAttribute("users_id");
+        cartService.updatecheck(cart_check, users_id, product_idx);
+        System.out.println(cart_check);
+        System.out.println(product_idx);
+        
+        return "check_Update";
     }
     @GetMapping("/mypage/cart_delete")
     @ResponseBody
@@ -389,5 +420,36 @@ public class MyController_ian {
         cartService.deleteCartall(users_id );
         return "cart_deleteall";
     }
-    
+   
+    @GetMapping("/product/insertorder")
+    @ResponseBody
+        public Object insertorder(@RequestParam("order_no") int order_no,
+                                  @RequestParam("order_total_price") int order_total_price,
+                                  @RequestParam("order_comment") String order_comment,
+                                  @RequestParam("order_usepoint") String order_usepoint,
+                                  @RequestParam("order_date") Date order_date,
+                                  @RequestParam("order_recipient") String order_recipient,
+                                  @RequestParam("order_address1") String order_address1,
+                                  @RequestParam("order_address2") String order_address2,
+                                  @RequestParam("order_address3") String order_address3,
+                                  @RequestParam("order_phone") String order_phone,
+                                  @RequestParam("users_point") String users_point,
+                             HttpServletRequest request) {
+        String users_id = (String)request.getSession().getAttribute("users_id");
+        OrderlistDto orderdto = new OrderlistDto();
+        orderdto.setOrder_usepoint(order_usepoint);
+        orderdto.setOrder_address1(order_address1);
+        orderdto.setOrder_address2(order_address2);
+        orderdto.setOrder_address3(order_address3);
+        orderdto.setOrder_comment(order_comment);
+        orderdto.setOrder_date(order_date);
+        orderdto.setOrder_no(order_no);
+        orderdto.setOrder_phone(order_phone);
+        orderdto.setUsers_id(users_id);
+        orderdto.setOrder_total_price(order_total_price);
+        orderdto.setOrder_recipient(order_recipient);
+        usersService.updatepoint(users_point, users_id);
+        orderservice.insertOrder(orderdto);
+        return "insertorder";
+    }
 }

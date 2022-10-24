@@ -35,7 +35,7 @@ public interface IProductDao {
 
     void productRegister(Map<String, String> register);
 
-	
+   
 	
 
 }

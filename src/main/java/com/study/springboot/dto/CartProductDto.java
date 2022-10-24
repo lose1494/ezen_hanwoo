@@ -20,5 +20,6 @@ public class CartProductDto {
 		  private String users_id;
 		  private String cart_product_name;
 		  private int cart_count;
+		  private int cart_check;
 
 }

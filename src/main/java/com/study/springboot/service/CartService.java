@@ -17,7 +17,7 @@ public class CartService {
 		List<CartProductDto> cartList = cartdao.cartList(users_id);
 		return cartList;
 	}
-	
+
 	public int cartCount(String users_id) {
 		int cartCount = cartdao.cartCount(users_id);
 		return cartCount;
@@ -39,5 +39,9 @@ public class CartService {
 	public int deleteCartall(String users_id ) {
 		int deleteCartall = cartdao.deleteCartall(users_id);
 		return deleteCartall;
+	}
+	public int updatecheck(int cart_check, String users_id, int product_idx) {
+	    int updatecheck = cartdao.updatecheck(cart_check, users_id, product_idx);
+	    return updatecheck;
 	}
 }
