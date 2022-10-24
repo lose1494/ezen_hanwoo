@@ -64,6 +64,8 @@ public class MyController_ian {
     
     @RequestMapping("/index")
     public String index(HttpServletRequest request, Model model) {
+        String users_id = (String) request.getSession().getAttribute("users_id");
+        System.out.println(users_id);
         // 알럿 메시지 중복 제거
         String alertMessage = (String) request.getSession().getAttribute("alert");
         System.out.println("index alertMessage:" + alertMessage);

@@ -609,9 +609,9 @@ public class MyController_yerin {
 	public String one2oneView(@RequestParam("one2one_idx") int one2one_idx,
 							Model model) {
 	    
-		One2oneDto dto = one2oneService.one2oneDetail(one2one_idx);
+		One2oneDto one2oneDetail = one2oneService.one2oneDetail(one2one_idx);
 		One2one_answerDto answer = answerService.one2oneAnswer(one2one_idx);
-		model.addAttribute("dto", dto);
+		model.addAttribute("dto", one2oneDetail);
 		model.addAttribute("answer", answer);
 		model.addAttribute("mainPage", "customer/one2one_view.jsp");
 		
@@ -654,6 +654,7 @@ public class MyController_yerin {
 	@RequestMapping("/member/loginAction")
 	public String loginAction(@RequestParam("users_id") String users_id,
 							  @RequestParam("users_pw") String users_pw,
+							  @RequestParam(value="autoLogin", required=false ) String autoLogin,
 							  HttpServletRequest request,
 								Model model) {
 		
@@ -675,15 +676,18 @@ public class MyController_yerin {
 			request.getSession().setAttribute("url", "/index");
 			request.getSession().setAttribute("users_id", users_id);
 			request.getSession().setAttribute("users_pw", users_pw);
+			if( autoLogin == "autoLogin" ) {
+			    
+			}
 			
 			return "alert"; 				 
 		}else {
 			System.out.println("alert:" + "로그인 실패하였습니다.");
 			
 			model.addAttribute("alert", "로그인 실패하였습니다.");
-			model.addAttribute("mainPage", "member/login.jsp");
+			model.addAttribute("url", "/member/login");
 			
-			return "index"; //index.jsp 디스패치
+			return "alert"; //index.jsp 디스패치
 		}
 		 
 	}
