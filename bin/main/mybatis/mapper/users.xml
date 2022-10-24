@@ -79,17 +79,9 @@
 		values ( ezen_users_seq.nextval, #{users_id}, #{users_pw}, #{users_name}, #{users_email}, 
 			#{users_phone}, #{users_birth_date}, #{users_address1}, #{users_address2}, #{users_address3} )
 	</insert>
-	<!-- 아이디찾기 -->
-	
+	<!-- 아이디찾기&비번찾기 -->
 	<select id="find" resultType="HashMap">
-		select 
-			users_id 
-			,users_pw
-			
-		from ezen_users
-		
-		where 1=1
-		
+		select users_id ,users_pw from ezen_users where 1=1
 		<if test="userId != null">
 			and users_id = #{userId}
 		</if>

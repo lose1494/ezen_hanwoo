@@ -73,7 +73,7 @@
 </div>
 
 <script>
-	$(function() {
+
 		//주소찾기 
 		function addressAdd() {
 			new daum.Postcode(
@@ -90,8 +90,27 @@
 						}
 					}).open();
 		}
+
+	//주소찾기 
+	function addressAdd() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+	
+						var roadAddr = data.roadAddress; // 도로명 주소 변수
+	
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('users_address1').value = data.zonecode; //우편번호
+						document.getElementById("users_address2").value = roadAddr; //도로명 
+						document.getElementById("users_address3").value = data.jibunAddress; //상세주소
+						self.close();
+					}
+				}).open();
+	}
+	$(function() {
 		
 		//중복확인 
+	$(function() {		
 		var idCheck = false;
 		$("#check_btn").click(function() { //check_btn 클릭 시 실행되는 함수 
 
@@ -117,7 +136,7 @@
 					}
 				},
 				error : function(error) {
-					alert("error.");
+					alert("사용할 아이디를 입력해주세요.");
 				}
 			});
 		});
@@ -125,7 +144,10 @@
 		// 유효성 체크
 		$("#submitBtn").click(function() {
 			if (idCheck) {
-				var data = {}; //
+				
+				var data = {
+						
+				}; //
 				var inputData = document.querySelectorAll(".inputData"); // inputData클래스 전체 선택 == getElementsByClassName
 				try {
 					inputData.forEach(function(item, idx) {            	 // forEach Callback => 변수.forEach(function( element, index) { });
@@ -154,7 +176,10 @@
 							} else if ($(item)[0].name ==="users_address3"){
 								alert("주소를 확인해 주세요.");
 								throw new Error("");
-							}					 
+							} else if ($(item)[0].name ==="users_birth_date"){
+								alert("생년월일을 입력해 주세요.");
+								throw new Error("");
+							}				 
 						} else {
 							if ($(item)[0].name ==="users_id") {
 								data.users_id = $(item)[0].value;
@@ -172,7 +197,9 @@
 								data.users_address2 = $(item)[0].value;
 							} else if ($(item)[0].name ==="users_address3"){
 								data.users_address3 = $(item)[0].value;
-							}	
+							} else if ($(item)[0].name ==="users_birth_date"){
+								data.users_birth_date = $(itme)[0].value;
+							}
 						}
 					});
 					console.log(data);

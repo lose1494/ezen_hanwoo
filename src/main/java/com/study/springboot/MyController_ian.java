@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springboot.dto.CartProductDto;
+import com.study.springboot.dto.CartDto;
+import com.study.springboot.dto.FaqDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.OrderlistDto;
 import com.study.springboot.dto.ProductDto;
@@ -22,6 +24,7 @@ import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
+import com.study.springboot.service.FaqService;
 import com.study.springboot.service.NoticeService;
 import com.study.springboot.service.OrderlistService;
 import com.study.springboot.service.ProductService;
@@ -45,10 +48,16 @@ public class MyController_ian {
     private ReviewService reviewService;
     @Autowired
     private OrderlistService orderservice;
+	@Autowired
+	private FaqService faqService;
+	
+	int num_page_size = 5;
+    
     @RequestMapping("/")
     public String root() {
         return "redirect:index";
     }
+    
     @RequestMapping("/index")
     public String index(HttpServletRequest request, Model model) {
         // 알럿 메시지 중복 제거
@@ -62,6 +71,7 @@ public class MyController_ian {
         model.addAttribute("mainPage", "main.jsp");
         return "index"; // index.jsp 디스패치
     }
+    
     @RequestMapping("/product/product01")
     public String product01(HttpServletRequest request, Model model) {
         String category = request.getParameter("product_category");
@@ -73,24 +83,81 @@ public class MyController_ian {
         model.addAttribute("mainPage", "product/product01.jsp");
         return "index";
     }
+    
     // 이용자 공지사항
     @RequestMapping("/Notice/notice")
-    public String notice(Model model) {
+    public String notice(@RequestParam(value="search_type",required=false) String search_type, 
+                         @RequestParam(value="search_contents",required=false) String search_contents,
+                         Model model) {
+        
+        int notice_count = noticeService.notice_count();
+        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
+        List<NoticeDto> searchResult;
+       
+        if(search_type != null) {
+            searchResult = noticeService.searchResult(search_type, search_contents);
+            model.addAttribute("admin_notice_list", searchResult);
+        }else {
+            model.addAttribute("admin_notice_list", admin_notice_list);
+        }
+        model.addAttribute("notice_count", notice_count);
         model.addAttribute("mainPage", "notice/notice.jsp");
         return "index";
     }
+    
     // 이용자 공지사항 글
     @RequestMapping("/Notice/notice_view")
-    public String notice_view(Model model) {
+    public String notice_view( HttpServletRequest request,  Model model) {
+        String notice_idx = request.getParameter("notice_idx");
+        List<NoticeDto> notice_detail = noticeService.notice_detail(notice_idx);
+        model.addAttribute("notice_detail", notice_detail);
         model.addAttribute("mainPage", "notice/notice_view.jsp");
         return "index";
     }
+    
     // 이용자 자주하는 질문
     @RequestMapping("/Notice/faq")
-    public String faq(Model model) {
-        model.addAttribute("mainPage", "notice/faq.jsp");
-        return "index";
-    }
+	public String faq(@RequestParam(value="page",defaultValue="1") String page,
+			@RequestParam(value="faq_type",defaultValue="all") String faq_type,
+			Model model, HttpServletRequest request) {
+		
+		String sort = "faq_title";
+		String word = "";
+		List<FaqDto> faqList = faqService.faqList(faq_type, sort, word, page, num_page_size);
+		int faqCount = faqService.faqCount(faq_type, sort, word);
+		int pageNum = (int)Math.ceil((double)faqCount/num_page_size);
+		
+		model.addAttribute("type", faq_type);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("faqList", faqList);
+		model.addAttribute("mainPage", "notice/faq.jsp");
+		return "index";
+	}
+	
+	@RequestMapping("/Notice/searchFaq")
+	public String searchFaq(@RequestParam(value="page",defaultValue="1") String page,
+			@RequestParam(value="faq_type",defaultValue="all") String faq_type,
+			@RequestParam(value="sort",defaultValue="faq_title") String sort,
+			@RequestParam("word") String word,
+			Model model, HttpServletRequest request) {
+		
+		System.out.println(word);
+		List<FaqDto> faqList = faqService.faqList(faq_type, sort, word, page, num_page_size);
+		int faqCount = faqService.faqCount(faq_type, sort, word);
+		int pageNum = (int)Math.ceil((double)faqCount/num_page_size);
+		System.out.println(pageNum);
+		
+		model.addAttribute("type", faq_type);
+		model.addAttribute("sort", sort);
+		model.addAttribute("word", word);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("faqList", faqList);
+		model.addAttribute("mainPage", "notice/faq.jsp");
+		return "index";
+	}
+    
     // 관리자 페이지 메인
     @RequestMapping("/admin/admin_main")
     public String userList(Model model) {
@@ -103,6 +170,7 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/admin_main.jsp");
         return "index";
     }
+    
     // 회원 검색
     @RequestMapping("/admin/member_search")
     public String member_search(@RequestParam("search_list") String list, @RequestParam("search_text") String text,
@@ -120,6 +188,7 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/admin_main.jsp");
         return "index";
     }
+    
     // 회원상세조회
     @RequestMapping("/admin/admin_maindetail")
     public String admin_maindetail(@RequestParam("users_id") String users_id, Model model) {
@@ -129,6 +198,7 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/admin_maindetail.jsp");
         return "index";
     }
+    
     // 상품관리
     @RequestMapping("/admin/admin_item")
     public String adminitem(Model model) {
@@ -172,7 +242,6 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/item_register.jsp");
         return "index";
     }
-    
     @RequestMapping("/admin/productRegister")
         public String productRegister( @RequestBody Map<String, String>register) {
             productservice.productRegister(register);
@@ -189,27 +258,43 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/item_detail.jsp");
         return "index";
     }
-    /*
-     * @GetMapping("/mypage/get_cart_list")
-     * 
-     * @ResponseBody
-     * public List<CartDto> get_cart_list( HttpServletRequest request) {
-     * String users_id = (String)request.getSession().getAttribute("users_id");
-     * System.out.println("12312321321" + users_id);
-     * 
-     * List<CartDto> cartList = cartService.cartList(users_id);
-     * return cartList;
-     * }
-     */
     
+    
+     //상품 수정
+      @RequestMapping("/admin/item_revise")
+      public String item_revise(HttpServletRequest request, Model model) {
+      String product_idx= request.getParameter("product_idx");
+      List<ProductDto> item_detail = productservice.productDetail(product_idx);
+      model.addAttribute("product_idx", product_idx);
+      model.addAttribute("item_detail", item_detail);
+      model.addAttribute("mainPage", "admin/item_revise.jsp");
+      return "index";
+     }
+     
     //상품 수정
-    @RequestMapping("/admin/item_revise")
+    @RequestMapping("/admin/reviseAction")
     @ResponseBody
-    public String item_revise( Model model) {
-          model.addAttribute("mainPage", "admin/item_revise.jsp");
-            return "index";
+    public String reviseAction( @RequestParam("product_idx") String product_idx,
+                                @RequestParam("product_name") String product_name,
+                                @RequestParam("product_price") String product_price,
+                                Map<String, Object> reviseAction) {
+        reviseAction.put("product_idx", product_idx);
+        reviseAction.put("product_name", product_name);
+        reviseAction.put("product_price", product_price);
+        
+        int result = productservice.updateItem( reviseAction ); 
+        if( result != 1 ) {
+            System.out.println("수정을 실패했습니다.");
+            return "<script>alert('수정 실패');history.back();</script>";
+        }else {
+            System.out.println("수정을 성공했습니다.");
+            return "<script>alert('수정 성공');" + "location.href='/admin/item_detail?product_idx=" + product_idx + "' ;</script>"; 
+        }
+    }
     
-    }   
+    
+    
+    
     // 주문관리
     @RequestMapping("/admin/admin_order")
     public String adminorder(Model model) {

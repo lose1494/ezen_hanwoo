@@ -159,5 +159,11 @@ public class ReviewService {
 		List<ReviewDto> review_result = reviewdao.review_result();
 		return review_result;
 	}
+	
+//	public List<ReviewDto> searchProduct(String word, String sort) {
+//		System.out.println(word);
+//		List<ReviewDto> searchProduct = reviewdao.searchProduct(word, sort);
+//		return searchProduct;
+//	}
 
 }

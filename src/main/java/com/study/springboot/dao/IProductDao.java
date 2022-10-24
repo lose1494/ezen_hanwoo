@@ -35,7 +35,11 @@ public interface IProductDao {
 
     void productRegister(Map<String, String> register);
 
-   
-	
+    int updateItem(Map<String, Object> reviseAction);
 
+
+	List<ProductDto> searchProduct(String word, String sort, int startRowNum, int endRowNum);
+	
+	int productCount(String word);
+	
 }

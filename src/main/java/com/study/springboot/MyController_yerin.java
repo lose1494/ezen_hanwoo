@@ -70,7 +70,7 @@ public class MyController_yerin {
 	}
 
 	@RequestMapping("/mypage/mypage_point")
-	public String mypage_point(@RequestParam(value="page",defaultValue="1") String page,
+	public String mypage_point(@RequestParam(value="page",defaultValue="1") String page,							
 							Model model, HttpServletRequest request) {
 		
 		String users_id = (String) request.getSession().getAttribute("users_id");
@@ -133,6 +133,7 @@ public class MyController_yerin {
 		int pageNum = (int)Math.ceil((double)qnaCount/num_page_size);
 		List<Product_qnaDto> qnaList = qnaService.qnaList(sort, users_id, page, num_page_size);
 		List<Product_qnaDto> joinTest = qnaService.joinTest();
+		System.out.println(joinTest);
 		
 		model.addAttribute("joinTest", joinTest);
 		model.addAttribute("page", page);
@@ -607,6 +608,30 @@ public class MyController_yerin {
 	@RequestMapping("/product/search_result")
 	public String search_result(Model model) {
 		model.addAttribute("mainPage", "product/search_result.jsp");
+		model.addAttribute("searchList", null);
+		
+		return "index";
+	}
+	
+
+	@RequestMapping("/product/search_product")
+	public String search_product(@RequestParam("word") String word,
+								 @RequestParam("sort") String sort,
+								 @RequestParam(value="page",defaultValue="1") String page,
+								 HttpServletRequest request, Model model) {
+
+		num_page_size = 6;
+		int productCount = productService.productCount(word);
+		int pageNum = (int)Math.ceil((double)productCount/num_page_size); 
+		List<ProductDto> searchProduct = productService.searchProduct(word, sort, page, num_page_size);
+		
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("searchList", searchProduct);
+		model.addAttribute("searchCount", productCount);
+		model.addAttribute("sort", sort);		
+		model.addAttribute("word", word);
+		model.addAttribute("mainPage", "product/search_result.jsp");
 		
 		return "index";
 	}
@@ -622,6 +647,14 @@ public class MyController_yerin {
 		System.out.println("result:" + result);
 		
 		if( result == 1 ) {
+		    if ( users_id.equals("admin")) {
+                System.out.println("alert:" + "관리자로그인되었습니다.");
+                
+                request.getSession().setAttribute("alert", "관리자로그인되었습니다.");
+                request.getSession().setAttribute("users_id", users_id);
+                
+                return "redirect:/admin/admin_main";
+            }
 			System.out.println("alert:" + "로그인되었습니다.");
 			request.getSession().setAttribute("alert", "로그인되었습니다.");
 			request.getSession().setAttribute("url", "/index");

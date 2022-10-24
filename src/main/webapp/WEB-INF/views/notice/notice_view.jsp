@@ -12,7 +12,8 @@
 			<th class="title">작성자</th> 
 			<td class="text">${ dto.notice_name }</td>
 			<th>작성일</th> 
-			<td> <fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /></td>		</tr>	
+			<td> <fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /></td>		
+		</tr>	
 		
 		<tr>
 			<th class="title" >제목</th>
@@ -34,7 +35,7 @@
 		
 		</c:forEach>
 	</table>
-<input type="button" value="목록" id="button" onclick="location.href='/notice/notice'" style="cursor:pointer">
+<input type="button" value="목록" id="button" onclick="location.href='/Notice/notice'" style="cursor:pointer">
 </div>	
 
 

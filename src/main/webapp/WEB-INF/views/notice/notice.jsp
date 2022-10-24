@@ -13,6 +13,7 @@
 
     	<p class="title_tag">공지사항</p>
 
+		<span>공지 ${ notice_count }건</span>
 	    <form action="notice_Action" method="get" name="searchType">
 	    <table  class="Notice_table" >
 	        <thead>
@@ -21,17 +22,15 @@
 	            <th id="title">제목</th>
 	            <th id="writer">작성자</th>
 	            <th id="date">작성일</th>
-	
 	        </tr>
 	    </thead>
 	    <tbody>
 	    <c:forEach var = "dto" items = "${ admin_notice_list }" varStatus="status" >
-	        <tr onclick="location.href='/Notice/notice_view?notice_idx=1'" style="cursor:pointer;" >
+	        <tr onclick="location.href='/Notice/notice_view?notice_idx= ${ dto.notice_idx }'" style="cursor:pointer;" >
 	            <td id="number">${ dto.notice_idx } </td>
 	            <td id="title"> ${ dto.notice_title }</td>
 	            <td id="writer"> ${ dto.notice_name }</td>
-	            <td id="date"> ${ dto.notice_date }</td>
-	            
+	            <td id="date"><fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /></td>
 	        </tr>
 	       </c:forEach>
 	    </tbody>
@@ -43,7 +42,7 @@
 	            <option value="content">내용</option>
 	         </select>
 
-         	<input type="text" value="검색어를 입력하세요." id="search_contents" name="search_contents">
+         	<input type="text" placeholder="검색어를 입력하세요." id="search_contents" name="search_contents">
         
         	<div id="img"> <input type="submit" src="/img/notice/search.png" id="searchBtn"> </div>
   		</div>

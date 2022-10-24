@@ -88,4 +88,11 @@ th {
 	background-color: lightgray;
 }
 	
+#listBtn {
+	border: 0;
+	background-color: #323232;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+}
 

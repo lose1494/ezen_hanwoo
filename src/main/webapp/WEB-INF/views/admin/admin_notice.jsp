@@ -55,18 +55,7 @@
 	 	<th>번호</th>
 	 	<th>제목</th>
 	 	<th value=" ${ notice_date }" id="notice_table_date">날짜</th>	 	
-	 </tr><%-- 
-	 	<c:forEach var="dto" items ="${ admin_notice_list }" varStatus="status" > 
-	 <tr onclick="location.href='/admin/notice_detail?notice_idx=${ dto.notice_idx }'" style="cursor:pointer">
-	 	<td> ${ dto.notice_idx} </td>
-	 	<td> ${ dto.notice_title } </td>
-	 	<td> ${ dto.notice_content }</td>
-		<td> <fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /> </td>
-	 	<td> <input type="button" value="수정" id="sending_mail" class="notice_btn" onclick="location.href='/admin/admin_noticewrite'" style="cursor:pointer;"> </td>
-	 	<td> <input type="button" value="삭제" id="sending_mail" class="notice_btn"></td>
 	 </tr>
-	 
-	 	</c:forEach> --%>
 	 </table>
 
 	 <button class="item_button notice_btn"  onclick="location.href='/admin/admin_noticewrite'" style="cursor:pointer;">글쓰기</button>
