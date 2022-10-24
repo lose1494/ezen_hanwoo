@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -654,8 +656,8 @@ public class MyController_yerin {
 	@RequestMapping("/member/loginAction")
 	public String loginAction(@RequestParam("users_id") String users_id,
 							  @RequestParam("users_pw") String users_pw,
-							  @RequestParam(value="autoLogin", required=false ) String autoLogin,
-							  HttpServletRequest request,
+							  @RequestParam(value="autoLogin", required=false) String autoLogin,
+							  HttpServletRequest request, HttpServletResponse response,
 								Model model) {
 		
 		int result = usersService.login(users_id, users_pw);
@@ -676,8 +678,16 @@ public class MyController_yerin {
 			request.getSession().setAttribute("url", "/index");
 			request.getSession().setAttribute("users_id", users_id);
 			request.getSession().setAttribute("users_pw", users_pw);
-			if( autoLogin == "autoLogin" ) {
-			    
+			
+			if( autoLogin.equals("autoLogin") ) {
+			    Cookie setId = new Cookie("users_id", users_id);
+			    Cookie setPw = new Cookie("users_pw", users_pw);
+			    setId.setPath("/");
+	            setPw.setPath("/");
+			    setId.setMaxAge(60*60*24*7); // 기간을 하루로 지정(60초 * 60분 * 24시간)
+			    setPw.setMaxAge(60*60*24*7);
+		        response.addCookie(setId); // response에 Cookie 추가
+		        response.addCookie(setPw);
 			}
 			
 			return "alert"; 				 

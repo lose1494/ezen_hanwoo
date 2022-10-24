@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,9 +65,17 @@ public class MyController_ian {
     }
     
     @RequestMapping("/index")
-    public String index(HttpServletRequest request, Model model) {
-        String users_id = (String) request.getSession().getAttribute("users_id");
-        System.out.println(users_id);
+    public String index(@CookieValue(value="users_id", required=false) Cookie id, 
+            @CookieValue(value="users_pw", required=false) Cookie pw, 
+            HttpServletRequest request, Model model) {
+        
+        if( id != null && pw != null ) {
+            System.out.println(id.getValue()+","+pw.getValue());
+            int result = usersService.login(id.getValue(), pw.getValue());
+            request.getSession().setAttribute("users_id", id.getValue());
+            request.getSession().setAttribute("users_pw", pw.getValue());
+        }
+        
         // 알럿 메시지 중복 제거
         String alertMessage = (String) request.getSession().getAttribute("alert");
         System.out.println("index alertMessage:" + alertMessage);

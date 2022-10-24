@@ -25,12 +25,13 @@
 				<span class="button">
 	                <input class="box2" type="button" onclick="loginCheck()" value="로그인">
 	            </span>
-            </form>
-			<div class="log_check">
-                <span><input class="box3" type="checkbox" id="saveId">아이디저장</span>
-                
-                <span><input type="checkbox" id="autoLogin" name="autoLogin">&nbsp;자동로그인</span>
-            </div>
+            
+				<div class="log_check">
+					<span><input class="box3" type="checkbox" id="saveId">아이디저장</span>
+					
+					<span><input type="checkbox" id="autoLogin" name="autoLogin" value="">&nbsp;자동로그인</span>
+				</div>
+			</form>
 			<div class="footer-1">
             <p>
 			    <a href="/member/idFind" class="box4">아이디.비밀번호 찾기</a>
@@ -79,8 +80,8 @@
 		deleteCookie("Cookie_id");	
 		// deleteCookie("Cookie_pw");
 	  }
-	  if($('#autoLogin').is(':checked')) {
-		$(this).val('autoLogin');
+	  if($('#autoLogin').is(':checked') == true) {
+		$('#autoLogin').val('autoLogin');
 	  }
 	  $("#loginForm").submit();				
 	};
