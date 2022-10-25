@@ -96,4 +96,9 @@ public class ProductService {
 		return productCount;
 	}
 
+    public void reviseProduct(Map<String, String> revise) {
+       productdao.reviseProduct(revise);
+        
+    }
+
 }

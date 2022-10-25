@@ -34,12 +34,12 @@ commit;
 drop table product;
 create table product(
     product_idx number(4) primary key,
-    product_name varchar2(40),
+    product_name varchar2(400),
     product_image_ex clob,
     product_image clob,
-    product_price varchar2(20),
-    product_category varchar2(20),
-    product_gram varchar2(40)
+    product_price varchar2(200),
+    product_category varchar2(200),
+    product_gram varchar2(400)
 );
 drop sequence product_seq;
 create sequence product_seq;
@@ -140,13 +140,19 @@ create sequence product_review_seq;
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 values(product_review_seq.nextval, 'hong', '맛있게 잘 먹었습니다!!', '리뷰 내용 테스트 화면에 어떻게 보이나', sysdate, 5, 1);
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
-values(product_review_seq.nextval, 'hong', '테스트1', '리뷰 내용 테스트1', sysdate, 4, 1);
+values(product_review_seq.nextval, 'admin', '테스트1', '리뷰 내용 테스트1', sysdate, 4, 2);
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
-values(product_review_seq.nextval, 'hong', '테스트2', '리뷰 내용 테스트2', sysdate, 3, 1);
+values(product_review_seq.nextval, 'hong1', '테스트2', '리뷰 내용 테스트1', sysdate, 4, 3);
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
-values(product_review_seq.nextval, 'hong', '테스트3', '리뷰 내용 테스트3', sysdate, 2, 1);
+values(product_review_seq.nextval, '22222', '테스트3', '리뷰 내용 테스트1', sysdate, 4, 4);
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
-values(product_review_seq.nextval, 'hong', '테스트4', '리뷰 내용 테스트4', sysdate, 1, 1);
+values(product_review_seq.nextval, '3333', '테스트4', '리뷰 내용 테스트1', sysdate, 4, 5);
+insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
+values(product_review_seq.nextval, '3333', '테스트4', '리뷰 내용 테스트1', '2022-07-01', 4, 5);
+
+
+select * from product_review;
+commit;
 
 drop table review_star;
 create table review_star(
@@ -193,11 +199,20 @@ create table Notice(
     notice_title varchar2(20),
     notice_content varchar2(300),
     notice_date date,
+    notice_img clob,
     notice_hit number(4) DEFAULT 0
 );
 
 insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
-values ( notice_seq.nextval, '관리자', '제목입니다.', '내용입니다.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
+values ( notice_seq.nextval, '관리자', '제목입니다.', '내용입니다2.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
+insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
+values ( notice_seq.nextval, '관리자', '제목입니다1.', '내용입니다5.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
+insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
+values ( notice_seq.nextval, '관리자', '제목입니다11.', '내용입니다3.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
+
+commit;
+
+
 
 commit;
 drop sequence Notice_seq;

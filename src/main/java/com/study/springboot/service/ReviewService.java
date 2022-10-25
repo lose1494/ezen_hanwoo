@@ -159,6 +159,22 @@ public class ReviewService {
 		List<ReviewDto> review_result = reviewdao.review_result();
 		return review_result;
 	}
+
+
+    public int review_count() { 
+        int review_count = reviewdao.review_count();
+        return review_count;
+    }
+
+    public List<ReviewDto> reviewResult(String searchType, String searchKeyword) {
+       List<ReviewDto> reviewResult = reviewdao.reviewResult(searchType, searchKeyword);
+        return reviewResult;
+    }
+
+    public List<ReviewDto> reviewDate (String fromDate, String toDate) {
+        List<ReviewDto> reviewDate = reviewdao.reviewDate( fromDate , toDate);
+        return reviewDate;
+    }
 	
 //	public List<ReviewDto> searchProduct(String word, String sort) {
 //		System.out.println(word);

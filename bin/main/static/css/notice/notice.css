@@ -1,6 +1,6 @@
 .wrap > *:not(span) {
 	text-align: center;
-}
+} 
 .title_tag {
 	width:100%;
 	margin-bottom: 100px;
@@ -10,6 +10,7 @@
 	border-collapse:collapse;
     font-size:17px;
     margin-bottom:70px;
+    width:1200px;
 } 
 
 .Notice_table td,th {
@@ -55,11 +56,6 @@ th, tr{
 	border-color: gray;
 }
 
-#box1{
-	height: 35px;
-	width: 300px;
-}
-
 #number {
 	width: 100px;
 }
@@ -78,4 +74,18 @@ th, tr{
 
 #hitter{
 	width:100px;
+}
+
+input #searchBtn {
+background-image:url('/img/notice/search.png');
+background-repeat: no-repeat;
+width:20px;
+height:200px;
+
+}
+
+#search_contents{
+	height: 35px;
+	width: 300px;
+	border-radius: none;
 }

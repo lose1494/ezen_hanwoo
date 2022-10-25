@@ -1,5 +1,4 @@
 package com.study.springboot;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springboot.dto.CartProductDto;
-import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.FaqDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.ProductDto;
@@ -82,29 +80,29 @@ public class MyController_ian {
     
     // 이용자 공지사항
     @RequestMapping("/Notice/notice")
-    public String notice(@RequestParam(value="search_type",required=false) String search_type, 
+    public String notice_Action(@RequestParam(value="search_type",required=false) String search_type, 
                          @RequestParam(value="search_contents",required=false) String search_contents,
                          Model model) {
         
         int notice_count = noticeService.notice_count();
         List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
         List<NoticeDto> searchResult;
-       
         if(search_type != null) {
             searchResult = noticeService.searchResult(search_type, search_contents);
             model.addAttribute("admin_notice_list", searchResult);
+            model.addAttribute("notice_count", searchResult.size());
         }else {
             model.addAttribute("admin_notice_list", admin_notice_list);
+            model.addAttribute("notice_count", notice_count);
         }
-        model.addAttribute("notice_count", notice_count);
+       
         model.addAttribute("mainPage", "notice/notice.jsp");
         return "index";
     }
     
     // 이용자 공지사항 글
     @RequestMapping("/Notice/notice_view")
-    public String notice_view( HttpServletRequest request,  Model model) {
-        String notice_idx = request.getParameter("notice_idx");
+    public String notice_view(Model model,@RequestParam("notice_idx") int notice_idx) {
         List<NoticeDto> notice_detail = noticeService.notice_detail(notice_idx);
         model.addAttribute("notice_detail", notice_detail);
         model.addAttribute("mainPage", "notice/notice_view.jsp");
@@ -207,10 +205,12 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/admin_item.jsp");
         return "index";
     }
+    
     // 상품 검색
     @RequestMapping("/admin/item_search")
-    public String item_search(@RequestParam("item_search") String search, @RequestParam("main_text") String text,
-            Model model) {
+    public String item_search(@RequestParam("item_search") String search, 
+                              @RequestParam("main_text") String text,
+                              Model model) {
         List<ProductDto> item_result = productservice.item_result(search, text);
     
         model.addAttribute("search", search);
@@ -232,16 +232,17 @@ public class MyController_ian {
             return "<script>alert('글 삭제 성공');" + "location.href='/admin/admin_item';</script>";
         }
     }
-    // 상품등록
+    //상품등록
     @RequestMapping("/admin/item_register")
     public String item_register(Model model) {
         model.addAttribute("mainPage", "admin/item_register.jsp");
         return "index";
     }
+    
     @RequestMapping("/admin/productRegister")
         public String productRegister( @RequestBody Map<String, String>register) {
             productservice.productRegister(register);
-            return "redirect:admin/item_register";
+            return "redirect:/admin/item_register";
         }
    
     // 상품 상세조회
@@ -254,43 +255,24 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/item_detail.jsp");
         return "index";
     }
-    
-    
-     //상품 수정
-      @RequestMapping("/admin/item_revise")
-      public String item_revise(HttpServletRequest request, Model model) {
-      String product_idx= request.getParameter("product_idx");
-      List<ProductDto> item_detail = productservice.productDetail(product_idx);
-      model.addAttribute("product_idx", product_idx);
-      model.addAttribute("item_detail", item_detail);
-      model.addAttribute("mainPage", "admin/item_revise.jsp");
-      return "index";
-     }
-     
+  
     //상품 수정
-    @RequestMapping("/admin/reviseAction")
-    @ResponseBody
-    public String reviseAction( @RequestParam("product_idx") String product_idx,
-                                @RequestParam("product_name") String product_name,
-                                @RequestParam("product_price") String product_price,
-                                Map<String, Object> reviseAction) {
-        reviseAction.put("product_idx", product_idx);
-        reviseAction.put("product_name", product_name);
-        reviseAction.put("product_price", product_price);
-        
-        int result = productservice.updateItem( reviseAction ); 
-        if( result != 1 ) {
-            System.out.println("수정을 실패했습니다.");
-            return "<script>alert('수정 실패');history.back();</script>";
-        }else {
-            System.out.println("수정을 성공했습니다.");
-            return "<script>alert('수정 성공');" + "location.href='/admin/item_detail?product_idx=" + product_idx + "' ;</script>"; 
-        }
-    }
-    
-    
-    
-    
+    @RequestMapping("/admin/item_revise")
+    public String item_revise(HttpServletRequest request, Model model) {
+        String product_idx= request.getParameter("product_idx");
+        List<ProductDto> item_detail = productservice.productDetail(product_idx);
+        model.addAttribute("product_idx", product_idx);
+        model.addAttribute("item_detail", item_detail);
+        model.addAttribute("mainPage", "admin/item_revise.jsp");
+        return "index";
+   }
+    @RequestMapping("/admin/reviseProduct")
+    public String reviseProduct ( @RequestBody Map<String, String> revise, Model model ) {
+        /* System.out.println(revise); */
+        productservice.reviseProduct( revise );
+        model.addAttribute("mainPage", "admin/admin_item.jsp");
+        return "index";
+  }
     // 주문관리
     @RequestMapping("/admin/admin_order")
     public String adminorder(Model model) {
@@ -303,17 +285,36 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/admin_order_detail.jsp");
         return "index";
     }
-    // 리뷰 관리
+    // 리뷰 관리 검색
     @RequestMapping("/admin/admin_review")
-    public String admin_review(Model model, HttpServletRequest request) {
-        
+    public String admin_review(Model model, 
+                                @RequestParam(value="searchType",required=false) String Type,
+                                @RequestParam(value="searchKeyword",required=false) String keyword,
+                                @RequestParam(value="fromDate", required=false) String fromDate,
+                                @RequestParam(value="toDate", required=false) String toDate,
+                                HttpServletRequest request) {
         List<ReviewDto> review_result = reviewService.review_result();
+        List<ReviewDto> reviewResult;
+        List<ReviewDto> reviewDate;
+        int review_count = reviewService.review_count();
+        if( Type != null ) {
+            reviewResult = reviewService.reviewResult( Type, keyword );
+            model.addAttribute("review_result", reviewResult);
+            model.addAttribute("review_count", reviewResult.size());
+        }  else if( fromDate != null || toDate != null ) {
+          reviewDate = reviewService.reviewDate(fromDate, toDate);
+          System.out.println(reviewDate);
+          model.addAttribute("review_result", reviewDate);
+          model.addAttribute("review_count", reviewDate.size());
+          } else {
+            model.addAttribute("review_result", review_result); 
+            model.addAttribute("review_count", review_count);
+        }
         
-        model.addAttribute("review_result", review_result);
         model.addAttribute("mainPage", "admin/admin_review.jsp");
-        
         return "index";
     }
+    
     // 상품 문의 관리
     @RequestMapping("/admin/admin_inquiry")
     public String admin_inquiry(Model model) {
@@ -325,33 +326,29 @@ public class MyController_ian {
     }
     // 공지사항 관리
     @RequestMapping("/admin/admin_notice")
-    public String admin_notice(Model model) {
-        
-        /*
-         * List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
-         * int notice_count = noticeService.notice_count();
-         * model.addAttribute("notice_count", notice_count);
-         * model.addAttribute("admin_notice_list", admin_notice_list);
-         * model.addAttribute("mainPage", "admin/admin_notice.jsp");
-         */
+    public String admin_notice(@RequestParam(value="search_type",required=false) String search_type, 
+                               @RequestParam(value="search_contents",required=false) String search_contents,
+                               Model model) {
+
+        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
+        List<NoticeDto> searchResult;
+        if(search_type != null) {
+            searchResult = noticeService.searchResult(search_type, search_contents);
+            model.addAttribute("admin_notice_list", searchResult);
+            model.addAttribute("notice_count", searchResult.size());
+        }else {
+            model.addAttribute("admin_notice_list", admin_notice_list);
+            model.addAttribute("notice_count",admin_notice_list.size() );
+        }
+       
         model.addAttribute("mainPage", "admin/admin_notice.jsp");
         return "index";
     }
-    @GetMapping("/admin/notice_list")
-    @ResponseBody
-    public List<NoticeDto> notice_list(@RequestParam("notice_idx") String notice_idx,
-                              @RequestParam("notice_title") String notice_title,
-                              @RequestParam("notice_date") Date notice_date
-            ) {
-        
-        
-        List<NoticeDto> noticelist = noticeService.noticelist(notice_idx, notice_title, notice_date);
-        return noticelist;
-    }
+
     //공지사항 상세 페이지
     @RequestMapping("/admin/notice_detail")
-    public String notice_detail ( HttpServletRequest request, Model model ) {
-        String notice_idx = request.getParameter("notice_idx");
+    public String notice_detail ( HttpServletRequest request, Model model,
+                                  @RequestParam ("notice_idx") int notice_idx) {
         List<NoticeDto> notice_detail = noticeService.notice_detail(notice_idx);
         model.addAttribute("notice_detail", notice_detail);
         model.addAttribute("mainPage", "admin/notice_detail.jsp");
@@ -369,35 +366,49 @@ public class MyController_ian {
         noticeService.noticeWrite(param);
         return "redirect:admin/admin_notice";
     }
-    @RequestMapping("/admin/admin_noticewrite2")
-    public String admin_noticewrite2(Model model) {
-        
-        
-        model.addAttribute("mainPage", "admin/admin_noticewrite2.jsp");
+    
+    //공지사항 수정
+    @RequestMapping("/admin/admin_noticeEdit")
+    public String admin_noticewrite2(@RequestParam("notice_idx") int notice_idx,Model model) {
+        NoticeDto noticedetail = noticeService.notice_Edit(notice_idx);
+        System.out.println(noticedetail);
+        model.addAttribute("dto", noticedetail);
+        model.addAttribute("mainPage", "admin/admin_noticeEdit.jsp");
         return "index";
     }
-    @GetMapping("/admin/notice_update")
-    @ResponseBody
-    public List<NoticeDto> notice_update(@RequestParam("notice_idx") String notice_idx,
-                                       @RequestParam("notice_title") String notice_title,
-                                       @RequestParam("notice_content") String notice_content
-            ) {
-        List<NoticeDto> updatelist = noticeService.updatelist(notice_idx, notice_title, notice_content);
-        System.out.println(updatelist);
-        return updatelist;
+    @RequestMapping("/admin/noticeEdit")
+    public String noticeEdit ( @RequestBody Map<String, String> noticeEdit, Model model) {
+        noticeService.noticeEdit(noticeEdit);
+        model.addAttribute("mainPage","admin/admin_notice.jsp");
+        return "index";
     }
+    
+    //공지사항 삭제
+    @RequestMapping("/admin/deleteNotice")
+    @ResponseBody
+    public String deleteNotice(@RequestParam("notice_idx") int idx, Model model) {
+        int result = noticeService.deleteNotice(idx);
+        if (result != 1) {
+        return "<script>alert('글 삭제 실패');history.back();</script>";
+        } else {
+        return "<script>alert('글 삭제 성공');" + "location.href='/admin/admin_notice';</script>";
+        }
+    }
+
     // 1:1문의
     @RequestMapping("/admin/admin_one2one")
     public String admin_one2one(Model model) {
         model.addAttribute("mainPage", "admin/admin_one2one.jsp");
         return "index";
     }
+    
     // 자주하는 질문
     @RequestMapping("/admin/admin_faq")
     public String admin_faq(Model model) {
         model.addAttribute("mainPage", "admin/admin_faq.jsp");
         return "index";
     }
+    
     // 상품상세페이지 리뷰등록
     @RequestMapping("/product/product_review_popup")
     public String product_review_popup(@RequestParam("product_idx") int product_idx,
@@ -415,8 +426,8 @@ public class MyController_ian {
             model.addAttribute("product", product);
             return "product/product_review_popup";
         }
-    
     }
+    
     @RequestMapping("/mypage/mypage_cart")
     public String mypage_cart ( 
             Model model) {
