@@ -231,9 +231,9 @@ commit;
 drop table orderlist;
 create table orderlist(
 order_idx number(4) primary key,
-order_no number(20),
+order_no varchar2(40),
 users_id varchar2(20),
-order_total_price number(10),
+order_total_price varchar2(20),
 order_comment varchar2(100),
 order_date date,
 order_recipient varchar2(20),
@@ -250,7 +250,7 @@ create sequence orderlist_seq;
 drop table orderDetail;
 create table orderDetail(
 detail_idx number(4) primary key,
-order_idx number(4),
+order_no varchar2(40),
 product_idx number(4),
 product_count number(2),
 product_price varchar2(20),

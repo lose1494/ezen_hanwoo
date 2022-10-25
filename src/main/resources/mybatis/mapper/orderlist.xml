@@ -8,7 +8,7 @@
 	
 	<select id="orderList">
 		select * from orderlist 
-		<if test="param1 != null"></if>
+		<if test='param1 != null'></if>
 			where ${param1} = #{param2}
 	</select>
 	
@@ -39,10 +39,11 @@
 	</insert>
 	
 	<delete id=""></delete>
+<!-- 	
 	<select id="orderlist" resultType="com.study.springboot.dto.OrderlistDto">
 		select * from orderlist where users_id=#{param1}
 		
-	</select>
+	</select> -->
 
 	
 </mapper>

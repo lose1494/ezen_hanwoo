@@ -34,7 +34,7 @@
 						<fmt:formatNumber value="${ num * pro.cart_count }" type="number" var="price" />
                         <fmt:formatNumber value="${ num * pro.cart_count / 100 }" type="number" var="point" />
                         <td class="price">${ price }원</td>
-                        <td>${ point }원</td>
+                        <td class="proPoint">${ point }원</td>
                         <td class="icon"><img src="/img/mypage/x.png" alt="">
                             <img src="/img/mypage/heart.png" alt=""></td>
                     </tr>
@@ -301,7 +301,19 @@
             }else{
             	var proName = $('.proName').eq(0).text()+" 외 ${orderCount-1}건";
             }
-            
+            var arr1 = [];
+            var arr2 = [];
+            var arr3 = [];
+            var getPoint = 0;
+            for(i=0; i<'${orderCount}'; i++) {
+                arr1.push($('input[name=product_idx]').eq(i).val());
+                arr2.push(Number($('.proCount').eq(i).text()));
+                arr3.push($('.price').eq(i).text().split('원')[0]);
+                getPoint += stringNumberToInt($('.proPoint').eq(i).text());
+            }
+            console.log(arr3);
+            console.log((Number(getYyMmDdMmSsToString(date))));
+
             let IMP = window.IMP;
             IMP.init('imp34801804');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
             IMP.request_pay({// param
@@ -317,24 +329,14 @@
                 buyer_addr: $('input[name=address2]').val()+","+$('input[name=address3]').val(),
             }, function (rsp) { // callback
                 if (rsp.success) {
-                    console.log(rsp);
-             	/* 	var arr = Object.keys(rsp).map(item => rsp[item]);
-                    console.log(arr);
-                    console.log(typeof(arr)); */
-                    var arr1 = [];
-                    var arr2 = [];
-                    var arr3 = [];
-                    for(i=0; i<'${orderCount}'; i++) {
-                        arr1.push($('input[name=product_idx]').eq(i).val());
-                        arr2.push(Number($('.proCount').eq(i).text()));
-                        arr3.push($('.price').eq(i).text().split('원'));
-                    }
-                    console.log(arr1+","+arr2+","+arr3);
+                    console.log(rsp.merchant_uid);
+                  
                     var addr = rsp.buyer_addr.split(',');
+                    var totalPrice = ("${user.users_point}" - stringNumberToInt($('#inputPoint').val()) + getPoint).toLocaleString();
                     $.ajax({
                     	type: 'post',
                     	url: '/product/paymentOrder',
-                    	data: { imp_uid : rsp.imp_uid,
+                    	data: {
                 			no : rsp.merchant_uid,
                 		    total_price : rsp.paid_amount,
                 			comment : $('input[name=orderRequest]').val(),
@@ -343,10 +345,12 @@
                 			address2 : addr[0],
                             address3 : addr[1],
                             phone : rsp.buyer_tel,
+                            use_point : $('#inputPoint').val(),
                             product_idx : arr1,
                             product_count : arr2,
                             product_price : arr3,
-                            pay_method : rsp.pay_method
+                            pay_method : rsp.pay_method,
+                            users_point : totalPrice
                 		},
                     	success: function(data) {
                     		console.log(data);
@@ -360,174 +364,6 @@
                 }
             });
         }
-        // $(document).ready(function() {
-        //     order();
-    	// 	  }); 
-        // function order() {
-        //     $.ajax({
-        //         url: "/mypage/get_order_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-        //         data: { users_id: "${user.users_id}" },  // HTTP 요청과 함께 서버로 보낼 데이터
-        //         method: "GET",   // HTTP 요청 메소드(GET, POST 등)
-        //         dataType: "json", // 서버에서 보내줄 데이터의 타입
-        //         success: function (data) {
-                	
-                	
-                	  
-        //             console.log(data);
-        //             let htmls = "";
-                  
-        //             const dataLen = data.length;
-        //             const target = document.getElementById("order_table");
-        //            	var ca = 0;
-        //             var total = 0;
-        //             var total2 = 0;
-        //     		const cup = "5,000"
-            	   	
-            			
-            		
-        //             for (let i = 0; i < dataLen; i++) {
-        //             	if(data[i].cart_check == 1){
-        //             	  ca = stringNumberToInt(data[i].product_price) * (data[i].cart_count);
-        //             	  cpa = stringNumberToInt(cup);
-        //                  total += ca;
-        //                  total2 = total + cpa;
-        //                  const point = (ca / 100).toLocaleString();
-                         
-                       
-                             
-        //                  htmls += '<tr>'
-        //                      +'<td><img src = ' + data[i].product_image +'></td>'
-        //                      + '<td value="' +data[i].product_idx +'" id= "product_name'+ i + '">' + data[i].cart_product_name + '</td>'
-        //                      +'<td id= "product_price'+ i + '" value="' +data[i].product_price +'">' + data[i].product_price + '</td>'
-        //                      +'<td <input type="number" id="count_input' + i + '" value="' + data[i].cart_count +'">' + data[i].cart_count +'</td>'
-        //                      +'<td id="total_price">' + ca.toLocaleString() + '</td>'
-        //                      +'<td id="point_total">'+ point +'</td>'
-        //                      +'</tr>'
-                            
-        //                      console.log(htmls);
-        //                  console.log(data[i].product_price);
-        //                  console.log(data[i].cart_count);
-                         
-                         
-        //               	document.getElementById("order_price").innerText = total.toLocaleString() + "원";
-        //        			document.getElementById("order_delivery").innerText = cpa.toLocaleString() + "원";
-        //        			document.getElementById("order_total").innerText = total2.toLocaleString() + "원";
-        //             	}
-        //             }
-                    
-        //             target.insertAdjacentHTML('beforeend', htmls)
-        //         },
-           		
-        //         error: function (data) {
-                    
-        //         }
-        //     })
-        // }
-       
-        // 	function insert_order(){
-        // 		const point2 = document.getElementById("point_total").innerText
-        // 		const point = document.getElementById("inputPoint").value
-        // 		const total_price = document.getElementById("order_total").innerText
-        // 		const price = stringNumberToInt(total_price);
-        // 		const comment = document.getElementById("orderRequest").value
-        // 		const date = new Date();
-        // 		const order_date = date.toLocaleString();
-        // 		const recipient = document.getElementById("recip").value
-        // 		const address1 = document.getElementById("address1").value
-        // 		const address2 = document.getElementById("address2").value
-        // 		const address3 = document.getElementById("address3").value
-        // 		const phone = document.getElementById("phone").value
-        // 		const order_phone = parseInt(phone);
-        // 		const year = date.getFullYear();
-        // 		const month = ('0' + (date.getMonth() + 1)).slice(-2);
-        // 		const day = ('0' + date.getDate()).slice(-2);
-        // 		const dateStr = year +  month   + day;
-        // 		var val = Math.floor(1000 + Math.random() * 9000);
-        // 		console.log(order_phone);
-        // 		const order_no =  stringNumberToInt(dateStr) + (val);
-        // 		const point_total = "${user.users_point}" - stringNumberToInt(point) + stringNumberToInt(point2);
-        // 		$.ajax({
-        //      		url: "/product/insertorder",
-        //      		dataType: "text",
-        //      		data : {
-        //      				order_usepoint : point,
-        //      				users_point : point_total,
-        //      				order_no : order_no,
-        //      				order_total_price : price,
-        //      				order_comment : comment,
-        //      				order_date : date,
-        //      				order_recipient : recipient,
-        //      				order_address1 : address1,
-        //      				order_address2 : address2,
-        //      				order_address3 : address3,
-        //      				order_phone : phone,
-        //      				users_id : "${user.users_id}"
-        //      		},
-        //     	success: function(data){
-            		
-        //     		if($('input[type=checkbox]').is(':checked') ) {  
-        //     			location.href="/product/order02" 
-        //             }else {
-        //                 alert("구매진행에 동의해주세요.");
-        //             }
-                  
-                    
-        //      	},
-        //      	error:function(request, error) {
-        //      	   console.log("code: " + request.status + "\n message: " + request.responseText + "\n error: " + error);
-        //      	}
-        //      	})
-        // 	}
-   		
-        	//  $(document).ready(function() {
-            //      orderlist();
-         	// 	  }); 
-        	//  function orderlist() {
-            //     var pdx = JSON.parse(localStorage.getItem("product_idx"));
-            //     var count = JSON.parse(localStorage.getItem("product_count"));
-            //     var price = JSON.parse(localStorage.getItem("product_price"));
-            //     var name = JSON.parse(localStorage.getItem("product_name"));
-                
-                
-                
-                
-            //     let htmls = "";
-            //     const target = document.getElementById("order_table");
-            //    	var ca = 0;
-            //     var total = 0;
-            //     var total2 = 0;
-        	// 	const cup = "5,000"
-       
-            //     	  ca = stringNumberToInt(price) * stringNumberToInt(count);
-            //     	  cpa = stringNumberToInt(cup);
-            //          total += ca;
-            //          total2 = total + cpa;
-            //          const point = (ca / 100).toLocaleString();
-                     
-                   
-            //          /* <img src = ' + image +'> */
-            //          htmls += '<tr>'
-            //              +'<td></td>'
-            //              + '<td value="' + pdx +'" id= "product_name">' + name + '</td>'
-            //              +'<td id= "product_price" value="' +price +'">' + price + '</td>'
-            //              +'<td <input type="number" id="count_input" value="' + count +'">' + count +'</td>'
-            //              +'<td id="total_price">' + ca.toLocaleString() + '</td>'
-            //              +'<td id="point_total">'+ point +'</td>'
-            //              +'</tr>'
-                        
-            //              console.log(htmls);
-                    
-                     
-                     
-            //       	document.getElementById("order_price").innerText = total.toLocaleString() + "원";
-           	// 		document.getElementById("order_delivery").innerText = cpa.toLocaleString() + "원";
-           	// 		document.getElementById("order_total").innerText = total2.toLocaleString() + "원";
-           		 
-            //         target.insertAdjacentHTML('beforeend', htmls)
-             
-            //     }
-               
-        		 
         		 
              
             

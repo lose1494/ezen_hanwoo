@@ -515,9 +515,8 @@ public class MyController_yerin {
 	
 	@RequestMapping("/product/paymentOrder")
 	@ResponseBody
-	public String paymentOrder(@RequestParam("imp_uid") String imp_uid,
-                	        @RequestParam("no") String no,
-                	        @RequestParam("total_price") int total_price,
+	public String paymentOrder(@RequestParam("no") String no,
+                	        @RequestParam("total_price") String total_price,
                 	        @RequestParam("comment") String comment,
                 	        @RequestParam("name") String name,
                 	        @RequestParam("address1") String address1,
@@ -529,8 +528,8 @@ public class MyController_yerin {
                 	        @RequestParam("product_price[]") ArrayList<String> product_price,
                 	        @RequestParam("pay_method") String pay_method,
 	        OrderlistDto order, OrderDetailDto detail, HttpServletRequest request) {
-	    String users_id = (String) request.getSession().getAttribute("users_id");
-	    order.setOrder_no(Integer.valueOf(no));
+	    String users_id = (String)request.getSession().getAttribute("users_id");
+	    order.setOrder_no(no);
 	    order.setUsers_id(users_id);
 	    order.setOrder_total_price(total_price);
 	    order.setOrder_comment(comment);
@@ -541,7 +540,7 @@ public class MyController_yerin {
 	    order.setOrder_phone(phone);
 	    orderService.insertOrder(order);
 	    for(int i=0; i<product_idx.size(); i++) {
-	        detail.setOrder_no(Integer.valueOf(no));
+	        detail.setOrder_no(no);
 	        detail.setProduct_idx(product_idx.get(i));
 	        detail.setProduct_count(product_count.get(i));
 	        detail.setProduct_price(product_price.get(i));
