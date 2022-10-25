@@ -10,7 +10,7 @@
             <p>주문이 완료되었습니다. 이용해 주셔서 감사합니다. <br>
                 주문 내역은 [마이페이지>주문내역]에서 확인 가능합니다.
             </p>
-            <table>
+            <table id="order_table2">
                 <tr>
                     <td></td>
                     <td>상품명</td>
@@ -20,15 +20,14 @@
                     <td>적립금 사용</td>
                     <td>총금액</td>
                 </tr>
-                <tr>
+               <!--  <tr>
                     <td><img src="https://via.placeholder.com/80" alt=""></td>
                     <td>한우 살치살</td>
                     <td>00,000원</td>
                     <td>1개</td>
                     <td>0,000원</td>
-                    <td>0,000원</td>
                     <td>00,000원</td>
-                </tr>
+                </tr> -->
             </table>
        </div>
         <div class="orderTable">
@@ -36,11 +35,11 @@
             <table>
                 <tr>
                     <th>성함(주문자)</th>
-                    <td>김xx</td>
+                    <td>${ user.users_name }</td>
                 </tr>
                 <tr>
                     <th>휴대전화번호</th>
-                    <td>010-0000-0000</td>
+                    <td>${ user.users_phone }</td>
                 </tr>
             </table>
 
@@ -48,19 +47,19 @@
             <table>
                 <tr>
                     <th>성함(수령인)</th>
-                    <td>김xx</td>
+                    <td id="order_recipient"></td>
                 </tr>
                 <tr>
                     <th>휴대전화번호</th>
-                    <td>010-0000-0000</td>
+                    <td id="order_phone"></td>
                 </tr>
                 <tr>
                     <th>주소</th>
-                    <td>[00000] 경기도 의정부시 00로 000 000-000</td> 
+                    <td id="order_address"></td> 
                 </tr>
                 <tr>
                     <th>배송 시 요청사항</th>
-                    <td>부재 시 연락주세요.</td>
+                    <td id="order_comment"></td>
                 </tr>
             </table>
 
@@ -68,11 +67,11 @@
             <table>
                 <tr>
                     <th>결제 방법</th>
-                    <td>신용카드</td>
+                    <td>가상계좌</td>
                 </tr>
                 <tr>
                     <th>결제 금액</th>
-                    <td>00,000원</td>
+                    <td id="order_total">0원</td>
                 </tr>
             </table>
         </div>  
@@ -82,3 +81,98 @@
             <button class="bright">메인으로 이동</button>
         </div>          
 	</div>
+	
+	<script>
+	function stringNumberToInt(string) {
+        return parseInt(string.replace(/,/g , ''));
+    }
+	$(document).ready(function() {
+        order();
+        console.log("a는 실행되었습니다");
+		  }); 
+	   
+    function order() {
+        $.ajax({
+            url: "/mypage/get_order_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            data: { users_id: "${user.users_id}" },  // HTTP 요청과 함께 서버로 보낼 데이터
+            method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+            dataType: "json", // 서버에서 보내줄 데이터의 타입
+            success: function (data) {
+    
+                let htmls = "";
+                const dataLen = data.length;
+                const target = document.getElementById("order_table2");
+               	var ca = 0;
+                var total = 0;
+                var total2 = 0;
+        		const cup = "5,000"
+        	   	console.log(data);
+                for (let i = 0; i < dataLen; i++) {
+                	if(data[i].cart_check == 1){
+                	  ca = stringNumberToInt(data[i].product_price) * (data[i].cart_count);
+                	  cpa = stringNumberToInt(cup);
+                     total += ca;
+                     total2 = total + cpa; 
+                     total3 = total2 - "${user.users_point}";
+                     const point = (ca / 100).toLocaleString();
+                     
+                     
+                     htmls += '<tr>'
+                         +'<td><img src = ' + data[i].product_image +'></td>'
+                         + '<td value="' +data[i].product_idx +'" id= "product_name'+ i + '">' + data[i].cart_product_name + '</td>'
+                         +'<td id= "product_price'+ i + '" value="' +data[i].product_price +'">' + data[i].product_price + '</td>'
+                         +'<td <input type="number" id="count_input' + i + '" value="' + data[i].cart_count +'">' + data[i].cart_count +'</td>'
+                         +'<td id="order_delivery_price">' + cpa.toLocaleString() + "원" +' </td>'
+                         +'<td id="point1"></td>'
+                         +'<td id="total3"></td>'
+                         +'</tr>'
+                        
+           			
+                	}
+                }
+                
+                target.insertAdjacentHTML('beforeend', htmls)
+            },
+       		
+            error: function (data) {
+                
+            }
+        })
+    }
+     $(document).ready(function() {
+        order2();
+       
+		  }); 
+	   
+    function order2() {
+    	
+        $.ajax({
+            url: "/mypage/get_order2_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            data: { users_id: "${user.users_id}" },  // HTTP 요청과 함께 서버로 보낼 데이터
+            method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+            dataType: "json", // 서버에서 보내줄 데이터의 타입
+            success: function (data) {
+            	 const dataLen = data.length;
+            	 
+            	for (let i = 0; i < dataLen; i++) {
+            		
+                 	
+            		document.getElementById("order_recipient").innerText = data[i].order_recipient;
+            		document.getElementById("total3").innerText =  data[i].order_total_price.toLocaleString() + "원";
+            		document.getElementById("point1").innerText =  data[i].order_usepoint + "원";
+            		document.getElementById("order_phone").innerText = data[i].order_phone;
+            		document.getElementById("order_address").innerText = "(" +  data[i].order_address1 + ")" + " " + data[i].order_address2 + " " + data[i].order_address3;
+            		document.getElementById("order_comment").innerText = data[i].order_comment;
+            		document.getElementById("order_total").innerText = data[i].order_total_price.toLocaleString() + "원";
+            	}
+            	
+            },
+       		
+            error: function (data) {
+                
+            }
+        })
+    }  
+   
+	
+	</script>

@@ -24,6 +24,6 @@ public interface IUsersDao {
 	public int id_check_result(String users_id);
 	public int joinAction(Map<String, String> param);
     public Map<String, String> find(Map<String, String> param);
-
+    public int updatepoint(String users_point, String users_id);
 
 }

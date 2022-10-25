@@ -11,6 +11,7 @@
    A.cart_product_name,
    A.product_idx,
    A.cart_count,
+   A.cart_check,
    B.product_name,
    B.product_image,
    B.product_price,
@@ -34,9 +35,15 @@
 	WHERE product_idx = #{param3}
    	AND users_id = #{param2}   
 	</update>
-	<insert id="insertCart" parameterType="com.study.springboot.dto.CartDto">
+	<update id="updatecheck" parameterType="com.study.springboot.dto.CartDto">
+   	UPDATE cart 
+   	SET cart_check  = #{param1}
+	WHERE product_idx = #{param3}
+   	AND users_id = #{param2}   
+	</update>
+	<insert id="insertCart" parameterType="com.study.springboot.dto.CartProductDto">
 		insert into cart
-		values ( cart_seq.nextval,#{users_id},  #{cart_product_name} , #{product_idx} , #{cart_count})
+		values ( cart_seq.nextval , #{users_id},  #{cart_product_name} , #{product_idx} , #{cart_count}, #{cart_check})
 	</insert>
 	
 	<delete id="deleteCart">

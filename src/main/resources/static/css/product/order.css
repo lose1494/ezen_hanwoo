@@ -4,7 +4,12 @@
 table {
     width: 100%;
 }
-
+#order_table img {
+	width : 100px;
+}
+#order_table2 img{
+	width : 100px;
+}
 input[type=text] {
     width: 250px;
     height: 25px;
