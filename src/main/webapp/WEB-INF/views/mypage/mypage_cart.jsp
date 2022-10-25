@@ -67,7 +67,6 @@
 					<input type="hidden" name="checkList">
               		<button type="button" onclick="check_order()">주문하기</button>
 				</form>
-              <button onclick="update_Cart_order()">주문하기</button>
             </td>
             <td></td>
           </tr>
@@ -314,23 +313,6 @@
 		
 	}
 
-	// function delete_Cart_tableall(){
-	// 	$.ajax({
-	// 		url : "/mypage/cart_deleteall",
-	// 		data :{
-	// 			users_id : "1"
-	// 		},
-	// 			method : "GET",
-	// 			dataType : "json",
-				
-	// 				success: function (data) {
-						
-	// 				}
-	// 	})
-	// 	alert("삭제했습니다.");	
-	// 	location.reload();
-	
-	// }
 	function check_order() {
 		var arr = new Array();
 		$('input[name=buy_check]').each(function(index, item) {
@@ -338,7 +320,10 @@
 				console.log($(this).val());
 				arr.push($(this).val());
 			}
-			console.log(arr);			
+			console.log(arr);
+			if( arr == [] ) {
+				alert("선택된 품목이 없습니다");
+			}	
 		});
 		$('input[name=checkList]').val(arr);
 		console.log($('input[name=checkList]').val());
@@ -348,7 +333,7 @@
 
   </script>
 	
-function update_Cart_order(){
+<!-- function update_Cart_order(){
 	
 	check_len = document.getElementsByName("buy_check").length;
 	const checkboxs = document.querySelectorAll('input[name="buy_check"]:checked');
@@ -381,7 +366,5 @@ function update_Cart_order(){
 		})
 		
 	  }
-	}
-
-  </script>
+	} -->
   

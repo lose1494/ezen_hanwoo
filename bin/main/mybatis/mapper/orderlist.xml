@@ -6,15 +6,30 @@
 
 <mapper namespace="com.study.springboot.dao.IOrderlistDao">
 	
-	<select id="orderList"></select>
+	<select id="orderList">
+		select * from orderlist 
+		<if test="param1 != null"></if>
+			where ${param1} = #{param2}
+	</select>
 	
 	<select id="detailList"></select>
 	
 	<insert id="insertOrder" parameterType="com.study.springboot.dto.OrderlistDto">
 		insert into orderlist
-		values(orderlist_seq.nextval, #{order_no}, #{order_users_id}, #{order_total_price},
-		#{order_comment}, sysdate, #{order_name}, #{order_address1}, #{order_address2},
-		#{order_address3}, #{order_phone})
+		values ( 
+			orderlist_seq.nextval,
+			#{order_no},
+			#{users_id},
+			#{order_total_price},
+			#{order_comment},
+			sysdate,
+			#{order_recipient},
+			#{order_address1},
+			#{order_address2},
+			#{order_address3},
+			#{order_phone},
+			#{order_usepoint}
+		 )
 	</insert>
 	
 	<insert id="insertOrderDetail" parameterType="com.study.springboot.dto.OrderDetailDto">
@@ -24,26 +39,10 @@
 	</insert>
 	
 	<delete id=""></delete>
-<select id="orderlist" resultType="com.study.springboot.dto.OrderlistDto">
+	<select id="orderlist" resultType="com.study.springboot.dto.OrderlistDto">
 		select * from orderlist where users_id=#{param1}
 		
 	</select>
-<insert id="insertOrder" parameterType="com.study.springboot.dto.OrderlistDto">
-		insert into orderlist
-		values ( 
-			orderlist_seq.nextval,
-			#{order_no},
-			#{users_id},
-			#{order_total_price},
-			#{order_comment},
-			#{order_date},
-			#{order_recipient},
-			#{order_address1},
-			#{order_address2},
-			#{order_address3},
-			#{order_phone},
-			#{order_usepoint}
-		 )
-	</insert>
+
 	
 </mapper>

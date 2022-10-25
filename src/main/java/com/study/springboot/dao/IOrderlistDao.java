@@ -9,8 +9,9 @@ import com.study.springboot.dto.OrderlistDto;
 
 @Mapper
 public interface IOrderlistDao {
+    public List<OrderlistDto> orderList(String col, String value);
     public int insertOrder(OrderlistDto dto);
     public int insertOrderDetail(OrderDetailDto dto);
     public List<OrderlistDto> orderlist(String users_id);
-    public int insertOrder(OrderlistDto dto);
+//    public int insertOrder(OrderlistDto dto);
 }

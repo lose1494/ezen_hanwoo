@@ -245,8 +245,8 @@ order_usepoint varchar2(20)
 );
 drop sequence orderlist_seq;
 create sequence orderlist_seq;
+
 --주문 상세
-select * from orderDetail;
 drop table orderDetail;
 create table orderDetail(
 detail_idx number(4) primary key,

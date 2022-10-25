@@ -14,6 +14,11 @@ public class OrderlistService {
 	@Autowired
 	private	IOrderlistDao orderdao;
 	
+	public List<OrderlistDto> orderList(String col, String value) {
+	    List<OrderlistDto> orderList = orderdao.orderList(col, value);
+	    return orderList;
+	}
+	
 	public int insertOrder(OrderlistDto dto) {
 	    int insertOrder = orderdao.insertOrder(dto);
 	    return insertOrder;
@@ -25,11 +30,11 @@ public class OrderlistService {
 	}
 
 	public List<OrderlistDto> orderlist(String users_id) {
-        List<OrderlistDto> orderlist = orderlistdao.orderlist(users_id);
+        List<OrderlistDto> orderlist = orderdao.orderlist(users_id);
         return orderlist;
     }
-	public int insertOrder(OrderlistDto dto) {
-        int insertOrder = orderlistdao.insertOrder(dto);
-        return insertOrder;
-    }
+//	public int insertOrder(OrderlistDto dto) {
+//        int insertOrder = orderlistdao.insertOrder(dto);
+//        return insertOrder;
+//    }
 }

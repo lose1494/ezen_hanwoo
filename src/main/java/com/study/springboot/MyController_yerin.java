@@ -526,25 +526,35 @@ public class MyController_yerin {
                 	        @RequestParam("phone") String phone,
                 	        @RequestParam("product_idx[]") ArrayList<Integer> product_idx,
                 	        @RequestParam("product_count[]") ArrayList<Integer> product_count,
+                	        @RequestParam("product_price[]") ArrayList<String> product_price,
                 	        @RequestParam("pay_method") String pay_method,
 	        OrderlistDto order, OrderDetailDto detail, HttpServletRequest request) {
 	    String users_id = (String) request.getSession().getAttribute("users_id");
 	    order.setOrder_no(Integer.valueOf(no));
-	    order.setOrder_users_id(users_id);
+	    order.setUsers_id(users_id);
 	    order.setOrder_total_price(total_price);
 	    order.setOrder_comment(comment);
-	    order.setOrder_name(name);
+	    order.setOrder_recipient(name);
 	    order.setOrder_address1(address1);
 	    order.setOrder_address2(address2);
 	    order.setOrder_address3(address3);
 	    order.setOrder_phone(phone);
+	    orderService.insertOrder(order);
+	    for(int i=0; i<product_idx.size(); i++) {
+	        detail.setOrder_no(Integer.valueOf(no));
+	        detail.setProduct_idx(product_idx.get(i));
+	        detail.setProduct_count(product_count.get(i));
+	        detail.setProduct_price(product_price.get(i));
+	        detail.setPay_method(pay_method);
+	        orderService.insertOrderDetail(detail);	        
+	    }
 	    return "넘어온당";
 	}
-	
 	@RequestMapping("/product/order02")
 	public String order02(Model model,HttpServletRequest request) {
 	    
 	    String users_id = (String) request.getSession().getAttribute("users_id");
+	    String col = "order_no";
 	    
         if(users_id == null) {
             request.getSession().setAttribute("alert", "로그인이 필요합니다.");
@@ -727,9 +737,18 @@ public class MyController_yerin {
 	
 	//로그아웃
 	@RequestMapping("/member/logoutAction")
-	public String logout(HttpServletRequest request, Model model) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, 
+	        Model model) {
 		
 		request.getSession().invalidate();	
+		Cookie setId = new Cookie("users_id", null);
+        Cookie setPw = new Cookie("users_pw", null);
+        setId.setPath("/");
+        setPw.setPath("/");
+        setId.setMaxAge(0);
+        setPw.setMaxAge(0);
+        response.addCookie(setId); // response에 Cookie 추가
+        response.addCookie(setPw);
 		
 		request.getSession().setAttribute("alert", "로그아웃되었습니다.");
 		
