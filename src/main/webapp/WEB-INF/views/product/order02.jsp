@@ -6,28 +6,19 @@
     
     <div class="wrap">
        <h2>주문완료</h2>
-       <div class="productTable">
+       <div class="orderTable">
             <p>주문이 완료되었습니다. 이용해 주셔서 감사합니다. <br>
                 주문 내역은 [마이페이지>주문내역]에서 확인 가능합니다.
             </p>
             <table id="order_table2">
                 <tr>
-                    <td></td>
-                    <td>상품명</td>
-                    <td>가격</td>
-                    <td>수량</td>
-                    <td>배송비</td>
-                    <td>적립금 사용</td>
-                    <td>총금액</td>
+                    <th>주문번호</th>
+                    <td>${ ord.order_no }</td>                   
                 </tr>
-               <!--  <tr>
-                    <td><img src="https://via.placeholder.com/80" alt=""></td>
-                    <td>한우 살치살</td>
-                    <td>00,000원</td>
-                    <td>1개</td>
-                    <td>0,000원</td>
-                    <td>00,000원</td>
-                </tr> -->
+                <tr>
+                    <th>상품명</th>
+                    <td>${ ord.order_product_name }</td>
+                </tr>
             </table>
        </div>
         <div class="orderTable">
@@ -47,19 +38,19 @@
             <table>
                 <tr>
                     <th>성함(수령인)</th>
-                    <td id="order_recipient"></td>
+                    <td id="order_recipient">${ ord.order_recipient }</td>
                 </tr>
                 <tr>
                     <th>휴대전화번호</th>
-                    <td id="order_phone"></td>
+                    <td id="order_phone">${ ord.order_phone }</td>
                 </tr>
                 <tr>
                     <th>주소</th>
-                    <td id="order_address"></td> 
+                    <td id="order_address">${ ord.order_address1 }, ${ ord.order_address2 } ${ ord.order_address3 }</td> 
                 </tr>
                 <tr>
                     <th>배송 시 요청사항</th>
-                    <td id="order_comment"></td>
+                    <td id="order_comment">${ ord.order_comment }</td>
                 </tr>
             </table>
 
@@ -67,18 +58,18 @@
             <table>
                 <tr>
                     <th>결제 방법</th>
-                    <td>가상계좌</td>
+                    <td>${ pay.pay_method }</td>
                 </tr>
                 <tr>
                     <th>결제 금액</th>
-                    <td id="order_total">0원</td>
+                    <td id="order_total">${ ord.order_total_price }원</td>
                 </tr>
             </table>
         </div>  
         <div class="orderBtn">
-            <button class="bright">주문내역 확인</button>   
+            <button class="bright" onclick="location.href='/mypage/mypage_order'">주문내역 확인</button>   
             <button class="bright">쇼핑 계속하기</button> 
-            <button class="bright">메인으로 이동</button>
+            <button class="bright" onclick="location.href='/'">메인으로 이동</button>
         </div>          
 	</div>
 	
@@ -86,6 +77,10 @@
 	function stringNumberToInt(string) {
         return parseInt(string.replace(/,/g , ''));
     }
+    $(function() {
+        console.log("${ord}");
+    })
+    
 	// $(document).ready(function() {
     //     order();
     //     console.log("a는 실행되었습니다");

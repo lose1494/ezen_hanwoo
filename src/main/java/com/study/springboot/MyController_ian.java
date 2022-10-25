@@ -656,35 +656,35 @@ public class MyController_ian {
 	
 	
    
-    @GetMapping("/product/insertorder")
-    @ResponseBody
-        public Object insertorder(@RequestParam("order_no") int order_no,
-                                  @RequestParam("order_total_price") int order_total_price,
-                                  @RequestParam("order_comment") String order_comment,
-                                  @RequestParam("order_usepoint") String order_usepoint,
-                                  @RequestParam("order_date") Date order_date,
-                                  @RequestParam("order_recipient") String order_recipient,
-                                  @RequestParam("order_address1") String order_address1,
-                                  @RequestParam("order_address2") String order_address2,
-                                  @RequestParam("order_address3") String order_address3,
-                                  @RequestParam("order_phone") String order_phone,
-                                  @RequestParam("users_point") String users_point,
-                             HttpServletRequest request) {
-        String users_id = (String)request.getSession().getAttribute("users_id");
-        OrderlistDto orderdto = new OrderlistDto();
-        orderdto.setOrder_usepoint(order_usepoint);
-        orderdto.setOrder_address1(order_address1);
-        orderdto.setOrder_address2(order_address2);
-        orderdto.setOrder_address3(order_address3);
-        orderdto.setOrder_comment(order_comment);
-        orderdto.setOrder_date(order_date);
-        orderdto.setOrder_no(order_no);
-        orderdto.setOrder_phone(order_phone);
-        orderdto.setUsers_id(users_id);
-        orderdto.setOrder_total_price(order_total_price);
-        orderdto.setOrder_recipient(order_recipient);
-        usersService.updatepoint(users_point, users_id);
-        orderservice.insertOrder(orderdto);
-        return "insertorder";
-    }
+//    @GetMapping("/product/insertorder")
+//    @ResponseBody
+//        public Object insertorder(@RequestParam("order_no") int order_no,
+//                                  @RequestParam("order_total_price") int order_total_price,
+//                                  @RequestParam("order_comment") String order_comment,
+//                                  @RequestParam("order_usepoint") String order_usepoint,
+//                                  @RequestParam("order_date") Date order_date,
+//                                  @RequestParam("order_recipient") String order_recipient,
+//                                  @RequestParam("order_address1") String order_address1,
+//                                  @RequestParam("order_address2") String order_address2,
+//                                  @RequestParam("order_address3") String order_address3,
+//                                  @RequestParam("order_phone") String order_phone,
+//                                  @RequestParam("users_point") String users_point,
+//                             HttpServletRequest request) {
+//        String users_id = (String)request.getSession().getAttribute("users_id");
+//        OrderlistDto orderdto = new OrderlistDto();
+//        orderdto.setOrder_usepoint(order_usepoint);
+//        orderdto.setOrder_address1(order_address1);
+//        orderdto.setOrder_address2(order_address2);
+//        orderdto.setOrder_address3(order_address3);
+//        orderdto.setOrder_comment(order_comment);
+//        orderdto.setOrder_date(order_date);
+//        orderdto.setOrder_no(order_no);
+//        orderdto.setOrder_phone(order_phone);
+//        orderdto.setUsers_id(users_id);
+//        orderdto.setOrder_total_price(order_total_price);
+//        orderdto.setOrder_recipient(order_recipient);
+//        usersService.updatepoint(users_point, users_id);
+//        orderservice.insertOrder(orderdto);
+//        return "insertorder";
+//    }
 }

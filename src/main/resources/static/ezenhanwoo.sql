@@ -15,7 +15,7 @@ create table ezen_users(
     users_address3 varchar(100),
     users_address varchar2(100),
     users_joindate date default sysdate,
-    users_point    varchar2(20)
+    users_point    number(10)
 );
 select * from ezen_users;
 select * from cart;
@@ -235,6 +235,7 @@ order_no varchar2(40),
 users_id varchar2(20),
 order_total_price varchar2(20),
 order_comment varchar2(100),
+order_product_name varchar2(40),
 order_date date,
 order_recipient varchar2(20),
 order_address1 varchar(20),
@@ -295,17 +296,8 @@ point_content varchar(60)
 drop sequence point_seq;
 create sequence point_seq;
 insert into point
-values( point_seq.nextval, 'hong', sysdate, +5000, sysdate+365, '회원가입');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +500, sysdate+365, '테스트');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +100, sysdate+365, '테스트1');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +200, sysdate+365, '테스트2');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
+values( point_seq.nextval, 'hong', sysdate, +3000, sysdate+365, '회원가입');
+
 commit;
 
 

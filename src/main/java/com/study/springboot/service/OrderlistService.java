@@ -14,9 +14,19 @@ public class OrderlistService {
 	@Autowired
 	private	IOrderlistDao orderdao;
 	
-	public List<OrderlistDto> orderList(String col, String value) {
-	    List<OrderlistDto> orderList = orderdao.orderList(col, value);
+	public List<OrderlistDto> orderList(String users_id) {
+	    List<OrderlistDto> orderList = orderdao.orderList(users_id);
 	    return orderList;
+	}
+	
+	public OrderlistDto orderDto(String order_no) {	    
+	    OrderlistDto orderDto = orderdao.orderDto(order_no);
+	    return orderDto;
+	}
+	
+	public List<OrderDetailDto> detailList(String order_no) {
+	    List<OrderDetailDto> detailList = orderdao.detailList(order_no);
+	    return detailList;
 	}
 	
 	public int insertOrder(OrderlistDto dto) {

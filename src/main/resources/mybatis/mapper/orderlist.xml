@@ -6,13 +6,19 @@
 
 <mapper namespace="com.study.springboot.dao.IOrderlistDao">
 	
-	<select id="orderList">
+	<select id="orderList" resultType="com.study.springboot.dto.OrderlistDto">
 		select * from orderlist 
-		<if test='param1 != null'></if>
-			where ${param1} = #{param2}
+		<if test='param1 != "admin"'></if>
+			where users_id = #{param1}
 	</select>
 	
-	<select id="detailList"></select>
+	<select id="orderDto" resultType="com.study.springboot.dto.OrderlistDto">
+		select * from orderlist where order_no = #{param1}
+	</select>
+	
+	<select id="detailList" resultType="com.study.springboot.dto.OrderDetailDto">
+		select * from orderDetail where order_no = #{param1}
+	</select>
 	
 	<insert id="insertOrder" parameterType="com.study.springboot.dto.OrderlistDto">
 		insert into orderlist
@@ -22,6 +28,7 @@
 			#{users_id},
 			#{order_total_price},
 			#{order_comment},
+			#{order_product_name},
 			sysdate,
 			#{order_recipient},
 			#{order_address1},

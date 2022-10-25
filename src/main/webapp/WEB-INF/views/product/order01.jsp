@@ -304,15 +304,18 @@
             var arr1 = [];
             var arr2 = [];
             var arr3 = [];
-            var getPoint = 0;
+            var getPoint = [];
+            var getPointSum = 0;
             for(i=0; i<'${orderCount}'; i++) {
                 arr1.push($('input[name=product_idx]').eq(i).val());
                 arr2.push(Number($('.proCount').eq(i).text()));
                 arr3.push($('.price').eq(i).text().split('원')[0]);
-                getPoint += stringNumberToInt($('.proPoint').eq(i).text());
+                getPoint.push(stringNumberToInt($('.proPoint').eq(i).text()));
+                getPointSum += getPoint[i];
             }
-            console.log(arr3);
-            console.log((Number(getYyMmDdMmSsToString(date))));
+            console.log(getPoint);
+            var users_point = "${user.users_point}" - stringNumberToInt($('#inputPoint').val()) + getPointSum;
+            console.log(users_point);
 
             let IMP = window.IMP;
             IMP.init('imp34801804');//아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
@@ -329,10 +332,16 @@
                 buyer_addr: $('input[name=address2]').val()+","+$('input[name=address3]').val(),
             }, function (rsp) { // callback
                 if (rsp.success) {
-                    console.log(rsp.merchant_uid);
-                  
                     var addr = rsp.buyer_addr.split(',');
-                    var totalPrice = ("${user.users_point}" - stringNumberToInt($('#inputPoint').val()) + getPoint).toLocaleString();
+                    var method = "";
+                    if( rsp.pay_method == 'card') {
+                        method = "신용카드";
+                    } else if ( rsp.pay_method == 'trans' ) {
+                        method = "계좌이체";
+                    } else if ( rsp.pay_method == 'vbank' ) {
+                        method = "가상계좌";
+                    };
+
                     $.ajax({
                     	type: 'post',
                     	url: '/product/paymentOrder',
@@ -345,12 +354,14 @@
                 			address2 : addr[0],
                             address3 : addr[1],
                             phone : rsp.buyer_tel,
-                            use_point : $('#inputPoint').val(),
+                            product_name : rsp.name,
+                            use_point : stringNumberToInt($('#inputPoint').val()),
+                            get_point : getPoint,
                             product_idx : arr1,
                             product_count : arr2,
                             product_price : arr3,
-                            pay_method : rsp.pay_method,
-                            users_point : totalPrice
+                            pay_method : method,
+                            users_point : users_point
                 		},
                     	success: function(data) {
                     		console.log(data);

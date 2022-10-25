@@ -26,7 +26,7 @@
 	
 	<insert id="insertPoint" parameterType="com.study.springboot.dto.PointDto">
 		insert into point
-		values ( point_seq.nextval, #{users_id}, sysdate, #{point_point}, 
+		values ( point_seq.nextval, #{point_users_id}, sysdate, #{point_point}, 
 		sysdate+365, #{point_content})
 	</insert>
 	

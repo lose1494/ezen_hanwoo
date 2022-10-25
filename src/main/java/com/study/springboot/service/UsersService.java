@@ -57,8 +57,8 @@ public class UsersService {
 		return userUpdate;
 	}	
 	   
-    public int updatePoint(String users_id) {
-        int updatePoint = usersdao.updatePoint(users_id);
+    public int updatePoint(int point, String users_id) {
+        int updatePoint = usersdao.updatePoint(point, users_id);
         return updatePoint;
     }
     
@@ -85,8 +85,8 @@ public class UsersService {
     public Map<String, String> find(Map<String, String> param) {
         return usersdao.find(param);
     }
-    public int updatepoint (String users_point, String users_id) {
-        int updatepoint = usersdao.updatepoint(users_point, users_id);
-        return updatepoint;
-    }
+//    public int updatepoint (String users_point, String users_id) {
+//        int updatepoint = usersdao.updatepoint(users_point, users_id);
+//        return updatepoint;
+//    }
 }

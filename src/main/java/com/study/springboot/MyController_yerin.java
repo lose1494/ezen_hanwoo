@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.One2one_answerDto;
 import com.study.springboot.dto.OrderDetailDto;
@@ -108,7 +109,11 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("/mypage/mypage_order")
-	public String mypage_order(Model model) {
+	public String mypage_order(Model model, HttpServletRequest request) {
+	    String users_id = (String) request.getSession().getAttribute("users_id");
+	    List<OrderlistDto> orderlist = orderService.orderList(users_id);
+	    
+	    model.addAttribute("orderlist", orderlist);
 		model.addAttribute("mainPage", "mypage/mypage_orderlist.jsp");
 		return "index";
 	}
@@ -486,6 +491,19 @@ public class MyController_yerin {
 		return qnaDetail;
 	}
 	
+	@RequestMapping("/product/orderDirect")
+	public String orderDirect( @RequestParam("product_idx") int product_idx, 
+	        Model model, HttpServletRequest request, CartDto dto) {
+	    String users_id = (String) request.getSession().getAttribute("users_id");
+	    List<ProductDto> product = productService.productList(product_idx);
+	    UsersDto user = usersService.userDetail(users_id);
+	    
+	    model.addAttribute("orderList", product);
+        model.addAttribute("user", user);
+        model.addAttribute("mainPage", "product/order01.jsp");
+        return "index";
+	}
+	
 	
 	//주문
 	@RequestMapping("/product/order01")
@@ -523,30 +541,55 @@ public class MyController_yerin {
                 	        @RequestParam("address2") String address2,
                 	        @RequestParam("address3") String address3,
                 	        @RequestParam("phone") String phone,
+                	        @RequestParam("product_name") String product_name,
+                	        @RequestParam("use_point") int use_point,
+                	        @RequestParam("get_point[]") ArrayList<Integer> get_point,
                 	        @RequestParam("product_idx[]") ArrayList<Integer> product_idx,
                 	        @RequestParam("product_count[]") ArrayList<Integer> product_count,
                 	        @RequestParam("product_price[]") ArrayList<String> product_price,
                 	        @RequestParam("pay_method") String pay_method,
-	        OrderlistDto order, OrderDetailDto detail, HttpServletRequest request) {
+                	        @RequestParam("users_point") int users_point,
+	        OrderlistDto order, OrderDetailDto detail, PointDto point,
+	        HttpServletRequest request) {
+	    System.out.println(users_point);
 	    String users_id = (String)request.getSession().getAttribute("users_id");
+	    
 	    order.setOrder_no(no);
 	    order.setUsers_id(users_id);
 	    order.setOrder_total_price(total_price);
 	    order.setOrder_comment(comment);
+	    order.setOrder_product_name(product_name);
 	    order.setOrder_recipient(name);
 	    order.setOrder_address1(address1);
 	    order.setOrder_address2(address2);
 	    order.setOrder_address3(address3);
 	    order.setOrder_phone(phone);
 	    orderService.insertOrder(order);
-	    for(int i=0; i<product_idx.size(); i++) {
-	        detail.setOrder_no(no);
-	        detail.setProduct_idx(product_idx.get(i));
-	        detail.setProduct_count(product_count.get(i));
-	        detail.setProduct_price(product_price.get(i));
-	        detail.setPay_method(pay_method);
-	        orderService.insertOrderDetail(detail);	        
+
+        point.setPoint_users_id(users_id);
+        point.setPoint_point(-use_point);
+        point.setPoint_content("상품구매시 사용");
+        pointService.insertPoint(point);
+        
+        for(int i=0; i<product_idx.size(); i++) {
+            detail.setOrder_no(no);
+            detail.setProduct_idx(product_idx.get(i));
+            detail.setProduct_count(product_count.get(i));
+            detail.setProduct_price(product_price.get(i));
+            detail.setPay_method(pay_method);
+            orderService.insertOrderDetail(detail);
+            
+            point.setPoint_users_id(users_id);
+            point.setPoint_point(get_point.get(i));
+            point.setPoint_content("상품 구매(주문번호 : "+no+")");
+            pointService.insertPoint(point);
+            
+            cartService.deleteCart(product_idx.get(i), users_id);
+      
 	    }
+        
+        usersService.updatePoint(users_point, users_id);
+	    	   
 	    return "넘어온당";
 	}
 	@RequestMapping("/product/order02")
@@ -561,10 +604,14 @@ public class MyController_yerin {
             request.setAttribute("url", "/member/login");
             return "alert";
         } else {           
-            List<OrderlistDto> order = orderService.orderList(col, order_no);
+            OrderlistDto order = orderService.orderDto(order_no);
             UsersDto user = usersService.userDetail(users_id);
-            model.addAttribute("order", order);
+            OrderDetailDto orderDetail = orderService.detailList(order_no).get(0);
+            System.out.println(order);
+            
             model.addAttribute("user", user);
+            model.addAttribute("pay", orderDetail);
+            model.addAttribute("ord", order);
 		model.addAttribute("mainPage", "product/order02.jsp");
 		return "index";
         }
