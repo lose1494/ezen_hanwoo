@@ -134,7 +134,7 @@
                     <input type="checkbox"> <span> 결제 정보를 확인했으며, <br>
                     &nbsp;&nbsp;&nbsp;&nbsp; 구매 진행에 동의합니다.</span>
                 </div>
-                <button class="dark" onclick="insert_order()">주문하기</button>
+                <button class="dark" onclick="check()">주문하기</button>
             </div>
         </div>
 	</div>
@@ -327,7 +327,7 @@
                     for(i=0; i<'${orderCount}'; i++) {
                         arr1.push($('input[name=product_idx]').eq(i).val());
                         arr2.push(Number($('.proCount').eq(i).text()));
-                        arr3.push($('.price').eq(i).text());
+                        arr3.push($('.price').eq(i).text().split('원'));
                     }
                     console.log(arr1+","+arr2+","+arr3);
                     var addr = rsp.buyer_addr.split(',');
@@ -350,11 +350,11 @@
                 		},
                     	success: function(data) {
                     		console.log(data);
-                            location.href = '/product/order02';
+                            location.href = '/product/order02?order_no='+rsp.merchant_uid;
                     	}
                  
                     });
-                    alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
+                    // alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderKey) : " +rsp.merchant_uid);
                 } else {
                     alert("실패 : 코드("+rsp.error_code+") / 메세지(" + rsp.error_msg + ")");
                 }

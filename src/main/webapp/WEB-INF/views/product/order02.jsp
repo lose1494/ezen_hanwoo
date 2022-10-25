@@ -86,93 +86,93 @@
 	function stringNumberToInt(string) {
         return parseInt(string.replace(/,/g , ''));
     }
-	$(document).ready(function() {
-        order();
-        console.log("a는 실행되었습니다");
-		  }); 
+	// $(document).ready(function() {
+    //     order();
+    //     console.log("a는 실행되었습니다");
+	// 	  }); 
 	   
-    function order() {
-        $.ajax({
-            url: "/mypage/get_order_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-            data: { users_id: "${user.users_id}" },  // HTTP 요청과 함께 서버로 보낼 데이터
-            method: "GET",   // HTTP 요청 메소드(GET, POST 등)
-            dataType: "json", // 서버에서 보내줄 데이터의 타입
-            success: function (data) {
+    // function order() {
+    //     $.ajax({
+    //         url: "/mypage/get_order_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+    //         data: { users_id: "${user.users_id}" },  // HTTP 요청과 함께 서버로 보낼 데이터
+    //         method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+    //         dataType: "json", // 서버에서 보내줄 데이터의 타입
+    //         success: function (data) {
     
-                let htmls = "";
-                const dataLen = data.length;
-                const target = document.getElementById("order_table2");
-               	var ca = 0;
-                var total = 0;
-                var total2 = 0;
-        		const cup = "5,000"
-        	   	console.log(data);
-                for (let i = 0; i < dataLen; i++) {
-                	if(data[i].cart_check == 1){
-                	  ca = stringNumberToInt(data[i].product_price) * (data[i].cart_count);
-                	  cpa = stringNumberToInt(cup);
-                     total += ca;
-                     total2 = total + cpa; 
-                     total3 = total2 - "${user.users_point}";
-                     const point = (ca / 100).toLocaleString();
+    //             let htmls = "";
+    //             const dataLen = data.length;
+    //             const target = document.getElementById("order_table2");
+    //            	var ca = 0;
+    //             var total = 0;
+    //             var total2 = 0;
+    //     		const cup = "5,000"
+    //     	   	console.log(data);
+    //             for (let i = 0; i < dataLen; i++) {
+    //             	if(data[i].cart_check == 1){
+    //             	  ca = stringNumberToInt(data[i].product_price) * (data[i].cart_count);
+    //             	  cpa = stringNumberToInt(cup);
+    //                  total += ca;
+    //                  total2 = total + cpa; 
+    //                  total3 = total2 - "${user.users_point}";
+    //                  const point = (ca / 100).toLocaleString();
                      
                      
-                     htmls += '<tr>'
-                         +'<td><img src = ' + data[i].product_image +'></td>'
-                         + '<td value="' +data[i].product_idx +'" id= "product_name'+ i + '">' + data[i].cart_product_name + '</td>'
-                         +'<td id= "product_price'+ i + '" value="' +data[i].product_price +'">' + data[i].product_price + '</td>'
-                         +'<td <input type="number" id="count_input' + i + '" value="' + data[i].cart_count +'">' + data[i].cart_count +'</td>'
-                         +'<td id="order_delivery_price">' + cpa.toLocaleString() + "원" +' </td>'
-                         +'<td id="point1"></td>'
-                         +'<td id="total3"></td>'
-                         +'</tr>'
+    //                  htmls += '<tr>'
+    //                      +'<td><img src = ' + data[i].product_image +'></td>'
+    //                      + '<td value="' +data[i].product_idx +'" id= "product_name'+ i + '">' + data[i].cart_product_name + '</td>'
+    //                      +'<td id= "product_price'+ i + '" value="' +data[i].product_price +'">' + data[i].product_price + '</td>'
+    //                      +'<td <input type="number" id="count_input' + i + '" value="' + data[i].cart_count +'">' + data[i].cart_count +'</td>'
+    //                      +'<td id="order_delivery_price">' + cpa.toLocaleString() + "원" +' </td>'
+    //                      +'<td id="point1"></td>'
+    //                      +'<td id="total3"></td>'
+    //                      +'</tr>'
                         
            			
-                	}
-                }
+    //             	}
+    //             }
                 
-                target.insertAdjacentHTML('beforeend', htmls)
-            },
+    //             target.insertAdjacentHTML('beforeend', htmls)
+    //         },
        		
-            error: function (data) {
+    //         error: function (data) {
                 
-            }
-        })
-    }
-     $(document).ready(function() {
-        order2();
+    //         }
+    //     })
+    // }
+    //  $(document).ready(function() {
+    //     order2();
        
-		  }); 
+	// 	  }); 
 	   
-    function order2() {
+    // function order2() {
     	
-        $.ajax({
-            url: "/mypage/get_order2_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-            data: { users_id: "${user.users_id}" },  // HTTP 요청과 함께 서버로 보낼 데이터
-            method: "GET",   // HTTP 요청 메소드(GET, POST 등)
-            dataType: "json", // 서버에서 보내줄 데이터의 타입
-            success: function (data) {
-            	 const dataLen = data.length;
+    //     $.ajax({
+    //         url: "/mypage/get_order2_list", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+    //         data: { users_id: "${user.users_id}" },  // HTTP 요청과 함께 서버로 보낼 데이터
+    //         method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+    //         dataType: "json", // 서버에서 보내줄 데이터의 타입
+    //         success: function (data) {
+    //         	 const dataLen = data.length;
             	 
-            	for (let i = 0; i < dataLen; i++) {
+    //         	for (let i = 0; i < dataLen; i++) {
             		
                  	
-            		document.getElementById("order_recipient").innerText = data[i].order_recipient;
-            		document.getElementById("total3").innerText =  data[i].order_total_price.toLocaleString() + "원";
-            		document.getElementById("point1").innerText =  data[i].order_usepoint + "원";
-            		document.getElementById("order_phone").innerText = data[i].order_phone;
-            		document.getElementById("order_address").innerText = "(" +  data[i].order_address1 + ")" + " " + data[i].order_address2 + " " + data[i].order_address3;
-            		document.getElementById("order_comment").innerText = data[i].order_comment;
-            		document.getElementById("order_total").innerText = data[i].order_total_price.toLocaleString() + "원";
-            	}
+    //         		document.getElementById("order_recipient").innerText = data[i].order_recipient;
+    //         		document.getElementById("total3").innerText =  data[i].order_total_price.toLocaleString() + "원";
+    //         		document.getElementById("point1").innerText =  data[i].order_usepoint + "원";
+    //         		document.getElementById("order_phone").innerText = data[i].order_phone;
+    //         		document.getElementById("order_address").innerText = "(" +  data[i].order_address1 + ")" + " " + data[i].order_address2 + " " + data[i].order_address3;
+    //         		document.getElementById("order_comment").innerText = data[i].order_comment;
+    //         		document.getElementById("order_total").innerText = data[i].order_total_price.toLocaleString() + "원";
+    //         	}
             	
-            },
+    //         },
        		
-            error: function (data) {
+    //         error: function (data) {
                 
-            }
-        })
-    }  
+    //         }
+    //     })
+    // }  
    
 	
 	</script>

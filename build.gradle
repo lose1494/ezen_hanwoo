@@ -13,12 +13,6 @@ repositories {
 	mavenCentral()
 }
 
-allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
 //error내용 : Cannot load driver class: oracle.jdbc.OracleDriver
 //ojdbc6.jar add build path하지 않은 에러!
 
@@ -50,11 +44,6 @@ dependencies {
     //gson : Google에서 제공하는 Json 포맷 관련 라이브러리
     implementation 'com.google.code.gson:gson:2.8.2'
 }
-
-dependencies {
-		implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
-	}
-
 
 test {
 	useJUnitPlatform()

@@ -551,7 +551,8 @@ public class MyController_yerin {
 	    return "넘어온당";
 	}
 	@RequestMapping("/product/order02")
-	public String order02(Model model,HttpServletRequest request) {
+	public String order02(@RequestParam("order_no") String order_no,
+	        Model model,HttpServletRequest request) {
 	    
 	    String users_id = (String) request.getSession().getAttribute("users_id");
 	    String col = "order_no";
@@ -560,9 +561,10 @@ public class MyController_yerin {
             request.getSession().setAttribute("alert", "로그인이 필요합니다.");
             request.setAttribute("url", "/member/login");
             return "alert";
-        } else {
-            
+        } else {           
+            List<OrderlistDto> order = orderService.orderList(col, order_no);
             UsersDto user = usersService.userDetail(users_id);
+            model.addAttribute("order", order);
             model.addAttribute("user", user);
 		model.addAttribute("mainPage", "product/order02.jsp");
 		return "index";
