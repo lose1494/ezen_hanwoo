@@ -17,18 +17,18 @@ create table ezen_users(
     users_joindate date default sysdate,
     users_point    varchar2(20)
 );
+select * from ezen_users;
+select * from cart;
+select * from orderlist;
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
-INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date)
-VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01');
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date, users_point)
+VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01', 3000);
 insert into ezen_users(users_idx,users_id,users_pw,users_name,users_email,users_phone,users_birth_date,users_point,users_address,users_joindate )
 values(ezen_users_seq.nextval, 'remi6513',1234,'최이안','remi6513@naver.com','010-5045-5054', '1993-11-02', '2000', '경기도 의정부시 민락동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
-
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
 VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
-
 select * from ezen_users;
-
 commit;
 --상품
 drop table product;
@@ -89,10 +89,8 @@ create table product_qna(
     qna_status varchar2(20),
     product_idx number(4)
 );
-
 drop sequence product_qna_seq;
 create sequence product_qna_seq;
-
 insert into product_qna
 values( product_qna_seq.nextval, 'hong', '언제쯤 배송되나요', '배송 언제쯤 되나요??', sysdate, 1, '1234', '답변대기중', 1);
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
@@ -105,10 +103,8 @@ insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_s
 values( product_qna_seq.nextval, 'hong', '테스트용3', '문의 테스트3', sysdate, 0, '답변대기중', 1);
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', sysdate, 0, '답변대기중', 1);
-
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4',TO_CHAR(SYSDATE,'YYYY-MM-DD') , 0, '답변대기중', 1);
- 
 --상품 문의 답변
 drop table product_qna_reply;
 create table product_qna_reply(
@@ -120,7 +116,6 @@ create table product_qna_reply(
 );
 drop sequence product_qna_reply_seq;
 create sequence product_qna_reply_seq;
-
 --상품 리뷰
 drop table product_review;
 create table product_review(
@@ -133,10 +128,8 @@ create table product_review(
     review_star_rating number(4),
     product_idx number(4)
 );
-
 drop sequence product_review_seq;
 create sequence product_review_seq;
-
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 values(product_review_seq.nextval, 'hong', '맛있게 잘 먹었습니다!!', '리뷰 내용 테스트 화면에 어떻게 보이나', sysdate, 5, 1);
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
@@ -146,9 +139,6 @@ values(product_review_seq.nextval, 'hong1', '테스트2', '리뷰 내용 테스�
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 values(product_review_seq.nextval, '22222', '테스트3', '리뷰 내용 테스트1', sysdate, 4, 4);
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
-values(product_review_seq.nextval, '3333', '테스트4', '리뷰 내용 테스트1', sysdate, 4, 5);
-insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
-values(product_review_seq.nextval, '3333', '테스트4', '리뷰 내용 테스트1', '2022-07-01', 4, 5);
 
 
 select * from product_review;
@@ -158,13 +148,11 @@ drop table review_star;
 create table review_star(
     star_score number(1) primary key
 );
-
 insert into review_star values(1);
 insert into review_star values(2);
 insert into review_star values(3);
 insert into review_star values(4);
 insert into review_star values(5);
-
 --FAQ
 drop table FAQ;
 create table FAQ(
@@ -203,18 +191,7 @@ create table Notice(
     notice_hit number(4) DEFAULT 0
 );
 
-insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
-values ( notice_seq.nextval, '관리자', '제목입니다.', '내용입니다2.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
-insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
-values ( notice_seq.nextval, '관리자', '제목입니다1.', '내용입니다5.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
-insert into Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
-values ( notice_seq.nextval, '관리자', '제목입니다11.', '내용입니다3.' , TO_CHAR(SYSDATE,'YYYY-MM-DD'));
-
-commit;
-
-
-
-commit;
+select * from Notice;
 drop sequence Notice_seq;
 create sequence Notice_seq;
 --1:1문의
@@ -245,23 +222,28 @@ create table one2one_answer(
 drop sequence one2one_answer_seq;
 create sequence one2one_answer_seq;
 --주문
+select * from orderlist;
+select* from ezen_users;
+commit;
 drop table orderlist;
 create table orderlist(
 order_idx number(4) primary key,
-order_no number(8),
-order_users_id varchar2(20),
-order_total_price number(4),
+order_no number(20),
+users_id varchar2(20),
+order_total_price number(10),
 order_comment varchar2(100),
 order_date date,
 order_recipient varchar2(20),
 order_address1 varchar(20),
 order_address2 varchar(100),
 order_address3 varchar(100),
-order_phone number(20)
+order_phone varchar2(20),
+order_usepoint varchar2(20)
 );
 drop sequence orderlist_seq;
 create sequence orderlist_seq;
 --주문 상세
+select * from orderDetail;
 drop table orderDetail;
 create table orderDetail(
 detail_idx number(4) primary key,
@@ -270,15 +252,16 @@ prouct_idx number(4)
 );
 drop sequence orderDetail_seq;
 create sequence orderDetail_seq;
+select * from cart;
 --장바구니
 drop table cart;
 create table cart(
-cart_idx number(4) ,
+cart_idx number(4) primary key,
 users_id varchar(20),
 cart_product_name varchar(40),
 product_idx number(4),
 cart_count number(4),
-    CONSTRAINT cart_pk PRIMARY KEY(users_id, product_idx)
+cart_check number(1)
 );
 drop sequence cart_seq;
 create sequence cart_seq;
@@ -316,5 +299,12 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
-
 commit;
+
+
+
+
+
+
+
+

@@ -64,7 +64,7 @@
           </tr>
           <tr>
             <td colspan="2">
-              <button>주문하기</button>
+              <button onclick="update_Cart_order()">주문하기</button>
             </td>
             <td></td>
           </tr>
@@ -198,8 +198,7 @@
 		   console.log(checkboxs);
 		   for (var i = 0; i < check_len; i++) { 	
 		      const pdx = checkboxs[i].value;
-		      console.log(checkboxs[i]);
-		      
+		    		      
 		      $.ajax({
 		        url: "/mypage/cart_delete",
 		        
@@ -212,12 +211,10 @@
 		        async : false,
 		        success: function (data) {
 		        	checkboxs[i].closest('tr').remove();
-		          	
-		           console.log(checkboxs[i]);
-
+		         
 		         },
 		        error: function (e) {
-		           console.log(e)
+		         
 		        }
 		      })
 		   }
@@ -239,16 +236,13 @@
 		location.reload();
 	
 	}
-	// bool = this.checked : name이 all인 체크박스의 체크속성( ture, false )
+
 	
 	function allselect(bool){
 		var ca = 0;
         var total = 0;
         var total2 = 0;
-		
 		var chks = document.getElementsByName("buy_check");
-		console.log(bool);
-		
 		for(var i = 0; i < chks.length; i++){
 			chks[i].checked = bool;
 			
@@ -257,12 +251,8 @@
 			const pdx = document.getElementById("product_price" + idx).getAttribute('value')
 			const cot = document.getElementById("count_input" + idx).getAttribute('value')
 			const cup = "5,000"
-			console.log(pdx);
-			console.log(cot);
-			console.log(document.getElementById("product_price" + idx).getAttribute('value'));
 			ca = stringNumberToInt(pdx) * (cot);
 			cpa = stringNumberToInt(cup);
-			console.log(ca);
 	         total += ca;
 	         total2 = total + cpa;
 	       
@@ -271,10 +261,10 @@
 				document.getElementById("order_price").innerText = total.toLocaleString() + "원";
 				document.getElementById("order_price2").innerText = cpa.toLocaleString() + "원";
 				document.getElementById("order_price3").innerText = total2.toLocaleString() + "원";
-				console.log("22222222");
+				
 		         }
 		  else{
-		        	 console.log("11111111");
+		        
 		        	 document.getElementById("order_price").innerText = "0" + "원";
 		 			document.getElementById("order_price2").innerText = "0" + "원";
 		 			document.getElementById("order_price3").innerText = "0" + "원";
@@ -287,33 +277,23 @@
         var total = 0;
         var total2 = 0;
 		const checkboxs = document.querySelectorAll('input[name="buy_check"]:checked');
-		
-		
-		
-		
-		/* ca = stringNumberToInt(pdx) * (cot); */
+
       	  for(let i = 0; i< checkboxs.length; i++ ){
-		 /* ca = stringNumberToInt(data[i].product_price) * (data[i].cart_count); */
+		
 		const idx = checkboxs[i].getAttribute('idx')
 		const pdx = document.getElementById("product_price" + idx).getAttribute('value')	
 		const cot = document.getElementById("count_input" + idx).getAttribute('value')
 		const cup = "5,000"
-		console.log(pdx);
-		console.log(cot);
-		console.log(document.getElementById("product_price" + idx).getAttribute('value'));
 		ca = stringNumberToInt(pdx) * (cot);
 		cpa = stringNumberToInt(cup);
-		console.log(ca);
          total += ca;
          total2 = total + cpa;
-		console.log(cup);
       	  }
 		if(checkboxs.length > 0 ){
-			console.log("1122");
 			document.getElementById("order_price").innerText = total.toLocaleString() + "원";
 			document.getElementById("order_price2").innerText = cpa.toLocaleString() + "원";
 			document.getElementById("order_price3").innerText = total2.toLocaleString() + "원";
-			console.log("112233");
+			
 		}else{
 			document.getElementById("order_price").innerText = "0" + "원";
 			document.getElementById("order_price2").innerText = "0" + "원";
@@ -321,5 +301,41 @@
 		}
 		
 	}
+	
+function update_Cart_order(){
+	
+	check_len = document.getElementsByName("buy_check").length;
+	const checkboxs = document.querySelectorAll('input[name="buy_check"]:checked');
+	if (checkboxs.length < 1) {
+	      alert("선택된 품목이 없습니다");
+	      
+	      return;
+	   }
+	  for(let i = 0; i< check_len; i++ ){
+		const idx = document.getElementsByName("buy_check")[i].getAttribute('idx')
+		const pdx = document.getElementById("product_name" + idx).getAttribute('value')
+			 
+	   	$.ajax({
+			url: "/mypage/check_Update",
+			async  : false, 
+			data :{ cart_check : (document.getElementsByName("buy_check")[i].checked == true ) ? 1 : 0 ,
+					users_id : "1",
+					product_idx : pdx},
+			method : "GET",
+			dataType : "text",
+				
+			success: function (data) {
+			
+			console.log(data + "2222");
+			location.href="/product/order01"
+		
+			},
+			
+		
+		})
+		
+	  }
+	}
+
   </script>
   

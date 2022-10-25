@@ -5,4 +5,26 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IOrderlistDao">
+<select id="orderlist" resultType="com.study.springboot.dto.OrderlistDto">
+		select * from orderlist where users_id=#{param1}
+		
+	</select>
+<insert id="insertOrder" parameterType="com.study.springboot.dto.OrderlistDto">
+		insert into orderlist
+		values ( 
+			orderlist_seq.nextval,
+			#{order_no},
+			#{users_id},
+			#{order_total_price},
+			#{order_comment},
+			#{order_date},
+			#{order_recipient},
+			#{order_address1},
+			#{order_address2},
+			#{order_address3},
+			#{order_phone},
+			#{order_usepoint}
+		 )
+	</insert>
+	
 </mapper>

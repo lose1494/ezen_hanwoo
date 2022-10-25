@@ -80,4 +80,8 @@ public class UsersService {
     public Map<String, String> find(Map<String, String> param) {
         return usersdao.find(param);
     }
+    public int updatepoint (String users_point, String users_id) {
+        int updatepoint = usersdao.updatepoint(users_point, users_id);
+        return updatepoint;
+    }
 }
