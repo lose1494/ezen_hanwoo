@@ -18,11 +18,12 @@ public interface IUsersDao {
 	public int list_Count();
     public List<UsersDto> search_result(String list, String text);
 	public int updateUser(UsersDto dto);
+	public int updatePoint(int point, String users_id);
 	public int deleteUser(String users_id, String users_pw);
 	public List<UsersDto> user_Dtail(String users_id);
 	public int id_check_result(String users_id);
 	public int joinAction(Map<String, String> param);
     public Map<String, String> find(Map<String, String> param);
-
+//    public int updatepoint(String users_point, String users_id);
 
 }

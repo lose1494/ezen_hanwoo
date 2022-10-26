@@ -81,10 +81,10 @@
   $(document).ready(function(){
     $(window).scroll(function () {
       if ($(this).scrollTop() > 50) {
-        console.log('fadeIn');
+        	
         $('#back-to-top').fadeIn();
       } else {
-        console.log('fadeOut');
+        
         $('#back-to-top').fadeOut();
       }
     });
@@ -102,10 +102,10 @@
   $(document).ready(function(){
 	    $(window).scroll(function () {
 	      if ($(this).scrollTop() < 3000) {
-	        console.log('fadeIn');
+	      
 	        $('#back-to-bottom').fadeIn();
 	      } else {
-	        console.log('fadeOut');
+	    
 	        $('#back-to-bottom').fadeOut();
 	      }
 	    });

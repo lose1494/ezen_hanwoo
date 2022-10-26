@@ -5,17 +5,18 @@ public class CartDto {
     private String cart_product_name;
     private int product_idx;
     private int cart_count;
-    
+    private int cart_check;
     public CartDto() {
         super();
     }
-    public CartDto(int cart_idx, String users_id, String cart_product_name, int product_idx, int cart_count) {
+    public CartDto(int cart_idx, String users_id, String cart_product_name, int product_idx, int cart_count, int cart_check) {
         super();
         this.cart_idx = cart_idx;
         this.users_id = users_id;
         this.cart_product_name = cart_product_name;
         this.product_idx = product_idx;
         this.cart_count = cart_count;
+        this.cart_check = cart_check;
     }
     public int getCart_idx() {
         return cart_idx;
@@ -47,6 +48,11 @@ public class CartDto {
     public void setCart_count(int cart_count) {
         this.cart_count = cart_count;
     }
-    
+    public int getCart_check() {
+        return cart_check;
+    }
+    public void setCart_check(int cart_check) {
+        this.cart_check = cart_check;
+    }
     
 }

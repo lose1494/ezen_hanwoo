@@ -49,6 +49,25 @@
       <button id="confirm_btn">글쓰기</button>
     </div>
 
+
+
+   	 <input type="hidden" value="${ dto.notice_idx }" name="notice_idx" id="notice_idx"/> 
+     <input type="text" value="${ dto.notice_title }" id="notice_title" name="notice_title"> 
+
+    <div id="editor">${ dto.notice_content }</div>
+    <div style="margin-top: 10px;">
+      <input id="uploadImage" type="file"  accept="image/jped,image/gif,image/png" />
+      <c:choose>
+      			<c:when test="${ dto.notice_img eq ''}"></c:when>
+      			<c:otherwise><img id="notice_img" src="${ dto.notice_img}" name="notice_img"/></c:otherwise>
+      </c:choose>
+      
+    </div>
+    <div class="btn_wrap">
+      <button id="confirm_btn">글쓰기</button>
+    </div>
+
+
   </div>
 
 
@@ -195,6 +214,7 @@ $("#confirm_btn").click(function() {
 	var noticeIdx=$("#notice_idx").val();
   	var noticeTitle = $("#notice_title").val();
     var noticeContent = $(".ck .ck-editor__main").find('p')[0].innerText;
+
   
   var data = {
     "notice_title": noticeTitle,

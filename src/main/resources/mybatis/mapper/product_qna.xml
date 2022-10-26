@@ -62,5 +62,38 @@
 	order by q.qna_date desc
 	</select>
 	
+	<select id="qna_List" resultType="com.study.springboot.dto.Product_qnaDto">
+		SELECT 
+		   qna.qna_idx, qna.qna_id, prod.product_name, prod.product_idx, 
+		   qna.qna_date, qna.qna_content, qna.qna_title,qna.qna_status
+		FROM 
+		    product_qna qna
+		JOIN 
+		    PRODUCT prod
+		ON 
+		    qna.qna_idx = prod.product_idx
+	</select>
+	
+		<select id="qnaListCount" resultType="_int">
+		select count(*) from product_qna 
+		<if test="param1 != null">where qna_id=#{param1} </if>
+	</select>
+	
+	<insert id="insertReply" parameterType="com.study.springboot.dto.Product_qnaDto">
+		insert into product_qna
+		values ( product_qna_seq.nextval, #{qna_id}, #{qna_title}, 
+		#{qna_content}, sysdate, #{qna_secret}, #{qna_pw}, '처리중', #{product_idx} )
+	</insert>
+	
+	<delete id="deleteAnswer">
+	  DELETE FROM product_qna
+	  WHERE qna_idx=#{ param1 }
+	</delete>
+	
+	
+	
+	
+	
+	
 </mapper>
 	

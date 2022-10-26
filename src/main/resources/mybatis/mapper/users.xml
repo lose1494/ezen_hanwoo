@@ -36,6 +36,12 @@
 		where users_id = #{users_id}
 	</update>
 	
+	<update id="updatePoint" parameterType="com.study.springboot.dto.UsersDto">
+		update ezen_users set
+		users_point = #{param1}
+		where users_id = #{param2}
+	</update>
+	
 	<delete id="deleteUser">
 	  DELETE FROM ezen_users
 	  WHERE users_id=#{ param1 }
@@ -89,5 +95,10 @@
 			and users_phone = #{userPhone}
 	</select> 
 	
+<!-- 	<update id="updatepoint" parameterType="com.study.springboot.dto.UsersDto">
+   	UPDATE ezen_users 
+   	SET users_point  = #{param1}
+	WHERE users_id = #{param2}
+	</update> -->
 	
 </mapper>

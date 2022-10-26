@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,15 +18,19 @@ public class One2oneService {
 	@Autowired
 	private	IOne2oneDao one2onedao;
 	
-	public List<One2oneDto> one2oneList(String one2one_id, String page, int num_page_size){
-		
-		int num_page_no = Integer.parseInt( page );
-		int startRowNum = (num_page_no - 1) * num_page_size + 1;
-		int endRowNum = (num_page_no * num_page_size);
-		
-		List<One2oneDto> one2oneList = one2onedao.one2oneList(one2one_id, startRowNum, endRowNum);
-		return one2oneList;
-	}
+    /*
+     * public List<One2oneDto> one2oneList(String one2one_id, String page, int
+     * num_page_size){
+     * 
+     * int num_page_no = Integer.parseInt( page );
+     * int startRowNum = (num_page_no - 1) * num_page_size + 1;
+     * int endRowNum = (num_page_no * num_page_size);
+     * 
+     * List<One2oneDto> one2oneList = one2onedao.one2oneList(one2one_id,
+     * startRowNum, endRowNum);
+     * return one2oneList;
+     * }
+     */
 	
 	public One2oneDto one2oneDetail(int one2one_idx) {
 		One2oneDto one2oneDetail = one2onedao.one2oneDetail(one2one_idx);
@@ -131,5 +134,15 @@ public class One2oneService {
 	public int insertOne2one(One2oneDto dto) {
 		int insertOne2one = one2onedao.insertOne2one(dto);
 		return insertOne2one;
+	}
+	
+	public int updateStatus(One2oneDto dto) {
+	    int updateStatus = one2onedao.updateStatus(dto);
+	    return updateStatus;
+	}
+	
+	public int deleteOne2one(int one2one_idx) {
+	    int deleteOne2one = one2onedao.deleteOne2one(one2one_idx);
+	    return deleteOne2one;
 	}
 }

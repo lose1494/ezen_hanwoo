@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/css/common.css">
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="event.js"></script>
+<!-- <script type="text/javascript" src="event.js"></script> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -79,6 +79,7 @@ $(document).on("keyup", ".phoneNumber", function() {
 	$(this).val( $(this).val().replace(/[^0-9]/g, "")
 	.replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 });
+
 		//주소찾기 
 		function addressAdd() {
 			new daum.Postcode(
@@ -132,7 +133,6 @@ $(document).on("keyup", ".phoneNumber", function() {
 		// 유효성 체크 & 가입완료
 		$("#submitBtn").click(function() {
 			if (idCheck) {
-				
 				var data = {
 						
 				}; //

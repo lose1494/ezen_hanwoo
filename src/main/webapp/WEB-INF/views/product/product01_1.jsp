@@ -9,75 +9,69 @@
     
     <div class="wrap">
         <div class="productMain">
-            <table>
-                <tr>
-                    <td></td>
-                    <td colspan="2" id="product_name" value="${ dto.product_idx }" >${ dto.product_name }</td>
-                </tr>
-                <tr>
-                    <td rowspan="7" id="product_img"><img src="${ dto.product_image }" alt=""></td>
-                    <td>판매가</td>
-                    <td id="product_price">${ dto.product_price }원</td>
-                </tr>
-                <tr>
-                    <td>제품중량</td>
-                    <td>${ dto.product_gram }</td>
-                </tr>
-                <tr>
-                    <td>포장타입</td>
-                    <td>냉장/열성형포장</td>
-                </tr>
-                <!-- <tr>
-                    <td>안내사항</td>
-                    <td>제품 별 안내내용</td>
-                </tr> -->
-                <tr>
-                    <td>브랜드명</td>
-                    <td>이젠한우</td>
-                </tr>
-                <tr>
-                    <td>수량</td>
-                    <td ><input type="number" max="10" min="1" value="1"  id="product_count"></td>
-                </tr>
-                <tr>
-                    <td>리뷰 수</td>
-                    <td>
-                        <span class="starRating-fill gold">
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>
-                        </span>
-                        <span class="starRating-base gray">
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>                       
-                            <i class="fa-solid fa-star"></i>
-                        </span>
-                        &nbsp; <b class="scoreAvg">${ avgScore }</b> (${ reviewCount })                       
-                    </td>
-                </tr>
-                <tr>
-                    <td>총 금액</td>
-                    <td><span class="sumPrice">00000</span>원</td>
-                </tr>
-                <tr>
-                    <td></td>
-
-                    <form action="/mypage/mypage_cart" method="post" >
-                    <td colspan="2">
-                        <div class="flexDiv">
-                            <button class="bright" onclick="b()">장바구니</button>
-                            <button class="bright">관심상품</button>
-                            <button class="dark">바로구매</button>
-                        </div>
-                    </td>
-
-                    
-                </tr>
-            </table>
+            <form>
+                <table>
+                    <tr>
+                        <td><input type="hidden" name="product_idx" value="${ dto.product_idx }"></td>
+                        <td colspan="2" id="product_name" value="${ dto.product_idx }" >${ dto.product_name }</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="7" id="product_img" value="${ dto.product_image }"><img src="${ dto.product_image }" alt=""></td>
+                        <td>판매가</td>
+                        <td id="product_price">${ dto.product_price }원</td>
+                    </tr>
+                    <tr>
+                        <td>제품중량</td>
+                        <td>${ dto.product_gram }</td>
+                    </tr>
+                    <tr>
+                        <td>포장타입</td>
+                        <td>냉장/열성형포장</td>
+                    </tr>
+                    <tr>
+                        <td>브랜드명</td>
+                        <td>이젠한우</td>
+                    </tr>
+                    <tr>
+                        <td>수량</td>
+                        <td ><input type="number" max="10" min="1" value="1"  id="product_count"></td>
+                    </tr>
+                    <tr>
+                        <td>리뷰 수</td>
+                        <td>
+                            <span class="starRating-fill gold">
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>
+                            </span>
+                            <span class="starRating-base gray">
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>                       
+                                <i class="fa-solid fa-star"></i>
+                            </span>
+                            &nbsp; <b class="scoreAvg">${ avgScore }</b> (${ reviewCount })                       
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>총 금액</td>
+                        <td><span class="sumPrice">00000</span>원</td>
+                    </tr>
+                    <tr>
+                        <td></td>  
+                        <td colspan="2">
+                            <div class="flexDiv">
+                                <button class="bright" onclick="b()">장바구니</button>
+                                <button class="bright">관심상품</button>
+                                <button class="dark"  onclick="c()">바로구매</button>
+                            </div>
+                        </td>  
+                    </tr>
+                </table>
+            </form>
         </div>
     </div>     
      
@@ -134,7 +128,7 @@
             </div>
             <div class="reviewSearch">
                 <form name="search">
-                    <input type="hidden" name="product_idx" value="${ dto.product_idx}">
+                    <input type="hidden" name="product_idx" value="${ dto.product_idx }">
                     <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_date#productReview">최신순</a>
                     <a href="/product/product01_1?product_idx=${ dto.product_idx }&revPage=1&sort=review_star_rating#productReview">평점순</a>
                     <span><input type="text" name="word" placeholder="키워드 검색"><button onclick="getSearchList()"><img src="/img/product/icon2.png" alt=""></button></span>  
@@ -419,8 +413,8 @@
                 })
             });
         });
-
         
+       
         function b(){
         	const pd_name = document.getElementById("product_name").innerText
         	const price = document.getElementById("product_price").innerText
@@ -428,7 +422,7 @@
         	const pdx = document.getElementById("product_name").getAttribute('value') 
      	$.ajax({
      		url: "/mypage/cartdb",
-     		dataType: "json",
+     		dataType: "text",
      		data : {
      				cart_count : count,
      				cart_product_name : pd_name,
@@ -437,11 +431,36 @@
      		},
     	success: function(data){
             console.log(data);
-         	location.href="/mypage/mypage_cart"   
-     	}
+         	var goCart = confirm("상품이 장바구니에 담겼습니다. 바로 확인하시겠습니까?");
+            if( goCart == true ) {
+                location.href='/mypage/mypage_cart';
+            }
+     	},
+     	error : function(data){
+     		console.log("123213123");
+     	},
      	})
         }
-
+        console.log(document.getElementById("product_img").img);
+      function c(){
+    	  
+    	const img = document.getElementById("product_img").value
+    	const count = document.getElementById("product_count").value
+      	const pdx = document.getElementById("product_name").getAttribute('value') 
+      	const price = document.getElementById("product_price").innerText
+      	const pd_name = document.getElementById("product_name").innerText
+    	var a =  pdx  
+    	var b =  count
+    	var c = price
+    	var d = pd_name
+    	var e = img
+      	localStorage.setItem("product_idx", JSON.stringify(a));
+    	localStorage.setItem("product_count", JSON.stringify(b));
+    	localStorage.setItem("product_price", JSON.stringify(c));
+    	localStorage.setItem("product_name", JSON.stringify(d));
+    	localStorage.setItem("product_image", JSON.stringify(e));
+    	location.href="/product/order01"
+      }
      	
         //날짜 형식 바꾸기
         function formatDate(date) {

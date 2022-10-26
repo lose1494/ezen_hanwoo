@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>	
 
 <link rel="stylesheet" href="/css/product/search_result.css">
 <link rel="stylesheet" href="/css/common.css">
@@ -87,7 +88,10 @@
 							</div>
 						</div>		
 					</div>	
-					</c:forEach>				
+					</c:forEach>
+					<c:if test="${fn:length(productlist) % 3 == 2 }">
+						<div class="best1"></div>
+					</c:if>					
 				</div>
 			</div>
 			<div class="pageNav">
