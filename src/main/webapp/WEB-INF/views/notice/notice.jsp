@@ -14,11 +14,8 @@
     	<h2 class="title_tag">공지사항</h2>
 
 		<span>공지 ${ notice_count }건</span>
-<<<<<<< HEAD
-	    <form name="searchType">
-=======
+
 	    <form action="notice" method="get" name="searchType">
->>>>>>> yerin
 	    <table  class="Notice_table" >
 	        <thead>
 	        <tr class="Notice_tr1">
@@ -52,6 +49,7 @@
         		<input type="submit" value="" id="searchBtn" name="searchBtn">
         	</div>
   		</div>
+		</form>
 
   		<div class="pageNav">
             <a href="/Notice/notice?search_type=${type}&search_contents=${word}&page=1">처음</a>

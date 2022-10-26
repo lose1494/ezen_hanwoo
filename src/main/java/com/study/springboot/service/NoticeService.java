@@ -38,11 +38,6 @@ public class NoticeService {
 		noticedao.noticeWrite(param);
 	}
 
-<<<<<<< HEAD
-    public List<NoticeDto> searchResult(String search_type, String search_contents) {
-        List<NoticeDto> searchResult = noticedao.searchResult(search_type, search_contents);
-=======
-
     public List<NoticeDto> searchResult(String search_type, String search_contents, 
             String page, int num_page_size) {
         
@@ -51,7 +46,6 @@ public class NoticeService {
         int endRowNum = (num_page_no * num_page_size);
         
         List<NoticeDto> searchResult = noticedao.searchResult(search_type, search_contents, startRowNum, endRowNum);
->>>>>>> yerin
         return searchResult;
     }
 

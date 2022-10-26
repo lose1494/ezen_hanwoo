@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springboot.dto.CartProductDto;
+import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.FaqDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.One2oneDto;
@@ -113,23 +114,16 @@ public class MyController_ian {
     
     // 이용자 공지사항
     @RequestMapping("/Notice/notice")
-<<<<<<< HEAD
-    public String notice_Action(@RequestParam(value="search_type",required=false) String search_type, 
-=======
     public String notice(@RequestParam(value="page", defaultValue="1") String page,
                          @RequestParam(value="search_type",defaultValue="notice_title") String search_type, 
->>>>>>> yerin
                          @RequestParam(value="search_contents",required=false) String search_contents,
                          Model model) {
         
         int notice_count = noticeService.notice_count(search_type, search_contents);
         List<NoticeDto> admin_notice_list = noticeService.admin_notice_list(page, num_page_size);
         List<NoticeDto> searchResult;
-<<<<<<< HEAD
-=======
         int pageNum = (int)Math.ceil((double)notice_count/num_page_size);
        
->>>>>>> yerin
         if(search_type != null) {
             searchResult = noticeService.searchResult(search_type, search_contents, page, num_page_size);
             model.addAttribute("admin_notice_list", searchResult);
@@ -138,16 +132,13 @@ public class MyController_ian {
             model.addAttribute("admin_notice_list", admin_notice_list);
             model.addAttribute("notice_count", notice_count);
         }
-<<<<<<< HEAD
        
-=======
         
         model.addAttribute("type", search_type);
         model.addAttribute("word", search_contents);
         model.addAttribute("page", page);
         model.addAttribute("pageNum", pageNum);
         model.addAttribute("notice_count", notice_count);
->>>>>>> yerin
         model.addAttribute("mainPage", "notice/notice.jsp");
         return "index";
     }
@@ -530,8 +521,6 @@ public class MyController_ian {
         return "index";
     }
     
-<<<<<<< HEAD
-=======
     @RequestMapping("/admin/answerWrite")
     @ResponseBody
     public int answerWrite(@RequestParam("one2one_idx") int one2one_idx,
@@ -589,7 +578,6 @@ public class MyController_ian {
         return result;
     }
     
->>>>>>> yerin
     // 자주하는 질문
     @RequestMapping("/admin/admin_faq")
     public String admin_faq(Model model) {
@@ -755,39 +743,6 @@ public class MyController_ian {
 	
 	
    
-<<<<<<< HEAD
-    @GetMapping("/product/insertorder")
-    @ResponseBody
-        public Object insertorder(@RequestParam("order_no") int order_no,
-                                  @RequestParam("order_total_price") int order_total_price,
-                                  @RequestParam("order_comment") String order_comment,
-                                  @RequestParam("order_usepoint") String order_usepoint,
-                                  @RequestParam("order_date") Date order_date,
-                                  @RequestParam("order_recipient") String order_recipient,
-                                  @RequestParam("order_address1") String order_address1,
-                                  @RequestParam("order_address2") String order_address2,
-                                  @RequestParam("order_address3") String order_address3,
-                                  @RequestParam("order_phone") String order_phone,
-                                  @RequestParam("users_point") String users_point,
-                             HttpServletRequest request) {
-        String users_id = (String)request.getSession().getAttribute("users_id");
-        OrderlistDto orderdto = new OrderlistDto();
-        orderdto.setOrder_usepoint(order_usepoint);
-        orderdto.setOrder_address1(order_address1);
-        orderdto.setOrder_address2(order_address2);
-        orderdto.setOrder_address3(order_address3);
-        orderdto.setOrder_comment(order_comment);
-        orderdto.setOrder_date(order_date); 
-        orderdto.setOrder_no(order_no);
-        orderdto.setOrder_phone(order_phone);
-        orderdto.setUsers_id(users_id);
-        orderdto.setOrder_total_price(order_total_price);
-        orderdto.setOrder_recipient(order_recipient);
-        usersService.updatepoint(users_point, users_id);
-        orderservice.insertOrder(orderdto);
-        return "insertorder";
-    }
-=======
 //    @GetMapping("/product/insertorder")
 //    @ResponseBody
 //        public Object insertorder(@RequestParam("order_no") int order_no,
@@ -819,5 +774,4 @@ public class MyController_ian {
 //        orderservice.insertOrder(orderdto);
 //        return "insertorder";
 //    }
->>>>>>> yerin
 }

@@ -79,26 +79,6 @@ $(document).on("keyup", ".phoneNumber", function() {
 	$(this).val( $(this).val().replace(/[^0-9]/g, "")
 	.replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 });
-		//주소찾기 
-		function addressAdd() {
-			new daum.Postcode(
-					{
-						oncomplete : function(data) {
-
-							var roadAddr = data.roadAddress; // 도로명 주소 변수
-
-							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('users_address1').value = data.zonecode; //우편번호
-							document.getElementById("users_address2").value = roadAddr; //도로명 
-							document.getElementById("users_address3").value = data.jibunAddress; //상세주소
-							self.close();
-						}
-					
-					}).open();
-		}
-<<<<<<< HEAD
-=======
-
 	//주소찾기 
 	function addressAdd() {
 		new daum.Postcode(
@@ -116,8 +96,6 @@ $(document).on("keyup", ".phoneNumber", function() {
 				}).open();
 	}
 	// $(function() {
->>>>>>> yerin
-		
 		//중복확인 
 	$(function() {		
 		var idCheck = false;
@@ -207,12 +185,7 @@ $(document).on("keyup", ".phoneNumber", function() {
 							} else if ($(item)[0].name ==="users_address3"){
 								data.users_address3 = $(item)[0].value;
 							} else if ($(item)[0].name ==="users_birth_date"){
-<<<<<<< HEAD
 								data.users_birth_date = $(item)[0].value; // itme -> item  오타
-=======
-								data.users_birth_date = $(item)[0].value;
-
->>>>>>> yerin
 							}
 						}
 					});
