@@ -278,7 +278,7 @@ drop table wishlist;
 create table wishlist(
 list_idx number(4) primary key,
 list_users_id varchar(20),
-list_product_name varchar(20),
+list_product_idx number(4),
 list_count number(4)
 );
 drop sequence wishlist_seq;

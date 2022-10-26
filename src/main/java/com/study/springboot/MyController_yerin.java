@@ -714,6 +714,15 @@ public class MyController_yerin {
 		return "index";
 	}
 	
+    /*
+     * @RequestMapping("/mypage/insertWish")
+     * public String insertWish(@RequestParam("product_idx") int product_idx,
+     * 
+     * @RequestParam("list_count") int list_count, Model model) {
+     * 
+     * }
+     */
+	
 	//로그인
 	@RequestMapping("/member/loginAction")
 	public String loginAction(@RequestParam("users_id") String users_id,

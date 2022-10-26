@@ -6,15 +6,14 @@
 
 <mapper namespace="com.study.springboot.dao.IProductDao">
 	<select id="productlist" resultMap="ProductDto">
-		select * from
+		select * from			
+			(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
+			from product_review group by product_idx) r,
+			 
+			(select product.*, to_number(replace(product_price, ',')) rp 
+			from product) p
 			
-				(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
-				from product_review group by product_idx) r,
-				 
-				(select product.*, to_number(replace(product_price, ',')) rp 
-				from product) p
-				
-				where r.pi(+) = p.product_idx
+			where r.pi(+) = p.product_idx
 	</select>	
 	
 	<select id="productDetail" resultType="com.study.springboot.dto.ProductDto">
@@ -121,22 +120,23 @@
 	</resultMap>
 	
 	<select id="productCate" resultMap="ProductDto">
-		select rownum, tb.* from
-			(select * from
-			
-				(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
-				from product_review group by product_idx) r,
-				 
-				(select product.*, to_number(replace(product_price, ',')) rp 
-				from product) p
+		select * from
+			(select rownum rnum, tb.* from
+				(select * from
 				
-				where r.pi(+) = p.product_idx
-				and p.product_category = #{param1}
-			
-			<if test='param2 != "select"'>
-				<include refid="searchSort"></include>
-			</if> ) tb
-		where rownum between #{param3} and #{param4}
+					(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
+					from product_review group by product_idx) r,
+					 
+					(select product.*, to_number(replace(product_price, ',')) rp 
+					from product) p
+					
+					where r.pi(+) = p.product_idx
+					and p.product_category = #{param1}
+				
+				<if test='param2 != "select"'>
+					<include refid="searchSort"></include>
+				</if> ) tb)
+			where rnum between #{param3} and #{param4}
 	</select>
 	
 	<select id="searchProduct" resultMap="ProductDto">
