@@ -356,18 +356,13 @@ public class MyController_yerin {
 		model.addAttribute("starGraph", reviewGraph);
 		String users_id = (String) request.getSession().getAttribute("users_id");
         
-        if(users_id == null) {
-            request.getSession().setAttribute("alert", "로그인이 필요합니다.");
-            request.setAttribute("url", "/member/login");
-            return "alert";
-        } else {
-            
-        UsersDto user = usersService.userDetail(users_id);
-        model.addAttribute("user", user);
-       
+        if(users_id != null) {
+            UsersDto user = usersService.userDetail(users_id);
+            model.addAttribute("user", user);
+        } 
 		model.addAttribute("mainPage", "product/product01_1.jsp");
 		return "index";
-        }
+        
 	}
 	
 	@RequestMapping("/product/reviewSearch")
@@ -759,7 +754,7 @@ public class MyController_yerin {
 			request.getSession().setAttribute("users_id", users_id);
 			request.getSession().setAttribute("users_pw", users_pw);
 			
-			if( autoLogin.equals("autoLogin") ) {
+			if( "autoLogin".equals(autoLogin) ) {
 			    Cookie setId = new Cookie("users_id", users_id);
 			    Cookie setPw = new Cookie("users_pw", users_pw);
 			    setId.setPath("/");
