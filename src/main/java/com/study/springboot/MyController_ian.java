@@ -94,19 +94,25 @@ public class MyController_ian {
     
     @RequestMapping("/product/product01")
     public String product01(@RequestParam(value="page",defaultValue="1") String page,
+            @RequestParam(value="sort", defaultValue="select") String sort,
             HttpServletRequest request, Model model) {
         
         num_page_size = 6;
-        String category = request.getParameter("product_category");       
-        List<ProductDto> productlist = productservice.productlist(category);
+        String category = request.getParameter("product_category");   
+        System.out.println(category);
+        List<ProductDto> productlist = productservice.productCate(category, sort, page, num_page_size);
         
         int product_count = productservice.product_count(category);
         int pageNum = (int)Math.ceil((double)product_count/num_page_size);
         
+        model.addAttribute("sort", sort);
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
         model.addAttribute("product_count", product_count);
         model.addAttribute("category", category);
         model.addAttribute("productlist", productlist);
         model.addAttribute("mainPage", "product/product01.jsp");
+        
         return "index";
     }
     

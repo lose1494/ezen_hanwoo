@@ -37,7 +37,8 @@ public interface IProductDao {
 
     int updateItem(Map<String, Object> reviseAction);
 
-
+    List<ProductDto> productCate(String cate, String sort, int startRowNum, int endRowNum);
+    
 	List<ProductDto> searchProduct(String word, String sort, int startRowNum, int endRowNum);
 	
 	int productCount(String word);

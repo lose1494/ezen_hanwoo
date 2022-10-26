@@ -76,6 +76,15 @@ public class ProductService {
 		return product_revise;
 	}
 
+	public List<ProductDto> productCate(String cate, String sort, String page, int num_page_size) {
+	    int num_page_no = Integer.parseInt( page );
+        int startRowNum = (num_page_no - 1) * num_page_size + 1;
+        int endRowNum = (num_page_no * num_page_size);
+        
+        List<ProductDto> productCate = productdao.productCate(cate, sort, startRowNum, endRowNum);
+        return productCate;
+	}
+	
 	public List<ProductDto> searchProduct(String word, String sort, String page, 
 			int num_page_size) {
 		
