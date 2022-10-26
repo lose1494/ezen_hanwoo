@@ -100,10 +100,8 @@ public class MyController_ian {
         num_page_size = 6;
         String category = request.getParameter("product_category");       
         List<ProductDto> productlist = productservice.productlist(category);
-        
         int product_count = productservice.product_count(category);
         int pageNum = (int)Math.ceil((double)product_count/num_page_size);
-        
         model.addAttribute("product_count", product_count);
         model.addAttribute("category", category);
         model.addAttribute("productlist", productlist);

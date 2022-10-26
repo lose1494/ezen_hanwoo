@@ -490,6 +490,19 @@ public class MyController_yerin {
 		return qnaDetail;
 	}
 	
+//	@RequestMapping("/product/orderDirect")
+//	public String orderDirect( @RequestParam("product_idx") int product_idx, 
+//	        Model model, HttpServletRequest request, CartDto dto) {
+//	    String users_id = (String) request.getSession().getAttribute("users_id");
+//	    List<ProductDto> product = productService.productList(product_idx);
+//	    UsersDto user = usersService.userDetail(users_id);
+//	    
+//	    model.addAttribute("orderList", product);
+//        model.addAttribute("user", user);
+//        model.addAttribute("mainPage", "product/order01.jsp");
+//        return "index";
+//	}
+	
 	
 	//주문
 	@RequestMapping("/product/order01")

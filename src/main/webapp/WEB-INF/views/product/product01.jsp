@@ -16,7 +16,6 @@
 		<option>별점순</option>
 		</select>
 	</div>
-
 	<div class="product">
 		<div class="img_best">
 			<c:forEach var="dto" items="${ productlist }">				
@@ -68,4 +67,3 @@
 		<a href="/product/search_product?word=${ word }&sort=${ sort }&page=${ pageNum }">마지막</a>
 	</div>
 </div>	
-	
