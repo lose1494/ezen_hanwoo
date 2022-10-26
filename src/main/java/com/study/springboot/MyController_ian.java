@@ -1,6 +1,5 @@
 package com.study.springboot;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -109,9 +108,8 @@ public class MyController_ian {
         return "index";
     }
     
-    // 이용자 공지사항
+ // 이용자 공지사항
     @RequestMapping("/Notice/notice")
-
     public String notice(@RequestParam(value="page", defaultValue="1") String page,
                          @RequestParam(value="search_type",defaultValue="notice_title") String search_type, 
                          @RequestParam(value="search_contents",required=false) String search_contents,
@@ -120,20 +118,14 @@ public class MyController_ian {
         int notice_count = noticeService.notice_count(search_type, search_contents);
         List<NoticeDto> admin_notice_list = noticeService.admin_notice_list(page, num_page_size);
         List<NoticeDto> searchResult;
-
         int pageNum = (int)Math.ceil((double)notice_count/num_page_size);
        
-
         if(search_type != null) {
             searchResult = noticeService.searchResult(search_type, search_contents, page, num_page_size);
             model.addAttribute("admin_notice_list", searchResult);
-            model.addAttribute("notice_count", searchResult.size());
         }else {
             model.addAttribute("admin_notice_list", admin_notice_list);
-            model.addAttribute("notice_count", notice_count);
         }
-       
-
         
         model.addAttribute("type", search_type);
         model.addAttribute("word", search_contents);
@@ -435,38 +427,47 @@ public class MyController_ian {
     
     // 공지사항 관리
     @RequestMapping("/admin/admin_notice")
-    public String admin_notice(@RequestParam(value="search_type",required=false) String search_type, 
-                               @RequestParam(value="search_contents",required=false) String search_contents,
-                               Model model) {
-
-        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
+    public String admin_notice(@RequestParam(value="page", defaultValue="1") String page,
+                         @RequestParam(value="search_type",defaultValue="notice_title") String search_type, 
+                         @RequestParam(value="search_contents",required=false) String search_contents,
+                         Model model) {
+        
+        int notice_count = noticeService.notice_count(search_type, search_contents);
+        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list(page, num_page_size);
         List<NoticeDto> searchResult;
+        int pageNum = (int)Math.ceil((double)notice_count/num_page_size);
+       
         if(search_type != null) {
-            searchResult = noticeService.searchResult(search_type, search_contents);
+            searchResult = noticeService.searchResult(search_type, search_contents, page, num_page_size);
             model.addAttribute("admin_notice_list", searchResult);
-            model.addAttribute("notice_count", searchResult.size());
         }else {
             model.addAttribute("admin_notice_list", admin_notice_list);
-            model.addAttribute("notice_count",admin_notice_list.size() );
         }
-       
+        
+        model.addAttribute("type", search_type);
+        model.addAttribute("word", search_contents);
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("notice_count", notice_count);
         model.addAttribute("mainPage", "admin/admin_notice.jsp");
         return "index";
     }
-
-    
-    @GetMapping("/admin/notice_list")
-    @ResponseBody
-    public List<NoticeDto> notice_list(@RequestParam("notice_idx") String notice_idx,
-                              @RequestParam("notice_title") String notice_title,
-                              @RequestParam("notice_date") Date notice_date
-            ) {
-        
-        
-        List<NoticeDto> noticelist = noticeService.noticelist(notice_idx, notice_title, notice_date);
-        return noticelist;
-    }
-
+    /*
+     * @GetMapping("/admin/notice_list")
+     * 
+     * @ResponseBody
+     * public List<NoticeDto> notice_list(@RequestParam("notice_idx") String
+     * notice_idx,
+     * 
+     * @RequestParam("notice_title") String notice_title,
+     * 
+     * @RequestParam("notice_date") Date notice_date
+     * ) {
+     * List<NoticeDto> noticelist = noticeService.noticelist(notice_idx,
+     * notice_title, notice_date);
+     * return noticelist;
+     * }
+     */
 
     //공지사항 상세 페이지
     @RequestMapping("/admin/notice_detail")
