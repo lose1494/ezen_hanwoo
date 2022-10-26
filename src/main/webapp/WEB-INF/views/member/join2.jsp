@@ -72,7 +72,7 @@
 ​
     <div class="imageBtn">
       <input class="bottom"type="submit"  onclick="agree()" value="동의">
-      <input class="bottom2"type="submit" value="취소">
+      <input class="bottom2"type="submit" value="취소" onclick="location.href='/member/login'">
     </div>
    
   </div>

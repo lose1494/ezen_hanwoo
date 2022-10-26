@@ -46,11 +46,7 @@ public class MyController_minwoo {
 		System.out.println(param); 
 	
 		int result = 0;
-		try { 
-			result = usersService.joinAction( param ); 
-		} catch (Exception e) {
-			e.printStackTrace(); 
-		}
+		result = usersService.joinAction( param ); 
 		System.out.println("query result:" + result); 
 		if( result == 1 ) {
 			return "redirect:login";

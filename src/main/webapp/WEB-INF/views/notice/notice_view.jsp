@@ -6,8 +6,8 @@
 
 	<div class="view_div wrap">
 	<p class="title_tag">공지사항</p>
-	<table>
-		<c:forEach var="dto" items="${ notice_detail }" varStatus="status">
+	<c:forEach var="dto" items="${ notice_detail }" varStatus="status">
+	<table class="headTable">
 		<tr>
 			<th class="title">작성자</th> 
 			<td class="text">${ dto.notice_name }</td>
@@ -18,24 +18,26 @@
 		<tr>
 			<th class="title" >제목</th>
 			 <td class="text"> ${ dto.notice_title } </td>
-			<th >조회수</th> 
-			<td  >2</td>
+			<th>조회수</th> 
+			<td>2</td>
 		</tr>
-		
+		</table>
+		<table class="contentTable">
 		<tr>
 			<td colspan="4" id="content">${ dto.notice_content }</td>
 		</tr>
 		
 			<tr>
-			<td colspan="4" style="display: flex; align-items: center; justify-content: center; height: 700px !important;">
-				<img src="${ dto.notice_img }" id="img" style="width: 500px; height: 500px;">
+			<td colspan="4" id="img_td"> <img src="${ dto.notice_img }" id="img">
 			</td>
 		</tr>
 		<input type="hidden" value="${ dto.notice_idx }" name="notice_idx"/>
 		
-		</c:forEach>
 	</table>
+	</c:forEach>
+	<div class="divBtn">
 <input type="button" value="목록" id="button" onclick="location.href='/Notice/notice'" style="cursor:pointer">
+</div>
 </div>	
 
 

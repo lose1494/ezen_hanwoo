@@ -73,7 +73,7 @@
 .member_table {
 	border-collapse:collapse;
 	border-top: 1px solid black;
-	width: 900px; 
+	width: 1200px; 
 	height: 100px; 
 	text-align: center;
 }
@@ -84,6 +84,11 @@
 
 .member_table th{
 	text-align: center;
+	height:40px;
+}
+
+.member_table td {
+	height: 40px;
 }
 
 .bar {
@@ -202,4 +207,4 @@ input,select{
 }
 .searchBox tr{
 	border:0;
-}
+} 

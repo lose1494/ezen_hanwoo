@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <link rel="stylesheet" href="/css/admin/admin_noticewrite.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <link rel="stylesheet" href="/css/admin/admin_noticeEdit.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
     
     <div class= "bg_admin text-center">
@@ -26,36 +26,39 @@
 			<li><a href="/admin/admin_one2one">1:1문의 관리</a></li>
 		</ul>
 	</div>
-
-<div class="editor_whole">
-  <!-- <form action="notice_writeAction" method="post" class="write_container"> -->
-   
+	
+	<div class="editor_whole main_div">
+	
   <div class="write_container">
- 
-   <input type="hidden"  id="notice_idx" value="${ dto.notcie_idx }">
-  
- 
-    <input type="text"  id="contentTitle" >
- 	
-    <div id="editor"></div>
+
+   	 <input type="hidden" value="${ dto.notice_idx }" name="notice_idx" id="notice_idx"/> 
+     <input type="text" value="${ dto.notice_title }" id="notice_title" name="notice_title"> 
+
+    <div id="editor">
+    	${ dto.notice_content }
+    </div>
     <div style="margin-top: 10px;">
-      <input id="uploadImage" type="file" size="10" accept="image/jpeg,image/gif, image/png" name="myPhoto" onchange="PreviewImage();" />
-      <img id="uploadPreview" style="width: 150px; height: 150px;" /><br />
+      <input id="uploadImage" type="file"  accept="image/jped,image/gif,image/png" />
+      <c:choose>
+      			<c:when test="${ dto.notice_img eq ''}"></c:when>
+      			<c:otherwise><img id="notice_img" src="${ dto.notice_img}" name="notice_img"/></c:otherwise>
+      </c:choose>
+      			 <br/> 
+    </div>
+    <div class="btn_wrap">
+      <button id="confirm_btn">글쓰기</button>
     </div>
 
-    <div class="btn_wrap">
-      <button id="confirm_btn">수정</button>
-      
-    </div>
-     
   </div>
 
-  <!-- </form> -->
+
 </div>
 
 </div>
- 
+
 <script>
+/* console.log('${dto}'); */
+
 CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
     toolbar: {
       items: [
@@ -93,7 +96,6 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
         { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
       ]
     },
-    placeholder: '내용을 작성해주세요.',
     fontFamily: {
       options: [
         'default',
@@ -171,50 +173,52 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
       'MathType'
     ]
   });
-var imgData;
-/*
- * imgData 는 change event때 선택된 이미지의 데이터를 담아두기 위해 선언
- */
-function PreviewImage() {
-    var oFReader = new FileReader();
-    oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
-    oFReader.onload = function (oFReader) {
-        document.getElementById("uploadPreview").src = oFReader.target.result;
-        imgData = oFReader.target.result;
-    };
-};
-$(document).ready(function() {
-    notice_update();
-    console.log("a는 실행되었습니다");
-}); 
-function notice_update(){
-	const pdx = document.getElementById("notice_idx").val
-				
-	console.log(pdx  + "11")
-	$.ajax({
-        url: "/admin/notice_update", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-        data: { notice_idx : pdx,
-        		notice_title : "1",
-        		notice_content : "1" },  // HTTP 요청과 함께 서버로 보낼 데이터
-        method: "GET",   // HTTP 요청 메소드(GET, POST 등)
-        dataType: "json", // 서버에서 보내줄 데이터의 타입
-      
-      
-        success: function (data) {
-        	console.log(data);
-        	  const dataLen = data.length;
-        	  for (let i = 0; i < dataLen; i++) {
-        	console.log(data[i].notice_title);
-        	document.getElementById("contentTitle").value = data[i].notice_title; 
   
-        }
-        
-        },
-        		error : function(data){
-                	console.log("111");
-                	console.log(data.notice_title);
-        },
-        
-	})
-}
+var imgData;
+$('#uploadImage').on('change', function(e) {
+	var fileData = e.currentTarget.files[0];
+	var previewTargetId = "notice_img";
+	var previewTarget = document.getElementById(previewTargetId);
+	PreviewImage(fileData, previewTarget, previewTargetId);
+});
+
+function PreviewImage(fileData, preview, previewTargetId) {
+    var oFReader = new FileReader();
+    oFReader.readAsDataURL(fileData);
+    oFReader.onload = function (oFReader) {
+        document.getElementById("notice_img").src = oFReader.target.result;
+        imgData = oFReader.target.result;
+    	}
+    };
+
+$("#confirm_btn").click(function() {
+	var noticeIdx=$("#notice_idx").val();
+  	var noticeTitle = $("#notice_title").val();
+    var noticeContent = $(".ck .ck-editor__main").find('p')[0].innerText;
+  
+  var data = {
+    "notice_title": noticeTitle,
+    "notice_content": noticeContent,
+    "notice_img" : imgData,
+    "notice_idx" : noticeIdx
+  };
+ console.log(data);
+    $.ajax({
+    async : true,
+    type : 'POST',
+    data : JSON.stringify(data),
+    url : "/admin/noticeEdit",
+    contentType : "application/json; charset-UTF-8",
+    success : function(data) {
+      console.log("success", data);
+      alert("수정되었습니다."); 	
+      location.href='/admin/admin_notice';
+    },
+    error : function(error) {
+      console.log("error", error);
+      alert("다시 시도해주세요.");
+    },
+  });
+  
+ });  
 </script>

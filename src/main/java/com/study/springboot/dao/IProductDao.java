@@ -41,5 +41,7 @@ public interface IProductDao {
 	List<ProductDto> searchProduct(String word, String sort, int startRowNum, int endRowNum);
 	
 	int productCount(String word);
+
+    void reviseProduct(Map<String, String> revise);
 	
 }

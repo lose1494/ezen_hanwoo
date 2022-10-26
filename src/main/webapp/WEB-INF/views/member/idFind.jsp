@@ -44,7 +44,7 @@
 			</tr>
 			<tr>
 				<td>
-                    <input id="userPhoneI" type="text" placeholder="휴대전화 번호">
+                    <input id="userPhoneI" type="text" placeholder="휴대전화 번호" class="phoneNumber">
 				</td>	
 		</tr>
 			<tr>
@@ -74,7 +74,7 @@
 			</tr>
 			<tr>
 				<td>
-                    <input id="userPhoneP" type="text" placeholder="휴대전화 번호 ">
+                    <input id="userPhoneP" type="text" placeholder="휴대전화 번호" class="phoneNumber">
 				</td>
 			</tr>
             <tr>
@@ -88,6 +88,15 @@
 </div>
 
 <script>
+
+//핸드폰 번호(-) 작성
+$(document).on("keyup", ".phoneNumber", function() { 
+	$(this).val( $(this).val().replace(/[^0-9]/g, "")
+	.replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+});
+
+
+
 $(function() {
 	
         $('#idFindBtn').click(function() {
@@ -107,14 +116,13 @@ $(function() {
                 /* dataType : "json", */
                 contentType : "application/json; charset-UTF-8",
                 success : function(data) {
-                    console.log("success", data);
+                    /* console.log("success", data); */
                      alert("아이디는 "+ data.USERS_ID +"입니다.");
-                   /*  location.href='/member/login';  */
+                   location.href='/member/login';
                 },
                 error : function(error) {
-                     console.log("error", error);
+                    /*  console.log("error", error); */
                    alert("id다시 시도해주세요.");
-                   /*   location.href='/admin/admin_noticewrite'; */
                     return;
                 }
             });
@@ -138,15 +146,13 @@ $(function() {
                 /* dataType : "json", */
                 contentType : "application/json; charset-UTF-8",
                 success : function(data) {
-                    // console.log("success", data);
+                     /* console.log("success", data); */
                     alert("비밀번호는" + data.USERS_PW + "입니다.");
-/*                     location.href='/member/login';
- */                },
+                     location.href='/member/login';
+                 },
                 error : function(error) {
-                    // console.log("error", error);
-                    console.log("1111111111111111")
+                     /* console.log("error", error); */
                     alert("pw다시 입력해주세요.");
-                    // location.href='/admin/admin_noticewrite';
                     return;
                 }
             });
