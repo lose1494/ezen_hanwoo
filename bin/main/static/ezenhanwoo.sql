@@ -15,7 +15,7 @@ create table ezen_users(
     users_address3 varchar(100),
     users_address varchar2(100),
     users_joindate date default sysdate,
-    users_point    varchar2(20)
+    users_point    number(10)
 );
 select * from ezen_users;
 select * from cart;
@@ -28,6 +28,9 @@ insert into ezen_users(users_idx,users_id,users_pw,users_name,users_email,users_
 values(ezen_users_seq.nextval, 'remi6513',1234,'최이안','remi6513@naver.com','010-5045-5054', '1993-11-02', '2000', '경기도 의정부시 민락동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
 INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
 VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
+VALUES (ezen_users_seq.nextval, 'admin', '1111', '테스트');
+
 select * from ezen_users;
 commit;
 --상품
@@ -204,15 +207,18 @@ create table one2one(
 );
 drop sequence one2one_seq;
 create sequence one2one_seq;
+
+insert into one2one
+values(one2one_seq.nextval, 'hong', '문의 테스트', '1:1 문의 테스트', null, null, null, sysdate, '답변대기중');
+commit;
 --1:1문의 답변
 drop table one2one_answer;
 create table one2one_answer(
     answer_idx number(4) primary key,
     answer_id varchar2(20),
-    answer_title varchar2(20),
     answer_content varchar2(300),
     answer_date date,
-    one2one_answer_idx number(4)
+    one2one_idx number(4) unique
 );
 drop sequence one2one_answer_seq;
 create sequence one2one_answer_seq;
@@ -223,10 +229,11 @@ commit;
 drop table orderlist;
 create table orderlist(
 order_idx number(4) primary key,
-order_no number(20),
+order_no varchar2(40),
 users_id varchar2(20),
-order_total_price number(10),
+order_total_price varchar2(20),
 order_comment varchar2(100),
+order_product_name varchar2(40),
 order_date date,
 order_recipient varchar2(20),
 order_address1 varchar(20),
@@ -237,14 +244,18 @@ order_usepoint varchar2(20)
 );
 drop sequence orderlist_seq;
 create sequence orderlist_seq;
+
 --주문 상세
-select * from orderDetail;
 drop table orderDetail;
 create table orderDetail(
 detail_idx number(4) primary key,
-order_idx number(4),
-prouct_idx number(4)
+order_no varchar2(40),
+product_idx number(4),
+product_count number(2),
+product_price varchar2(20),
+pay_method varchar2(20)
 );
+
 drop sequence orderDetail_seq;
 create sequence orderDetail_seq;
 select * from cart;
@@ -283,17 +294,8 @@ point_content varchar(60)
 drop sequence point_seq;
 create sequence point_seq;
 insert into point
-values( point_seq.nextval, 'hong', sysdate, +5000, sysdate+365, '회원가입');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +500, sysdate+365, '테스트');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +100, sysdate+365, '테스트1');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +200, sysdate+365, '테스트2');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +300, sysdate+365, '테스트3');
-insert into point
-values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
+values( point_seq.nextval, 'hong', sysdate, +3000, sysdate+365, '회원가입');
+
 commit;
 
 

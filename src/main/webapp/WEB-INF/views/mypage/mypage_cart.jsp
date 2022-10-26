@@ -21,7 +21,6 @@
           <th>적립금</th>
           <th>삭제/관심상품</th>
         </tr>
-       
        <!--  <tr>
         
           <td><input type="checkbox" /></td>
@@ -64,7 +63,10 @@
           </tr>
           <tr>
             <td colspan="2">
-              <button onclick="update_Cart_order()">주문하기</button>
+				<form class="checkForm" method="post">
+					<input type="hidden" name="checkList">
+              		<button type="button" onclick="check_order()">주문하기</button>
+				</form>
             </td>
             <td></td>
           </tr>
@@ -98,7 +100,6 @@
     
    $(document).ready(function() {
            a();
-           console.log("a는 실행되었습니다");
    }); 
    
     function a() {
@@ -110,8 +111,6 @@
             success: function (data) {
             	
             	
-            	  
-                console.log(data);
                 let htmls = "";
                 const dataLen = data.length;
                 const target = document.getElementById("cart_table");
@@ -135,7 +134,6 @@
                          +'<td><button onclick="delete_Cart_table(this)" idx="'+ i +'"><img src="/img/mypage/x.png" style="width:30px;"></button><img src="/img/mypage/heart.png" style="width:25px;"></td>'
                          +'</tr>'
                         
-                         console.log(htmls);
                 }
                 
                 target.insertAdjacentHTML('beforeend', htmls)
@@ -151,9 +149,7 @@
 		
 		const idx = e.getAttribute('idx')
 		const pdx = document.getElementById("product_name" + idx).getAttribute('value') 
-		console.log(e)
-		console.log(pdx)
-		
+
 		$.ajax({
 			url: "/mypage/cart_Update",
 			data :{ cart_count : parseInt( $("#count_input" + idx).val()),
@@ -284,6 +280,21 @@
 		const pdx = document.getElementById("product_price" + idx).getAttribute('value')	
 		const cot = document.getElementById("count_input" + idx).getAttribute('value')
 		const cup = "5,000"
+
+		console.log(document.getElementById("product_price" + idx).getAttribute('value'));
+		ca = stringNumberToInt(pdx) * (cot);
+		cpa = stringNumberToInt(cup);
+
+         total += ca;
+         total2 = total + cpa;
+
+      	  }
+		if(checkboxs.length > 0 ){
+
+			document.getElementById("order_price").innerText = total.toLocaleString() + "원";
+			document.getElementById("order_price2").innerText = cpa.toLocaleString() + "원";
+			document.getElementById("order_price3").innerText = total2.toLocaleString() + "원";
+
 		ca = stringNumberToInt(pdx) * (cot);
 		cpa = stringNumberToInt(cup);
          total += ca;
@@ -301,8 +312,28 @@
 		}
 		
 	}
+
+	function check_order() {
+		var arr = new Array();
+		$('input[name=buy_check]').each(function(index, item) {
+			if($(this).is(':checked')) {
+				console.log($(this).val());
+				arr.push($(this).val());
+			}
+			console.log(arr);
+			if( arr == [] ) {
+				alert("선택된 품목이 없습니다");
+			}	
+		});
+		$('input[name=checkList]').val(arr);
+		console.log($('input[name=checkList]').val());
+		$('.checkForm').attr('action','/mypage/cartOrder');
+		$('.checkForm').submit();
+	}
+
+  </script>
 	
-function update_Cart_order(){
+<!-- function update_Cart_order(){
 	
 	check_len = document.getElementsByName("buy_check").length;
 	const checkboxs = document.querySelectorAll('input[name="buy_check"]:checked');
@@ -335,7 +366,5 @@ function update_Cart_order(){
 		})
 		
 	  }
-	}
-
-  </script>
+	} -->
   

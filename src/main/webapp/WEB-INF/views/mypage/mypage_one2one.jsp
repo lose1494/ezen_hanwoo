@@ -18,14 +18,14 @@
                     <th>제목</th>
                     <th>작성일</th>
                 </tr>
-                <c:forEach var="one2one" items="${ one2oneList }" varStatus="status">
+                <c:forEach var="dto" items="${ one2oneList }" varStatus="status">
                 <tr>
                     <td><c:out value="${ status.count }" /></td>
-                    <td>${ one2one.one2one_status }</td>
+                    <td>${ dto.one2oneDto.one2one_status }</td>
                     <!-- <td>기타</td> -->
-                    <td> <a href="/customer/one2oneView?one2one_idx=${ one2one.one2one_idx}">
-                        ${ one2one.one2one_title }</a></td>
-                    <td><fmt:formatDate value="${ one2one.one2one_date }" pattern = "yyyy-MM-dd"/></td>
+                    <td> <a href="/customer/one2oneView?one2one_idx=${ dto.one2one_idx}">
+                        ${ dto.one2oneDto.one2one_title }</a></td>
+                    <td><fmt:formatDate value="${ dto.one2oneDto.one2one_date }" pattern = "yyyy-MM-dd"/></td>
                 </tr>
                 </c:forEach>
             </table>

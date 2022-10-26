@@ -11,10 +11,10 @@ import com.study.springboot.dto.NoticeDto;
 public interface INoticeDao {
 
 	//관리자 공지사항
-	public List<NoticeDto> admin_notice_list();
+	public List<NoticeDto> admin_notice_list(int startRowNum, int endRowNum);
 
 	//공지사항 개수
-	public int notice_count();
+	public int notice_count(String search_type, String search_contents);
 
 	//공지사항 상세페이지
 	public List<NoticeDto> notice_detail(int notice_idx);
@@ -23,7 +23,7 @@ public interface INoticeDao {
 	public void noticeWrite(Map<String, String> param);
 
 	//공지사항 검색결과
-    public List<NoticeDto> searchResult(String search_type, String search_contents);
+    public List<NoticeDto> searchResult(String search_type, String search_contents, int startRowNum, int endRowNum);
 
     //공지사항 삭제
     public int deleteNotice(int idx);

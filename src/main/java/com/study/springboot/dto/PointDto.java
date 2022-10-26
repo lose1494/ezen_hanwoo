@@ -16,4 +16,5 @@ public class PointDto {
 	private int point_point;
 	private Date point_end_date;
 	private String point_content;
+
 }
