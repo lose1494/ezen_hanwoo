@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
     <link rel="stylesheet" href="/css/product/product01.css">
+	<link rel="stylesheet" href="/css/common.css">
 <div class="wrap">	
 	<h1>${ category }</h1>
 	<div class="title">

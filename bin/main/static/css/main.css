@@ -1,6 +1,6 @@
-@charset "UTF-8";
+/* @charset "UTF-8";
 
-/* 초기화 */
+
 * {
   margin: 0; padding: 0;
 }
@@ -213,4 +213,73 @@ a, a:link, a:hover {
 	width: 70%;
 	height: 75px;
 	margin-top: 35px;
+} */
+.wrap {
+	max-width: 1500px;
+	text-align: center;
+}
+.product {
+	margin-top:50px;
+}
+
+.img_best{
+display : flex;
+flex-flow: row wrap;
+margin: 0 auto;
+justify-content: space-between;
+}
+
+.best1 {
+position: relative;
+z-index: 999;
+margin: 5px;
+flex: 0 30%;
+}
+
+.product_img {
+width: 100%;
+max-width: 300px;
+transition:all .5s ease;
+}
+
+.product_img:hover{
+	-ms-transform:scale(1.02,1.02);
+-webkit-transform:scale(1.02,1.02);
+transform:scale(1.02,1.02);
+}
+
+.best1:hover .product_img {
+opacity: 0.3;
+}
+
+.best1:hover .middle {
+opacity:1;
+}
+
+.best1 p, .best1 h3{
+margin: 10px 0;
+}
+
+.mon {
+color: #F35958;
+}
+
+.middle {
+transition: 0.5s ease;
+opacity: 0;
+position: absolute;
+top: 25%;
+left: 50%;
+transform: translate(-50%, -50%);
+-ms-transform: translate(-50%, -50%);
+}
+
+.text {
+color:black;
+display:flex;
+justify-content: space-around; 
+}
+
+.icon_img1{
+width: 	40px;
 }
