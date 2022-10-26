@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.study.springboot.dto.CartProductDto;
-import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.FaqDto;
 import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.One2oneDto;
@@ -451,6 +450,18 @@ public class MyController_ian {
        
         model.addAttribute("mainPage", "admin/admin_notice.jsp");
         return "index";
+    }
+    
+    @GetMapping("/admin/notice_list")
+    @ResponseBody
+    public List<NoticeDto> notice_list(@RequestParam("notice_idx") String notice_idx,
+                              @RequestParam("notice_title") String notice_title,
+                              @RequestParam("notice_date") Date notice_date
+            ) {
+        
+        
+        List<NoticeDto> noticelist = noticeService.noticelist(notice_idx, notice_title, notice_date);
+        return noticelist;
     }
 
     //공지사항 상세 페이지
