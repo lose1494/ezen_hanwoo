@@ -5,8 +5,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IProductDao">
-	<select id="productlist" resultType="com.study.springboot.dto.ProductDto">
-		select * from product
+	<select id="productlist" resultMap="ProductDto">
+		select * from
+			
+				(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
+				from product_review group by product_idx) r,
+				 
+				(select product.*, to_number(replace(product_price, ',')) rp 
+				from product) p
+				
+				where r.pi(+) = p.product_idx
 	</select>	
 	
 	<select id="productDetail" resultType="com.study.springboot.dto.ProductDto">

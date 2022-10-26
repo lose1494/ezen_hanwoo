@@ -15,16 +15,7 @@ a, a:link, a:hover {
 .main1 h1 {
 	font-weight: bold;
 }
-.banner{
-	margin-top: 50px;
-	width: 103%;
-}
 
-.banner_img {
-	display:flex;
-	justify-content: center;
-	margin:0 auto;
-}
 .best{
 	text-align: center;
 	margin-top: 100px;
@@ -36,16 +27,7 @@ a, a:link, a:hover {
 	margin-top: 50px;
 }
 
-.img_best{
-	display : flex;
-	
-	padding-bottom : 100px;
-	justify-content : space-evenly;
-	margin: 0 auto;
-	background-color: #F0F0F0;
-	width: 1500px;
-	
-}
+
 .gift_set img{
 	margin-top: 100px;
 	
@@ -215,18 +197,50 @@ a, a:link, a:hover {
 	margin-top: 35px;
 } */
 .wrap {
+	width: 90%;
 	max-width: 1500px;
 	text-align: center;
 }
+.wrap h1 {
+	margin: 100px 0;
+}
+.banner{
+	margin-top: 50px;
+	width: 103%;
+}
+
+.banner_img {
+	display:flex;
+	justify-content: center;
+	margin:0 auto;
+}
+
+.gift_set{
+	display : flex;
+	margin : 0 auto;
+	flex-flow: row nowrap;
+	justify-content : space-between;
+}
+
+.gift_set h3 {
+	margin-top: 30px;
+}
 .product {
-	margin-top:50px;
+	width: 95%;
+	margin: 0 auto;
 }
 
 .img_best{
-display : flex;
-flex-flow: row wrap;
-margin: 0 auto;
-justify-content: space-between;
+	display : flex;
+	flex-flow: row wrap;
+	margin: 0 auto;
+	justify-content: space-between;
+}
+
+.new {
+	background-color: #F0F0F0;
+	justify-content: space-evenly;
+	padding: 10px;
 }
 
 .best1 {
@@ -275,11 +289,16 @@ transform: translate(-50%, -50%);
 }
 
 .text {
-color:black;
-display:flex;
-justify-content: space-around; 
-}
-
+	color:black;
+	padding: 16px 32px;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-end;
+	
+  }
 .icon_img1{
-width: 	40px;
+	width: 40px;
+	padding: 0;
+	margin: 0;	
 }
