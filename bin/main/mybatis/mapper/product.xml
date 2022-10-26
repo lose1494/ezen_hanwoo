@@ -7,18 +7,7 @@
 <mapper namespace="com.study.springboot.dao.IProductDao">
 	<select id="productlist" resultType="com.study.springboot.dto.ProductDto">
 		select * from product
-		<if test="param1 != null">
-			where product_category = #{param1}
-		</if>
-	</select>
-	
-	<select id="productList" resultType="com.study.springboot.dto.ProductDto">
-		select * from product
-
-			where product_idx = #{param1}
-
-	</select>
-	
+	</select>	
 	
 	<select id="productDetail" resultType="com.study.springboot.dto.ProductDto">
 		select * from product where product_idx = #{param1}
@@ -122,6 +111,9 @@
 	<result column="product_explanation" property="product_explanation"/>
 	<collection property="reviewDto" resultMap="ReviewDto"></collection>
 	</resultMap>
+	
+	<select id="productCate" resultMap="ProductDto">
+	</select>
 	
 	<select id="searchProduct" resultMap="ProductDto">
 		

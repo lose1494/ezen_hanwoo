@@ -13,8 +13,6 @@ public interface IProductDao {
 
 	List<ProductDto> productlist(String product_category);
 	
-	List<ProductDto> productList(int product_idx);
-	
 	ProductDto productDetail(int product_idx);
 
 	List<ProductDto> item_list();

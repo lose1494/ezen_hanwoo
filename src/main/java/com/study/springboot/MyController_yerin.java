@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.study.springboot.dto.CartDto;
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.One2one_answerDto;
 import com.study.springboot.dto.OrderDetailDto;
@@ -489,19 +488,6 @@ public class MyController_yerin {
 									 @RequestParam("user_pw") String user_pw) {
 		Product_qnaDto qnaDetail = qnaService.qnaDetail(qna_idx);
 		return qnaDetail;
-	}
-	
-	@RequestMapping("/product/orderDirect")
-	public String orderDirect( @RequestParam("product_idx") int product_idx, 
-	        Model model, HttpServletRequest request, CartDto dto) {
-	    String users_id = (String) request.getSession().getAttribute("users_id");
-	    List<ProductDto> product = productService.productList(product_idx);
-	    UsersDto user = usersService.userDetail(users_id);
-	    
-	    model.addAttribute("orderList", product);
-        model.addAttribute("user", user);
-        model.addAttribute("mainPage", "product/order01.jsp");
-        return "index";
 	}
 	
 	

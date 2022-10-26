@@ -87,6 +87,10 @@
   justify-self: flex-start;
 }
 
+.best1:nth-child(3n+2) {
+  /* margin: 5px 3.7%; */
+}
+
 .product_img {
   width: 100%;
   max-width: 300px;

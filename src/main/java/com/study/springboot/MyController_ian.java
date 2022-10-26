@@ -93,10 +93,16 @@ public class MyController_ian {
     }
     
     @RequestMapping("/product/product01")
-    public String product01(HttpServletRequest request, Model model) {
-        String category = request.getParameter("product_category");
-        int product_count = productservice.product_count(category);
+    public String product01(@RequestParam(value="page",defaultValue="1") String page,
+            HttpServletRequest request, Model model) {
+        
+        num_page_size = 6;
+        String category = request.getParameter("product_category");       
         List<ProductDto> productlist = productservice.productlist(category);
+        
+        int product_count = productservice.product_count(category);
+        int pageNum = (int)Math.ceil((double)product_count/num_page_size);
+        
         model.addAttribute("product_count", product_count);
         model.addAttribute("category", category);
         model.addAttribute("productlist", productlist);

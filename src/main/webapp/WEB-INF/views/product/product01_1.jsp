@@ -66,7 +66,7 @@
                             <div class="flexDiv">
                                 <button class="bright" onclick="b()">장바구니</button>
                                 <button class="bright">관심상품</button>
-                                <button class="dark"  onclick="javascript:form.action='orderDirect'">바로구매</button>
+                                <button class="dark"  onclick="c()">바로구매</button>
                             </div>
                         </td>  
                     </tr>
