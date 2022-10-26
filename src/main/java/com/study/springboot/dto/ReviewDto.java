@@ -17,6 +17,7 @@ public class ReviewDto {
 	private String review_image;
 	private Date review_date;
 	private int review_star_rating;
+	
 	private int product_idx;
 	private String product_name;
 	

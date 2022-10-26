@@ -1,4 +1,5 @@
 package com.study.springboot;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.OrderlistDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
+import com.study.springboot.dto.Product_qna_replyDto;
 import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
@@ -321,13 +323,78 @@ public class MyController_ian {
     
     // 상품 문의 관리
     @RequestMapping("/admin/admin_inquiry")
-    public String admin_inquiry(Model model) {
+    public String admin_inquiry(@RequestParam(value="page",defaultValue="1") String page,
+            HttpServletRequest request, Model model) {
+        String users_id = (String) request.getSession().getAttribute("users_id");
         
-        List<Product_qnaDto> qna_list = product_qnaService.qna_list();
-        model.addAttribute("qna_list", qna_list);
+        List<Product_qnaDto> qna_List = product_qnaService.qna_List(users_id, page, num_page_size);
+        int qnaListCount = product_qnaService.qnaListCount(users_id);
+        int pageNum = (int)Math.ceil((double)qnaListCount/num_page_size);
+        
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("qna_List", qna_List);
         model.addAttribute("mainPage", "admin/admin_inquiry.jsp");
+
         return "index";
     }
+    
+    @RequestMapping("/admin/QnAanswerWrite")
+    @ResponseBody
+    public int QnAanswerWrite(@RequestParam("qna_idx") int qna_idx,
+                           @RequestParam("reply_content") String reply_content,
+                              Product_qna_replyDto dto, Product_qnaDto dto1,
+                              HttpServletRequest request, Model model ) {
+        String reply_id = (String) request.getSession().getAttribute("users_id");
+        dto.setReply_id(reply_id);
+        dto.setReply_content(reply_content);
+        dto.setQna_idx(qna_idx);        
+        
+        int result = product_qnaService.insertReply(dto);
+        
+        if( result == 1 ) {
+            dto1.setQna_status("답변완료");
+            dto1.setQna_idx(qna_idx);
+            int updateStatus = product_qnaService.updateStatus(dto1);
+        }
+        
+        return result;
+    }
+    
+    @RequestMapping("/admin/QnAanswerUpdate")
+    @ResponseBody
+    public int QnAanswerUpdate(@RequestParam("reply_idx") int reply_idx,
+                            @RequestParam("reply_content") String reply_content,
+                            Product_qna_replyDto dto, 
+                            HttpServletRequest request, Model model ) {
+
+        dto.setReply_content(reply_content);
+        dto.setQna_idx(reply_idx);
+        
+        int result = product_qnaService.updateAnswer(dto);
+   
+        
+        return result;
+    }
+    
+    @RequestMapping("/admin/QnAanswerDelete")
+    @ResponseBody
+    public int QnAanswerDelete(@RequestParam("qna_idx") int qna_idx,
+                            @RequestParam("reply_idx") int reply_idx,
+                            Product_qnaDto dto,
+                            HttpServletRequest request, Model model ) {
+
+        int result = product_qnaService.deleteAnswer(reply_idx);
+        
+        if( result == 1 ) {
+            dto.setQna_status("답변 대기중");
+            dto.setQna_idx(qna_idx);
+            int updateStatus = product_qnaService.updateStatus(dto);
+        }
+        
+        return result;
+    }
+    
     // 공지사항 관리
     @RequestMapping("/admin/admin_notice")
     public String admin_notice(@RequestParam(value="search_type",required=false) String search_type, 
@@ -538,7 +605,7 @@ public class MyController_ian {
         orderdto.setOrder_address2(order_address2);
         orderdto.setOrder_address3(order_address3);
         orderdto.setOrder_comment(order_comment);
-        orderdto.setOrder_date(order_date);
+        orderdto.setOrder_date(order_date); 
         orderdto.setOrder_no(order_no);
         orderdto.setOrder_phone(order_phone);
         orderdto.setUsers_id(users_id);

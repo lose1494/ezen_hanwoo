@@ -140,10 +140,6 @@ insert into product_review(review_idx, review_id, review_title, review_content, 
 values(product_review_seq.nextval, '22222', '테스트3', '리뷰 내용 테스트1', sysdate, 4, 4);
 insert into product_review(review_idx, review_id, review_title, review_content, review_date, review_star_rating, product_idx)
 
-
-select * from product_review;
-commit;
-
 drop table review_star;
 create table review_star(
     star_score number(1) primary key
@@ -184,14 +180,13 @@ drop table Notice;
 create table Notice(
     notice_idx number(4) primary key,
     notice_name varchar2(20),
-    notice_title varchar2(20),
+    notice_title varchar2(200),
     notice_content varchar2(300),
     notice_date date,
     notice_img clob,
     notice_hit number(4) DEFAULT 0
 );
 
-select * from Notice;
 drop sequence Notice_seq;
 create sequence Notice_seq;
 --1:1문의
