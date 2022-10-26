@@ -1,13 +1,16 @@
 package com.study.springboot;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.study.springboot.dto.CartProductDto;
 import com.study.springboot.dto.FaqDto;
 import com.study.springboot.dto.NoticeDto;
+import com.study.springboot.dto.One2oneDto;
+import com.study.springboot.dto.One2one_answerDto;
 import com.study.springboot.dto.OrderlistDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
@@ -26,6 +31,8 @@ import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.FaqService;
 import com.study.springboot.service.NoticeService;
+import com.study.springboot.service.One2oneService;
+import com.study.springboot.service.One2one_answerService;
 import com.study.springboot.service.OrderlistService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
@@ -50,6 +57,10 @@ public class MyController_ian {
     private OrderlistService orderservice;
 	@Autowired
 	private FaqService faqService;
+	@Autowired
+    private One2oneService one2oneService;
+	@Autowired
+    private One2one_answerService answerService;
 	
 	int num_page_size = 5;
     
@@ -59,7 +70,17 @@ public class MyController_ian {
     }
     
     @RequestMapping("/index")
-    public String index(HttpServletRequest request, Model model) {
+    public String index(@CookieValue(value="users_id", required=false) Cookie id, 
+            @CookieValue(value="users_pw", required=false) Cookie pw, 
+            HttpServletRequest request, Model model) {
+        
+        if( id != null && pw != null ) {
+            System.out.println(id.getValue()+","+pw.getValue());
+            int result = usersService.login(id.getValue(), pw.getValue());
+            request.getSession().setAttribute("users_id", id.getValue());
+            request.getSession().setAttribute("users_pw", pw.getValue());
+        }
+        
         // 알럿 메시지 중복 제거
         String alertMessage = (String) request.getSession().getAttribute("alert");
         System.out.println("index alertMessage:" + alertMessage);
@@ -73,10 +94,16 @@ public class MyController_ian {
     }
     
     @RequestMapping("/product/product01")
-    public String product01(HttpServletRequest request, Model model) {
-        String category = request.getParameter("product_category");
-        int product_count = productservice.product_count(category);
+    public String product01(@RequestParam(value="page",defaultValue="1") String page,
+            HttpServletRequest request, Model model) {
+        
+        num_page_size = 6;
+        String category = request.getParameter("product_category");       
         List<ProductDto> productlist = productservice.productlist(category);
+        
+        int product_count = productservice.product_count(category);
+        int pageNum = (int)Math.ceil((double)product_count/num_page_size);
+        
         model.addAttribute("product_count", product_count);
         model.addAttribute("category", category);
         model.addAttribute("productlist", productlist);
@@ -86,22 +113,41 @@ public class MyController_ian {
     
     // 이용자 공지사항
     @RequestMapping("/Notice/notice")
+<<<<<<< HEAD
     public String notice_Action(@RequestParam(value="search_type",required=false) String search_type, 
+=======
+    public String notice(@RequestParam(value="page", defaultValue="1") String page,
+                         @RequestParam(value="search_type",defaultValue="notice_title") String search_type, 
+>>>>>>> yerin
                          @RequestParam(value="search_contents",required=false) String search_contents,
                          Model model) {
         
-        int notice_count = noticeService.notice_count();
-        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list();
+        int notice_count = noticeService.notice_count(search_type, search_contents);
+        List<NoticeDto> admin_notice_list = noticeService.admin_notice_list(page, num_page_size);
         List<NoticeDto> searchResult;
+<<<<<<< HEAD
+=======
+        int pageNum = (int)Math.ceil((double)notice_count/num_page_size);
+       
+>>>>>>> yerin
         if(search_type != null) {
-            searchResult = noticeService.searchResult(search_type, search_contents);
+            searchResult = noticeService.searchResult(search_type, search_contents, page, num_page_size);
             model.addAttribute("admin_notice_list", searchResult);
             model.addAttribute("notice_count", searchResult.size());
         }else {
             model.addAttribute("admin_notice_list", admin_notice_list);
             model.addAttribute("notice_count", notice_count);
         }
+<<<<<<< HEAD
        
+=======
+        
+        model.addAttribute("type", search_type);
+        model.addAttribute("word", search_contents);
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("notice_count", notice_count);
+>>>>>>> yerin
         model.addAttribute("mainPage", "notice/notice.jsp");
         return "index";
     }
@@ -468,11 +514,82 @@ public class MyController_ian {
 
     // 1:1문의
     @RequestMapping("/admin/admin_one2one")
-    public String admin_one2one(Model model) {
+    public String admin_one2one(@RequestParam(value="page",defaultValue="1") String page,
+            HttpServletRequest request, Model model) {
+        String users_id = (String) request.getSession().getAttribute("users_id");
+        
+        List<One2one_answerDto> one2oneList = answerService.one2oneList(users_id, page, num_page_size);
+        int one2oneCount = one2oneService.one2oneCount(users_id);
+        int pageNum = (int)Math.ceil((double)one2oneCount/num_page_size);
+        
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("one2oneList", one2oneList);
         model.addAttribute("mainPage", "admin/admin_one2one.jsp");
+
         return "index";
     }
     
+<<<<<<< HEAD
+=======
+    @RequestMapping("/admin/answerWrite")
+    @ResponseBody
+    public int answerWrite(@RequestParam("one2one_idx") int one2one_idx,
+                              @RequestParam("answer_content") String answer_content,
+                              One2one_answerDto dto, One2oneDto one,
+                              HttpServletRequest request, Model model ) {
+        System.out.println(one2one_idx);
+        String answer_id = (String) request.getSession().getAttribute("users_id");
+        dto.setAnswer_id(answer_id);
+        dto.setAnswer_content(answer_content);
+        dto.setOne2one_idx(one2one_idx);        
+        
+        int result = answerService.insertAnswer(dto);
+        
+        if( result == 1 ) {
+            one.setOne2one_status("답변완료");
+            one.setOne2one_idx(one2one_idx);
+            int updateStatus = one2oneService.updateStatus(one);
+        }
+        
+        return result;
+    }
+    
+    @RequestMapping("/admin/answerUpdate")
+    @ResponseBody
+    public int answerUpdate(@RequestParam("answer_idx") int answer_idx,
+                            @RequestParam("answer_content") String answer_content,
+                            One2one_answerDto dto, 
+                            HttpServletRequest request, Model model ) {
+
+        dto.setAnswer_content(answer_content);
+        dto.setOne2one_idx(answer_idx);        
+        
+        int result = answerService.updateAnswer(dto);
+   
+        
+        return result;
+    }
+    
+    @RequestMapping("/admin/answerDelete")
+    @ResponseBody
+    public int answerDelete(@RequestParam("one2one_idx") int one2one_idx,
+                            @RequestParam("answer_idx") int answer_idx,
+                            One2oneDto one,
+                            HttpServletRequest request, Model model ) {
+
+        int result = answerService.deleteAnswer(answer_idx);
+        
+        if( result == 1 ) {
+            one.setOne2one_status("답변 대기중");
+            one.setOne2one_idx(one2one_idx);
+            int updateStatus = one2oneService.updateStatus(one);
+        }
+        
+        return result;
+    }
+    
+>>>>>>> yerin
     // 자주하는 질문
     @RequestMapping("/admin/admin_faq")
     public String admin_faq(Model model) {
@@ -501,9 +618,16 @@ public class MyController_ian {
     
     @RequestMapping("/mypage/mypage_cart")
     public String mypage_cart ( 
-            Model model) {
+            Model model, HttpServletRequest request) {
+        String users_id = (String) request.getSession().getAttribute("users_id");
+        if(users_id == null) {
+            request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+            request.setAttribute("url", "/member/login");
+            return "alert";
+        } else {
         model.addAttribute("mainPage","mypage/mypage_cart.jsp");
         return "index";
+        }
     }
     
     @GetMapping("/mypage/get_cart_list")
@@ -534,6 +658,7 @@ public class MyController_ian {
                              @RequestParam ("cart_product_name") String cart_product_name,
                              @RequestParam ("product_idx") int product_idx,
                              HttpServletRequest request) {
+        System.out.println(cart_count);
         CartProductDto cartdto = new CartProductDto();
         String users_id = (String)request.getSession().getAttribute("users_id");
         cartdto.setCart_count(cart_count);
@@ -583,7 +708,54 @@ public class MyController_ian {
         cartService.deleteCartall(users_id );
         return "cart_deleteall";
     }
+    
+
+	/*
+	 * @GetMapping("/mypage/get_cart_list")
+       public Object get_cart_list(@RequestParam ("users_id") String
+	 * users_id) { System.out.println("12312321321" + users_id); CartService cart =
+	 * new CartService(); List<CartDto> cartList = cart.cartList(users_id); return
+	 * cartList; }
+	 */
+	
+	@RequestMapping("/mypage/cartOrder")
+	public String cartOrder(@RequestParam("checkList") String checkIdx,
+	        HttpServletRequest request, Model model) {
+	    String check[] = checkIdx.split(",");
+	    for(int i=0; i<check.length; i++) {
+	        System.out.println(check[i]);
+	    }
+	    
+	    String users_id = (String)request.getSession().getAttribute("users_id");
+	    List<CartProductDto> cartList = cartService.cartList(users_id);
+	    List<CartProductDto> orderList = new ArrayList<CartProductDto>();
+	    for(int i=0; i<cartList.size(); i++) {
+	        for(int j=0; j<check.length; j++) {
+	            if( cartList.get(i).getProduct_idx() == Integer.valueOf(check[j]) ) {
+	                orderList.add(cartList.get(i));
+	            }
+	        }
+	       
+	    }
+        if(users_id == null) {
+            request.getSession().setAttribute("alert", "로그인이 필요합니다.");
+            request.setAttribute("url", "/member/login");
+            return "alert";
+        } else {
+            
+            UsersDto user = usersService.userDetail(users_id);
+            
+            model.addAttribute("user", user);
+            model.addAttribute("orderCount", check.length);
+            model.addAttribute("orderList", orderList);
+            model.addAttribute("mainPage", "product/order01.jsp");
+            return "index";
+        }
+	}
+	
+	
    
+<<<<<<< HEAD
     @GetMapping("/product/insertorder")
     @ResponseBody
         public Object insertorder(@RequestParam("order_no") int order_no,
@@ -615,4 +787,37 @@ public class MyController_ian {
         orderservice.insertOrder(orderdto);
         return "insertorder";
     }
+=======
+//    @GetMapping("/product/insertorder")
+//    @ResponseBody
+//        public Object insertorder(@RequestParam("order_no") int order_no,
+//                                  @RequestParam("order_total_price") int order_total_price,
+//                                  @RequestParam("order_comment") String order_comment,
+//                                  @RequestParam("order_usepoint") String order_usepoint,
+//                                  @RequestParam("order_date") Date order_date,
+//                                  @RequestParam("order_recipient") String order_recipient,
+//                                  @RequestParam("order_address1") String order_address1,
+//                                  @RequestParam("order_address2") String order_address2,
+//                                  @RequestParam("order_address3") String order_address3,
+//                                  @RequestParam("order_phone") String order_phone,
+//                                  @RequestParam("users_point") String users_point,
+//                             HttpServletRequest request) {
+//        String users_id = (String)request.getSession().getAttribute("users_id");
+//        OrderlistDto orderdto = new OrderlistDto();
+//        orderdto.setOrder_usepoint(order_usepoint);
+//        orderdto.setOrder_address1(order_address1);
+//        orderdto.setOrder_address2(order_address2);
+//        orderdto.setOrder_address3(order_address3);
+//        orderdto.setOrder_comment(order_comment);
+//        orderdto.setOrder_date(order_date);
+//        orderdto.setOrder_no(order_no);
+//        orderdto.setOrder_phone(order_phone);
+//        orderdto.setUsers_id(users_id);
+//        orderdto.setOrder_total_price(order_total_price);
+//        orderdto.setOrder_recipient(order_recipient);
+//        usersService.updatepoint(users_point, users_id);
+//        orderservice.insertOrder(orderdto);
+//        return "insertorder";
+//    }
+>>>>>>> yerin
 }
