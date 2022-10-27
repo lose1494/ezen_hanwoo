@@ -13,6 +13,10 @@ repositories {
 	mavenCentral()
 }
 
+bootWar {
+  archiveName("ezen_hanwoo.war")
+}
+
 //error내용 : Cannot load driver class: oracle.jdbc.OracleDriver
 //ojdbc6.jar add build path하지 않은 에러!
 
