@@ -5,8 +5,15 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IProductDao">
-	<select id="productlist" resultType="com.study.springboot.dto.ProductDto">
-		select * from product
+	<select id="productlist" resultMap="ProductDto">
+		select * from			
+			(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
+			from product_review group by product_idx) r,
+			 
+			(select product.*, to_number(replace(product_price, ',')) rp 
+			from product) p
+			
+			where r.pi(+) = p.product_idx
 	</select>	
 	
 	<select id="productDetail" resultType="com.study.springboot.dto.ProductDto">
@@ -99,6 +106,13 @@
 	<result column="count" property="count"/>
 	</resultMap>
 	
+	<resultMap type="com.study.springboot.dto.WishlistDto" id="WishDto">	
+	<result column="list_idx" property="list_idx"/>
+	<result column="list_users_id" property="list_users_id"/>	
+	<result column="list_product_idx" property="list_product_idx"/>
+	<result column="list_count" property="list_count"/>
+	</resultMap>
+	
 	<resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">
 	<result column="product_idx" property="product_idx"/>
 	<result column="product_name" property="product_name"/>
@@ -108,25 +122,27 @@
 	<result column="product_gram" property="product_gram"/>
 	<result column="product_explanation" property="product_explanation"/>
 	<collection property="reviewDto" resultMap="ReviewDto"></collection>
+	<collection property="wish" resultMap="WishDto"></collection>
 	</resultMap>
 	
 	<select id="productCate" resultMap="ProductDto">
-		select rownum, tb.* from
-			(select * from
-			
-				(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
-				from product_review group by product_idx) r,
-				 
-				(select product.*, to_number(replace(product_price, ',')) rp 
-				from product) p
+		select * from
+			(select rownum rnum, tb.* from
+				(select * from
 				
-				where r.pi(+) = p.product_idx
-				and p.product_category = #{param1}
-			
-			<if test='param2 != "select"'>
-				<include refid="searchSort"></include>
-			</if> ) tb
-		where rownum between #{param3} and #{param4}
+					(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
+					from product_review group by product_idx) r,
+					 
+					(select product.*, to_number(replace(product_price, ',')) rp 
+					from product) p
+					
+					where r.pi(+) = p.product_idx
+					and p.product_category = #{param1}
+				
+				<if test='param2 != "select"'>
+					<include refid="searchSort"></include>
+				</if> ) tb)
+			where rnum between #{param3} and #{param4}
 	</select>
 	
 	<select id="searchProduct" resultMap="ProductDto">
@@ -166,5 +182,20 @@
 	<select id="productCount" resultType="_int">
 		select count(*) from product
 		where product_name like '%${param1}%'
+	</select>
+	
+	<select id="wishList" resultMap="ProductDto">
+		select * from
+			(select p.*, w.list_count, w.list_idx, rownum rnum 
+			from product p, wishlist w
+			where p.product_idx = w.list_product_idx
+			and w.list_users_id = #{param1})
+		where rnum between #{param2} and #{param3}
+	</select>
+	
+	<select id="wishCount" resultType="_int">
+		select count(*) from product p, wishlist w
+		where p.product_idx = w.list_product_idx
+		and w.list_users_id = #{param1}
 	</select>
 </mapper>
