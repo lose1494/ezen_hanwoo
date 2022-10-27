@@ -22,4 +22,19 @@ public class WishlistService {
 		int wishCount = wishlistdao.wishCount(users_id);
 		return wishCount;
 	}
+	
+	public int insertWish(WishlistDto dto) {
+	    int insertWish = wishlistdao.insertWish(dto);
+	    return insertWish;
+	}
+	
+	public int deleteWish(int list_idx) {
+	    int deleteWish = wishlistdao.deleteWish(list_idx);
+	    return deleteWish;
+	}
+	
+	public int deleteWishall(String users_id) {
+        int deleteWish = wishlistdao.deleteWishall(users_id);
+        return deleteWish;
+    }
 }
