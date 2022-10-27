@@ -108,6 +108,13 @@
 	<result column="count" property="count"/>
 	</resultMap>
 	
+	<resultMap type="com.study.springboot.dto.WishlistDto" id="WishDto">	
+	<result column="list_idx" property="list_idx"/>
+	<result column="list_users_id" property="list_users_id"/>	
+	<result column="list_product_idx" property="list_product_idx"/>
+	<result column="list_count" property="list_count"/>
+	</resultMap>
+	
 	<resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">
 	<result column="product_idx" property="product_idx"/>
 	<result column="product_name" property="product_name"/>
@@ -117,6 +124,7 @@
 	<result column="product_gram" property="product_gram"/>
 	<result column="product_explanation" property="product_explanation"/>
 	<collection property="reviewDto" resultMap="ReviewDto"></collection>
+	<collection property="wish" resultMap="WishDto"></collection>
 	</resultMap>
 	
 	<select id="productCate" resultMap="ProductDto">
@@ -176,5 +184,20 @@
 	<select id="productCount" resultType="_int">
 		select count(*) from product
 		where product_name like '%${param1}%'
+	</select>
+	
+	<select id="wishList" resultMap="ProductDto">
+		select * from
+			(select p.*, w.list_count, rownum rnum 
+			from product p, wishlist w
+			where p.product_idx = w.list_product_idx
+			and w.list_users_id = #{param1})
+		where rnum between #{param2} and #{param3}
+	</select>
+	
+	<select id="wishCount" resultType="_int">
+		select count(*) from product p, wishlist w
+		where p.product_idx = w.list_product_idx
+		and w.list_users_id = #{param1}
 	</select>
 </mapper>

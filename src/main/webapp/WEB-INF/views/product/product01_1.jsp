@@ -424,7 +424,7 @@
                 },
                 success: function(data){
                     console.log(data);
-                    alert("상품을 관심상품에 추가했습니다.");
+                    alert(data);
                 },
                 error: function(data) {
                     alert("오류가 발생했습니다.");

@@ -104,5 +104,19 @@ public class ProductService {
 		int productCount = productdao.productCount(word);
 		return productCount;
 	}
+	
+	public List<ProductDto> wishList(String users_id, String page, int num_page_size) {
+	    int num_page_no = Integer.parseInt( page );
+        int startRowNum = (num_page_no - 1) * num_page_size + 1;
+        int endRowNum = (num_page_no * num_page_size);
+        
+        List<ProductDto> wishlist = productdao.wishList(users_id, startRowNum, endRowNum);
+        return wishlist;
+	}
+	
+	public int wishCount(String users_id) {
+	    int wishCount = productdao.wishCount(users_id);
+	    return wishCount;
+	}
 
 }

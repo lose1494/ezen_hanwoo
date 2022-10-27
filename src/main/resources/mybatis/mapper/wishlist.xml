@@ -7,21 +7,24 @@
 <mapper namespace="com.study.springboot.dao.IWishlistDao">
 
 	<select id="wishList" resultType="com.study.springboot.dto.WishlistDto">
-		select * from wishlist where list_users_id=#{param1}
+		select * from wishlist
+		<if test="param1 != 'admin'">
+		where list_users_id=#{param1}
+		</if> 
 	</select>
 	
 	<select id="wishCount" resultType="_int">
 		select count(*) from wishlist where list_users_id=#{param1}
 	</select>
 	
-	<!-- <insert id="insertWish" parameterType="com.study.springboot.dto.WishlistDto">
+	<insert id="insertWish" parameterType="com.study.springboot.dto.WishlistDto">
 		insert into wishlist
-		values ( wishlist_seq.nextval, #{users_id}, #{product_name})
-	</insert> -->
+		values ( wishlist_seq.nextval, #{list_users_id}, #{list_product_idx}, #{list_count})
+	</insert>
 	
 	<delete id="deleteWish">
 	  DELETE FROM wishlist
-	  WHERE list_users_idx=#{ param1 }
+	  WHERE list_idx=#{ param1 }
 	</delete>
 	
 </mapper>

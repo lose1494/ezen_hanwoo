@@ -10,4 +10,6 @@ import com.study.springboot.dto.WishlistDto;
 public interface IWishlistDao {
 	public List<WishlistDto> wishList(String users_id);
 	public int wishCount(String users_id);
+	public int insertWish(WishlistDto dto);
+	public int deleteWish(int list_idx);
 }

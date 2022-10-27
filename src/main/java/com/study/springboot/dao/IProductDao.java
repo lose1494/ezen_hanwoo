@@ -43,4 +43,7 @@ public interface IProductDao {
 	
 	int productCount(String word);
 	
+	List<ProductDto> wishList(String users_id, int startRowNum, int endRowNum);
+	
+	int wishCount(String users_id);
 }
