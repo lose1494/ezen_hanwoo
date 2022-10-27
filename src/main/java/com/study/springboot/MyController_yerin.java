@@ -409,27 +409,6 @@ public class MyController_yerin {
         
 	}
 	
-	@RequestMapping("/product/reviewSearch")
-	@ResponseBody
-	public List<ReviewDto> reviewSearch(@RequestParam("product_idx") int product_idx,
-			  @RequestParam(value="revPage",defaultValue="1") String revPage,
-			  @RequestParam(value="sort",defaultValue="review_date") String sort,
-			  @RequestParam("word") String word,
-			  HttpServletRequest request,
-							Model model) {
-		String standard = "product_idx";
-		int reviewCount = reviewService.reviewCount(standard, String.valueOf(product_idx), word);
-		int revPageNum = (int)Math.ceil((double)reviewCount/num_page_size);
-		List<ReviewDto> reviewList = reviewService.reviewList(standard, 
-				String.valueOf(product_idx), revPage, num_page_size, sort, word);
-		
-		model.addAttribute("revPage", revPage);
-		model.addAttribute("revPageNum", revPageNum);
-		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("mainPage", "product/product01_1.jsp");
-		return reviewService.reviewList(standard, 
-				String.valueOf(product_idx), revPage, num_page_size, sort, word);
-	}
 	
 	@RequestMapping("/product/reviewWrite")
 	@ResponseBody
@@ -520,15 +499,7 @@ public class MyController_yerin {
 		}
 	}
 	
-	@RequestMapping("/product/qnapwCheck")
-	@ResponseBody
-	public Product_qnaDto qnapwCheck(
-									 @RequestParam("qna_idx") int qna_idx,
-									 @RequestParam("user_pw") String user_pw) {
-		Product_qnaDto qnaDetail = qnaService.qnaDetail(qna_idx);
-		return qnaDetail;
-	}
-	
+
 //	@RequestMapping("/product/orderDirect")
 //	public String orderDirect( @RequestParam("product_idx") int product_idx, 
 //	        Model model, HttpServletRequest request, CartDto dto) {
@@ -541,20 +512,6 @@ public class MyController_yerin {
 //        model.addAttribute("mainPage", "product/order01.jsp");
 //        return "index";
 //	}
-	
-	
-	//주문
-	@RequestMapping("/product/order01")
-	public String order01(
-			Model model, HttpServletRequest request) {
-		
-	    Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
-	    
-        }
-        model.addAttribute("mainPage", "product/product01_1.jsp");
-        return "index";
-
-    }
 
     @RequestMapping("/product/reviewSearch")
     @ResponseBody
@@ -578,95 +535,7 @@ public class MyController_yerin {
                 String.valueOf(product_idx), revPage, num_page_size, sort, word);
     }
 
-    @RequestMapping("/product/reviewWrite")
-    @ResponseBody
-    public String reviewWrite(@RequestParam("product_idx") int product_idx,
-            @RequestParam("review_star_rating") int review_star_rating,
-            @RequestParam("review_title") String review_title,
-            @RequestParam("review_content") String review_content,
-            @RequestParam(value = "file", required = false) MultipartFile file,
-            ReviewDto dto,
-            Model model, HttpServletRequest request) {
-        System.out.println(review_star_rating);
-        String users_id = (String) request.getSession().getAttribute("users_id");
-        dto.setReview_id(users_id);
-        dto.setReview_title(review_title);
-        dto.setReview_content(review_content);
-        dto.setReview_star_rating(review_star_rating);
-        dto.setProduct_idx(product_idx);
-
-        System.out.println(file.getOriginalFilename());
-        if (file.getOriginalFilename() != "") {
-            String image = reviewService.restore(file, users_id);
-            System.out.println(image);
-            if (image != null) {
-                if (image.length() > 0) {
-                    dto.setReview_image(image);
-                    System.out.println("업로드 성공!");
-                } else {
-                    System.out.println("업로드 실패!");
-                }
-            } else {
-                System.out.println("업로드 실패!");
-            }
-        }
-
-        int result = reviewService.insertReview(dto);
-        if (result != 1) {
-            return "<script>alert('작성에 실패했습니다.');history.back();</script>";
-        } else {
-            return "<script>alert('문의가 접수되었습니다.');opener.location.reload();window.close();</script>";
-        }
-
-    }
-
-    // 상품상세페이지 문의
-    @RequestMapping("/product/product_qna_popup")
-    public String product_qna_popup(@RequestParam("product_idx") int product_idx,
-            Model model, HttpServletRequest request) {
-        String users_id = (String) request.getSession().getAttribute("users_id");
-        if (users_id == null) {
-            request.getSession().setAttribute("alert", "로그인이 필요합니다.");
-            request.setAttribute("url", "/member/login");
-            return "alert";
-        } else {
-            UsersDto user = usersService.userDetail(users_id);
-            ProductDto product = productService.productDetail(product_idx);
-            model.addAttribute("user", user);
-            model.addAttribute("product", product);
-            return "product/product_qna_popup";
-        }
-
-    }
-
-    @RequestMapping("/product/qnaWrite")
-    @ResponseBody
-    public String qnaWrite(@RequestParam("product_idx") int product_idx,
-            @RequestParam("qna_title") String qna_title,
-            @RequestParam("qna_content") String qna_content,
-            @RequestParam(value = "qna_secret", defaultValue = "0") int qna_secret,
-            @RequestParam(value = "qna_pw", required = false) String qna_pw,
-            Product_qnaDto dto,
-            Model model, HttpServletRequest request) {
-        System.out.println(qna_pw);
-        String qna_status = "답변대기중";
-        String users_id = (String) request.getSession().getAttribute("users_id");
-        dto.setQna_id(users_id);
-        dto.setQna_title(qna_title);
-        dto.setQna_content(qna_content);
-        dto.setQna_secret(qna_secret);
-        dto.setQna_pw(qna_pw);
-        dto.setQna_status(qna_status);
-        dto.setProduct_idx(product_idx);
-
-        int result = qnaService.insertQna(dto);
-        if (result != 1) {
-            return "<script>alert('작성에 실패했습니다.');history.back();</script>";
-        } else {
-            return "<script>alert('문의가 접수되었습니다.');opener.location.reload();window.close();</script>";
-        }
-    }
-
+  
     @RequestMapping("/product/qnapwCheck")
     @ResponseBody
     public Product_qnaDto qnapwCheck(
