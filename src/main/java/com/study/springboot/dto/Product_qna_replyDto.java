@@ -16,4 +16,6 @@ public class Product_qna_replyDto {
 	private Date reply_date;
 	private int qna_idx;
 	
+	private Product_qnaDto Product_qnaDto;
+	
 }

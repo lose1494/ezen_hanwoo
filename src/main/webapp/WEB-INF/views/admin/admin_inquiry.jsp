@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/css/admin/item_inquiry.css">
 <link rel="stylesheet" href="/css/common.css">
 
-<div class= "bg_admin text-center">
+<div class="bg_admin text-center">
 	<div>
 	<p id="title">관리자 페이지</p>
 	<img src="/img/admin/background.png" style="width: 100%; height: 100%;">
@@ -44,25 +44,26 @@
 				</tr>
 				
  					<c:forEach var="dto" items="${ qna_List }" varStatus="status">
-<%--  					<input type="hidden" name="qna_idx${status.index}" value="${ dto.qna_idx }">
-					<input type="hidden" name="reply_idx${status.index}" value="${ dto.reply_idx }"> --%>
- 				<tr onclick="location.href='/admin/admin_inquiry?qna_idx=${ dto.qna_idx}'" style="cursor:pointer">	
-						<td>${ dto.qna_idx }</td>
-						<td> ${ dto.qna_id }</td>
-					 	<td><fmt:formatDate value="${dto.qna_date}" pattern="yyyy/MM/dd" /></td>
-					 	<td>${ dto.product_name }</td>
-					 	<td>${ dto.qna_status }</td>
-					 	<td class="QnA">${ dto.qna_title }</td>
+ 					<input type="hidden" name="qna_idx${status.index}" value="${ dto.qna_idx }">
+					<input type="hidden" name="reply_idx${status.index}" value="${ dto.reply_idx }">
+ 				<tr>	
+						<td>${ dto.product_qnaDto.qna_idx }</td>
+		 				<td> ${ dto.product_qnaDto.qna_id }</td> 
+					 	<td><fmt:formatDate value="${dto.product_qnaDto.qna_date}" pattern="yyyy/MM/dd" /></td>
+					 	<td>${ dto.product_qnaDto.product_name }</td>
+					 	<td>${ dto.product_qnaDto.qna_status }</td>
+					 	<td class="QnA">${ dto.product_qnaDto.qna_title }</td>
 				</tr>
 					<tr class='text_comment hide'>	
 						<c:choose>
-							<c:when test="${ dto.qna_content eq null }">
-								<td colspan='5' id='text' class='answer'><textarea name='qna_content${status.index}'></textarea></td>
+							<c:when test="${ dto.reply_content eq null }">
+								<td colspan='5' id='text' class='answer'>
+								<textarea name='reply_content${status.index}'></textarea></td>
 								<td><input type='button' value="등록" class='notice_btn dark' onclick="QnAanswerWrite('${status.index}')"></td>
 							</c:when>	
 							<c:otherwise>
 								<td colspan='5' id='text' class='answer'>
-									<textarea name='qna_content${status.index}'>${dto.qna_content}</textarea></td>
+									<textarea name='reply_content${status.index}'>${dto.reply_content}</textarea></td>
 								<td><input type='button' value='수정' class='notice_btn dark' onclick="QnAanswerUpdate('${status.index}')">  
 									<input type='button' value='삭제' class='notice_btn dark' onclick="QnAanswerDelete('${status.index}')"> </td>
 							</c:otherwise>	
@@ -129,7 +130,7 @@
 				console.log(data);
 				if( data != 1 ) {
 					alert('작성에 실패했습니다.');
-					history.back();;
+					history.back();
 				}else {
 					alert('답변을 등록했습니다.');
 					location.reload();
@@ -151,7 +152,7 @@
 				console.log(data);
 				if( data != 1 ) {
 					alert('수정에 실패했습니다.');
-					history.back();;
+					history.back();
 				}else {
 					alert('답변을 수정했습니다.');
 					location.reload();
@@ -173,7 +174,7 @@
 				console.log(data);
 				if( data != 1 ) {
 					alert('삭제에 실패했습니다.');
-					history.back();;
+					history.back();
 				}else {
 					alert('답변을 삭제했습니다.');
 					location.reload();

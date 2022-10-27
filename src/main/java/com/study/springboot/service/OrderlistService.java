@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.study.springboot.dao.IOrderlistDao;
 import com.study.springboot.dto.OrderDetailDto;
 import com.study.springboot.dto.OrderlistDto;
+import com.study.springboot.dto.OrderlistdetailDto;
 
 @Component
 public class OrderlistService {
@@ -43,8 +44,35 @@ public class OrderlistService {
         List<OrderlistDto> orderlist = orderdao.orderlist(users_id);
         return orderlist;
     }
-//	public int insertOrder(OrderlistDto dto) {
-//        int insertOrder = orderlistdao.insertOrder(dto);
-//        return insertOrder;
-//    }
+
+	public List<OrderlistdetailDto> orderlist1(String page, int num_page_size ) {
+        
+        int num_page_no = Integer.parseInt( page );
+        int startRowNum = (num_page_no - 1) * num_page_size + 1;
+        int endRowNum = (num_page_no * num_page_size);
+        
+        List<OrderlistdetailDto> orderlist1 = orderdao.orderlist1( startRowNum, endRowNum);
+        return orderlist1;
+    }
+
+    public List<OrderlistdetailDto> orderlist2(int order_idx) {
+        List<OrderlistdetailDto> orderlist2 = orderdao.orderlist2(order_idx);
+        return orderlist2;
+    }
+    
+   public int order_Count(String search_type, String search_contents) {
+       int order_Count = orderdao.order_Count(search_type, search_contents);
+       return order_Count;
+   }
+
+public List<OrderlistdetailDto> searchResult(String search_type, String search_contents, String page, int num_page_size) {
+    
+    int num_page_no = Integer.parseInt( page );
+    int startRowNum = (num_page_no - 1) * num_page_size + 1;
+    int endRowNum = (num_page_no * num_page_size);
+    
+    List<OrderlistdetailDto> searchResult = orderdao.searchResult(search_type, search_contents, startRowNum, endRowNum);
+    
+    return searchResult;
+}
 }

@@ -22,6 +22,7 @@ import com.study.springboot.dto.NoticeDto;
 import com.study.springboot.dto.One2oneDto;
 import com.study.springboot.dto.One2one_answerDto;
 import com.study.springboot.dto.OrderlistDto;
+import com.study.springboot.dto.OrderlistdetailDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
 import com.study.springboot.dto.Product_qna_replyDto;
@@ -35,6 +36,7 @@ import com.study.springboot.service.One2one_answerService;
 import com.study.springboot.service.OrderlistService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
+import com.study.springboot.service.Product_qna_replyService;
 import com.study.springboot.service.ReviewService;
 import com.study.springboot.service.UsersService;
 @Controller
@@ -60,6 +62,8 @@ public class MyController_ian {
     private One2oneService one2oneService;
 	@Autowired
     private One2one_answerService answerService;
+	@Autowired
+    private Product_qna_replyService productQnaRplyService;
 	
 	int num_page_size = 5;
     
@@ -264,6 +268,7 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/admin_item.jsp");
         return "index";
     }
+    
     // 상품 삭제
     @RequestMapping("/admin/delete_product")
     @ResponseBody
@@ -276,6 +281,7 @@ public class MyController_ian {
             return "<script>alert('글 삭제 성공');" + "location.href='/admin/admin_item';</script>";
         }
     }
+    
     //상품등록
     @RequestMapping("/admin/item_register")
     public String item_register(Model model) {
@@ -317,18 +323,45 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/admin_item.jsp");
         return "index";
   }
+    
     // 주문관리
     @RequestMapping("/admin/admin_order")
-    public String adminorder(Model model) {
+    public String adminorder(@RequestParam(value="page", defaultValue="1") String page,
+                             @RequestParam(value="search_type",defaultValue="order_no") String search_type, 
+                             @RequestParam(value="search_contents",required=false) String search_contents,
+                             Model model) {
+        List<OrderlistdetailDto> orderlist1 = orderservice.orderlist1(page, num_page_size);
+        List<OrderlistdetailDto> searchResult;
+        int order_Count = orderservice.order_Count(search_type, search_contents);
+        int pageNum = (int)Math.ceil((double)order_Count/num_page_size);
+        
+        if(search_type != null) {
+            searchResult = orderservice.searchResult(search_type,search_contents, page, num_page_size);
+            model.addAttribute("orderlist1", searchResult);
+        } else {
+            model.addAttribute("orderlist1", orderlist1);
+        }
+        
+        model.addAttribute("type", search_type);
+        model.addAttribute("word", search_contents);
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("order_Count", order_Count);
         model.addAttribute("mainPage", "admin/admin_order.jsp");
         return "index";
     }
+
     // 주문 상세 조회
     @RequestMapping("/admin/admin_order_detail")
-    public String admin_order_detail(Model model) {
+    public String admin_order_detail(Model model,
+            @RequestParam("order_idx") int order_idx) {
+        List<OrderlistdetailDto> orderlist2 = orderservice.orderlist2(order_idx);
+        
+        model.addAttribute("orderlist2", orderlist2);
         model.addAttribute("mainPage", "admin/admin_order_detail.jsp");
         return "index";
     }
+    
     // 리뷰 관리 검색
     @RequestMapping("/admin/admin_review")
     public String admin_review(Model model, 
@@ -345,7 +378,7 @@ public class MyController_ian {
             reviewResult = reviewService.reviewResult( Type, keyword );
             model.addAttribute("review_result", reviewResult);
             model.addAttribute("review_count", reviewResult.size());
-        }  else if( fromDate != null || toDate != null ) {
+        }  else if( Type!= null || fromDate != null || toDate != null ) {
           reviewDate = reviewService.reviewDate(fromDate, toDate);
           System.out.println(reviewDate);
           model.addAttribute("review_result", reviewDate);
@@ -362,10 +395,10 @@ public class MyController_ian {
     // 상품 문의 관리
     @RequestMapping("/admin/admin_inquiry")
     public String admin_inquiry(@RequestParam(value="page",defaultValue="1") String page,
-            HttpServletRequest request, Model model) {
+                                HttpServletRequest request, Model model) {
         String users_id = (String) request.getSession().getAttribute("users_id");
         
-        List<Product_qnaDto> qna_List = product_qnaService.qna_List(users_id, page, num_page_size);
+        List<Product_qna_replyDto> qna_List = productQnaRplyService.qna_List(users_id, page, num_page_size);
         int qnaListCount = product_qnaService.qnaListCount(users_id);
         int pageNum = (int)Math.ceil((double)qnaListCount/num_page_size);
         
@@ -388,7 +421,7 @@ public class MyController_ian {
         dto.setReply_content(reply_content);
         dto.setQna_idx(qna_idx);        
         
-        int result = product_qnaService.insertReply(dto);
+        int result = productQnaRplyService.insertReply(dto);
         
         if( result == 1 ) {
             dto1.setQna_status("답변완료");
@@ -402,14 +435,13 @@ public class MyController_ian {
     @RequestMapping("/admin/QnAanswerUpdate")
     @ResponseBody
     public int QnAanswerUpdate(@RequestParam("reply_idx") int reply_idx,
-                            @RequestParam("reply_content") String reply_content,
-                            Product_qna_replyDto dto, 
-                            HttpServletRequest request, Model model ) {
-
+                               @RequestParam("reply_content") String reply_content,
+                               Product_qna_replyDto dto, 
+                               HttpServletRequest request, Model model ) {
         dto.setReply_content(reply_content);
         dto.setQna_idx(reply_idx);
         
-        int result = product_qnaService.updateAnswer(dto);
+        int result = productQnaRplyService.updateAnswer(dto);
    
         
         return result;
@@ -419,15 +451,15 @@ public class MyController_ian {
     @ResponseBody
     public int QnAanswerDelete(@RequestParam("qna_idx") int qna_idx,
                             @RequestParam("reply_idx") int reply_idx,
-                            Product_qnaDto dto,
+                            Product_qnaDto dto1,
                             HttpServletRequest request, Model model ) {
 
-        int result = product_qnaService.deleteAnswer(reply_idx);
+        int result = productQnaRplyService.deleteAnswer(reply_idx);
         
         if( result == 1 ) {
-            dto.setQna_status("답변 대기중");
-            dto.setQna_idx(qna_idx);
-            int updateStatus = product_qnaService.updateStatus(dto);
+            dto1.setQna_status("답변 대기중");
+            dto1.setQna_idx(qna_idx);
+            int updateStatus = product_qnaService.updateStatus(dto1);
         }
         
         return result;
@@ -460,22 +492,6 @@ public class MyController_ian {
         model.addAttribute("mainPage", "admin/admin_notice.jsp");
         return "index";
     }
-    /*
-     * @GetMapping("/admin/notice_list")
-     * 
-     * @ResponseBody
-     * public List<NoticeDto> notice_list(@RequestParam("notice_idx") String
-     * notice_idx,
-     * 
-     * @RequestParam("notice_title") String notice_title,
-     * 
-     * @RequestParam("notice_date") Date notice_date
-     * ) {
-     * List<NoticeDto> noticelist = noticeService.noticelist(notice_idx,
-     * notice_title, notice_date);
-     * return noticelist;
-     * }
-     */
 
     //공지사항 상세 페이지
     @RequestMapping("/admin/notice_detail")
@@ -530,7 +546,7 @@ public class MyController_ian {
     // 1:1문의
     @RequestMapping("/admin/admin_one2one")
     public String admin_one2one(@RequestParam(value="page",defaultValue="1") String page,
-            HttpServletRequest request, Model model) {
+                                HttpServletRequest request, Model model) {
         String users_id = (String) request.getSession().getAttribute("users_id");
         
         List<One2one_answerDto> one2oneList = answerService.one2oneList(users_id, page, num_page_size);
@@ -545,7 +561,6 @@ public class MyController_ian {
         return "index";
     }
     
-
     @RequestMapping("/admin/answerWrite")
     @ResponseBody
     public int answerWrite(@RequestParam("one2one_idx") int one2one_idx,
@@ -568,7 +583,7 @@ public class MyController_ian {
         
         return result;
     }
-    
+   
     @RequestMapping("/admin/answerUpdate")
     @ResponseBody
     public int answerUpdate(@RequestParam("answer_idx") int answer_idx,
@@ -606,7 +621,40 @@ public class MyController_ian {
 
     // 자주하는 질문
     @RequestMapping("/admin/admin_faq")
-    public String admin_faq(Model model) {
+    public String admin_faq(@RequestParam(value="page",defaultValue="1") String page,
+                            @RequestParam(value="faq_type",defaultValue="all") String faq_type,
+                            Model model, HttpServletRequest request) {
+        String sort = "faq_title";
+        String word = "";
+        List<FaqDto> faqList = faqService.faqList(faq_type, sort, word, page, num_page_size);
+        int faqCount = faqService.faqCount(faq_type, sort, word);
+        int pageNum = (int)Math.ceil((double)faqCount/num_page_size);
+        
+        model.addAttribute("type", faq_type);
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("faqList", faqList);
+        model.addAttribute("mainPage", "admin/admin_faq.jsp");
+        return "index";
+    }
+    @RequestMapping("/admin/admin_searchFaq")
+    public String admin_searchFaq(@RequestParam(value="page",defaultValue="1") String page,
+                                  @RequestParam(value="faq_type",defaultValue="all") String faq_type,
+                                  @RequestParam(value="sort",defaultValue="faq_title") String sort,
+                                  @RequestParam("word") String word,
+                                  Model model, HttpServletRequest request) {
+        System.out.println(word);
+        List<FaqDto> faqList = faqService.faqList(faq_type, sort, word, page, num_page_size);
+        int faqCount = faqService.faqCount(faq_type, sort, word);
+        int pageNum = (int)Math.ceil((double)faqCount/num_page_size);
+        System.out.println(pageNum);
+        
+        model.addAttribute("type", faq_type);
+        model.addAttribute("sort", sort);
+        model.addAttribute("word", word);
+        model.addAttribute("page", page);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("faqList", faqList);
         model.addAttribute("mainPage", "admin/admin_faq.jsp");
         return "index";
     }

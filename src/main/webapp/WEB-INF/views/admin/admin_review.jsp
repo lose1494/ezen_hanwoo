@@ -58,28 +58,27 @@
       </colgroup>
         <tbody>
          <tr>
-             <th>조회기간</th>
              <td>
                  <ul class="searchDate">
-                     <li>
+                     <li class="dateList">
                          <span class="chkbox2">
                              <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
                              <label for="dateType1">당일</label>
                          </span>
                      </li>
-                     <li>
+                     <li class="dateList">
                          <span class="chkbox2">
                              <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1m')"/>
                              <label for="dateType2">1개월</label>
                          </span>
                      </li>
-                     <li>
+                     <li class="dateList">
                          <span class="chkbox2">
                              <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('3m')"/>
                              <label for="dateType3">3개월</label>
                          </span>
                      </li>
-                     <li>
+                     <li class="dateList">
                          <span class="chkbox2">
                              <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('6m')"/>
                              <label for="dateType4">6개월</label>
@@ -87,8 +86,8 @@
                      </li>
                  </ul>
                    </td>
+                     <!-- calendar -->
                    <td>
-                   <!-- calendar -->
                     <div class="clearfix"> 
                         <span class="dset">
                             <input type="text" class="datepicker inpType" name="fromDate" id="fromDate" >
@@ -99,9 +98,6 @@
                             <input type="text" class="datepicker inpType" name="toDate" id="toDate" >
                             <a href="#none" class="btncalendar dateclick"><img alt="" src="/img/admin/calendar.png" style="width:20px; height:20px;"></a>
                         </span>
-                        
-                       
-                        
                     </div>    
 	                 </td>
 	             </tr>

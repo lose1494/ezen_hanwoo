@@ -15,12 +15,7 @@ public interface IProduct_qnaDao {
 	public int insertQna(Product_qnaDto dto);
 	public int deleteQna(int qna_idx);
 	public List<Product_qnaDto> joinTest();
-	
-    public List<Product_qnaDto> qna_List(String users_id, String page, int num_page_size);
-    public int qnaListCount(String users_id);
-    public int insertReply(Product_qna_replyDto dto);
+    public List<Product_qna_replyDto> qna_List(String users_id, String page, int num_page_size);
     public int updateStatus(Product_qnaDto dto1);
-    public int updateAnswer(Product_qna_replyDto dto);
-    public int deleteAnswer(int reply_idx);
-    public int updateStatus(Product_qna_replyDto dto);
+    public int qnaListCount(String users_id);
 }

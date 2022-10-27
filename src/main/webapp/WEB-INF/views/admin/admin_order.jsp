@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <link rel="stylesheet" href="/css/admin/admin_order.css">
 
 <div class= "bg_admin text-center">
@@ -29,29 +31,28 @@
 	
 	<div class="admin_div">
 	<div class="select_list">
-		<select>
-		<option>주문번호</option>
-		<option>주문일</option>
-		<option>ID</option>
-		<option>상품명</option>
+		<select id="search_type">
+		<option value="order_no">주문번호</option>
+		<option value="users_id">ID</option>
+		<option value="product_name">상품명</option>
 		
 		</select>
 	
-		<input type="text" id=main_text style="width:600px; height: 40px;" >
+		<input type="text" id=search_contents style="width:600px; height: 40px;" >
 	 	<img src=" " >
 	 
 	 <input type="submit" value="조회" id="order_btn">
 	 </div>	
 	 
-	 <form action="" >
+	 
 	 <div class="bar">
-	 <p id="order_bar">주문 1 건</p>
+	 <p id="order_bar">주문 ${ order_Count } 건</p>
 	 <select id="select_bar">
 	 	<option>최신순</option>
 	 	<option>오래된순</option>
 	 </select>
 	 </div>	 
-	 <table class="member_table">
+	 <table class="member_table" id="member_table">
 	 <tr>
 	 	<th>주문일</th>
 	 	<th>주문번호</th>
@@ -61,22 +62,46 @@
 	 	<th>결제수단</th>
 	 	<th>주문상태</th>
 	 </tr>
-	 <tr onclick="location.href='/admin/admin_order_detail'" style="cursor:pointer;">
-	 	<td>2022-09-24</td>
-	 	<td>2022092401</td>
-	 	<td>wrwer22</td>
-	 	<td>한우토시살</td>
-	 	<td>125,000</td>
-	 	<td>신용카드</td>
-	 	<td>주문취소</td>
+	 <c:forEach var="dto" items="${ orderlist1 }" varStatus="status">
+
+	 <tr onclick="location.href='/admin/admin_order_detail?order_idx=${ dto.order_idx }'" style="cursor:pointer;">
+	 	<td><fmt:formatDate value= "${ dto.order_date }" pattern="yyyy/MM/dd" /></td>
+	 	<td>${ dto.order_no }</td>
+	 	<td>${ dto.users_id }</td>
+	 	<td>${ dto.order_product_name }</td>
+	 	<td>${ dto.order_total_price }</td>
+	 	<td>${ dto.pay_method }</td>
+	 	<td></td>
 	 </tr>
+	 </c:forEach>
 	 </table>
-	 </form>
+	 <div class="pageNav">
+            <a href="/admin/admin_order?search_type=${type}&search_contents=${word}&page=1">처음</a>
+            <a href="/admin/admin_order?search_type=${type}&search_contents=${word}&page=${ page-1 }">이전</a>
+			<c:forEach var="pageNum" begin="1" end="${pageNum}">
+            <a href="/admin/admin_order?search_type=${type}&search_contents=${word}&page=${pageNum}">${pageNum}</a>
+			</c:forEach>
+            <a href="/admin/admin_order?search_type=${type}&search_contents=${word}&page=${ page+1 }">다음</a>
+            <a href="/admin/admin_order?search_type=${type}&search_contents=${word}&page=${pageNum}">마지막</a>
+        </div>
 	 </div>
-	 
-	      <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
+
+	  		
+
 </div>	
+
+<script>
+	$(function(){
+		$('.pageNav a').each(function(){
+			if($(this).text() == '이전' && "{page}" == 1){
+				$(this).removeAttr('href');
+			} if($(this).text() == '다음' && "{page}" == "${pageNum}"){
+				$(this).removeAttr('href');
+			} if ($(this).text() == "${page}"){
+				$(this).removeAttr('href');
+			}
+			
+		})
+		
+	});
+</script>

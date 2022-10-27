@@ -100,17 +100,6 @@
 	
 	</select>
 	
-<!-- 	날짜조회 검색
-	<select id="reviewSearchDate" resultType="com.study.springboot.dto.ReviewDto">
-		SELECT
-			review.review_idx, review.review_id, prod.product_name, prod.product_idx, 
-		    review.review_date, review.review_content, review.review_title, review.review_star_rating
-		FROM
-			product_review review, PRODUCT prod
-		WHERER
-			review.review_date BETWEEN  TO_DATE('2022-04-01', 'YYYY-MM-DD') AND SYSDATE
-	</select>
-	 -->
 	<select id="reviewDate" resultType="com.study.springboot.dto.ReviewDto">
 	SELECT
          review.review_idx, review.review_id, prod.product_name, prod.product_idx, 
@@ -124,7 +113,12 @@
 	WHERE 
 		prod.product_idx = #{product_idx}
 	<if test="from_date != null and to_date != null">
-		and TO_CHAR(review.review_date , 'YYYY-MM-DD') between TO_CHAR(#{from_date}, 'YYYY-MM-DD') and TO_CHAR(#{to_date} , 'YYYY-MM-DD')
+		AND
+			TO_CHAR(review.review_date , 'YYYY-MM-DD') 
+		BETWEEN 
+			TO_CHAR(#{from_date}, 'YYYY-MM-DD') 
+		AND 
+			TO_CHAR(#{to_date} , 'YYYY-MM-DD')
 	</if>
 	</select>
 	

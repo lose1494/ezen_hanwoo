@@ -17,19 +17,14 @@ create table ezen_users(
     users_joindate date default sysdate,
     users_point    number(10)
 );
-select * from ezen_users;
-select * from cart;
-select * from orderlist;
+
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
-INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date, users_point)
-VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01', 3000);
+
 insert into ezen_users(users_idx,users_id,users_pw,users_name,users_email,users_phone,users_birth_date,users_point,users_address,users_joindate )
-values(ezen_users_seq.nextval, 'remi6513',1234,'최이안','remi6513@naver.com','010-5045-5054', '1993-11-02', '2000', '경기도 의정부시 민락동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
-INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
-VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
-INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
-VALUES (ezen_users_seq.nextval, 'admin', '1111', '테스트');
+values(ezen_users_seq.nextval, 'admin',1111,'관리자','admin@admin.com','010-0000-0000', '1993-11-02', '2000', '경기도 의정부시 민락동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
+insert into ezen_users(users_idx,users_id,users_pw,users_name,users_email,users_phone,users_birth_date,users_point,users_address,users_joindate )
+values(ezen_users_seq.nextval, 'test',1111,'테스트','test@test.com','010-0000-0000', '1993-11-02', '2000', '서울특별시 노원구 월계동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
 
 --상품
 drop table product;
@@ -93,20 +88,6 @@ create table product_qna(
 );
 drop sequence product_qna_seq;
 create sequence product_qna_seq;
-insert into product_qna
-values( product_qna_seq.nextval, 'hong', '언제쯤 배송되나요', '배송 언제쯤 되나요??', sysdate, 1, '1234', '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용', '문의 테스트', sysdate, 0, '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용1', '문의 테스트1', sysdate, 0, '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용2', '문의 테스트2', sysdate, 0, '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용3', '문의 테스트3', sysdate, 0, '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', sysdate, 0, '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4',TO_CHAR(SYSDATE,'YYYY-MM-DD') , 0, '답변대기중', 1);
 
 --상품 문의 답변
 drop table product_qna_reply;
@@ -243,7 +224,8 @@ product_count number(2),
 product_price varchar2(20),
 pay_method varchar2(20)
 );
-
+select * from orderDetail;
+select * from orderlist;
 drop sequence orderDetail_seq;
 create sequence orderDetail_seq;
 
@@ -287,10 +269,3 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +3000, sysdate+365, '회원가입');
 
 commit;
-
-
-
-
-
-
-

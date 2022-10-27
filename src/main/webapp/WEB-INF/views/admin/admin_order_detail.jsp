@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="/css/admin/admin_order_detail.css">
 
 <div class= "bg_admin text-center">
@@ -26,7 +27,7 @@
 			<li><a href="/admin/admin_one2one">1:1문의 관리</a></li>
 		</ul>
 	</div>
-	
+	 <c:forEach var="dto2" items="${ orderlist2 }">
 	<div class="admin_div">
  	<form >
 	 <table class="member_table">
@@ -37,13 +38,13 @@
 	 	<th>상품명</th>
 	 	<th>가격</th>
 	 </tr>
-	 
-	 <tr>
-	 	<td>2022-09-24</td>
-	 	<td>2022092401</td>
-	 	<td>wrwer22</td>
-	 	<td>한우토시살</td>
-	 	<td>125,000</td>
+	
+	 <tr> 
+	 	<td><fmt:formatDate value= "${ dto2.order_date }" pattern="yyyy/MM/dd" /></td>
+	 	<td>${ dto2.order_no }</td>
+	 	<td>${ dto2.users_id }</td>
+	 	<td>${ dto2.order_product_name }</td>
+	 	<td>${ dto2.order_total_price }</td>
 	 </tr>
 	 </table>
 	 <table class="member_table1">
@@ -57,12 +58,13 @@
 		<th>주문상태</th>	 
 	 </tr>
 	 <tr>
-	 	<td>1</td>
-	 	<td>3,000</td>
-	 	<td>00,000</td>
-	 	<td>-3,000</td>
-	 	<td>00,000</td>
-	 	<td>신용카드</td>
+	 	<td>${ dto2.product_count }</td>
+	 	<td>5,000</td>
+	 	<td>${ dto2.order_total_price * dto2.product_count + 5000 }</td>
+	 	<td>${ dto2.order_usepoint }</td>
+
+	 	<td>${ dto2.order_total_price + 5000 - dto2.order_usepoint } </td>
+	 	<td>${ dto2.pay_method }</td>
 	 	<td>배송완료</td>
 	 </tr>
 	 </table>
@@ -76,11 +78,11 @@
 	 </tr>
 	 
 	 <tr>
-	 	<td>홍길동</td>
-	 	<td>010-2222-3333</td>
-	 	<td>123-321</td>
-	 	<td>서울특별시 노원구 상계동</td>
-	 	<td>203호</td>
+	 	<td>${ dto2.order_recipient }</td>
+	 	<td>${ dto2.order_phone }</td>
+	 	<td>${ dto2.order_address1 }</td>
+	 	<td>${ dto2.order_address2 }</td>
+	 	<td>${ dto2.order_address3 }</td>
 	 </tr>	
 	 </table>
 	 <table class="member_table3">
@@ -93,16 +95,12 @@
 	 
 	 <tr>
 	 	<td>Y</td>
-	 	<td>3,000</td>
-	 	<td>문앞에 놓아주세요.</td>
+	 	<td>${ dto2.order_total_price * dto2.product_count / 100}</td>
+	 	<td>${ dto2.order_comment }</td>
 	 </tr>
 	 </table>
 	</form>
 	 </div>
-	 
-	      <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-    
-          </ul>
+	 </c:forEach>
+
 </div>	

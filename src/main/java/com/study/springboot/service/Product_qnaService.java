@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.study.springboot.dao.IProduct_qnaDao;
 import com.study.springboot.dto.Product_qnaDto;
-import com.study.springboot.dto.Product_qna_replyDto;
 
 @Component
 public class Product_qnaService {
@@ -49,39 +48,23 @@ public class Product_qnaService {
 		List<Product_qnaDto> join = product_qnadao.joinTest();
 		return join;
 	}
-
-    public List<Product_qnaDto> qna_List(String users_id, String page, int num_page_size) {
-        List<Product_qnaDto> qna_List = product_qnadao.qna_List(users_id, page, num_page_size);
-        return qna_List;
-    }
-
-    public int qnaListCount(String users_id) {
-        int qnaListCount = product_qnadao.qnaListCount(users_id);
-        return qnaListCount;
-    }
-
-    public int insertReply(Product_qna_replyDto dto) {
-        int insertReply = product_qnadao.insertReply(dto);
-        return insertReply;
-    }
-
-    public int updateStatus(Product_qnaDto dto1) {
+	
+        public int updateStatus(Product_qnaDto dto1) {
         int updateStatus = product_qnadao.updateStatus(dto1);
         return updateStatus;
     }
 
-    public int updateAnswer(Product_qna_replyDto dto) {
-        int updateAnswer = product_qnadao.updateAnswer(dto);
-        return updateAnswer;
-    }
-
-    public int deleteAnswer(int reply_idx) {
-        int deleteAnswer = product_qnadao.deleteAnswer(reply_idx);
-        return deleteAnswer;
-    }
-
-    public int updateStatus(Product_qna_replyDto dto) {
-        int updateStatus = product_qnadao.updateStatus(dto);
-        return updateStatus;
-    }
+        public int qnaListCount(String users_id) {
+            int qnaListCount = product_qnadao.qnaListCount(users_id);
+            return qnaListCount;
+        }
+    /*
+     * public List<Product_qnaDto> qna_List(String users_id, String page, int
+     * num_page_size) {
+     * List<Product_qnaDto> qna_List = product_qnadao.qna_List(users_id, page,
+     * num_page_size);
+     * return qna_List;
+     * }
+     * 
+     */
 }

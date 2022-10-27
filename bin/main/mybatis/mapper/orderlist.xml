@@ -51,6 +51,49 @@
 		select * from orderlist where users_id=#{param1}
 		
 	</select> -->
+	
+		<select id="orderlist1" resultType="com.study.springboot.dto.OrderlistdetailDto">
+	   	SELECT
+			   A.order_idx, A.order_no, A.users_id, A.order_total_price,
+			   A.order_comment, A.order_product_name, A.order_date,
+			   A.order_recipient, A.order_address1, A.order_address2,
+			   A.order_address3, A.order_phone, A.order_usepoint,
+			   B.detail_idx, B.product_idx, B.product_count, B.product_price, B.pay_method
+		FROM 
+   		       orderlist A
+   	 	LEFT OUTER JOIN 
+   	 	 	   orderDetail B 
+     	ON
+  			   A.order_no = B.order_no
+	</select>
+	
+	<select id="orderlist2" resultType="com.study.springboot.dto.OrderlistdetailDto">
+	  SELECT
+	  		   A.order_idx, A.order_no, A.users_id, A.order_total_price,
+			   A.order_comment, A.order_product_name, A.order_date,
+			   A.order_recipient, A.order_address1, A.order_address2,
+			   A.order_address3, A.order_phone, A.order_usepoint,
+		 	   B.detail_idx, B.product_idx, B.product_count,
+	   		   B.product_price, B.pay_method
+	   FROM 
+	   		   orderlist A
+	   LEFT OUTER JOIN 
+	   		   orderDetail B 
+	   ON
+	   		   A.order_no = B.order_no
+	   WHERE 
+	   		   A.order_idx = #{parma1}
+	</select>
+	
+	<select id="order_Count" resultType="Integer"> 
+		SELECT COUNT(*) FROM orderlist where ${param1} like '%${param2}%'
+	</select>
+	
+	<select id="searchResult" resultType="com.study.springboot.dto.OrderlistdetailDto">
+		SELECT rownum, orderlist.* from orderlist where ${param1} like '%'||#{param2}||'%'
+		and rownum between #{param3} and #{param4}
+	
+	</select>
 
 	
 </mapper>

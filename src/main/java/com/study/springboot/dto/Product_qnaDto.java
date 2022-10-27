@@ -19,9 +19,11 @@ public class Product_qnaDto {
 	private String qna_pw;
 	private String qna_status;
 	
+	private int reply_idx;
 	private int product_idx;
 	private String product_name;
 	
 	private ProductDto productDto;
+	private Product_qna_replyDto Product_qna_replyDto;
 	
 }

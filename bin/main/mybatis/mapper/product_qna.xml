@@ -51,8 +51,24 @@
 	
 	<resultMap type="com.study.springboot.dto.Product_qnaDto" id="Product_qnaDto">
 	<result column="qna_idx" property="qna_idx"/>
+	<result column="qna_id" property="qna_id"/>
+	<result column="qna_title" property="qna_title"/>
+	<result column="qna_date" property="qna_date"/>
+	<result column="qna_id" property="qna_id"/>
+	<result column="qna_secret" property="qna_secret"/>
+	<result column="qna_pw" property="qna_pw"/>
+	<result column="qna_status" property="qna_status"/>
 	<result column="product_idx" property="product_idx"/>	
 	<collection property="productDto" resultMap="ProductDto"></collection>
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.Product_qna_replyDto" id="ReplyDto">	
+	<result column="reply_idx" property="reply_idx"/>	
+	<result column="reply_id" property="reply_id"/>	
+	<result column="reply_content" property="reply_content"/>
+	<result column="reply_date" property="reply_date"/>
+	<result column="qna_idx" property="qna_idx"/>
+	<collection property="Product_qnaDto" resultMap="Product_qnaDto"></collection>
 	</resultMap>
 	
 	<select id="joinTest" resultMap="Product_qnaDto">
@@ -62,19 +78,8 @@
 	order by q.qna_date desc
 	</select>
 	
-	<select id="qna_List" resultType="com.study.springboot.dto.Product_qnaDto">
-		SELECT 
-		   qna.qna_idx, qna.qna_id, prod.product_name, prod.product_idx, 
-		   qna.qna_date, qna.qna_content, qna.qna_title,qna.qna_status
-		FROM 
-		    product_qna qna
-		JOIN 
-		    PRODUCT prod
-		ON 
-		    qna.qna_idx = prod.product_idx
-	</select>
-	
-		<select id="qnaListCount" resultType="_int">
+
+	<select id="qnaListCount" resultType="_int">
 		select count(*) from product_qna 
 		<if test="param1 != null">where qna_id=#{param1} </if>
 	</select>
@@ -90,10 +95,29 @@
 	  WHERE qna_idx=#{ param1 }
 	</delete>
 	
+		<select id="qna_List" resultMap="ReplyDto">
+		SELECT * FROM
+			(SELECT 
+					rownum rnum, dto1.* 
+			 FROM
+			(SELECT 
+					qna.*, reply.reply_idx, reply.reply_id, reply.reply_date, qna.qna_idx qi 
+			 FROM 
+			 		product_qna qna, product_qna_reply reply
+			<where>
+				<if test="param1 != 'admin'">qna_id=#{param1} </if>
+					and qna.qna_idx = reply.qna_idx(+)
+				</where>				
+					order by qna_date desc)
+			dto1)
+		WHERE rnum between #{param2} and #{param3}
+	</select>
 	
-	
-	
-	
+		<update id="updateStatus" parameterType="hashMap">
+		update product_qna set
+		qna_status=#{qna_status}
+		where qna_idx=#{qna_idx}
+	</update>
 	
 </mapper>
 	

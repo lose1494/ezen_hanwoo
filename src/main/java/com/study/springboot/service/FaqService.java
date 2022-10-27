@@ -13,8 +13,7 @@ public class FaqService {
 	@Autowired
 	private	IFaqDao faqdao;
 	
-	public List<FaqDto> faqList(String faq_type, String sort, String word,
-			String page, int num_page_size) {
+	public List<FaqDto> faqList(String faq_type, String sort, String word, String page, int num_page_size) {
 		int num_page_no = Integer.parseInt( page );
 		int startRowNum = (num_page_no - 1) * num_page_size + 1;
 		int endRowNum = (num_page_no * num_page_size);

@@ -33,8 +33,6 @@
 		<p>도움이 되는 사진을 첨부해주세요.</p>
 		<div id='image_preview'>
 			<input type='file' name="file" id='btnAtt' multiple='multiple'/>
-			<div id='file_upload' 
-				data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
 			</div>
 		<div>
 			<button class="dark">등록하기</button>
