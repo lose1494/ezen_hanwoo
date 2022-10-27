@@ -1,0 +1,141 @@
+ * {
+ 	margin:0; padding:0;
+ }
+
+.bg_admin {
+	margin-top: 110px;
+	width:100%;
+	position: relative;
+}
+
+.bg {
+	height:200px;
+}
+
+#bg_img {
+	max-height:100%;
+	width:100%;
+	height: 100%;
+	vertical-align: middle;
+}
+#title {
+		position:absolute;
+        left: 45%; 
+        top: 35%;
+        color: white;
+        font-size:30px;
+}
+
+#title1 {
+	    position:absolute;
+        left: 43%; 
+        top: 55%;
+        color: white;
+        font-size:20px;
+}
+
+.main_div {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	margin-bottom: 100px;	
+}
+
+.admin_div {
+	display: flex;
+	flex-direction: column;	
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+	width:100%;
+}
+
+.admin_list {
+	font-size: 25px;
+	width:10%;
+	height: 350px;
+	margin: 50px 0px 0px 80px;
+}
+
+.admin_list li{
+	clear: both;
+	list-style: disc;
+}
+
+.admin_div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 100px;
+}
+#product {
+	margin-top: 50px;
+}
+
+.member_table {
+	border-collapse:collapse;
+	border-top: 1px solid black;
+	width: 1300px; 
+	height: 100px; 
+	text-align: center;
+}
+
+.member_table th, tr {
+	 border-bottom: 1px solid black;
+}
+
+.member_table th,td{
+	text-align: center;
+	height: 50px;
+}
+
+.member_table1 {
+	border-collapse:collapse;
+	width: 1300px; 
+	height: 100px; 
+	text-align: center;
+}
+
+.member_table1 th,td{
+	text-align: center;
+	height: 50px;
+}
+
+.member_table2 {
+	border-collapse:collapse;
+	width: 1300px; 
+	height: 100px; 
+	text-align: center;
+}
+
+.member_table2 th,td{
+	text-align: center;
+	height: 50px;
+}
+
+.member_table3 {
+	border-collapse:collapse;
+	width: 1300px; 
+	height: 100px; 
+	text-align: center;
+}
+
+.member_table3 th,td{
+	text-align: center;
+	height: 50px;
+}
+
+.bar {
+	display:inline-block;
+	width: 100%;
+	margin-top: 50px;
+}
+
+#order_bar {
+	float: left;
+}
+
+#select_bar {
+	float: right;
+}

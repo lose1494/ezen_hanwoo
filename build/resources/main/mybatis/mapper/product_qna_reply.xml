@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.IProduct_qna_replyDao">
+
+	<select id="qnaReply" resultType="com.study.springboot.dto.Product_qna_replyDto">
+		select * from product_qna_reply where qna_idx=#{param1}
+	</select>
+	
+	<insert id="insertReply" parameterType="com.study.springboot.dto.Product_qna_replyDto">
+		insert into product_qna_reply
+		values ( product_qna_reply_seq.nextval, #{reply_id}, #{reply_content}, 
+		sysdate, #{qna_idx} )
+	</insert>
+	
+	<delete id="deleteReply">
+	  DELETE FROM product_qna_reply
+	  WHERE reply_idx=#{ param1 }
+	</delete>
+	
+	<select id="qna_List" resultMap="ReplyDto">
+		SELECT * FROM
+			(SELECT 
+					rownum rnum, dto1.* 
+			 FROM
+			(SELECT 
+					qna.*, reply.reply_idx, reply.reply_id, reply.reply_date, reply.reply_content, qna.qna_idx qi 
+			 FROM 
+			 		product_qna qna, product_qna_reply reply
+			<where>
+				<if test="param1 != 'admin'">qna_id=#{param1} </if>
+					and qna.qna_idx = reply.qna_idx(+)
+				</where>				
+					order by qna_date desc)
+			dto1)
+		WHERE rnum between #{param2} and #{param3}
+	</select>
+	
+	
+		<resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">	
+	<result column="product_idx" property="product_idx"/>	
+	<result column="product_name" property="product_name"/>	
+	<result column="product_image" property="product_image"/>
+	<result column="product_price" property="product_price"/>
+	<result column="product_category" property="product_category"/>
+	<result column="product_gram" property="product_gram"/>
+	<result column="product_explanation" property="product_explanation"/>
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.Product_qnaDto" id="Product_qnaDto">
+	<result column="qna_idx" property="qna_idx"/>
+	<result column="qna_id" property="qna_id"/>
+	<result column="qna_title" property="qna_title"/>
+	<result column="qna_date" property="qna_date"/>
+	<result column="qna_id" property="qna_id"/>
+	<result column="qna_secret" property="qna_secret"/>
+	<result column="qna_pw" property="qna_pw"/>
+	<result column="qna_status" property="qna_status"/>
+	<result column="product_idx" property="product_idx"/>	
+	<collection property="productDto" resultMap="ProductDto"></collection>
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.Product_qna_replyDto" id="ReplyDto">	
+	<result column="reply_idx" property="reply_idx"/>	
+	<result column="reply_id" property="reply_id"/>	
+	<result column="reply_content" property="reply_content"/>
+	<result column="reply_date" property="reply_date"/>
+	<result column="qna_idx" property="qna_idx"/>
+	<collection property="Product_qnaDto" resultMap="Product_qnaDto"></collection>
+	</resultMap>
+	
+	<select id="joinTest" resultMap="Product_qnaDto">
+	select q.*, p.product_name 
+	from product_qna q, product p 
+	where q.product_idx = p.product_idx
+	order by q.qna_date desc
+	</select>
+
+</mapper>

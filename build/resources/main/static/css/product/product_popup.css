@@ -1,0 +1,60 @@
+*:not(html) {
+	margin: 10px 0;
+}
+.wrap {
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+}
+.wrap .name {
+	margin-top: 0;
+	padding: 20px 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.wrap .name:first-child {
+	margin-top: 0;
+}
+.wrap p {
+	vertical-align: middle;
+}
+.wrap img, .wrap span {
+	width: 200px;
+	vertical-align: middle;
+}
+.wrap span {
+	font-weight: bold;
+	font-size: 20px;
+	/* margin-left: 30px; */
+}
+
+#file_upload{
+	width: 500px;
+	min-height:100px;
+	padding:10px;
+	background-color: lightgray;
+}
+#file_upload:empty:before{
+	content : attr(data-placeholder);
+	color : #999;
+	font-size:.9em;
+}
+
+.wrap input[type=text], .wrap input[type=password] {
+	width: 500px;
+	height: 30px;
+}
+.wrap input[type=checkbox] {
+	text-align: start;
+}
+.wrap textarea {
+	width: 500px;
+}
+.checkLabel {
+	font-size: 15px;
+}
+.wrap button {
+	width: 100px;
+	height: 40px;
+	margin: 10px 20px;
+}
