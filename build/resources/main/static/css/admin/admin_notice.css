@@ -1,0 +1,126 @@
+ * {
+ 	margin:0; padding:0;
+ }
+
+.bg_admin {
+	margin-top: 110px;
+	width:100%;
+	position: relative;
+}
+
+.bg {
+	height:200px;
+}
+
+#bg_img {
+	max-height:100%;
+	width:100%;
+	height: 100%;
+	vertical-align: middle;
+}
+#title {
+		position:absolute;
+        left: 45%; 
+        top: 35%;
+        color: white;
+        font-size:30px;
+}
+
+#title1 {
+	    position:absolute;
+        left: 43%; 
+        top: 55%;
+        color: white;
+        font-size:20px;
+}
+
+.main_div {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	margin-bottom: 100px;	
+}
+
+.admin_div {
+	display: flex;
+	flex-direction: column;	
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+	width:100%;
+}
+
+.admin_list {
+	font-size: 25px;
+	width:10%;
+	height: 350px;
+	margin: 50px 0px 0px 80px;
+}
+
+.admin_list li{
+	clear: both;
+	list-style: disc;
+}
+
+.member_table {
+	border-collapse:collapse;
+	border-top: 1px solid black;
+	width: 900px; 
+	height: 100px; 
+	text-align: center;
+}
+
+.member_table th, tr {
+	 border-bottom: 1px solid black;
+}
+
+.member_table th{
+	text-align: center;
+}
+
+.member_table td{
+	height:50px;
+}
+
+
+.item_button{
+	margin-top: 50px;
+	margin-left: 800px;
+}
+
+#member_bar {
+	margin-top: 30px;
+	float: left;
+}
+.member_select{
+	float: right;
+	margin-top: 30px;	
+}
+.member_table{
+	clear: both;
+}
+
+.notice_btn{
+	border: none;
+	border-radius: 5px;
+	background-color: #323232;
+	color: white;
+	padding: 10px;
+}
+
+.select_list select{
+	height: 40px;
+}
+
+#search_contents {
+	width:600px; 
+	height: 40px;
+}
+
+.member_var {
+	display:flex;
+	flex-direction: row;
+	width:900px;
+	justify-content: space-between;
+	margin-bottom:10px;
+}

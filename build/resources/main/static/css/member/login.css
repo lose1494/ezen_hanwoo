@@ -1,0 +1,39 @@
+.wrap {
+    text-align: center;
+}
+
+.box1{
+    width:230pt; 
+    height:30pt;
+    margin: 10px;
+}
+.box2{
+    width:236pt;
+    height:40pt;
+    font-size: 18px; 
+    color:white;
+    background-color: rgb(98, 98, 98);
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+
+}
+
+.box3{
+    font-size: 11px;
+    margin: 10px;
+}
+.box4 {
+    font-size: 15px;
+    border-right: 2px solid rgb(210, 210, 210);
+    padding-right: 25px;
+}
+.log_check span {
+    margin: 0 45px;
+}
+p a {
+    margin : 0 10px;
+}
+.footer-1 {
+    margin-bottom: 100px;
+}

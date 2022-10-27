@@ -1,0 +1,132 @@
+/* .title_tag {
+	text-align:center;
+	width:100%;
+	margin-bottom: 100px;
+	font-size: 35px;
+}     */
+.wrap {
+        text-align: center;
+}
+/* faq 카테고리 */
+.faq_bar {
+        width:100%;
+        height: 70px;
+        margin-top: 100px;
+        color: rgb(36,41,46);
+}
+
+.faq_bar ul {
+        display: flex;
+        padding: 0 ;
+}
+
+.faq_bar li {
+        width: 100%;
+        border: 2px solid rgb(124, 124, 124);
+        border-radius: 3px;
+        margin-right: -2px;
+}
+
+.faq_bar a {
+	color: rgb(36,41,46);
+        font-family: 'Noto Sans KR', sans-serif;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height:70px;
+	width:100%;
+	text-decoration: none;
+
+}
+
+.faq_bar .abc {
+	border-bottom:none;
+}
+
+.faq_bar a:link, a:visited, a:hover {
+    text-decoration: none;
+    color:rgb(36,41,46);
+}
+
+/* faq 검색 */
+.faq_box1 {
+        clear: both;
+        margin: 30px 0;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: #f1f1f1;
+        height: 80px;
+}
+
+#faq_select1 {  
+        text-align: center;
+        border: none;
+        width: 70px;
+        height: 36px;
+        font-size: 16px;
+}
+
+#faq_text {
+        width: 80%;
+        height: 34px;
+        border:none;
+        background-color: #f1f1f1;
+}
+
+#faq_img {
+        width: 25px;
+}
+
+/* faq 리스트 */
+.faq_list {
+        border-collapse:collapse;
+        font-size: 12px;
+}
+    
+.faq_list th {
+        border: 1px solid;
+        width: 150px;
+        height: 40px;
+}
+
+.faq_list td {
+        border: 1px solid;
+        width: 150px;
+        height: 40px;
+}
+
+
+
+/* 
+
+.navbar {
+        width: auto; 
+        margin-top: 40px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px; 
+} */
+
+.accordion-header, .accordion-body {
+        display: flex;
+        align-items: center;
+}
+
+.fa-circle-question, .fa-circle-info {
+        font-size: 25px;
+        margin-right: 20px;
+}
+.fa-circle-question {
+        color: grey;
+}
+.fa-circle-info {
+        color: rgb(218, 87, 87);
+}
+.accordion-body {
+        font-size: 15px;
+}
+
+

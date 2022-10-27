@@ -1,0 +1,265 @@
+.wrap {
+    text-align: center;
+}
+.wrap a:link, .wrap a:visited {
+    color: rgb(68, 68, 68);
+}
+a:hover {
+    text-decoration: none;
+    border-collapse: collapse;
+}
+/* 마이페이지 메뉴 */
+.title, .wrap .title:link, .wrap .title:visited {
+    font-size: 35px;
+    font-weight: bold;
+}
+.menuTable {  
+    border: 2px solid rgb(207, 207, 207);
+    width: 100%;
+    height: 250px;
+    margin: 20px 0;
+    table-layout: fixed;
+}
+.menuTable tr:first-child {
+    border: 1px solid rgb(207, 207, 207);
+}
+.menuTable th, .menuTable td {
+    border-right: 1px solid rgb(207, 207, 207);
+    text-align: center;
+}
+.menuTable th {
+    /* background-color: rgb(235, 235, 235); */
+    color: rgb(75, 74, 74);
+    
+}
+.menuTable a:link, .menuTable a:visited {
+    color: rgb(75, 74, 74);
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* 마이페이지 메인 */
+
+.mainMember {
+    display: flex;
+    margin: 40px auto;
+    width: 100%;
+    height: 120px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(37, 41, 46);
+    color:white;
+}
+.mainMember span {
+    font-size: 16px;
+}
+
+.mainOrderList {
+    margin: auto;
+    width: 80%;   
+}
+
+.mainOrderList div:first-child {
+    text-align: start;
+}
+.mainOrderList div:last-child {
+    padding: 70px;
+    font-size: 14px;
+}
+.mainOrderList span {
+    font-size: 11px;
+}
+
+/* 메인페이지 하위메뉴들 */
+h3 {
+    margin: 20px;
+    font-weight: bold;
+}
+.total {
+    text-align: end;
+    font-size: 14px;
+}
+.backgroundDiv {
+    /* background-color: rgb(241, 241, 241); */
+    background-color: #F0F0F0;
+    padding: 20px 10px;
+}
+.mypageTable {
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+    font-size: 18px;
+}
+.mypageTable th, .mypageTable td {
+    padding: 5px 15px;
+} 
+.mypageTable td {
+    font-size: 16px;
+}
+.mypageTable span {
+    font-size: 13px;
+}
+
+
+.mypageButton {
+    display: flex;
+    margin: 30px 0;
+    justify-content: space-evenly;
+}
+.mypageButton button {
+    width: 130px;
+    height: 35px;
+    font-size: 14px;
+}
+.mypageTable button {
+    width: 60px;
+    margin: 0 5px;
+    height: 25px; 
+    font-size: 14px;  
+}
+.mypageTable .bright {
+    /* border: 1px solid rgb(180, 180, 180); */
+    background-color: #919191;
+}
+.margin {
+    margin-right: auto;
+    margin-left: 5px;
+}
+
+.productQ, .productA {
+    padding: 20px 50px;
+    text-align: start;
+    display: flex;
+    align-items: center;
+}
+.productQ {
+    border-bottom: 2px solid rgb(231, 231, 231);
+}
+.qnaClick {
+    cursor: pointer;
+}
+.fa-circle-question, .fa-circle-info {
+    font-size: 20px;
+    margin-right: 20px;
+}
+.fa-circle-question {
+    color: grey;
+}
+.fa-circle-info {
+    color: rgb(218, 87, 87);
+}
+
+.reviewLink {
+    text-align: start;
+    font-size: 14px;
+}
+.reviewLink a {
+    margin: 5px;
+}
+.backgroundDiv p {
+    text-align: center;
+    font-size: 16px;
+}
+.pw {
+    margin: 20px;
+    width: 300px;
+    height: 25px;
+}
+
+.editDiv {
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+}
+.editForm {
+    padding: 40px;
+}
+.editForm table {
+    margin: auto;
+}
+.editForm table td {
+    padding: 5px 0;
+}
+.editForm table td:last-child {
+    text-align: start;
+    width: 70%;
+}
+.editForm input {
+    border: 1px solid rgb(163, 163, 163);
+    border-radius: 3px;
+    width: 250px;
+    height: 30px;
+    margin: 5px;
+    padding: 3px;
+    font-size: 14px;
+}
+.readonly {
+    background-color: rgb(214, 213, 213);
+}
+.editForm #address1, .editForm table button {
+    width: 150px;
+    vertical-align: middle;
+    margin-right: 0;
+}
+.editForm table button {
+    font-size: 13px;
+    width: 95px;
+    height: 30px;
+}
+textarea {
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+/* 주문 상세 조회 */
+h2 {
+    color: rgb(59, 59, 59);
+    margin-top: 20px;
+}
+p {
+    text-align: start;
+    margin: 5px 0;
+}
+.productTable table td {
+    border-top: 1px solid rgb(207, 207, 207);
+    border-bottom: 1px solid rgb(207, 207, 207);
+    width: 100%;
+    padding: 3px 10px;
+}
+.orderTable table {
+    width: 100%;
+    border: 1px solid rgb(207, 207, 207);
+}
+.orderTable table th, .orderTable table td {
+    border-right: 1px solid rgb(207, 207, 207);
+    border-bottom: 1px solid rgb(207, 207, 207);
+    padding: 5px;
+} 
+.orderTable table td {
+    text-align: start;
+    padding-left: 10px;
+}
+.orderTable table:nth-child(2) td, .orderTable table:nth-child(4) td {
+    width: 70%;  
+}
+.orderTable table:nth-child(6) td {
+    width: 20%;
+}
+.orderTable table:last-child td {
+    width: 25%;
+}
+.tableName {
+    text-align: start;
+    margin-top: 10px;
+}
+.orderBtn button {
+    width: 80px;
+    height: 30px;
+    margin: 20px 30px;
+}
+
+.starRating-base {
+    top: -4px;
+}
