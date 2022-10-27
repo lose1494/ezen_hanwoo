@@ -18,4 +18,6 @@ public class ProductDto {
 	private String product_explanation;
 
 	private ReviewDto reviewDto;
+	
+	private WishlistDto wish;
 }
