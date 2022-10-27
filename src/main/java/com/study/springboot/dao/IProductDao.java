@@ -45,4 +45,7 @@ public interface IProductDao {
 
     void reviseProduct(Map<String, String> revise);
 	
+	List<ProductDto> wishList(String users_id, int startRowNum, int endRowNum);
+	
+	int wishCount(String users_id);
 }

@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class WishlistDto {
 	private int list_idx;
 	private String list_users_id;
-	private String list_product_name;
+	private int list_product_idx;
 	private int list_count;
 }

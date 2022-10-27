@@ -101,7 +101,9 @@ h3 {
 .mypageTable span {
     font-size: 13px;
 }
-
+.mypageTable img {
+	width: 120px; 
+}
 
 .mypageButton {
     display: flex;

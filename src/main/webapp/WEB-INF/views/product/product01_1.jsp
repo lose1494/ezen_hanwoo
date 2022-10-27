@@ -65,7 +65,7 @@
                         <td colspan="2">
                             <div class="flexDiv">
                                 <button class="bright" onclick="b()">장바구니</button>
-                                <button class="bright">관심상품</button>
+                                <button class="bright" onclick="insertWish()">관심상품</button>
                                 <button class="dark"  onclick="c()">바로구매</button>
                             </div>
                         </td>  
@@ -414,6 +414,23 @@
             });
         });
         
+        function insertWish() {
+            $.ajax({
+                url: "/mypage/insertWish",
+                type: "POST",
+                data: {
+                    product_idx : $('input[name=product_idx').val(),
+                    list_count : $('#product_count').val()
+                },
+                success: function(data){
+                    console.log(data);
+                    alert(data);
+                },
+                error: function(data) {
+                    alert("오류가 발생했습니다.");
+                }
+            })
+        }
        
         function b(){
         	const pd_name = document.getElementById("product_name").innerText
