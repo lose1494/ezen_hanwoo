@@ -153,28 +153,12 @@ insert into review_star values(5);
 drop table FAQ;
 create table FAQ(
     faq_idx number(4) primary key,
-    faq_title varchar2(80),
-    faq_content varchar2(800),
+    faq_title varchar2(40),
+    faq_content varchar2(300),
     faq_type varchar2(40)
 );
 drop sequence FAQ_seq;
 create sequence FAQ_seq;
-
-insert into FAQ
-values(FAQ_seq.nextval, '배송날짜를 지정할 수 있나요?', '수령일 기준 7일까지 희망수령일 선택가능하며, 주문 완료 후 수령일 변경을 원하시는 경우에는 
-        1:1 문의 및 고객센터(043-877-1613)로 연락주시면 도와드릴 수 있도록 하겠습니다.
-        다만, 주문 마감 시간 이후에는 수령일 변경이 불가능합니다.', '배송');
-insert into FAQ
-values(FAQ_seq.nextval, '교환 또는 반품 신청시에 사진을 첨부해야 하나요?', '제품의 하자 등의 사유로 교환 또는 반품을 신청하시는 경우, 1:1문의 또는 고객센터에서 해당 사항을 확인할 수 있는 사진 첨부를 부탁드립니다', '교환/환불');   
-insert into FAQ
-values(FAQ_seq.nextval, '현금영수증 발행을 취소하고 싶어요.', '고객의 요청에 의해 발급된 현금영수증은 국세청 승인 후에는 변경 불가합니다.
-국세청 승인 전이라면 1:1문의 또는 고객센터(043-877-1613)로 문의 바랍니다.', '주문결제');
-insert into FAQ
-values(FAQ_seq.nextval, '주문 취소는 어떻게 하나요?', '주문 취소는 주문 마감 이전에만 가능합니다. 
-또한, 운영종료 시간 이후에는 1:1문의 게시판 접수만 가능합니다. 정확한 처리를 위해 주문번호는 필수로 입력해주세요.', '취소');
-insert into FAQ
-values(FAQ_seq.nextval, '회원정보를 변경하려면 어떻게 해야 하나요?', '홈페이지 오른쪽 위의 마이페이지 > 정보관리 > 나의정보수정 에서 회원정보 변경이 가능합니다.', '회원');
-
 --공지사항
 drop table Notice;
 create table Notice(
@@ -298,8 +282,8 @@ insert into point
 values( point_seq.nextval, 'hong', sysdate, +400, sysdate+365, '테스트4');
 commit;
 
-
-
+select * from ezen_users;
+select * from orderlist;
 
 
 
