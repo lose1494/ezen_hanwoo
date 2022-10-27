@@ -68,9 +68,11 @@
 	  WHERE review_idx=#{ param1 }
 	</delete>
 	
+	<!-- 리뷰 목록 리스트 -->
 	<select id="review_result" resultType="com.study.springboot.dto.ReviewDto">
 		SELECT 
-		    review.review_id, prod.product_name, prod.product_idx, review.review_date, review.review_content, review.review_title
+		   review.review_idx, review.review_id, prod.product_name, prod.product_idx, 
+		   review.review_date, review.review_content, review.review_title, review.review_star_rating
 		FROM 
 		    product_review review
 		JOIN 
@@ -79,7 +81,55 @@
 		    review.product_idx = prod.product_idx
 	</select>
 	
-	<!-- <resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">
+	<!-- 리뷰 개수 -->
+	<select id="review_count" resultType="Integer">
+		SELECT COUNT(*) FROM product_review 
+	</select>
+	
+ 	<!-- 리뷰 검색 -->
+	 <select id="reviewResult" resultType="com.study.springboot.dto.ReviewDto">
+		SELECT 
+		   review.review_idx, review.review_id, prod.product_name, prod.product_idx, 
+		   review.review_date, review.review_content, review.review_title, review.review_star_rating
+		FROM 
+		    product_review review, PRODUCT prod
+		where  
+            prod.product_idx = review.product_idx
+        And
+            ${param1} like '%${param2}%'
+	
+	</select>
+	
+<!-- 	날짜조회 검색
+	<select id="reviewSearchDate" resultType="com.study.springboot.dto.ReviewDto">
+		SELECT
+			review.review_idx, review.review_id, prod.product_name, prod.product_idx, 
+		    review.review_date, review.review_content, review.review_title, review.review_star_rating
+		FROM
+			product_review review, PRODUCT prod
+		WHERER
+			review.review_date BETWEEN  TO_DATE('2022-04-01', 'YYYY-MM-DD') AND SYSDATE
+	</select>
+	 -->
+	<select id="reviewDate" resultType="com.study.springboot.dto.ReviewDto">
+	SELECT
+         review.review_idx, review.review_id, prod.product_name, prod.product_idx, 
+          review.review_date, review.review_content, review.review_title, review.review_star_rating
+	FROM
+         product prod 
+	LEFT JOIN 
+		product_review review
+	ON 
+		prod.product_idx = review.product_idx
+	WHERE 
+		prod.product_idx = #{product_idx}
+	<if test="from_date != null and to_date != null">
+		and TO_CHAR(review.review_date , 'YYYY-MM-DD') between TO_CHAR(#{from_date}, 'YYYY-MM-DD') and TO_CHAR(#{to_date} , 'YYYY-MM-DD')
+	</if>
+	</select>
+	
+	
+<!--    <resultMap type="com.study.springboot.dto.ProductDto" id="ProductDto">
 	<result column="product_idx" property="product_idx"/>
 	<result column="product_name" property="product_name"/>
 	<result column="product_image" property="product_image"/>	
@@ -92,9 +142,9 @@
 	<resultMap type="com.study.springboot.dto.ReviewDto" id="ReviewDto2">
 	<result column="product_idx" property="product_idx"/>	
 	<collection property="productDto" resultMap="ProductDto"></collection>
-	</resultMap>
+	</resultMap> -->
 	
-	<select id="searchProduct" resultMap="ReviewDto2">
+<!-- 	<select id="searchProduct" resultMap="ReviewDto2">
 		select * from
 		(select round(avg(review_star_rating), 1) starRating, pr.product_idx from product_review pr
 		group by pr.product_idx) r, product p
@@ -115,6 +165,6 @@
 		<if test="param2 == 'prict_row'">
 			order by p.product_price nulls last
 		</if>
-	</sql> -->
-	
+	</sql> 
+	 -->
 </mapper>

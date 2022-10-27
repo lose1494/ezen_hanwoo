@@ -75,12 +75,17 @@
 	text-align: center;
 }
 
+.member_table td {
+	height: 50px;
+}
+
 .member_table th, tr {
 	 border-bottom: 1px solid black;
 }
 
 .member_table th{
 	text-align: center;
+	height: 40px;
 }
 
 .item_button{

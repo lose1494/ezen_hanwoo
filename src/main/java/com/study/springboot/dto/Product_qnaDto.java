@@ -18,7 +18,9 @@ public class Product_qnaDto {
 	private int qna_secret;
 	private String qna_pw;
 	private String qna_status;
+	
 	private int product_idx;
+	private String product_name;
 	
 	private ProductDto productDto;
 	

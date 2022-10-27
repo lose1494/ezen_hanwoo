@@ -27,14 +27,14 @@
 	</div>
 
 <div class="editor_whole">
-  <!-- <form action="notice_writeAction" method="post" class="write_container"> -->
+
   <div class="write_container">
     <input type="text" placeholder="제목을 입력하세요." id="contentTitle">
 
     <div id="editor"></div>
     <div style="margin-top: 10px;">
       <input id="uploadImage" type="file" size="10" accept="image/jpeg,image/gif, image/png" name="myPhoto" onchange="PreviewImage();" />
-      <img id="uploadPreview" style="width: 150px; height: 150px;" /><br />
+      <img id="uploadPreview" style="width: 150px; height: 150px;"/><br/>
     </div>
 
     <div class="btn_wrap">
@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <!-- </form> -->
+
 </div>
 </div>
 

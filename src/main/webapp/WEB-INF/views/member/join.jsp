@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/css/common.css">
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="event.js"></script>
+<!-- <script type="text/javascript" src="event.js"></script> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -43,7 +43,7 @@
 				</tr>
 				<tr>
 					<td><label>핸드폰 번호</label></td>
-					<td><input type="text" name="users_phone" class="inputData"></td>
+					<td><input type="text" name="users_phone" class="inputData phoneNumber" maxlength="13"></td>
 				</tr>
 
 				<tr>
@@ -74,6 +74,12 @@
 
 <script>
 
+	//핸드폰 번호(-) 작성
+$(document).on("keyup", ".phoneNumber", function() { 
+	$(this).val( $(this).val().replace(/[^0-9]/g, "")
+	.replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+});
+
 		//주소찾기 
 		function addressAdd() {
 			new daum.Postcode(
@@ -88,26 +94,9 @@
 							document.getElementById("users_address3").value = data.jibunAddress; //상세주소
 							self.close();
 						}
+					
 					}).open();
 		}
-
-	//주소찾기 
-	function addressAdd() {
-		new daum.Postcode(
-				{
-					oncomplete : function(data) {
-	
-						var roadAddr = data.roadAddress; // 도로명 주소 변수
-	
-						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-						document.getElementById('users_address1').value = data.zonecode; //우편번호
-						document.getElementById("users_address2").value = roadAddr; //도로명 
-						document.getElementById("users_address3").value = data.jibunAddress; //상세주소
-						self.close();
-					}
-				}).open();
-	}
-	$(function() {
 		
 		//중복확인 
 	$(function() {		
@@ -141,16 +130,16 @@
 			});
 		});
 		
-		// 유효성 체크
+		// 유효성 체크 & 가입완료
 		$("#submitBtn").click(function() {
 			if (idCheck) {
-				
 				var data = {
 						
 				}; //
 				var inputData = document.querySelectorAll(".inputData"); // inputData클래스 전체 선택 == getElementsByClassName
 				try {
-					inputData.forEach(function(item, idx) {            	 // forEach Callback => 변수.forEach(function( element, index) { });
+					inputData.forEach(function(item, idx) { // forEach Callback => 변수(배열타입만 forEach가능).forEach(function( element, index) { }); / forEach: 배열 반복문     
+						console.log($(item)[0].name);
 						if($(item).val() === "") {                       // === : dataType까지 같다. 
 							if ($(item)[0].name ==="users_id") {
 								alert("아이디를 입력해 주세요.");
@@ -198,14 +187,16 @@
 							} else if ($(item)[0].name ==="users_address3"){
 								data.users_address3 = $(item)[0].value;
 							} else if ($(item)[0].name ==="users_birth_date"){
-								data.users_birth_date = $(itme)[0].value;
+								data.users_birth_date = $(item)[0].value; // itme -> item  오타
 							}
 						}
 					});
-					console.log(data);
+					
 				} catch(err) {
+					console.log(err);
 					return;
 				}
+				console.log("input data => ", data);
 				$.ajax({
 					async : true,
 					type : 'POST',

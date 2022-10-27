@@ -1,8 +1,12 @@
 package com.study.springboot;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.study.springboot.dto.One2oneDto;
+import com.study.springboot.dto.One2one_answerDto;
+import com.study.springboot.dto.OrderDetailDto;
+import com.study.springboot.dto.OrderlistDto;
 import com.study.springboot.dto.PointDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
@@ -23,6 +31,8 @@ import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.service.CartService;
 import com.study.springboot.service.One2oneService;
+import com.study.springboot.service.One2one_answerService;
+import com.study.springboot.service.OrderlistService;
 import com.study.springboot.service.PointService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
@@ -41,6 +51,8 @@ public class MyController_yerin {
 	@Autowired private Product_qnaService qnaService;
 	@Autowired private ReviewService reviewService;
 	@Autowired private ProductService productService;
+	@Autowired private One2one_answerService answerService;
+	@Autowired private OrderlistService orderService;
 	
 	int num_page_size = 5;
 	
@@ -96,7 +108,11 @@ public class MyController_yerin {
 	}
 	
 	@RequestMapping("/mypage/mypage_order")
-	public String mypage_order(Model model) {
+	public String mypage_order(Model model, HttpServletRequest request) {
+	    String users_id = (String) request.getSession().getAttribute("users_id");
+	    List<OrderlistDto> orderlist = orderService.orderList(users_id);
+	    
+	    model.addAttribute("orderlist", orderlist);
 		model.addAttribute("mainPage", "mypage/mypage_orderlist.jsp");
 		return "index";
 	}
@@ -112,7 +128,7 @@ public class MyController_yerin {
 			Model model, HttpServletRequest request) {
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		
-		List<One2oneDto> one2oneList = one2oneService.one2oneList(users_id, page, num_page_size);
+		List<One2one_answerDto> one2oneList = answerService.one2oneList(users_id, page, num_page_size);
 		int one2oneCount = one2oneService.one2oneCount(users_id);
 		int pageNum = (int)Math.ceil((double)one2oneCount/num_page_size);
 		
@@ -340,18 +356,13 @@ public class MyController_yerin {
 		model.addAttribute("starGraph", reviewGraph);
 		String users_id = (String) request.getSession().getAttribute("users_id");
         
-        if(users_id == null) {
-            request.getSession().setAttribute("alert", "로그인이 필요합니다.");
-            request.setAttribute("url", "/member/login");
-            return "alert";
-        } else {
-            
-        UsersDto user = usersService.userDetail(users_id);
-        model.addAttribute("user", user);
-       
+        if(users_id != null) {
+            UsersDto user = usersService.userDetail(users_id);
+            model.addAttribute("user", user);
+        } 
 		model.addAttribute("mainPage", "product/product01_1.jsp");
 		return "index";
-        }
+        
 	}
 	
 	@RequestMapping("/product/reviewSearch")
@@ -474,20 +485,29 @@ public class MyController_yerin {
 		return qnaDetail;
 	}
 	
-	//바로구매
-	/*
-	 * @RequestMapping("/product/order") public String
-	 * order01(@RequestParam("product_idx") int product_idx, Model model,
-	 * HttpServletRequest request) { System.out.println(product_idx);
-	 * 
-	 * }
-	 */
+//	@RequestMapping("/product/orderDirect")
+//	public String orderDirect( @RequestParam("product_idx") int product_idx, 
+//	        Model model, HttpServletRequest request, CartDto dto) {
+//	    String users_id = (String) request.getSession().getAttribute("users_id");
+//	    List<ProductDto> product = productService.productList(product_idx);
+//	    UsersDto user = usersService.userDetail(users_id);
+//	    
+//	    model.addAttribute("orderList", product);
+//        model.addAttribute("user", user);
+//        model.addAttribute("mainPage", "product/order01.jsp");
+//        return "index";
+//	}
+	
 	
 	//주문
 	@RequestMapping("/product/order01")
 	public String order01(
 			Model model, HttpServletRequest request) {
 		
+	    Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
+	    
+//	    List<CartProductDto> orderList = (List<CartProductDto>)flashMap.get("orderList");
+//	    System.out.println(orderList);
 		String users_id = (String) request.getSession().getAttribute("users_id");
 		if(users_id == null) {
 			request.getSession().setAttribute("alert", "로그인이 필요합니다.");
@@ -498,26 +518,94 @@ public class MyController_yerin {
 			UsersDto user = usersService.userDetail(users_id);
 			
 			model.addAttribute("user", user);
+//			model.addAttribute("orderList", orderList);
 			model.addAttribute("mainPage", "product/order01.jsp");
 			return "index";
-		}
-		
+		}		
 		
 	}
 	
+	@RequestMapping("/product/paymentOrder")
+	@ResponseBody
+	public String paymentOrder(@RequestParam("no") String no,
+                	        @RequestParam("total_price") String total_price,
+                	        @RequestParam("comment") String comment,
+                	        @RequestParam("name") String name,
+                	        @RequestParam("address1") String address1,
+                	        @RequestParam("address2") String address2,
+                	        @RequestParam("address3") String address3,
+                	        @RequestParam("phone") String phone,
+                	        @RequestParam("product_name") String product_name,
+                	        @RequestParam("use_point") int use_point,
+                	        @RequestParam("get_point[]") ArrayList<Integer> get_point,
+                	        @RequestParam("product_idx[]") ArrayList<Integer> product_idx,
+                	        @RequestParam("product_count[]") ArrayList<Integer> product_count,
+                	        @RequestParam("product_price[]") ArrayList<String> product_price,
+                	        @RequestParam("pay_method") String pay_method,
+                	        @RequestParam("users_point") int users_point,
+	        OrderlistDto order, OrderDetailDto detail, PointDto point,
+	        HttpServletRequest request) {
+	    System.out.println(users_point);
+	    String users_id = (String)request.getSession().getAttribute("users_id");
+	    
+	    order.setOrder_no(no);
+	    order.setUsers_id(users_id);
+	    order.setOrder_total_price(total_price);
+	    order.setOrder_comment(comment);
+	    order.setOrder_product_name(product_name);
+	    order.setOrder_recipient(name);
+	    order.setOrder_address1(address1);
+	    order.setOrder_address2(address2);
+	    order.setOrder_address3(address3);
+	    order.setOrder_phone(phone);
+	    orderService.insertOrder(order);
+
+        point.setPoint_users_id(users_id);
+        point.setPoint_point(-use_point);
+        point.setPoint_content("상품구매시 사용");
+        pointService.insertPoint(point);
+        
+        for(int i=0; i<product_idx.size(); i++) {
+            detail.setOrder_no(no);
+            detail.setProduct_idx(product_idx.get(i));
+            detail.setProduct_count(product_count.get(i));
+            detail.setProduct_price(product_price.get(i));
+            detail.setPay_method(pay_method);
+            orderService.insertOrderDetail(detail);
+            
+            point.setPoint_users_id(users_id);
+            point.setPoint_point(get_point.get(i));
+            point.setPoint_content("상품 구매(주문번호 : "+no+")");
+            pointService.insertPoint(point);
+            
+            cartService.deleteCart(product_idx.get(i), users_id);
+      
+	    }
+        
+        usersService.updatePoint(users_point, users_id);
+	    	   
+	    return "넘어온당";
+	}
 	@RequestMapping("/product/order02")
-	public String order02(Model model,HttpServletRequest request) {
+	public String order02(@RequestParam("order_no") String order_no,
+	        Model model,HttpServletRequest request) {
 	    
 	    String users_id = (String) request.getSession().getAttribute("users_id");
+	    String col = "order_no";
 	    
         if(users_id == null) {
             request.getSession().setAttribute("alert", "로그인이 필요합니다.");
             request.setAttribute("url", "/member/login");
             return "alert";
-        } else {
-            
+        } else {           
+            OrderlistDto order = orderService.orderDto(order_no);
             UsersDto user = usersService.userDetail(users_id);
+            OrderDetailDto orderDetail = orderService.detailList(order_no).get(0);
+            System.out.println(order);
+            
             model.addAttribute("user", user);
+            model.addAttribute("pay", orderDetail);
+            model.addAttribute("ord", order);
 		model.addAttribute("mainPage", "product/order02.jsp");
 		return "index";
         }
@@ -567,8 +655,8 @@ public class MyController_yerin {
 		 dto.setOne2one_email(one2one_email);
 		 dto.setOne2one_phone(one2one_phone);
 		 
-		 if( file.getOriginalFilename() != null ) {
-			 String image = reviewService.restore(file, one2one_id);
+		 if( file.getOriginalFilename() != "" ) {
+			 String image = one2oneService.restore(file, one2one_id);
 		 	 System.out.println(image);
 		 	if( image != null ) {
 				if( image.length() > 0 ) {
@@ -597,8 +685,11 @@ public class MyController_yerin {
 	@RequestMapping("/customer/one2oneView")
 	public String one2oneView(@RequestParam("one2one_idx") int one2one_idx,
 							Model model) {
-		One2oneDto dto = one2oneService.one2oneDetail(one2one_idx);
-		model.addAttribute("dto", dto);
+	    
+		One2oneDto one2oneDetail = one2oneService.one2oneDetail(one2one_idx);
+		One2one_answerDto answer = answerService.one2oneAnswer(one2one_idx);
+		model.addAttribute("dto", one2oneDetail);
+		model.addAttribute("answer", answer);
 		model.addAttribute("mainPage", "customer/one2one_view.jsp");
 		
 		return "index";
@@ -640,7 +731,8 @@ public class MyController_yerin {
 	@RequestMapping("/member/loginAction")
 	public String loginAction(@RequestParam("users_id") String users_id,
 							  @RequestParam("users_pw") String users_pw,
-							  HttpServletRequest request,
+							  @RequestParam(value="autoLogin", required=false) String autoLogin,
+							  HttpServletRequest request, HttpServletResponse response,
 								Model model) {
 		
 		int result = usersService.login(users_id, users_pw);
@@ -651,9 +743,10 @@ public class MyController_yerin {
                 System.out.println("alert:" + "관리자로그인되었습니다.");
                 
                 request.getSession().setAttribute("alert", "관리자로그인되었습니다.");
+                request.getSession().setAttribute("url", "/admin/admin_main");
                 request.getSession().setAttribute("users_id", users_id);
                 
-                return "redirect:/admin/admin_main";
+                return "alert";
             }
 			System.out.println("alert:" + "로그인되었습니다.");
 			request.getSession().setAttribute("alert", "로그인되었습니다.");
@@ -661,27 +754,51 @@ public class MyController_yerin {
 			request.getSession().setAttribute("users_id", users_id);
 			request.getSession().setAttribute("users_pw", users_pw);
 			
+			if( "autoLogin".equals(autoLogin) ) {
+			    Cookie setId = new Cookie("users_id", users_id);
+			    Cookie setPw = new Cookie("users_pw", users_pw);
+			    setId.setPath("/");
+	            setPw.setPath("/");
+			    setId.setMaxAge(60*60*24*7); // 기간을 하루로 지정(60초 * 60분 * 24시간)
+			    setPw.setMaxAge(60*60*24*7);
+		        response.addCookie(setId); // response에 Cookie 추가
+		        response.addCookie(setPw);
+			}
+			
 			return "alert"; 				 
 		}else {
 			System.out.println("alert:" + "로그인 실패하였습니다.");
 			
 			model.addAttribute("alert", "로그인 실패하였습니다.");
-			model.addAttribute("mainPage", "member/login.jsp");
+			model.addAttribute("url", "/member/login");
 			
-			return "index"; //index.jsp 디스패치
+			return "alert"; //index.jsp 디스패치
 		}
 		 
 	}
 	
 	//로그아웃
 	@RequestMapping("/member/logoutAction")
-	public String logout(HttpServletRequest request, Model model) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, 
+	        Model model) {
 		
 		request.getSession().invalidate();	
+		Cookie setId = new Cookie("users_id", null);
+        Cookie setPw = new Cookie("users_pw", null);
+        setId.setPath("/");
+        setPw.setPath("/");
+        setId.setMaxAge(0);
+        setPw.setMaxAge(0);
+        response.addCookie(setId); // response에 Cookie 추가
+        response.addCookie(setPw);
 		
 		request.getSession().setAttribute("alert", "로그아웃되었습니다.");
 		
 		return "redirect:/index";  
 	}
+	
+	
+	    
+
 
 }

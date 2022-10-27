@@ -40,7 +40,7 @@
 		<th>도로명주소</th>
 		<th>상세주소</th>
 		<th>이메일</th>
-		<th>적릭금</th>
+		<th>적립금</th>
 		<th>가입일</th>
 	</tr>
 	<c:forEach var="dto" items="${ user_Detail }" varStatus="status">

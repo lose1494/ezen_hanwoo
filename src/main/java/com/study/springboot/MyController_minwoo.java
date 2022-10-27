@@ -40,17 +40,13 @@ public class MyController_minwoo {
 		model.addAttribute("result", count);
 		return count;
 	}
-	//Map 사용 시 Dto로 값을 안받아도 된다.
+
 	@RequestMapping("/member/joinAction") 
 	public String joinAction (@RequestBody Map<String, String> param ) {	 
 		System.out.println(param); 
 	
 		int result = 0;
-		try { 
-			result = usersService.joinAction( param ); 
-		} catch (Exception e) {
-			e.printStackTrace(); 
-		}
+		result = usersService.joinAction( param ); 
 		System.out.println("query result:" + result); 
 		if( result == 1 ) {
 			return "redirect:login";

@@ -5,11 +5,22 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.springboot.dao.IOrderlistDao">
-<select id="orderlist" resultType="com.study.springboot.dto.OrderlistDto">
-		select * from orderlist where users_id=#{param1}
-		
+	
+	<select id="orderList" resultType="com.study.springboot.dto.OrderlistDto">
+		select * from orderlist 
+		<if test='param1 != "admin"'></if>
+			where users_id = #{param1}
 	</select>
-<insert id="insertOrder" parameterType="com.study.springboot.dto.OrderlistDto">
+	
+	<select id="orderDto" resultType="com.study.springboot.dto.OrderlistDto">
+		select * from orderlist where order_no = #{param1}
+	</select>
+	
+	<select id="detailList" resultType="com.study.springboot.dto.OrderDetailDto">
+		select * from orderDetail where order_no = #{param1}
+	</select>
+	
+	<insert id="insertOrder" parameterType="com.study.springboot.dto.OrderlistDto">
 		insert into orderlist
 		values ( 
 			orderlist_seq.nextval,
@@ -17,7 +28,8 @@
 			#{users_id},
 			#{order_total_price},
 			#{order_comment},
-			#{order_date},
+			#{order_product_name},
+			sysdate,
 			#{order_recipient},
 			#{order_address1},
 			#{order_address2},
@@ -26,5 +38,19 @@
 			#{order_usepoint}
 		 )
 	</insert>
+	
+	<insert id="insertOrderDetail" parameterType="com.study.springboot.dto.OrderDetailDto">
+		insert into orderDetail
+		values(orderDetail_seq.nextval, #{order_no}, #{product_idx}, #{product_count},
+		#{product_price}, #{pay_method})
+	</insert>
+	
+	<delete id=""></delete>
+<!-- 	
+	<select id="orderlist" resultType="com.study.springboot.dto.OrderlistDto">
+		select * from orderlist where users_id=#{param1}
+		
+	</select> -->
+
 	
 </mapper>

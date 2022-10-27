@@ -29,8 +29,8 @@
 	
 	<div class="admin_div">
 	
-<form action="" method="post" >
-	 <table class="member_table" >
+	 <table class="member_table">
+	  	<c:forEach var="dto" items= "${ productDetail }" varStatus="status">
 	 <tr>
 	 	<th>상품코드</th>
 	 	<th>카테고리</th>
@@ -38,35 +38,50 @@
 	 	<th>상품가격</th>
 	 	<th>수정</th>
 	 </tr>
-	 	<c:forEach var="dto" items= "${ productDetail }" varStatus="status">
+	
 	 <tr>
 	 	<td>${ dto.product_idx }</td>
-	 	<td>${ dto.product_category }</td>
+	 	<input type="hidden" value="${ dto.product_category }" id="product_category"/>
+	 	<td> <select id="productCategory" >
+	 			<option value="category">선물세트</option>
+	 			<option value="category">구이용</option>
+	 			<option value="category">국거리</option>
+	 			<option value="category">조리용</option>  
+	 			</select>
+	 	</td>
 	 	<td>${ dto.product_name }</td>
 	 	<td>${ dto.product_price }</td>
 	 	<td> <input id="reviseBtn" type="button" value="수정" onclick="location.href='/admin/item_revise?product_idx=${ dto.product_idx}'" ></td>
 	 </tr>
-	
-	 </table>
-	 </form>
-	 
-	 <form action="uploadOk" method="post" enctype="multipart/form-data">
-	  <table class="img_text">
+	 	</table>
+	<table class="member_table1">
 	 <tr>
 		<th>이미지  </th>
 	 	<th>상품설명</th>
 	 </tr>
-	 
+
 	 <tr>
-	 	<td> <img src=${dto.product_image } alt="업로드된 이미지" /> </td> 
-	 	<td id="text_td"> <img src=${dto.product_image_ex } alt="업로드된 이미지" /> </td>
-	 </tr>
-	  	</c:forEach>
-	 </table>
+	 	<td> <img src=${dto.product_image } width="500" class="imgView"/> </td> 
+	 	<td> <img src=${dto.product_image_ex } width="500" class="imgView"/> </td>
+	  	</tr>
+</c:forEach>
+</table>	 
 	 <div class="confirm_bar">
 	 	<input type="button" value="확인" id="confirm" class="check_btn" onclick="location.href='/admin/admin_item'">
 	</div>
-	</form>
+
 
 	 </div>
 </div>	
+
+<script>
+//product_category
+		var categoryValue = $("#product_category").val();
+		var categoryTarget = $("#productCategory")[0].children;
+		
+	for ( var i = 0; i < categoryTarget.length; i++) {
+		if( categoryTarget[i].innerText === categoryValue ){
+			categoryTarget[i].setAttribute("selected","selected");
+		}
+	}
+</script>

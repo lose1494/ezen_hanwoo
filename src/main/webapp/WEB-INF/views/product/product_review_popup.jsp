@@ -52,8 +52,8 @@
 			$('input[name=review_star_rating]').val($(this).attr("value"));
 			console.log($('input[name=review_star_rating]').val());
 		});
-
-		
 	})
+	
+	
 	
 </script>

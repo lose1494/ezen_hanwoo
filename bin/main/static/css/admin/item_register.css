@@ -91,16 +91,6 @@
 	height: 70px;
 }
 
-.img_text {
-	width:1300px;
-	height: 100px;
-	text-align:center;
-}
-
-.img_text th {
-	height: 60px;
-}
-
 .item_button{
 	margin-top: 50px;
 	margin-left: 800px;
@@ -128,12 +118,29 @@
 }
 
 #file-upload-button {
-	
-		border: none;
+	border: none;
 	background-color: #323232;
 	color: white;
 	padding: 10px;
 	border-radius: 5px;
 }
 
+ .imgPreview {
+ 	margin: 10px;
+ 	
+ }
+
+input {
+	width: 250px;
+	height: 40px;
+}
+
+#confirm_btn {
+	border: none;
+	background-color: #323232;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	margin:10px;
+}
 

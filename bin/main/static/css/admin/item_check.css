@@ -65,9 +65,21 @@
 .member_table {
 	border-collapse:collapse;
 	border-top: 1px solid black;
-	width: 1300px; 
+	width: 1200px; 
 	height: 100px; 
 	text-align: center;
+}
+
+.member_table1 {
+	border-collapse:collapse;
+	border-bottom: 1px solid;
+	width: 1200px; 
+	height: 100px; 
+	text-align: center;
+}
+
+.member_table1 th {
+    height: 60px;
 }
 
 .member_table th, tr {
@@ -83,15 +95,6 @@
 	height: 70px;
 }
 
-.img_text {
-	width:1300px;
-	height: 100px;
-	text-align:center;
-}
-
-.img_text th {
-	height: 60px;
-}
 
 .item_button{
 	margin-top: 50px;
@@ -128,4 +131,8 @@ justify-content: center;
 	padding: 10px;
 	border-radius: 5px;
 
+}
+
+.imgView {
+	margin:10px;
 }

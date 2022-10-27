@@ -52,3 +52,16 @@
   height: 200px;
   vertical-align: top;
 }
+
+.viewAnswer {
+  text-align: start;
+  border: 1px solid rgb(207, 207, 207);
+  margin: 30px 0;
+  padding: 10px;
+  min-height: 200px;
+}
+
+.wrap .dark {
+  width: 120px;
+  height: 40px;
+}

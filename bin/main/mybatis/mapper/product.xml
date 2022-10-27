@@ -7,12 +7,7 @@
 <mapper namespace="com.study.springboot.dao.IProductDao">
 	<select id="productlist" resultType="com.study.springboot.dto.ProductDto">
 		select * from product
-		<if test="param1 != null">
-			where product_category = #{param1}
-		</if>
-	</select>
-	
-	
+	</select>	
 	
 	<select id="productDetail" resultType="com.study.springboot.dto.ProductDto">
 		select * from product where product_idx = #{param1}
@@ -76,27 +71,25 @@
 	</select>
 	 
 	<insert id="productRegister" parameterType="HashMap">
-		insert into product(product_idx,product_name,product_image_ex,product_image,product_price,product_category,product_gram,)
-		values (product_seq.nextval, #{product_name}, #{product_image_ex}, #{product_image},#{product_price},#{product_category},#{product_gram})
+		insert into product(product_idx,product_name,product_image,product_price,product_category,product_gram,product_image_ex)
+		values (product_seq.nextval, #{product_name}, #{product_image},#{product_price},#{product_category},#{product_gram}, #{product_image_ex})
 	</insert>
 	 
-	<update id="updateItem" parameterType = "hashMap" >
-	 	UPDATE product SET
-	 	product_idx = #{ product_idx },
-	 	product_name = #{ product_name },
-	 	product_price = #{ product_price }
-	 	WHERE product_idx = #{ product_idx }
-	 </update>
-	 
-	 
-	
-	<update id="product_revise" parameterType = "hashMap">
-	 	UPDATE PRODUCT SET
-	 	PRODUCT_IDX = #{ PRODUCT_IDX },
-	 	PRODUCT_NAME = #{ PRODUCT_NAME },
-	 	PRODUCT_TITLE = #{ PRODUCT_PRICE },
+	<update id="reviseProduct" parameterType="HashMap">
+		UPDATE product SET
+		product_idx = #{product_idx},
+		product_name= #{product_name},
+		<if test="product_image != null"> 
+		product_image= #{product_image},
+		</if>
+		product_price= #{product_price},
+		product_category= #{product_category},
+		product_gram= #{product_gram}
+		<if test="product_image_ex != null">
+		,product_image_ex= #{product_image_ex}
+		</if>
+		WHERE product_idx = #{product_idx}
 	</update>
-	
 	
 	<resultMap type="com.study.springboot.dto.ReviewDto" id="ReviewDto">	
 	<result column="review_idx" property="review_idx"/>
@@ -116,6 +109,25 @@
 	<result column="product_explanation" property="product_explanation"/>
 	<collection property="reviewDto" resultMap="ReviewDto"></collection>
 	</resultMap>
+	
+	<select id="productCate" resultMap="ProductDto">
+		select rownum, tb.* from
+			(select * from
+			
+				(select round(avg(review_star_rating), 1) starRating, count(*) count, product_idx pi 
+				from product_review group by product_idx) r,
+				 
+				(select product.*, to_number(replace(product_price, ',')) rp 
+				from product) p
+				
+				where r.pi(+) = p.product_idx
+				and p.product_category = #{param1}
+			
+			<if test='param2 != "select"'>
+				<include refid="searchSort"></include>
+			</if> ) tb
+		where rownum between #{param3} and #{param4}
+	</select>
 	
 	<select id="searchProduct" resultMap="ProductDto">
 		

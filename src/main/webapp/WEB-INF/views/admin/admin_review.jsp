@@ -38,204 +38,86 @@
 	</div>
 	
 	<div class="admin_div">
+	<form name="searchForm">
 	<div class="select_list">
-		<select>
-		<option>주문번호</option>
-		<option>상품코드</option>
-		<option>ID</option>
-		<option>상품명</option>
+		<select id="searchType" name="searchType">
+		<option value="review_idx">주문번호</option>
+		<option value="product_idx">상품코드</option>
+		<option value="review_id">ID</option>
+		<option value="product_name">상품명</option>
 		</select>
-	
-		<input type="text" id=main_text style="width:600px; height: 40px;">
-	 <img src=" " >
-	 
-	 <input type="submit" value="조회" id="review_btn">
+		<input type="text" id="searchKeyword" name="searchKeyword" style="width:600px; height: 40px;">
+	 <input type="submit" value="조회" id="review_btn1">
 	 </div>	
+    
+	     <!-- search -->
+	<table class="searchBox">
+      <colgroup>
+         <col width="123px">
+         <col width="*">
+      </colgroup>
+        <tbody>
+         <tr>
+             <th>조회기간</th>
+             <td>
+                 <ul class="searchDate">
+                     <li>
+                         <span class="chkbox2">
+                             <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
+                             <label for="dateType1">당일</label>
+                         </span>
+                     </li>
+                     <li>
+                         <span class="chkbox2">
+                             <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('1m')"/>
+                             <label for="dateType2">1개월</label>
+                         </span>
+                     </li>
+                     <li>
+                         <span class="chkbox2">
+                             <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('3m')"/>
+                             <label for="dateType3">3개월</label>
+                         </span>
+                     </li>
+                     <li>
+                         <span class="chkbox2">
+                             <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('6m')"/>
+                             <label for="dateType4">6개월</label>
+                         </span>
+                     </li>
+                 </ul>
+                   </td>
+                   <td>
+                   <!-- calendar -->
+                    <div class="clearfix"> 
+                        <span class="dset">
+                            <input type="text" class="datepicker inpType" name="fromDate" id="fromDate" >
+                          <a href="#none" class="btncalendar dateclick"><img alt="" src="/img/admin/calendar.png" style="width:20px; height:20px;"></a>
+                        </span>
+                        <span class="demi">~</span>
+                        <span class="dset">
+                            <input type="text" class="datepicker inpType" name="toDate" id="toDate" >
+                            <a href="#none" class="btncalendar dateclick"><img alt="" src="/img/admin/calendar.png" style="width:20px; height:20px;"></a>
+                        </span>
+                        
+                       
+                        
+                    </div>    
+	                 </td>
+	             </tr>
+	         </tbody>
+	     </table>
+	  </form>
 	 	
-	 	 <form>
-            
-        <!-- search -->
-   <table class="searchBox">
-   
-         <colgroup>
-            <col width="123px">
-            <col width="*">
-         </colgroup>
-            <tbody>
-                <tr>
-                    <th>조회기간</th>
-                    <td>
-                        <ul class="searchDate">
-                            <li>
-                                <span class="chkbox2">
-                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
-                                    <label for="dateType1">당일</label>
-                                </span>
-                            </li>
-                            <li>
-                                <span class="chkbox2">
-                                    <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('1m')"/>
-                                    <label for="dateType5">1개월</label>
-                                </span>
-                            </li>
-                            <li>
-                                <span class="chkbox2">
-                                    <input type="radio" name="dateType" id="dateType6" onclick="setSearchDate('3m')"/>
-                                    <label for="dateType6">3개월</label>
-                                </span>
-                            </li>
-                            <li>
-                                <span class="chkbox2">
-                                    <input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('6m')"/>
-                                    <label for="dateType7">6개월</label>
-                                </span>
-                            </li>
-                        </ul>
-                        </td>
-                        <td>
-                        <div class="clearfix">
-
-                            <span class="dset">
-                                <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
-                              <a href="#none" class="btncalendar dateclick"><img alt="" src="/img/admin/calendar.png" style="width:20px; height:20px;"></a>
-                            </span>
-                            <span class="demi">~</span>
-                            <span class="dset">
-                                <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
-                                <a href="#none" class="btncalendar dateclick"><img alt="" src="/img/admin/calendar.png" style="width:20px; height:20px;"></a>
-                            </span>
-                            
-                            <span>
-                            	<input type="button" value="조회" id="review_btn1">
-                            </span>
-                            
-                            
-                        </div>    
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-        </form>
-        
-                <script>                
-
-        $(document).ready(function() {
-
-            //datepicker 한국어로 사용하기 위한 언어설정
-            $.datepicker.setDefaults($.datepicker.regional['ko']);     
-        
-            // Datepicker            
-            $(".datepicker").datepicker({
-                showButtonPanel: true,
-                dateFormat: "yy-mm-dd",
-                onClose : function ( selectedDate ) {
-                
-                    var eleId = $(this).attr("id");
-                    var optionName = "";
-
-                    if(eleId.indexOf("StartDate") > 0) {
-                        eleId = eleId.replace("StartDate", "EndDate");
-                        optionName = "minDate";
-                    } else {
-                        eleId = eleId.replace("EndDate", "StartDate");
-                        optionName = "maxDate";
-                    }
-
-                    $("#"+eleId).datepicker( "option", optionName, selectedDate );        
-                    $(".searchDate").find(".chkbox2").removeClass("on"); 
-                }
-            }); 
-
-            //시작일.
-            /*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
-                // 시작일 datepicker가 닫힐때
-                // 종료일의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-                $("#searchEndDate").datepicker( "option", "minDate", selectedDate );
-                $(".searchDate").find(".chkbox2").removeClass("on");
-            });
-            */
-
-            //종료일.
-            /*$('#searchEndDate').datepicker("option","onClose", function( selectedDate ) {    
-                // 종료일 datepicker가 닫힐때
-                // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
-                $("#searchStartDate").datepicker( "option", "maxDate", selectedDate );
-                $(".searchDate").find(".chkbox2").removeClass("on");
-            });
-            */
-
-            $(".dateclick").dateclick();    // DateClick
-            $(".searchDate").schDate();        // searchDate
-            
-        });
-
-        // Search Date
-        jQuery.fn.schDate = function(){
-            var $obj = $(this);
-            var $chk = $obj.find("input[type=radio]");
-            $chk.click(function(){                
-                $('input:not(:checked)').parent(".chkbox2").removeClass("on");
-                $('input:checked').parent(".chkbox2").addClass("on");                    
-            });
-        };
-
-        // DateClick
-        jQuery.fn.dateclick = function(){
-            var $obj = $(this);
-            $obj.click(function(){
-                $(this).parent().find("input").focus();
-            });
-        }    
-
-        
-        function setSearchDate(start){
-
-            var num = start.substring(0,1);
-            var str = start.substring(1,2);
-
-            var today = new Date();
-
-            //var year = today.getFullYear();
-            //var month = today.getMonth() + 1;
-            //var day = today.getDate();
-            
-            var endDate = $.datepicker.formatDate('yy-mm-dd', today);
-            $('#searchEndDate').val(endDate);
-            
-            if(str == 'd'){
-                today.setDate(today.getDate() - num);
-            }else if (str == 'w'){
-                today.setDate(today.getDate() - (num*7));
-            }else if (str == 'm'){
-                today.setMonth(today.getMonth() - num);
-                today.setDate(today.getDate() + 1);
-            }
-
-            var startDate = $.datepicker.formatDate('yy-mm-dd', today);
-            $('#searchStartDate').val(startDate);
-                    
-            // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
-            $("#searchEndDate").datepicker( "option", "minDate", startDate );
-            
-            // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
-            $("#searchStartDate").datepicker( "option", "maxDate", endDate );
-
-        }
-
-            
-        </script>
-	 	
-	 	
-	 <form action="" >
+	 <form name="review_search">
 	 <div class="bar">
-	 <p id="order_bar">주문 1 건</p>
+	 <p id="order_bar">주문 ${ review_count } 건</p>
 	 <select id="select_bar">
 	 	<option>최신순</option>
 	 	<option>오래된순</option>
 	 </select>
 	 </div>	 
-	 <table class="member_table">
+	 <table class="member_table">	 	 
 	 <tr>
 	 	<th>작성일</th>
 	 	<th>주문번호</th>
@@ -246,55 +128,52 @@
 	 	<th>내용</th>
 	 	<th>평점</th>
 	 </tr>
-	 
+	<c:forEach var="dto" items="${ review_result }" varStatus="status">
 	 <tr>
-	 <c:forEach var="dto" items="${ review_result }" varStatus="status">
-	 	
+ 
 	 	<td> <fmt:formatDate value="${dto.review_date}" pattern="yyyy/MM/dd" /> </td>
 	 	<td>${ dto.review_idx }</td>
-	 	<td> ${ dto.review_id }</td>
-	 	<td>${ dto.review_title }</td>
 	 	<td>${ dto.review_id }</td>
-	 	<td>${ dto.review_id }</td>
-	 	<td>${ dto.review_id }</td>
-	 	<td>${ dto.review_id }</td>
-	 	
-	 </c:forEach>
-	 </tr>
+	 	<td>${ dto.product_name}</td>
+		<td>${ dto.product_idx }</td>
+		<td>${ dto.review_title }</td>
+		<td>${dto.review_content }</td>
+		<td>${dto.review_star_rating }</td>
 	
+	 </tr>
+	 </c:forEach>
 	 </table>
 	 </form>
 	 </div>
 	 
 </div>	
 
-   
-        <script>                
-        $(document).ready(function() {
-            $.datepicker.setDefaults($.datepicker.regional['ko']);     
-            $(".datepicker").datepicker({
-                showButtonPanel: true,
-                dateFormat: "yy-mm-dd",
+<script>                
+         $(document).ready(function() {
+            $.datepicker.setDefaults($.datepicker.regional['ko']); //한국어설정     
+            $(".datepicker").datepicker({ 					 	   //Calendar DatePicker
+                showButtonPanel: true,                             //오늘/닫기 버튼 true
+                dateFormat: "yy-mm-dd",                            //날짜형태
                 onClose : function ( selectedDate ) {
                 
-                    var eleId = $(this).attr("id");
-                    var optionName = "";
+                    var eleId = $(this).attr("id");                //eleId = id 속성값 불러온다.
+                    var optionName = "";                           //option = null 선언
 
-                    if(eleId.indexOf("StartDate") > 0) {
-                        eleId = eleId.replace("StartDate", "EndDate");
-                        optionName = "minDate";
+                    if(eleId.indexOf("StartDate") > 0) {           //StartDate의 인덱스값이 0보다 크면
+                        eleId = eleId.replace("StartDate", "EndDate"); //EndDate로 대체
+                        optionName = "minDate";                        //optionName = minDate 선언;
                     } else {
                         eleId = eleId.replace("EndDate", "StartDate");
-                        optionName = "maxDate";
+                        optionName = "maxDate"; 
                     }
 
                     $("#"+eleId).datepicker( "option", optionName, selectedDate );        
-                    $(".searchDate").find(".chkbox2").removeClass("on"); 
+                    $(".searchDate").find(".chkbox2").removeClass("on");  //searchDate클래스의 chkbox2 클래스
                 }
             }); 
 
-            $(".dateclick").dateclick();   
-            $(".searchDate").schDate();    
+            $(".dateclick").dateclick();    //달력 클릭 시 작동된다.
+            $(".searchDate").schDate();     // searchDate
             
         });
 
@@ -323,9 +202,12 @@
             var str = start.substring(1,2);
 
             var today = new Date();
+            //var year = today.getFullYear();
+            //var month = today.getMonth() + 1;
+            //var day = today.getDate();
             
             var endDate = $.datepicker.formatDate('yy-mm-dd', today);
-            $('#searchEndDate').val(endDate);
+            $('#toDate').val(endDate);
             
             if(str == 'd'){
                 today.setDate(today.getDate() - num);
@@ -337,10 +219,37 @@
             }
 
             var startDate = $.datepicker.formatDate('yy-mm-dd', today);
-            $('#searchStartDate').val(startDate);
-                    
-            $("#searchEndDate").datepicker( "option", "minDate", startDate );
-            
-            $("#searchStartDate").datepicker( "option", "maxDate", endDate );
-        }
+            $('#fromDate').val(startDate);
+            // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
+            $("#toDate").datepicker( "option", "minDate", startDate );
+            // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
+            $("#fromDate").datepicker( "option", "maxDate", endDate );
+        } 
+/* 
+    	function serarchBtn(){
+    		$.ajax({
+    				async : true,
+    				type: 'POST',
+    				url: "/admin/reviewSearch",
+    				data : $( "form[name=searchForm]").serialize(),
+    				success: function(result){
+    					$('#member_table').empty();
+    					if(result.length>=1){
+    						result.forEach(function(data){
+    							str='<tr>'
+ 								str+= "<td>"+data.review_idx+"</td>";
+ 								str+="<td>"+data.review_id+"</td>";
+ 								str+="<td>"+data.review_title+"</td>";
+ 								str+="<td>"+data.product_idx+"</td>";
+ 								str+="<td>"+data.product_name+"</td>";
+ 								str+="<td>"+data.review_content+"</td>";
+ 								str+="<td>"+data.review_star_rating+"</td>";
+ 								str+="</tr>"
+ 								$('#member_table').append(str);
+    						})				 
+    					}
+    				}
+    			})
+    		}
+         */
         </script>

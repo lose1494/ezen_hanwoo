@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>	
     
 <link rel="stylesheet" href="/css/admin/item_inquiry.css">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" href="/css/common.css">
 
 <div class= "bg_admin text-center">
-<div>
+	<div>
 	<p id="title">관리자 페이지</p>
 	<img src="/img/admin/background.png" style="width: 100%; height: 100%;">
-	<p id="title1">>관리자페이지>상품 문의 관리</p>
+	<p id="title1">>관리자페이지> 상품 문의 관리 </p>
 	</div>
 </div> 
 
@@ -29,52 +30,157 @@
 		</ul>
 	</div>
 	
-	<div class="admin_div">
-	
-<form action="" method="get">
-	
-	 <table class="member_table" >
-	 <tr>
-	 	<th>번호</th>
-	 	<th>ID</th>
-	 	<th>날짜</th>
-	 	<th>상품명</th>
-	 	<th>답변여부</th>
-	 	<th>제목</th>
-	 </tr>
-	 <c:forEach var="dto" items= "${ qna_list }" varStatus="status">
-	 <tr onclick="location.href='/admin/admin_inquiry?qna_idx=${ dto.qna_idx}'" style="cursor:pointer">
-	 	<td> ${ dto.qna_idx }</td>
-	 	<td> ${ dto.qna_id }</td>
-	 	<td><fmt:formatDate value="${dto.qna_date}" pattern="yyyy/MM/dd" /></td>
-	 	<td> 상품명 <td>
-	 	<td>${ dto.qna_status }</td>
-	 	<td>${ dto.qna_title }</td>
-	 </tr>
-	 
-	 <tr>
-	 	<th colspan="6">내용</th>
-	 </tr>
-	 
-	 <tr>
-	 <td colspan="6"> ${dto.qna_content} </td>
-	 
-	 </tr>
-	 	
-	 
-	 </c:forEach>
-	 <tr class="text_comment">
-	 	<td colspan="4" id="text"  > <textarea rows="5" cols="130" ></textarea> </td>
-	 	<td > <input type="button" value="수정" > </td>
-	 	<td > <input type="button" value="삭제" > </td>
-	 </tr>
-		</table>
-	 <div class="confirm_bar">
-	 	<input type="submit" value="확인" id="confirm">
+	<div class="wrap">
+		<div class="admin_div">
+		
+			<table class="member_table">
+				<tr>
+		 			<th>번호</th>
+	 				<th>ID</th>
+	 				<th>날짜</th>
+	 				<th>상품명</th>
+	 				<th>답변여부</th>
+	 				<th>제목</th>
+				</tr>
+				
+ 					<c:forEach var="dto" items="${ qna_List }" varStatus="status">
+<%--  					<input type="hidden" name="qna_idx${status.index}" value="${ dto.qna_idx }">
+					<input type="hidden" name="reply_idx${status.index}" value="${ dto.reply_idx }"> --%>
+ 				<tr onclick="location.href='/admin/admin_inquiry?qna_idx=${ dto.qna_idx}'" style="cursor:pointer">	
+						<td>${ dto.qna_idx }</td>
+						<td> ${ dto.qna_id }</td>
+					 	<td><fmt:formatDate value="${dto.qna_date}" pattern="yyyy/MM/dd" /></td>
+					 	<td>${ dto.product_name }</td>
+					 	<td>${ dto.qna_status }</td>
+					 	<td class="QnA">${ dto.qna_title }</td>
+				</tr>
+					<tr class='text_comment hide'>	
+						<c:choose>
+							<c:when test="${ dto.qna_content eq null }">
+								<td colspan='5' id='text' class='answer'><textarea name='qna_content${status.index}'></textarea></td>
+								<td><input type='button' value="등록" class='notice_btn dark' onclick="QnAanswerWrite('${status.index}')"></td>
+							</c:when>	
+							<c:otherwise>
+								<td colspan='5' id='text' class='answer'>
+									<textarea name='qna_content${status.index}'>${dto.qna_content}</textarea></td>
+								<td><input type='button' value='수정' class='notice_btn dark' onclick="QnAanswerUpdate('${status.index}')">  
+									<input type='button' value='삭제' class='notice_btn dark' onclick="QnAanswerDelete('${status.index}')"> </td>
+							</c:otherwise>	
+						</c:choose>			
+					</tr>			
+					</c:forEach>
+			</table>
+					
+
+		</div>
+		
+		<div class="pageNav">
+            <a href="/admin/admin_inquiry?page=1">처음</a>
+            <a href="/admin/admin_inquiry?page=${ page-1 }">이전</a>
+			<c:forEach var="pageNum" begin="1" end="${ pageNum }">
+            <a href="/admin/admin_inquiry?page=${ pageNum }">${ pageNum }</a>
+			</c:forEach>
+            <a href="/admin/admin_inquiry?page=${ page+1 }">다음</a>
+            <a href="/admin/admin_inquiry?page=${ pageNum }">마지막</a>
+        </div>
 	</div>
-	</form>
-
-	 </div>
-	 
-
 </div>	
+
+<script>
+
+	// 문의 답변 열고닫기
+	$('.QnA').each( function(index, item) {
+		$(this).click( function() {
+			if($('.answer').eq(index).parents('tr').hasClass('hide') === true) {
+				$('.answer').parents('tr').addClass('hide');
+				$('.answer').eq(index).parents('tr').removeClass('hide'); 
+			}else {
+				$('.answer').eq(index).parents('tr').addClass('hide'); 
+			}
+			
+		})
+	})
+
+	$(function() {
+            $('.pageNav a').each(function() {
+            	console.log($(this).text());
+            	if($(this).text() == '이전' && "${page}" == 1) {
+            		$(this).removeAttr('href');
+            	}
+            	if($(this).text() == '다음' && "${page}" == "${pageNum}") {
+            		$(this).removeAttr('href');
+            	}
+                if($(this).text() == "${ page }" ) {
+                    $(this).removeAttr('href');
+                }
+            })
+	})
+
+	//문의 답변 작성
+	function QnAanswerWrite(idx) {
+		console.log($('textarea[name=reply_content'+idx+']').val());
+		$.ajax({
+			type: 'get',
+			url : "/admin/QnAanswerWrite",
+			data : {  	qna_idx : $('input[name=qna_idx'+idx+']').val(),
+					   	reply_content : $('textarea[name=reply_content'+idx+']').val()
+			},
+			success : function(data){
+				console.log(data);
+				if( data != 1 ) {
+					alert('작성에 실패했습니다.');
+					history.back();;
+				}else {
+					alert('답변을 등록했습니다.');
+					location.reload();
+				}	
+			}		
+		}) 
+	}
+
+	//답변 수정
+	function QnAanswerUpdate(idx) {
+		console.log($('textarea[name=reply_content'+idx+']').val());
+		$.ajax({
+			type: 'get',
+			url : "/admin/QnAanswerUpdate",
+			data : {  	reply_idx : $('input[name=reply_idx'+idx+']').val(),
+					   	reply_content : $('textarea[name=reply_content'+idx+']').val()
+			},
+			success : function(data){
+				console.log(data);
+				if( data != 1 ) {
+					alert('수정에 실패했습니다.');
+					history.back();;
+				}else {
+					alert('답변을 수정했습니다.');
+					location.reload();
+				}	
+			}		
+		}) 
+	}
+
+	//답변 삭제
+	function QnAanswerDelete(idx) {
+		console.log($('textarea[name=reply_content'+idx+']').val());
+		$.ajax({
+			type: 'get',
+			url : "/admin/QnAanswerDelete",
+			data : {  	qna_idx : $('input[name=qna_idx'+idx+']').val(),
+						reply_idx : $('input[name=reply_idx'+idx+']').val()
+			},
+			success : function(data){
+				console.log(data);
+				if( data != 1 ) {
+					alert('삭제에 실패했습니다.');
+					history.back();;
+				}else {
+					alert('답변을 삭제했습니다.');
+					location.reload();
+				}	
+			}		
+		}) 
+	}
+
+	
+</script>

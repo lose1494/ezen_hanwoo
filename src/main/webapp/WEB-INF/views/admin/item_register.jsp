@@ -34,48 +34,49 @@
 	 <tr>
 	 	<th>카테고리</th>
 	 	<th>상품명</th>
-	 	<th>상품가격</th>
 	 </tr>
 	 
 	 <tr>
-	 	<td> <select style="width:110px; height:40px; text-align: center;" id="productCategory">
-	 		<option>선물세트</option>
-	 		<option>구이용</option>
-	 		<option>국거리</option>
-	 		<option>조리용</option>
-	 		 </select> 
+	 	<td> 
+	 		<select style="width:110px; height:40px; text-align: center;" id="product_category">
+	 		<option value="선물세트">선물세트</option>
+	 		<option value="구이용">구이용</option>
+	 		<option value="국거리">국거리</option>
+	 		<option value="조리용">조리용</option>
+	 		</select> 
 	 	</td>
-	 	<td> <input type="text" style="width:250px; height:40px;" id="productName"> 
-	 	 </td>
-	 	<td> <input type="text" style="width:250px; height:40px;" id="productPrice"> </td>
+	 	<td> 
+	 		<input type="text" style="width:250px; height:40px;" id="product_name"> 
+	 	</td>
 	 </tr>
 	 
 	 <tr>
+	 	<th>상품가격</th>
 	 	<th>gram</th>
-	 	<th>설명</th>
-	 	<th>이미지</th>
 	 </tr>
 	
 	 <tr>
-	 <td> <input type="text" id="productGram"> 
+	 <td> 
+	 	<input type="text" id="product_gram"> 
 	 </td>
-	<td> <input type="text" id="contentTitle"> 
-	</td>
-	<td> 
-		<input id="uploadImage" type="file" accept="image/jped,image/gif,image/png" >
-	 	 <img id="uploadPreview" style="width: 150px; height: 150px;"> 
-	</td>
-	 </tr>
+	 <td> 
+	 	<input type="text" style="width:250px; height:40px;" id="product_price"> 
+	 </td>
+	</tr>
 	 
 	 <tr> 
+	 	<th>이미지</th>
 	 	<th>설명 이미지</th>
 	  </tr>
-	 
 	 <tr>
-	 	<td>  
+	 	<td> 
 		 	<input id="uploadImage1" type="file"  accept="image/jped,image/gif,image/png">
-		 	<img id="uploadPreview1" style="width: 150px; height: 150px;">
+		 	<img id="uploadPreview1" style="width: 150px; height: 150px;"  class="imgPreview">
 	 	</td>
+	 	<td> 
+		<input id="uploadImage" type="file" accept="image/jped,image/gif,image/png" >
+	 	 <img id="uploadPreview" style="width: 150px; height: 150px;" class="imgPreview"> 
+	</td>
 	 </tr>
 	  </table>
 	  </form>
@@ -121,20 +122,18 @@
 		
 		$("#confirm_btn").click(function() {
 			  // console.log($(".ck"));
-			  var noticeTitle = $("#contentTitle").val();
-			  var productCategory = $("#productCategory").text();
-			  var productName = $("#productName").val();
-			  var productPrice = $("#productPrice").val();
-			  var productGram = $('#productGram').val();
+			  var productCategory = $("#product_category").val();
+			  var productName = $("#product_name").val();
+			  var productPrice = $("#product_price").val();
+			  var productGram = $('#product_gram').val();
 			  
 			  var data = {
-			    "title": noticeTitle,
 			    "product_image": imgData.uploadImage, 
 			    "product_image_ex": imgData.uploadImage1, 
-			    "productCategory" : productCategory,
-			    "productName" : productName,
-			    "productPrice" : productPrice,
-			    "productGram" : productGram
+			    "product_category" : productCategory,
+			    "product_name" : productName,
+			    "product_price" : productPrice,
+			    "product_gram" : productGram
 			  };
 			  console.log(data);
 			  $.ajax({
