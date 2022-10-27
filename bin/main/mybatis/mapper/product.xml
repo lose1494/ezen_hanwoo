@@ -188,7 +188,7 @@
 	
 	<select id="wishList" resultMap="ProductDto">
 		select * from
-			(select p.*, w.list_count, rownum rnum 
+			(select p.*, w.list_count, w.list_idx, rownum rnum 
 			from product p, wishlist w
 			where p.product_idx = w.list_product_idx
 			and w.list_users_id = #{param1})

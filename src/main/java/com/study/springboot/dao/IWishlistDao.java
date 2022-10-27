@@ -12,4 +12,5 @@ public interface IWishlistDao {
 	public int wishCount(String users_id);
 	public int insertWish(WishlistDto dto);
 	public int deleteWish(int list_idx);
+	public int deleteWishall(String users_id);
 }

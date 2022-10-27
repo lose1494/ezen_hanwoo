@@ -123,10 +123,35 @@ public class MyController_yerin {
         model.addAttribute("page", page);
         model.addAttribute("pageNum", pageNum);        
         model.addAttribute("wishlist", wishlist);
+        model.addAttribute("wishCount", wishCount);
         model.addAttribute("mainPage", "mypage/mypage_wishlist.jsp");
         return "index";
     }
 
+    @RequestMapping("/mypage/deleteWish")
+    @ResponseBody
+    public String deleteWish(@RequestParam("list_idx") int list_idx,
+            HttpServletRequest request) {
+        int delete = wishService.deleteWish(list_idx);
+        if( delete == 1 ) {
+            return "삭제 성공";
+        }else {
+            return "삭제 실패";
+        }
+    }
+    
+    @RequestMapping("/mypage/deleteWishall")
+    @ResponseBody
+    public String deleteWishall(HttpServletRequest request) {
+        String users_id = (String) request.getSession().getAttribute("users_id");
+        int delete = wishService.deleteWishall(users_id);
+        if( delete == 1 ) {
+            return "삭제 성공";
+        }else {
+            return "삭제 실패";
+        }
+    }
+    
     @RequestMapping("/mypage/mypage_order")
     public String mypage_order(Model model, HttpServletRequest request) {
         String users_id = (String) request.getSession().getAttribute("users_id");

@@ -27,4 +27,9 @@
 	  WHERE list_idx=#{ param1 }
 	</delete>
 	
+	<delete id="deleteWishall">
+	  DELETE FROM wishlist
+	  WHERE list_users_id=#{ param1 }
+	</delete>
+	
 </mapper>

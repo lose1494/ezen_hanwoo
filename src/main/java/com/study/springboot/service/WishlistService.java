@@ -32,4 +32,9 @@ public class WishlistService {
 	    int deleteWish = wishlistdao.deleteWish(list_idx);
 	    return deleteWish;
 	}
+	
+	public int deleteWishall(String users_id) {
+        int deleteWish = wishlistdao.deleteWishall(users_id);
+        return deleteWish;
+    }
 }
