@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.IOne2one_answerDao">
+
+	<select id="one2oneAnswer" resultType="com.study.springboot.dto.One2one_answerDto">
+		select * from one2one_answer where one2one_idx = #{param1}
+	</select>
+	
+	<insert id="insertAnswer" parameterType="com.study.springboot.dto.One2one_answerDto">
+		insert into one2one_answer
+		values ( one2one_answer_seq.nextval, #{answer_id}, 
+		#{answer_content}, sysdate, #{one2one_idx} )
+	</insert>
+	
+	<update id="updateAnswer" parameterType="hashMap">
+		update one2one_answer set
+		answer_content=#{answer_content}
+		where answer_idx=#{answer_idx}
+	</update>
+	
+	<delete id="deleteAnswer">
+	  DELETE FROM one2one_answer
+	  WHERE answer_idx=#{ param1 }
+	</delete>
+	
+	<resultMap type="com.study.springboot.dto.One2oneDto" id="One2oneDto">	
+	<result column="one2one_idx" property="one2one_idx"/>	
+	<result column="one2one_id" property="one2one_id"/>	
+	<result column="one2one_title" property="one2one_title"/>
+	<result column="one2one_content" property="one2one_content"/>
+	<result column="one2one_image" property="one2one_image"/>
+	<result column="one2one_date" property="one2one_date"/>
+	<result column="one2one_status" property="one2one_status"/>
+	</resultMap>
+	
+	<resultMap type="com.study.springboot.dto.One2one_answerDto" id="AnswerDto">	
+	<result column="answer_idx" property="answer_idx"/>	
+	<result column="answer_id" property="answer_id"/>	
+	<result column="answer_content" property="answer_content"/>
+	<result column="answer_date" property="answer_date"/>
+	<result column="one2one_idx" property="one2one_idx"/>
+	<collection property="one2oneDto" resultMap="One2oneDto"></collection>
+	</resultMap>
+	
+	<select id="one2oneList" resultMap="AnswerDto">
+		select * from
+			(select rownum rnum, one.* from
+				(select o.*, a.answer_idx, a.answer_content, a.answer_date, 
+				a.one2one_idx ai from one2one o, one2one_answer a
+				<where>
+					<if test="param1 != 'admin'">one2one_id=#{param1} </if>
+					and o.one2one_idx = a.one2one_idx(+)
+				</where>				
+				order by one2one_date desc) one)
+		where rnum between #{param2} and #{param3}
+	</select>
+	
+</mapper>
