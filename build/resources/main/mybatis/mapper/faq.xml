@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.IFaqDao">
+
+	<select id="faqList" resultType="com.study.springboot.dto.FaqDto">
+		select FAQ.*, rownum from FAQ 
+		<where>
+		<if test="param1 != 'all'">
+		faq_type=#{param1}
+		</if>
+		and ${param2} like '%${param3}%'
+		and rownum between #{param4} and #{param5}
+		</where>
+	</select>
+	
+	<select id="faqCount" resultType="_int">
+		select count(*) from FAQ
+		<where>
+		<if test="param1 != 'all'">
+		faq_type=#{param1}
+		</if>
+		and ${param2} like '%${param3}%' 
+		</where>
+	</select>
+	
+	<insert id="insertFaq" parameterType="com.study.springboot.dto.FaqDto">
+		insert into FAQ
+		values ( FAQ_seq.nextval, #{faq_title}, #{faq_content}, #{faq_type})
+	</insert>
+	
+	<delete id="deleteFaq">
+	  DELETE FROM FAQ
+	  WHERE faq_idx=#{ param1 }
+	</delete>
+	
+</mapper>

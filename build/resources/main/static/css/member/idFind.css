@@ -1,0 +1,48 @@
+.wrap {
+  text-align: center;
+}
+.fom {
+  text-align: center;
+}
+table {
+  width: 80%;
+  margin: 30px auto; 
+}
+td {
+  padding: 10px;
+}
+input[type="text"] {
+  width: 250px;
+  height: 30px;
+  text-align: left;
+  font-size: 15px;
+}
+.em {
+  width: 200px;
+}
+.button {
+  height: 30px;
+  width: 250px;
+  background-color: rgb(233, 230, 230);
+  border: 2px solid  rgb(233, 230, 230);
+  border-radius: 6px;
+}
+
+.inputForm {
+	display:flex;
+	flex-direction: row;
+	justify-content: center;
+	width:100%
+		}
+	
+.idFind {
+	width:50%;
+}
+
+.pwFind {
+	width:50%;
+} 
+
+.wrap h2 {
+	margin-bottom:100px;
+}

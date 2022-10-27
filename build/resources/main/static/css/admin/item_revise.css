@@ -1,0 +1,165 @@
+ * {
+ 	margin:0; padding:0;
+ }
+
+.bg_admin {
+	margin-top: 110px;
+	width:100%;
+	position: relative;
+}
+
+.bg {
+	height:200px;
+}
+
+#bg_img {
+	max-height:100%;
+	width:100%;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#title {
+		position:absolute;
+        left: 45%; 
+        top: 35%;
+        color: white;
+        font-size:30px;
+}
+
+#title1 {
+	    position:absolute;
+        left: 43%; 
+        top: 55%;
+        color: white;
+        font-size:20px;
+}
+
+.main_div {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	margin-bottom: 100px;	
+}
+
+.admin_div {
+	display: flex;
+	flex-direction: column;	
+	justify-content: center;
+	align-items: center;
+	margin-top: 100px;
+	width:100%;
+}
+
+.admin_list {
+	font-size: 25px;
+	width:10%;
+	height: 350px;
+	margin: 50px 0px 0px 80px;
+}
+
+.admin_list li{
+	clear: both;
+	list-style: disc;
+}
+
+.admin_div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 100px;
+}
+
+.member_table {
+	border-collapse:collapse;
+	border-top: 1px solid black;
+	width: 1200px; 
+	height: 100px; 
+	text-align: center;
+}
+
+
+.member_table1 {
+	border-collapse:collapse;
+	border-bottom: 1px solid black;
+	width: 1200px; 
+	height: 100px; 
+	text-align: center;
+}
+
+.member_table1 th{
+	height: 60px;
+}
+
+.imgView {
+	margin:10px;
+}
+
+.member_table th, tr {
+	 border-bottom: 1px solid black;
+}
+
+.member_table th{
+	text-align: center;
+	height: 50px;
+}
+
+.member_table td {
+	height: 70px;
+}
+
+.member_table1 td {
+	height: 70px;
+}
+
+.item_button{
+	margin-top: 50px;
+	margin-left: 800px;
+}
+
+.confirm_bar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+#confirm {
+	margin-top: 20px;
+}
+
+.input_text {
+	width: 250px;
+	height: 40px;
+}
+
+.item_select {
+	width:110px;
+	height: 40px;
+	text-align: center;
+}
+
+.item_btn {
+	border: none;
+	background-color: #323232;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+#productCategory {
+	width:110px; 
+	height:40px; 
+	text-align: center;
+
+}
+
+#confirm_btn {
+	border: none;
+	background-color: #323232;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+	margin:10px;
+}
