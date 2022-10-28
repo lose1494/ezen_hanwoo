@@ -9,8 +9,9 @@
 	<select id="qnaList" resultType="com.study.springboot.dto.Product_qnaDto">
 		select * from
 			(select rownum rnum, pq.* from
-				(select * from product_qna 
-				 <if test="param2 != null">where ${param1} = #{param2}</if>
+				(select q.*, r.reply_content from product_qna q, product_qna_reply r
+				where q.qna_idx = r.qna_idx(+)
+				 <if test="param2 != null">and ${param1} = #{param2}</if>
 				order by qna_date desc) pq)
 		where rnum between #{param3} and #{param4}	
 	</select>

@@ -21,5 +21,6 @@ public class Product_qnaDto {
 	private int product_idx;
 	
 	private ProductDto productDto;
+	private Product_qna_replyDto reply;
 	
 }
