@@ -198,43 +198,43 @@
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
                 <form action="" name="qnaForm">
-                    <input type="hidden" name="qna_pw" value="${ qna.qna_pw }">
-                	<input type="hidden" name="qna_idx" value="${ qna.qna_idx }">
+                    <input type="hidden" name="qna_pw${status.index}" value="${ qna.product_qnaDto.qna_pw }">
+                	<input type="hidden" name="qna_idx${status.index}" value="${ qna.qna_idx }">
 	                <tr>
 	                    <td>${ qnaCount - status.index - (( qnaPage-1 ) * 5 ) }</td>
 	                    <!-- <td>기타</td> -->
 	                    <td class="qnaClick">
-	                    <c:if test="${ qna.qna_secret == 1 }"><i class="fa-solid fa-lock"></i></c:if>
-                            ${ qna.qna_title }
+	                    <c:if test="${ qna.product_qnaDto.qna_secret == 1 }"><i class="fa-solid fa-lock"></i></c:if>
+                            ${ qna.product_qnaDto.qna_title }
                         </td>
-	                    <td>${ qna.qna_status }</td>
-	                    <td>${ qna.qna_id }</td>
-	                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
+	                    <td>${ qna.product_qnaDto.qna_status }</td>
+	                    <td>${ qna.product_qnaDto.qna_id }</td>
+	                    <td><fmt:formatDate value="${ qna.product_qnaDto.qna_date }" pattern = "yyyy-MM-dd"/></td>
 	                </tr>
 	                <tr>
 	                    <td colspan="5" class="hide qnaDe">
 	                    	<c:choose>
-	                    		<c:when test="${ qna.qna_secret == 1 }">
-	                    			<div class="secret">
+	                    		<c:when test="${ qna.product_qnaDto.qna_secret == 1 }">
+	                    			<div class="secret${ status.index }">
 		                    			<div class="productQ align">
 	                                        <p>비밀번호를 입력해주세요.</p>                                      
 	                                        <input type="password" id="user_pw"> <br>
-	                                        <button type="button" class="dark" onclick="javascript:pwCheck()">확인</button>
+	                                        <button type="button" class="dark" onclick="javascript:pwCheck('${ status.index }')">확인</button>
 		                    			</div>
 		                    		</div>	
 	                    		</c:when>
 	                    		<c:otherwise>
                                     <div class="productQ">                                      
                                         <i class="fa-solid fa-circle-question"></i>
-                                        ${ qna.qna_content }
+                                        ${ qna.product_qnaDto.qna_content }
                                         <div class="tableBtn">
                                             <button class="dark" onclick="javascript:form.action='/product/deleteQna'">삭제</button>  
                                         </div> 
                                     </div>
-                                    <c:if test="${ qna.reply.reply_content ne null }">
+                                    <c:if test="${ qna.reply_content ne null }">
                                     <div class="productA">                                   
                                         <i class="fa-solid fa-circle-info"></i>
-                                        ${ qna.reply.reply_content }
+                                        ${ qna.reply_content }
                                     </div>
                                     </c:if>
 	                    		</c:otherwise>
@@ -547,30 +547,33 @@
         });
 
         //상품문의 비밀글
-        function pwCheck(){
-            if( $('input[name=qna_pw]').val() != $('#user_pw').val()) {
+        function pwCheck(idx){
+            if( $('input[name=qna_pw'+idx+']').val() != $(".secret"+idx).find('#user_pw').val()) {
                 alert('비밀번호가 맞지 않습니다.');
             } else {
                 $.ajax({
                     type: 'get',
                     url : "/product/qnapwCheck",
-                    data : {   produt_idx : $('input[name=product_idx_ajax]').val(),
-                            qna_idx : $('input[name=qna_idx]').val(),
-                            user_pw : $('#user_pw').val()
+                    data : {   produt_idx : $('input[name=product_idx]').val(),
+                            qna_idx : $('input[name=qna_idx'+idx+']').val(),
+                            user_pw : $(".secret"+idx).find('#user_pw').val()
                             },
                     success : function(data){
                         console.log(data);
-                        $('.secret').empty();
+                        $('.secret'+idx).empty();
                         str = "<div class='productQ'>"
                    					+ "<i class='fa-solid fa-circle-question'></i>"
-                                    + data.qna_content
-                                    + "<div class='tableBtn'><button class='dark'>삭제</button></div>"    
-                                    + "</div><div class='productA'>"
-                                    + "<i class='fa-solid fa-circle-info'></i>"
-                                    + "안녕하세요 이젠한우입니다. <br>문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다.<br>"
-                                    + "이용해주셔서 감사합니다!</div>";
+                                    + data.product_qnaDto.qna_content
+                                    + "<div class='tableBtn'><button class='dark'>삭제</button></div>";
+                                    if(data.reply_content != null ) {
+                                    	str += "</div><div class='productA'>"
+                                        + "<i class='fa-solid fa-circle-info'></i>"
+                                        + data.reply_content 
+                                       + "</div>"
+                                    }
+    
                                     console.log(str);
-                                    $('.secret').append(str); 
+                                    $('.secret'+idx).append(str); 
                         
                     }
                 })

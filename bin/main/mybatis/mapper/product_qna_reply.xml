@@ -56,6 +56,7 @@
 	<result column="qna_idx" property="qna_idx"/>
 	<result column="qna_id" property="qna_id"/>
 	<result column="qna_title" property="qna_title"/>
+	<result column="qna_content" property="qna_content"/>
 	<result column="qna_date" property="qna_date"/>
 	<result column="qna_id" property="qna_id"/>
 	<result column="qna_secret" property="qna_secret"/>
@@ -88,6 +89,10 @@
 		where reply_idx=#{reply_idx}
 	</update>
 	
-	
+	<select id="qnaDetail" resultMap="ReplyDto">
+		select q.*, r.reply_content from product_qna q, product_qna_reply r
+        where q.qna_idx = r.qna_idx(+)
+        and q.qna_idx = #{param1}
+	</select>
 
 </mapper>

@@ -14,4 +14,5 @@ public interface IProduct_qna_replyDao {
     public int deleteAnswer(int reply_idx);
     public List<Product_qna_replyDto> joinTest();
     public List<Product_qna_replyDto> qna_List(String one2one_id, int startRowNum, int endRowNum);
+    public Product_qna_replyDto qnaDetail(int qna_idx);
 }

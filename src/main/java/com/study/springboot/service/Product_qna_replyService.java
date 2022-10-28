@@ -42,6 +42,9 @@ public class Product_qna_replyService {
 	        return deleteAnswer;
 	    }
 
-
+	    public Product_qna_replyDto qnaDetail(int qna_idx) {
+	        Product_qna_replyDto qnaDetail = product_qna_replydao.qnaDetail(qna_idx);
+	        return qnaDetail;
+	    }
 	
 }

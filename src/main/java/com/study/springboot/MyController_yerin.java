@@ -27,6 +27,7 @@ import com.study.springboot.dto.OrderlistDto;
 import com.study.springboot.dto.PointDto;
 import com.study.springboot.dto.ProductDto;
 import com.study.springboot.dto.Product_qnaDto;
+import com.study.springboot.dto.Product_qna_replyDto;
 import com.study.springboot.dto.ReviewDto;
 import com.study.springboot.dto.UsersDto;
 import com.study.springboot.dto.WishlistDto;
@@ -37,6 +38,7 @@ import com.study.springboot.service.OrderlistService;
 import com.study.springboot.service.PointService;
 import com.study.springboot.service.ProductService;
 import com.study.springboot.service.Product_qnaService;
+import com.study.springboot.service.Product_qna_replyService;
 import com.study.springboot.service.ReviewService;
 import com.study.springboot.service.UsersService;
 import com.study.springboot.service.WishlistService;
@@ -56,6 +58,8 @@ public class MyController_yerin {
     private One2oneService one2oneService;
     @Autowired
     private Product_qnaService qnaService;
+    @Autowired
+    private Product_qna_replyService replyService;
     @Autowired
     private ReviewService reviewService;
     @Autowired
@@ -498,20 +502,6 @@ public class MyController_yerin {
 			return "<script>alert('문의가 접수되었습니다.');opener.location.reload();window.close();</script>";
 		}
 	}
-	
-
-//	@RequestMapping("/product/orderDirect")
-//	public String orderDirect( @RequestParam("product_idx") int product_idx, 
-//	        Model model, HttpServletRequest request, CartDto dto) {
-//	    String users_id = (String) request.getSession().getAttribute("users_id");
-//	    List<ProductDto> product = productService.productList(product_idx);
-//	    UsersDto user = usersService.userDetail(users_id);
-//	    
-//	    model.addAttribute("orderList", product);
-//        model.addAttribute("user", user);
-//        model.addAttribute("mainPage", "product/order01.jsp");
-//        return "index";
-//	}
 
     @RequestMapping("/product/reviewSearch")
     @ResponseBody
@@ -538,10 +528,11 @@ public class MyController_yerin {
   
     @RequestMapping("/product/qnapwCheck")
     @ResponseBody
-    public Product_qnaDto qnapwCheck(
+    public Product_qna_replyDto qnapwCheck(
             @RequestParam("qna_idx") int qna_idx,
             @RequestParam("user_pw") String user_pw) {
-        Product_qnaDto qnaDetail = qnaService.qnaDetail(qna_idx);
+        Product_qna_replyDto qnaDetail = replyService.qnaDetail(qna_idx);
+        System.out.println(qnaDetail);
         return qnaDetail;
     }
 

@@ -24,6 +24,6 @@ public class Product_qnaDto {
 	private String product_name;
 	
 	private ProductDto productDto;
-	private Product_qna_replyDto reply;
+	private Product_qna_replyDto replyDto;
 	
 }

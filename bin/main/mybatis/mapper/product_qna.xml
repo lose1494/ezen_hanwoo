@@ -6,7 +6,7 @@
 
 <mapper namespace="com.study.springboot.dao.IProduct_qnaDao">
 
-	<select id="qnaList" resultType="com.study.springboot.dto.Product_qnaDto">
+	<select id="qnaList" resultMap="ReplyDto">
 		select * from
 			(select rownum rnum, pq.* from
 				(select q.*, r.reply_content from product_qna q, product_qna_reply r
@@ -21,8 +21,10 @@
 		<if test="param1 != null">where ${param1} = #{param2}</if>
 	</select>
 	
-	<select id="qnaDetail" resultType="com.study.springboot.dto.Product_qnaDto">
-		select * from product_qna where qna_idx = #{param1}
+	<select id="qnaDetail" resultMap="Product_qnaDto">
+		select q.*, r.reply_content from product_qna q, product_qna_reply r
+        where q.qna_idx = r.qna_idx(+)
+        and q.qna_idx = #{param1}
 	</select>
 	
 	<insert id="insertQna" parameterType="com.study.springboot.dto.Product_qnaDto">
@@ -54,6 +56,7 @@
 	<result column="qna_idx" property="qna_idx"/>
 	<result column="qna_id" property="qna_id"/>
 	<result column="qna_title" property="qna_title"/>
+	<result column="qna_content" property="qna_content"/>
 	<result column="qna_date" property="qna_date"/>
 	<result column="qna_id" property="qna_id"/>
 	<result column="qna_secret" property="qna_secret"/>
