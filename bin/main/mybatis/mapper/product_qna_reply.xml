@@ -27,12 +27,14 @@
 					rownum rnum, dto1.* 
 			 FROM
 			(SELECT 
-					qna.*, reply.reply_idx, reply.reply_id, reply.reply_date, reply.reply_content, qna.qna_idx qi 
+					qna.*, reply.reply_idx, reply.reply_id, reply.reply_date, reply.reply_content, qna.qna_idx qi,
+					p.product_name 
 			 FROM 
-			 		product_qna qna, product_qna_reply reply
+			 		product_qna qna, product_qna_reply reply, product p
 			<where>
 				<if test="param1 != 'admin'">qna_id=#{param1} </if>
 					and qna.qna_idx = reply.qna_idx(+)
+					and qna.product_idx = p.product_idx
 				</where>				
 					order by qna_date desc)
 			dto1)
@@ -59,7 +61,8 @@
 	<result column="qna_secret" property="qna_secret"/>
 	<result column="qna_pw" property="qna_pw"/>
 	<result column="qna_status" property="qna_status"/>
-	<result column="product_idx" property="product_idx"/>	
+	<result column="product_idx" property="product_idx"/>
+	<result column="product_name" property="product_name"/>
 	<collection property="productDto" resultMap="ProductDto"></collection>
 	</resultMap>
 	

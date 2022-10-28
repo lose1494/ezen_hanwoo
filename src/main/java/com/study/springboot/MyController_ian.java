@@ -371,6 +371,7 @@ public class MyController_ian {
         String users_id = (String) request.getSession().getAttribute("users_id");
         
         List<Product_qna_replyDto> qna_List = productQnaRplyService.qna_List(users_id, page, num_page_size);
+        System.out.println(qna_List);
         int qnaListCount = product_qnaService.qnaListCount(users_id);
         int pageNum = (int)Math.ceil((double)qnaListCount/num_page_size);
         
