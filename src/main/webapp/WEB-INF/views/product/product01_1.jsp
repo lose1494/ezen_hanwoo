@@ -230,13 +230,13 @@
                                         <div class="tableBtn">
                                             <button class="dark" onclick="javascript:form.action='/product/deleteQna'">삭제</button>  
                                         </div> 
-                                    </div>  
+                                    </div>
+                                    <c:if test="${ qna.reply.reply_content ne null }">
                                     <div class="productA">                                   
                                         <i class="fa-solid fa-circle-info"></i>
-                                        안녕하세요 이젠한우입니다. <br>
-                                        문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
-                                        이용해주셔서 감사합니다!
+                                        ${ qna.reply.reply_content }
                                     </div>
+                                    </c:if>
 	                    		</c:otherwise>
 	                    	</c:choose>                                     
 	                    </td>
