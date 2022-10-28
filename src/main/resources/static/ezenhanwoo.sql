@@ -17,14 +17,19 @@ create table ezen_users(
     users_joindate date default sysdate,
     users_point    number(10)
 );
-
+select * from ezen_users;
+select * from cart;
+select * from orderlist;
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
-
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date, users_point)
+VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01', 3000);
 insert into ezen_users(users_idx,users_id,users_pw,users_name,users_email,users_phone,users_birth_date,users_point,users_address,users_joindate )
-values(ezen_users_seq.nextval, 'admin',1111,'관리자','admin@admin.com','010-0000-0000', '1993-11-02', '2000', '경기도 의정부시 민락동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
-insert into ezen_users(users_idx,users_id,users_pw,users_name,users_email,users_phone,users_birth_date,users_point,users_address,users_joindate )
-values(ezen_users_seq.nextval, 'test',1111,'테스트','test@test.com','010-0000-0000', '1993-11-02', '2000', '서울특별시 노원구 월계동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
+values(ezen_users_seq.nextval, 'remi6513',1234,'최이안','remi6513@naver.com','010-5045-5054', '1993-11-02', '2000', '경기도 의정부시 민락동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
+VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
+VALUES (ezen_users_seq.nextval, 'admin', '1111', '테스트');
 
 --상품
 drop table product;
@@ -88,6 +93,20 @@ create table product_qna(
 );
 drop sequence product_qna_seq;
 create sequence product_qna_seq;
+insert into product_qna
+values( product_qna_seq.nextval, 'hong', '언제쯤 배송되나요', '배송 언제쯤 되나요??', sysdate, 1, '1234', '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용', '문의 테스트', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용1', '문의 테스트1', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용2', '문의 테스트2', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용3', '문의 테스트3', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', sysdate, 0, '답변대기중', 1);
+insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
+values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4',TO_CHAR(SYSDATE,'YYYY-MM-DD') , 0, '답변대기중', 1);
 
 --상품 문의 답변
 drop table product_qna_reply;
@@ -130,12 +149,28 @@ insert into review_star values(5);
 drop table FAQ;
 create table FAQ(
     faq_idx number(4) primary key,
-    faq_title varchar2(40),
-    faq_content varchar2(300),
+    faq_title varchar2(80),
+    faq_content varchar2(800),
     faq_type varchar2(40)
 );
 drop sequence FAQ_seq;
 create sequence FAQ_seq;
+
+insert into FAQ
+values(FAQ_seq.nextval, '배송날짜를 지정할 수 있나요?', '수령일 기준 7일까지 희망수령일 선택가능하며, 주문 완료 후 수령일 변경을 원하시는 경우에는 
+        1:1 문의 및 고객센터(043-877-1613)로 연락주시면 도와드릴 수 있도록 하겠습니다.
+        다만, 주문 마감 시간 이후에는 수령일 변경이 불가능합니다.', '배송');
+insert into FAQ
+values(FAQ_seq.nextval, '교환 또는 반품 신청시에 사진을 첨부해야 하나요?', '제품의 하자 등의 사유로 교환 또는 반품을 신청하시는 경우, 1:1문의 또는 고객센터에서 해당 사항을 확인할 수 있는 사진 첨부를 부탁드립니다', '교환/환불');   
+insert into FAQ
+values(FAQ_seq.nextval, '현금영수증 발행을 취소하고 싶어요.', '고객의 요청에 의해 발급된 현금영수증은 국세청 승인 후에는 변경 불가합니다.
+국세청 승인 전이라면 1:1문의 또는 고객센터(043-877-1613)로 문의 바랍니다.', '주문결제');
+insert into FAQ
+values(FAQ_seq.nextval, '주문 취소는 어떻게 하나요?', '주문 취소는 주문 마감 이전에만 가능합니다. 
+또한, 운영종료 시간 이후에는 1:1문의 게시판 접수만 가능합니다. 정확한 처리를 위해 주문번호는 필수로 입력해주세요.', '취소');
+insert into FAQ
+values(FAQ_seq.nextval, '회원정보를 변경하려면 어떻게 해야 하나요?', '홈페이지 오른쪽 위의 마이페이지 > 정보관리 > 나의정보수정 에서 회원정보 변경이 가능합니다.', '회원');
+
 --공지사항
 drop table Notice;
 create table Notice(
@@ -208,8 +243,7 @@ product_count number(2),
 product_price varchar2(20),
 pay_method varchar2(20)
 );
-select * from orderDetail;
-select * from orderlist;
+
 drop sequence orderDetail_seq;
 create sequence orderDetail_seq;
 
@@ -231,7 +265,7 @@ drop table wishlist;
 create table wishlist(
 list_idx number(4) primary key,
 list_users_id varchar(20),
-list_product_idx number(4),
+list_product_name varchar(20),
 list_count number(4)
 );
 drop sequence wishlist_seq;

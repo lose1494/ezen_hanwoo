@@ -362,35 +362,7 @@ public class MyController_ian {
         return "index";
     }
     
-    // 리뷰 관리 검색
-    @RequestMapping("/admin/admin_review")
-    public String admin_review(Model model, 
-                                @RequestParam(value="searchType",required=false) String Type,
-                                @RequestParam(value="searchKeyword",required=false) String keyword,
-                                @RequestParam(value="fromDate", required=false) String fromDate,
-                                @RequestParam(value="toDate", required=false) String toDate,
-                                HttpServletRequest request) {
-        List<ReviewDto> review_result = reviewService.review_result();
-        List<ReviewDto> reviewResult;
-        List<ReviewDto> reviewDate;
-        int review_count = reviewService.review_count();
-        if( Type != null ) {
-            reviewResult = reviewService.reviewResult( Type, keyword );
-            model.addAttribute("review_result", reviewResult);
-            model.addAttribute("review_count", reviewResult.size());
-        }  else if( Type!= null || fromDate != null || toDate != null ) {
-          reviewDate = reviewService.reviewDate(fromDate, toDate);
-          System.out.println(reviewDate);
-          model.addAttribute("review_result", reviewDate);
-          model.addAttribute("review_count", reviewDate.size());
-          } else {
-            model.addAttribute("review_result", review_result); 
-            model.addAttribute("review_count", review_count);
-        }
-        
-        model.addAttribute("mainPage", "admin/admin_review.jsp");
-        return "index";
-    }
+   
     
     // 상품 문의 관리
     @RequestMapping("/admin/admin_inquiry")
@@ -463,6 +435,34 @@ public class MyController_ian {
         }
         
         return result;
+    }
+    
+    // 리뷰 관리 검색
+    @RequestMapping("/admin/admin_review")
+    public String admin_review(Model model, 
+                                @RequestParam(value="searchType",required=false) String Type,
+                                @RequestParam(value="searchKeyword",required=false) String keyword,
+                                @RequestParam(value="fromDate", required=false) String fromDate,
+                                @RequestParam(value="toDate", required=false) String toDate,
+                                HttpServletRequest request) {
+        List<ReviewDto> review_result = reviewService.review_result();
+        System.out.println(review_result);
+        List<ReviewDto> reviewResult;
+        List<ReviewDto> reviewDate;
+        System.out.println(Type);
+        int review_count = reviewService.review_count();
+        if( fromDate != null || toDate != null ) {
+            System.out.println(toDate);
+          reviewDate = reviewService.reviewDate( Type, keyword, fromDate, toDate );
+          model.addAttribute("review_result", reviewDate);
+          model.addAttribute("review_count", reviewDate.size());
+          } else {
+            model.addAttribute("review_result", review_result); 
+            model.addAttribute("review_count", review_count);
+        }
+        
+        model.addAttribute("mainPage", "admin/admin_review.jsp");
+        return "index";
     }
     
     // 공지사항 관리

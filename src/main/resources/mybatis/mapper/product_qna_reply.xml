@@ -16,7 +16,7 @@
 		sysdate, #{qna_idx} )
 	</insert>
 	
-	<delete id="deleteReply">
+	<delete id="deleteAnswer">
 	  DELETE FROM product_qna_reply
 	  WHERE reply_idx=#{ param1 }
 	</delete>
@@ -78,5 +78,13 @@
 	where q.product_idx = p.product_idx
 	order by q.qna_date desc
 	</select>
+	
+	<update id="updateAnswer" parameterType="hashMap">
+		update product_qna_reply set
+		reply_content=#{reply_content}
+		where reply_idx=#{reply_idx}
+	</update>
+	
+	
 
 </mapper>

@@ -55,7 +55,7 @@
         <textarea name="" id="textarea" cols="100" rows="10">
           
         </textarea>
-        <div class="select"><input class="check" type="checkbox"> 개인정보 수집.이용 동의</div>
+        <div class="select"><input class="check" type="checkbox"> 개인정보 수집.이용 동의(필수)</div>
       </div>
     </div>
     <!-- 개인정보의 수집 및 이용목적 -->

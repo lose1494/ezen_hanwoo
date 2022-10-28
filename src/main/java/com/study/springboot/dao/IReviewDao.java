@@ -19,5 +19,5 @@ public interface IReviewDao {
 //	List<ReviewDto> searchProduct(String word, String sort);
     public int review_count();
     public List<ReviewDto> reviewResult(String searchType, String searchKeyword);
-    public List<ReviewDto> reviewDate(String fromDate, String toDate);
+    public List<ReviewDto> reviewDate(String searchType, String searchKeyword,String fromDate, String toDate);
 }

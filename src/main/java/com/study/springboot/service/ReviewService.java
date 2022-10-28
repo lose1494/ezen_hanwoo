@@ -171,8 +171,8 @@ public class ReviewService {
         return reviewResult;
     }
 
-    public List<ReviewDto> reviewDate (String fromDate, String toDate) {
-        List<ReviewDto> reviewDate = reviewdao.reviewDate( fromDate , toDate);
+    public List<ReviewDto> reviewDate (String searchType, String searchKeyword, String fromDate, String toDate) {
+        List<ReviewDto> reviewDate = reviewdao.reviewDate( searchType, searchKeyword, fromDate , toDate);
         return reviewDate;
     }
 	
