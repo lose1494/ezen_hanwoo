@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
  <link rel="stylesheet" href="/css/member/join2.css" />
 
 ​
@@ -40,31 +41,22 @@
     </div>
     
     <!-- 이용약관 -->
-    <div class="term1">
-     
+    <div class="term1">    
       <div>
-        <textarea name="" id="textarea" cols="100" rows="10 ">
-          약관내용
-        </textarea>
-        <div class="select"><input class="check" type="checkbox"> 이용약관에 동의합니다.(필수)</div>
+       	<c:import url="./member/agree1.jsp" />
+       	<div class="select"><input class="check" type="checkbox"> 이용약관에 동의합니다.(필수)</div>
       </div>
     <!-- 개인정보보호정책 -->
-    <div class="term2">
-     
+    <div class="term2">    
       <div>
-        <textarea name="" id="textarea" cols="100" rows="10">
-          
-        </textarea>
+        <c:import url="./member/agree2.jsp" />
         <div class="select"><input class="check" type="checkbox"> 개인정보 수집.이용 동의(필수)</div>
       </div>
     </div>
     <!-- 개인정보의 수집 및 이용목적 -->
-    <div class="term3">
-      
+    <div class="term3">     
       <div>
-        <textarea name="" id="textarea" cols="100" rows="10">
-          약관내용
-        </textarea>
+        <c:import url="./member/agree3.jsp" />
         <div class="select"><input type="checkbox"> 문자 수신 동의(선택)</div>
       </div>
     </div>

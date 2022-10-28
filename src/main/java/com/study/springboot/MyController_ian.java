@@ -78,6 +78,7 @@ public class MyController_ian {
             HttpServletRequest request, Model model) {
         
         if( id != null && pw != null ) {
+            System.out.println("sfmlasfd");
             System.out.println(id.getValue()+","+pw.getValue());
             int result = usersService.login(id.getValue(), pw.getValue());
             request.getSession().setAttribute("users_id", id.getValue());

@@ -823,6 +823,7 @@ public class MyController_yerin {
             System.out.println("alert:" + "로그인되었습니다.");
             request.getSession().setAttribute("alert", "로그인되었습니다.");
             request.getSession().setAttribute("url", "/index");
+            System.out.println(users_id+","+users_pw);
             request.getSession().setAttribute("users_id", users_id);
             request.getSession().setAttribute("users_pw", users_pw);
 
