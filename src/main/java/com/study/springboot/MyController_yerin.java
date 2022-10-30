@@ -779,12 +779,13 @@ public class MyController_yerin {
         return "index";
     }
 
-    //장바구니
+    //관심상품
     @RequestMapping("/mypage/insertWish")
     @ResponseBody
     public String insertWish(@RequestParam("product_idx") int product_idx, 
-    @RequestParam("list_count") int list_count, WishlistDto dto,
-    HttpServletRequest request, Model model) {
+                             @RequestParam("list_count") int list_count, 
+                             WishlistDto dto, Model model,
+                             HttpServletRequest request ) {
         String users_id = (String) request.getSession().getAttribute("users_id");
         if (users_id == null) {
             request.getSession().setAttribute("alert", "로그인이 필요합니다.");

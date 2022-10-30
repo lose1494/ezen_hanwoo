@@ -216,8 +216,9 @@ public class MyController_ian {
     
     // 회원 검색
     @RequestMapping("/admin/member_search")
-    public String member_search(@RequestParam("search_list") String list, @RequestParam("search_text") String text,
-            Model model) {
+    public String member_search(@RequestParam("search_list") String list, 
+                                @RequestParam("search_text") String text,
+                                Model model) {
         System.out.println("name:" + text); 
         List<UsersDto> search_result = usersService.search_result(list, text);
         for (UsersDto usersDto : search_result) {
