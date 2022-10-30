@@ -58,7 +58,7 @@
 					<c:forEach var="dto" items="${ searchList }">				
 					<div class="best1">	
 						<a href="/product/product01_1?product_idx=${ dto.product_idx }">
-						<img alt="" src="${ dto.product_image }" class="product_img">
+						<img alt="" src="${ dto.product_image }" class="product_img" width=300 height=230>
 								<h3>${ dto.product_name }</h3>
 								<c:if test="${ dto.product_category ne '선물세트' }">
 								<p class="mon">

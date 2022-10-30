@@ -27,7 +27,7 @@
 			<li><a href="/admin/admin_one2one">1:1문의 관리</a></li>
 		</ul>
 	</div>
-	 <c:forEach var="dto2" items="${ orderlist2 }">
+	 
 	<div class="admin_div">
  	<form >
 	 <table class="member_table">
@@ -40,11 +40,13 @@
 	 </tr>
 	
 	 <tr> 
+	 	<c:forEach var="dto2" items="${ orderlist2 }" varStatus="status">
 	 	<td><fmt:formatDate value= "${ dto2.order_date }" pattern="yyyy/MM/dd" /></td>
 	 	<td>${ dto2.order_no }</td>
 	 	<td>${ dto2.users_id }</td>
 	 	<td>${ dto2.order_product_name }</td>
 	 	<td>${ dto2.order_total_price }</td>
+	 	</c:forEach>
 	 </tr>
 	 </table>
 	 <table class="member_table1">
@@ -54,18 +56,17 @@
 	 	<th>총 결제금액</th>
 	 	<th>사용 적립금</th>
 	 	<th>실결제금액</th>
-	 	<th>결제수단</th>
-		<th>주문상태</th>	 
+	 	<th>결제수단</th>	 
 	 </tr>
 	 <tr>
+	 <c:forEach var="dto2" items="${ orderlist2 }" varStatus="status">
 	 	<td>${ dto2.product_count }</td>
 	 	<td>5,000</td>
 	 	<td>${ dto2.order_total_price * dto2.product_count + 5000 }</td>
 	 	<td>${ dto2.order_usepoint }</td>
-
 	 	<td>${ dto2.order_total_price + 5000 - dto2.order_usepoint } </td>
 	 	<td>${ dto2.pay_method }</td>
-	 	<td>배송완료</td>
+	 	</c:forEach>
 	 </tr>
 	 </table>
 	 <table class="member_table2">
@@ -78,11 +79,13 @@
 	 </tr>
 	 
 	 <tr>
+	 	<c:forEach var="dto2" items="${ orderlist2 }" varStatus="status">
 	 	<td>${ dto2.order_recipient }</td>
 	 	<td>${ dto2.order_phone }</td>
 	 	<td>${ dto2.order_address1 }</td>
 	 	<td>${ dto2.order_address2 }</td>
 	 	<td>${ dto2.order_address3 }</td>
+	 	</c:forEach>
 	 </tr>	
 	 </table>
 	 <table class="member_table3">
@@ -94,13 +97,14 @@
 	 </tr>
 	 
 	 <tr>
+	 	<c:forEach var="dto2" items="${ orderlist2 }" varStatus="status">
 	 	<td>Y</td>
 	 	<td>${ dto2.order_total_price * dto2.product_count / 100}</td>
 	 	<td>${ dto2.order_comment }</td>
+	 	</c:forEach>
 	 </tr>
 	 </table>
 	</form>
 	 </div>
-	 </c:forEach>
 
 </div>	

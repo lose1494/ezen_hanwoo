@@ -355,10 +355,10 @@ public class MyController_ian {
 
     // 주문 상세 조회
     @RequestMapping("/admin/admin_order_detail")
-    public String admin_order_detail(Model model,
-            @RequestParam("order_idx") int order_idx) {
+    public String admin_order_detail(Model model, @RequestParam("order_idx") int order_idx) {
         List<OrderlistdetailDto> orderlist2 = orderservice.orderlist2(order_idx);
-        
+      
+        model.addAttribute("order_idx", order_idx);
         model.addAttribute("orderlist2", orderlist2);
         model.addAttribute("mainPage", "admin/admin_order_detail.jsp");
         return "index";
