@@ -25,7 +25,6 @@
 	        <tr class="Notice_tr1">
 	            <th id="number">번호</th>
 	            <th id="title">제목</th>
-	            <th id="writer">작성자</th>
 	            <th id="date">작성일</th>
 	        </tr>
 	    </thead>
@@ -34,7 +33,6 @@
 	        <tr onclick="location.href='/Notice/notice_view?notice_idx= ${ dto.notice_idx }'" style="cursor:pointer;" >
 	            <td id="number">${ dto.notice_idx } </td>
 	            <td id="title"> ${ dto.notice_title }</td>
-	            <td id="writer"> ${ dto.notice_name }</td>
 	            <td id="date"><fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /></td>
 	        </tr>
 	       </c:forEach>
@@ -50,7 +48,8 @@
          	<input type="text" placeholder="검색어를 입력하세요." id="search_contents" name="search_contents">
         
         	<div id="img"> 
-        		<input type="submit" value="" id="searchBtn" name="searchBtn">
+        	<button type="submit" id="searchBtn" name="searchBtn"> <img src="/img/notice/search.png"> </button>
+    
         	</div>
   		</div>
 

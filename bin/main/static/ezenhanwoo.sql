@@ -17,19 +17,17 @@ create table ezen_users(
     users_joindate date default sysdate,
     users_point    number(10)
 );
-select * from ezen_users;
-select * from cart;
-select * from orderlist;
 drop sequence ezen_users_seq;
 create sequence ezen_users_seq;
-INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date, users_point)
-VALUES (ezen_users_seq.nextval, 'hong', '1234', '홍길동', 'test1@gmail.com', 0, '01011111111', 0, '2000-01-01', 3000);
-insert into ezen_users(users_idx,users_id,users_pw,users_name,users_email,users_phone,users_birth_date,users_point,users_address,users_joindate )
-values(ezen_users_seq.nextval, 'remi6513',1234,'최이안','remi6513@naver.com','010-5045-5054', '1993-11-02', '2000', '경기도 의정부시 민락동', TO_CHAR(SYSDATE,'YYYY-MM-DD') );
-INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
-VALUES (ezen_users_seq.nextval, 'kim', '1515', '테스트');
-INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name)
-VALUES (ezen_users_seq.nextval, 'admin', '1111', '테스트');
+
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date,users_address1,users_address2,users_address3, users_point)
+VALUES (ezen_users_seq.nextval, 'hong', '1111', '홍길동', 'hong@gmail.com', 0, '010-1111-1111', 0, '2000-01-01', '13221', '경기도 의정부시', '1층', 3000);
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date,users_address1,users_address2,users_address3, users_point)
+VALUES (ezen_users_seq.nextval, 'admin', '1111', '관리자', 'admin@gmail.com', 0, '010-2222-2222', 0, '1998-11-01', '35671', '경기도 의정부시 행복로', '2층', 3000);
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date,users_address1,users_address2,users_address3, users_point)
+VALUES (ezen_users_seq.nextval, 'semin', '1111', '전세민', 'semin@gmail.com', 0, '010-3333-3333', 0, '1997-08-01', '13221', '경기도 의정부시 동행로', '1층', 3000);
+INSERT INTO ezen_users(users_idx, users_id, users_pw, users_name, users_email, users_email_receive, users_phone, users_phone_receive, users_birth_date,users_address1,users_address2,users_address3, users_point)
+VALUES (ezen_users_seq.nextval, 'minwoo', '1111', '김민우', 'minwoo@gmail.com', 0, '010-4444-4444', 0, '1789-03-01', '22121', '경기도 의정부시 시민로', '1층', 3000);
 
 --상품
 drop table product;
@@ -44,6 +42,7 @@ create table product(
 );
 drop sequence product_seq;
 create sequence product_seq;
+
 insert into product
 values ( product_seq.nextval, '한우 [1++No.9]등심',  'https://via.placeholder.com/700x1200',  '/img/product/등심3.png', '36,000', '구이용', '300g');
 insert into product
@@ -93,20 +92,14 @@ create table product_qna(
 );
 drop sequence product_qna_seq;
 create sequence product_qna_seq;
-insert into product_qna
-values( product_qna_seq.nextval, 'hong', '언제쯤 배송되나요', '배송 언제쯤 되나요??', sysdate, 1, '1234', '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용', '문의 테스트', sysdate, 0, '답변대기중', 1);
+
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', '테스트용1', '문의 테스트1', sysdate, 0, '답변대기중', 1);
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', '테스트용2', '문의 테스트2', sysdate, 0, '답변대기중', 1);
 insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
 values( product_qna_seq.nextval, 'hong', '테스트용3', '문의 테스트3', sysdate, 0, '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4', sysdate, 0, '답변대기중', 1);
-insert into product_qna(qna_idx, qna_id, qna_title, qna_content, qna_date, qna_secret, qna_status, product_idx)
-values( product_qna_seq.nextval, 'hong', '테스트용4', '문의 테스트4',TO_CHAR(SYSDATE,'YYYY-MM-DD') , 0, '답변대기중', 1);
+
 
 --상품 문의 답변
 drop table product_qna_reply;
@@ -134,6 +127,35 @@ create table product_review(
 );
 drop sequence product_review_seq;
 create sequence product_review_seq;
+
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'hong','맛있어요','고기맛이 좋아요','2022-07-15','5','1' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'semin','정말맛있어요','맛있어요','2022-07-15','5','1' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'minwoo','보통이에요','좋아요','2022-07-15','5','1' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'hing','맛있어요','고기맛이 좋아요','2022-07-15','4','2' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'semin','매우맛있어요','고기맛이 좋아요','2022-07-15','3.5','2' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'minwoo','맛있어요','고기맛이 좋아요','2022-07-15','4','2' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'hong','보통이에요','좋아','2022-07-15','4','3' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'semin','매우맛있어요','좋아요','2022-07-15','3','3' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'minwoo','맛있어요','고기맛이 좋아요','2022-07-15','2','3' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'hong','맛있어요','고기맛이 좋아요','2022-07-15','5','4' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'semin','보통이에요','고기맛이 좋아요','2022-07-15','3','4' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'hong','맛있어요','고기맛이 좋아요','2022-07-15','5','5' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'semin','맛있어요','고기맛이 좋아요','2022-07-15','5','5' );
+INSERT INTO product_review (review_idx,review_id,review_title,review_content,review_date,review_star_rating,product_idx)
+VALUES(PRODUCT_REVIEW_SEQ.nextval,'minwoo','맛있어요','고기맛이 좋아요','2022-07-15','5','5' );
 
 drop table review_star;
 create table review_star(
@@ -183,6 +205,11 @@ create table Notice(
     notice_hit number(4) DEFAULT 0
 );
 
+INSERT INTO Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
+VALUES(Notice_SEQ.nextval,'admin','공지사항입니다','찾아와주셔서 감사합니다','2022-07-15');
+INSERT INTO Notice (notice_idx,notice_name,notice_title,notice_content,notice_date)
+VALUES(Notice_SEQ.nextval,'admin','공지사항입니다','공지를 지켜주세요','2022-08-15');
+
 drop sequence Notice_seq;
 create sequence Notice_seq;
 --1:1문의
@@ -200,6 +227,11 @@ create table one2one(
 );
 drop sequence one2one_seq;
 create sequence one2one_seq;
+
+INSERT INTO one2one (one2one_idx,one2one_id,one2one_title,one2one_content,one2one_email,one2one_phone,one2one_date,one2one_status)
+VALUES(one2one_SEQ.nextval,'hong','문의합니다','세일언제해요?','hong@gmail.com','010-1111-1111','2022-07-15','답변대기중');
+INSERT INTO one2one (one2one_idx,one2one_id,one2one_title,one2one_content,one2one_email,one2one_phone,one2one_date,one2one_status)
+VALUES(one2one_SEQ.nextval,'semin','문의합니다','나문희입니다.','semin@gmail.com','010-3333-3333','2022-08-15','답변대기중');
 
 --1:1문의 답변
 drop table one2one_answer;
@@ -283,6 +315,7 @@ point_content varchar(60)
 );
 drop sequence point_seq;
 create sequence point_seq;
+
 insert into point
 values( point_seq.nextval, 'hong', sysdate, +3000, sysdate+365, '회원가입');
 

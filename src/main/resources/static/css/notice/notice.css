@@ -82,6 +82,16 @@ background-repeat: no-repeat;
 width:20px;
 height:200px;
 
+}#searchBtn img {
+width:25px;
+height:25px;
+
+}
+
+#search_contents{
+	height: 35px;
+	width: 300px;
+	border-radius: none;
 }
 
 #search_contents{

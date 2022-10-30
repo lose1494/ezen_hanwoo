@@ -187,7 +187,7 @@ $(document).on("keyup", ".phoneNumber", function() {
 							} else if ($(item)[0].name ==="users_address3"){
 								data.users_address3 = $(item)[0].value;
 							} else if ($(item)[0].name ==="users_birth_date"){
-								data.users_birth_date = $(item)[0].value; // itme -> item  오타
+								data.users_birth_date = $(item)[0].value;
 							}
 						}
 					});

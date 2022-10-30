@@ -30,7 +30,6 @@
 
   <div class="write_container">
     <input type="text" placeholder="제목을 입력하세요." id="contentTitle">
-
     <div id="editor"></div>
     <div style="margin-top: 10px;">
       <input id="uploadImage" type="file" size="10" accept="image/jpeg,image/gif, image/png" name="myPhoto" onchange="PreviewImage();" />
@@ -180,10 +179,12 @@ $("#confirm_btn").click(function() {
 
   var noticeTitle = $("#contentTitle").val();
   var noticeContent = $(".ck .ck-editor__main").find('p')[0].innerText;
+  
   var data = {
     "title": noticeTitle,
     "content": noticeContent,
     "imgData": imgData
+
   };
 
   $.ajax({

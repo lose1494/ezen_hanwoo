@@ -414,6 +414,7 @@
             });
         });
         
+        //관심상품
         function insertWish() {
             $.ajax({
                 url: "/mypage/insertWish",
@@ -432,6 +433,7 @@
             })
         }
        
+        //장바구니
         function b(){
         	const pd_name = document.getElementById("product_name").innerText
         	const price = document.getElementById("product_price").innerText
@@ -454,11 +456,13 @@
             }
      	},
      	error : function(data){
-     		console.log("123213123");
+     		console.log("error");
      	},
      	})
         }
         console.log(document.getElementById("product_img").img);
+        
+        //바로구매
       function c(){
     	  
     	const img = document.getElementById("product_img").value

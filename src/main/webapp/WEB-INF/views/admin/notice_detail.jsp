@@ -34,29 +34,22 @@
 	<table class="headTable">
 		<input type="hidden" value="${dto.notice_idx }" name="notice_idx"/>
 			<tr>
-			<th class="title">작성자</th> 
-			<td class="text">${ dto.notice_name }</td>
+			<th class="title" >제목</th>
+			<td class="text"> ${ dto.notice_title } </td>
 			<th>작성일</th> 
 			<td> <fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /></td>		
 		</tr>	
-		
-		<tr>
-			<th class="title" >제목</th>
-			 <td class="text"> ${ dto.notice_title } </td>
-			<th>조회수</th> 
-			<td>2</td>
-		</tr>
-		</table>
-		<table class="contentTable">
 		<tr>
 			<td colspan="4" id="content">${ dto.notice_content }</td>
 		</tr>
-	
-			<tr>
-			<td colspan="4" id="img_td"> <img src="${ dto.notice_img }" id="img">
+		<tr>
+			<td colspan="4" id="img_td">       
+		    <c:choose>
+		    			<c:when test="${ dto.notice_img eq ''}"></c:when>
+		    			<c:otherwise><img id="img" src="${ dto.notice_img}" name="notice_img"/></c:otherwise>
+		    </c:choose>
 			</td>
 		</tr>
-		
 		
 	</table>
 	<div class="divBtn">
