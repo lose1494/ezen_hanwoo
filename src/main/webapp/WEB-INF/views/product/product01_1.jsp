@@ -198,23 +198,23 @@
                 </tr>
                 <c:forEach var="qna" items="${ qnaList }" varStatus="status">
                 <form action="" name="qnaForm">
-                    <input type="hidden" name="qna_pw${status.index}" value="${ qna.product_qnaDto.qna_pw }">
+                    <input type="hidden" name="qna_pw${status.index}" value="${ qna.qna_pw }">
                 	<input type="hidden" name="qna_idx${status.index}" value="${ qna.qna_idx }">
 	                <tr>
 	                    <td>${ qnaCount - status.index - (( qnaPage-1 ) * 5 ) }</td>
 	                    <!-- <td>기타</td> -->
 	                    <td class="qnaClick">
-	                    <c:if test="${ qna.product_qnaDto.qna_secret == 1 }"><i class="fa-solid fa-lock"></i></c:if>
-                            ${ qna.product_qnaDto.qna_title }
+	                    <c:if test="${ qna.qna_secret == 1 }"><i class="fa-solid fa-lock"></i></c:if>
+                            ${ qna.qna_title }
                         </td>
-	                    <td>${ qna.product_qnaDto.qna_status }</td>
-	                    <td>${ qna.product_qnaDto.qna_id }</td>
-	                    <td><fmt:formatDate value="${ qna.product_qnaDto.qna_date }" pattern = "yyyy-MM-dd"/></td>
+	                    <td>${ qna.qna_status }</td>
+	                    <td>${ qna.qna_id }</td>
+	                    <td><fmt:formatDate value="${ qna.qna_date }" pattern = "yyyy-MM-dd"/></td>
 	                </tr>
 	                <tr>
 	                    <td colspan="5" class="hide qnaDe">
 	                    	<c:choose>
-	                    		<c:when test="${ qna.product_qnaDto.qna_secret == 1 }">
+	                    		<c:when test="${ qna.qna_secret == 1 }">
 	                    			<div class="secret${ status.index }">
 		                    			<div class="productQ align">
 	                                        <p>비밀번호를 입력해주세요.</p>                                      
@@ -226,15 +226,15 @@
 	                    		<c:otherwise>
                                     <div class="productQ">                                      
                                         <i class="fa-solid fa-circle-question"></i>
-                                        ${ qna.product_qnaDto.qna_content }
+                                        ${ qna.qna_content }
                                         <div class="tableBtn">
                                             <button class="dark" onclick="javascript:form.action='/product/deleteQna'">삭제</button>  
                                         </div> 
                                     </div>
-                                    <c:if test="${ qna.reply_content ne null }">
+                                    <c:if test="${ qna.replyDto.reply_content ne null }">
                                     <div class="productA">                                   
                                         <i class="fa-solid fa-circle-info"></i>
-                                        ${ qna.reply_content }
+                                        ${ qna.replyDto.reply_content }
                                     </div>
                                     </c:if>
 	                    		</c:otherwise>

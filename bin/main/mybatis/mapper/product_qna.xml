@@ -6,7 +6,7 @@
 
 <mapper namespace="com.study.springboot.dao.IProduct_qnaDao">
 
-	<select id="qnaList" resultMap="ReplyDto">
+	<select id="qnaList" resultMap="Product_qnaDto">
 		select * from
 			(select rownum rnum, pq.* from
 				(select q.*, r.reply_content from product_qna q, product_qna_reply r
@@ -64,6 +64,7 @@
 	<result column="qna_status" property="qna_status"/>
 	<result column="product_idx" property="product_idx"/>	
 	<collection property="productDto" resultMap="ProductDto"></collection>
+	<collection property="replyDto" resultMap="ReplyDto"></collection>
 	</resultMap>
 	
 	<resultMap type="com.study.springboot.dto.Product_qna_replyDto" id="ReplyDto">	
@@ -72,7 +73,6 @@
 	<result column="reply_content" property="reply_content"/>
 	<result column="reply_date" property="reply_date"/>
 	<result column="qna_idx" property="qna_idx"/>
-	<collection property="Product_qnaDto" resultMap="Product_qnaDto"></collection>
 	</resultMap>
 	
 	<select id="joinTest" resultMap="Product_qnaDto">

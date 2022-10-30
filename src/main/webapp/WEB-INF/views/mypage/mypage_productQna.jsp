@@ -39,13 +39,13 @@
 	                        <div class="productQ">                                      
 	                            <i class="fa-solid fa-circle-question"></i>
 	                            ${ qna.qna_content }
-	                        </div>  
+	                        </div>
+	                        <c:if test="${ qna.replyDto.reply_content ne null }">
 	                        <div class="productA">                                      
 	                            <i class="fa-solid fa-circle-info"></i>
-	                            안녕하세요 이젠한우입니다. <br>
-	                            문의 주신 상품의 배송은 9월 22일로 예정되어 있습니다. <br>
-	                            이용해주셔서 감사합니다!
-	                        </div>                       
+	                            ${ qna.replyDto.reply_content }
+	                        </div>
+	                        </c:if>              
 	                    </td>
 	                </tr>
                 </form>
