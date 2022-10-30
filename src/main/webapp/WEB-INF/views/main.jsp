@@ -17,7 +17,7 @@
 			<c:forEach var="dto" items="${ productlist }" end="2">				
 			<div class="best1">	
 				<a href="/product/product01_1?product_idx=${ dto.product_idx }">
-					<img alt="" src="${ dto.product_image }" class="product_img">
+					<img src="${ dto.product_image }" class="product_img" >
 					<h3>${ dto.product_name }</h3>
 					<c:if test="${ dto.product_category ne '선물세트' }">
 					<p class="mon">
@@ -62,7 +62,7 @@
 			<c:if test="${ dto.product_category == '선물세트'}">
 				<div class="best1">
 					<a href="/product/product01_1?product_idx=${ dto.product_idx }"> 
-						<img alt="" src="${ dto.product_image }" style="width:300px; height:200px;" class="product_img">							
+						<img src="${ dto.product_image }" width=300 height=230 class="product_img">							
 						<h3>${ dto.product_name }</h3>
 						<p>${ dto.product_price }원 &nbsp; (상세페이지 참조.)</p>
 						<p>
@@ -96,9 +96,9 @@
 	<div class="product">
 		<div class="img_best">
 			<c:forEach var="dto" items="${ productlist }" begin="3" end="11">				
-			<div class="best1">	
+			<div class="best1">
 				<a href="/product/product01_1?product_idx=${ dto.product_idx }">
-					<img alt="" src="${ dto.product_image }" class="product_img">
+					<img alt="" src="${ dto.product_image }" class="product_img" width=300 height=230>
 					<h3>${ dto.product_name }</h3>
 					<c:if test="${ dto.product_category ne '선물세트' }">
 					<p class="mon">

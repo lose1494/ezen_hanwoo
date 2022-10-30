@@ -9,17 +9,14 @@
 	<c:forEach var="dto" items="${ notice_detail }" varStatus="status">
 	<table class="headTable">
 		<tr>
-			<th class="title">작성자</th> 
-			<td class="text">${ dto.notice_name }</td>
-			<th>작성일</th> 
-			<td> <fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /></td>		
+			
 		</tr>	
 		
 		<tr>
 			<th class="title" >제목</th>
-			 <td class="text"> ${ dto.notice_title } </td>
-			<th>조회수</th> 
-			<td>2</td>
+			<td class="text"> ${ dto.notice_title } </td>
+			<th>작성일</th> 
+			<td> <fmt:formatDate value="${dto.notice_date}" pattern="yyyy/MM/dd" /></td>		
 		</tr>
 		</table>
 		<table class="contentTable">
@@ -28,7 +25,11 @@
 		</tr>
 		
 			<tr>
-			<td colspan="4" id="img_td"> <img src="${ dto.notice_img }" id="img">
+			<td colspan="4" id="img_td">
+		      <c:choose>
+		      			<c:when test="${ dto.notice_img eq ''}"></c:when>
+		      			<c:otherwise><img id="notice_img" src="${ dto.notice_img}" name="notice_img"/></c:otherwise>
+		      </c:choose>
 			</td>
 		</tr>
 		<input type="hidden" value="${ dto.notice_idx }" name="notice_idx"/>

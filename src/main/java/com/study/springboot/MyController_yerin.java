@@ -96,7 +96,8 @@ public class MyController_yerin {
             return "index";
         }
     }
-
+    
+    //마이페이지 적립금
     @RequestMapping("/mypage/mypage_point")
     public String mypage_point(@RequestParam(value = "page", defaultValue = "1") String page,
             Model model, HttpServletRequest request) {
@@ -116,6 +117,7 @@ public class MyController_yerin {
         return "index";
     }
 
+    //마이페이지 관심상품
     @RequestMapping("/mypage/mypage_wishlist")
     public String mypage_wishlist(@RequestParam(value="page", defaultValue="1") String page,
             Model model, HttpServletRequest request) {
@@ -131,7 +133,8 @@ public class MyController_yerin {
         model.addAttribute("mainPage", "mypage/mypage_wishlist.jsp");
         return "index";
     }
-
+    
+    //마이페이지 관심상품 삭제
     @RequestMapping("/mypage/deleteWish")
     @ResponseBody
     public String deleteWish(@RequestParam("list_idx") int list_idx,
@@ -144,6 +147,7 @@ public class MyController_yerin {
         }
     }
     
+    //마이페이지 관심상품 전체삭제
     @RequestMapping("/mypage/deleteWishall")
     @ResponseBody
     public String deleteWishall(HttpServletRequest request) {
@@ -156,6 +160,7 @@ public class MyController_yerin {
         }
     }
     
+    //마이페이지 주문관리
     @RequestMapping("/mypage/mypage_order")
     public String mypage_order(Model model, HttpServletRequest request) {
         String users_id = (String) request.getSession().getAttribute("users_id");
@@ -166,12 +171,14 @@ public class MyController_yerin {
         return "index";
     }
 
+    //마이페이지 주문 상세페이지
     @RequestMapping("/mypage/mypage_orderDetail")
     public String mypage_orderDetail(Model model) {
 
         return "mypage/mypage_orderDetail";
     }
 
+    //마이페이지 1:1문의
     @RequestMapping("/mypage/mypage_one2one")
     public String mypage_one2one(@RequestParam(value = "page", defaultValue = "1") String page,
             Model model, HttpServletRequest request) {
@@ -189,6 +196,7 @@ public class MyController_yerin {
         return "index";
     }
 
+    //마이페이지 상품 문의
     @RequestMapping("/mypage/mypage_productQna")
     public String mypage_productQna(@RequestParam(value = "page", defaultValue = "1") String page,
             HttpServletRequest request, Model model) {
@@ -209,6 +217,7 @@ public class MyController_yerin {
         return "index";
     }
 
+    //문의 삭제
     @RequestMapping("*/deleteQna")
     @ResponseBody
     public String deleteQna(@RequestParam("qna_idx") int qna_idx,
@@ -225,7 +234,8 @@ public class MyController_yerin {
             return "<script>alert('삭제되었습니다.');location.href='" + referer + "';</script>";
         }
     }
-
+    
+    //마이페이지 리뷰
     @RequestMapping("/mypage/mypage_review")
     public String mypage_review(@RequestParam(value = "page", defaultValue = "1") String page,
             HttpServletRequest request, Model model) {
@@ -245,6 +255,7 @@ public class MyController_yerin {
         return "index";
     }
 
+    //리뷰 삭제
     @RequestMapping("*/deleteReview")
     public String deleteReview(@RequestParam("review_idx") int review_idx,
             @RequestParam("review_image") String review_image,
@@ -265,6 +276,7 @@ public class MyController_yerin {
         }
     }
 
+    //회원정보 수정
     @RequestMapping("/mypage/mypage_memberEdit")
     public String mypage_memberEdit(Model model) {
 
@@ -286,6 +298,7 @@ public class MyController_yerin {
         }
     }
 
+    
     @RequestMapping("/mypage/mypage_memberEdit_1")
     public String mypage_memberEdit_1(HttpServletRequest request, Model model) {
 
@@ -297,6 +310,7 @@ public class MyController_yerin {
         return "index";
     }
 
+    //정보 수정
     @RequestMapping("/mypage/userUpdate")
     @ResponseBody
     public String userUpdate(@RequestParam("id") String id,
@@ -413,7 +427,7 @@ public class MyController_yerin {
         
 	}
 	
-	
+	//리뷰 작성
 	@RequestMapping("/product/reviewWrite")
 	@ResponseBody
 	public String reviewWrite(@RequestParam("product_idx") int product_idx,
@@ -503,6 +517,7 @@ public class MyController_yerin {
 		}
 	}
 
+	//리뷰검색
     @RequestMapping("/product/reviewSearch")
     @ResponseBody
     public List<ReviewDto> reviewSearch(@RequestParam("product_idx") int product_idx,
@@ -562,6 +577,7 @@ public class MyController_yerin {
 
     }
 
+    //결제
     @RequestMapping("/product/paymentOrder")
     @ResponseBody
     public String paymentOrder(@RequestParam("no") String no,
@@ -666,7 +682,6 @@ public class MyController_yerin {
     }
 
     // 파일업로드 설정
-
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -719,6 +734,7 @@ public class MyController_yerin {
 
     }
 
+    //1:1문의
     @RequestMapping("/customer/one2oneView")
     public String one2oneView(@RequestParam("one2one_idx") int one2one_idx,
             Model model) {
@@ -732,7 +748,7 @@ public class MyController_yerin {
         return "index";
     }
 
-    // 검색
+    //상품 검색
     @RequestMapping("/product/search_result")
     public String search_result(Model model) {
         model.addAttribute("mainPage", "product/search_result.jsp");
@@ -763,7 +779,7 @@ public class MyController_yerin {
         return "index";
     }
 
-    
+    //장바구니
     @RequestMapping("/mypage/insertWish")
     @ResponseBody
     public String insertWish(@RequestParam("product_idx") int product_idx, 

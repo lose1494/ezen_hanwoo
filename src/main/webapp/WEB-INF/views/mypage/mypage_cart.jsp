@@ -16,24 +16,11 @@
           <th>상품명</th>
           <th>가격</th>
           <th>수량</th>
-         <!--  <th>추가금액</th> -->
           <th>총금액</th>
           <th>적립금</th>
           <th>삭제/관심상품</th>
         </tr>
-       <!--  <tr>
-        
-          <td><input type="checkbox" /></td>
-          <td><img src="https://via.placeholder.com/80" alt=""></td>
-          <td>한우 살치살</td>
-          <td>00000원</td>
-          <td><input type="number" value="1" min="1" max="10"> <button>변경</button></td>
-          <td>0원</td>
-          <td>00000원</td>
-          <td>0원</td>
-          <td class="icon"><img src="/img/mypage/x.png" style="width:40px;"><img src="/img/mypage/heart.png" style="width:35px;"></td>
-         
-        </tr> -->
+   
       </table>
     </div>
     <div class="flexDiv">

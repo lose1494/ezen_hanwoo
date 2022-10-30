@@ -102,3 +102,8 @@
 	width: 150px;
 	height: 150px;
 }
+
+#notice_title {
+	width:100%;
+	margin-bottom:20px;
+}
