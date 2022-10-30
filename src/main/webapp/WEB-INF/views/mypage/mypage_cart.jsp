@@ -320,15 +320,17 @@
 				console.log($(this).val());
 				arr.push($(this).val());
 			}
-			console.log(arr);
-			if( arr == [] ) {
-				alert("선택된 품목이 없습니다");
-			}	
 		});
-		$('input[name=checkList]').val(arr);
-		console.log($('input[name=checkList]').val());
-		$('.checkForm').attr('action','/mypage/cartOrder');
-		$('.checkForm').submit();
+		console.log(arr);
+		if( arr.length <= 0 ) {
+			alert("선택된 품목이 없습니다");
+		}else {
+			$('input[name=checkList]').val(arr);
+			console.log($('input[name=checkList]').val());
+			$('.checkForm').attr('action','/mypage/cartOrder');
+			$('.checkForm').submit();
+		}
+		
 	}
 
   </script>
